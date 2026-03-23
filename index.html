@@ -154,6 +154,7 @@
             text-overflow: ellipsis;
         }
         .cmd-input::placeholder { color: rgba(255,255,255,0.3); font-weight: 300; }
+        .cmd-input:read-only { opacity: 0.5; }
         
         /* The Mechanical Button Physics */
         .cmd-btn {
@@ -170,13 +171,19 @@
             transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 2px 10px rgba(194, 163, 89, 0.2);
-            touch-action: manipulation; /* Removes 300ms tap delay on mobile */
+            touch-action: manipulation;
+            min-width: 220px; /* Prevents button width jumping when text changes to compiling */
         }
-        .cmd-btn:hover {
+        .cmd-btn:hover:not(:disabled) {
             background-color: var(--brandGoldHover);
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 4px 15px rgba(194, 163, 89, 0.3);
+        }
+        .cmd-btn:disabled {
+            opacity: 0.8;
+            cursor: not-allowed;
         }
 
         /* Mobile adjustments for command bar */
@@ -188,7 +195,7 @@
                 gap: 8px;
             }
             .cmd-input { padding: 16px 20px; text-align: center; }
-            .cmd-btn { width: 100%; justify-content: center; padding: 16px 20px; }
+            .cmd-btn { width: 100%; padding: 16px 20px; min-width: 0; }
         }
 
         /* Elite Texture Overlay (GPU Accelerated) */
@@ -221,6 +228,19 @@
         .mask-edges {
             -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
             mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+
+        /* Hardware Accelerated Native Shake Animation */
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
+        }
+        .animate-error-shake {
+            animation: errorShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            border-color: rgba(239, 68, 68, 0.5) !important; /* Tailwind red-500 */
         }
     </style>
 </head>
@@ -255,47 +275,50 @@
             </p>
 
             <!-- Command Bar Opt-In -->
-            <div class="max-w-[540px] mx-auto relative z-20">
+            <div class="max-w-[540px] mx-auto relative z-20 min-h-[140px] flex flex-col justify-center">
 
-                <!-- TWEAK 1: Changed div to form to enable mobile keyboard 'Go/Return' submission -->
-                <form class="cmd-bar" id="hero-form-content" onsubmit="event.preventDefault(); handleEntry('secure_email_1', 'hero-form-content', 'hero-success-state');">
-                    <!-- Adjusted placeholder to perfectly fit mobile while remaining clear -->
-                    <input id="secure_email_1" type="email" autocomplete="email" inputmode="email" class="cmd-input caret-brandGold text-[16px] sm:text-[15px]" placeholder="Secure email (Free weekly)" required>
-                    <button type="submit" class="cmd-btn group">
-                        DECRYPT PROTOCOL
-                        <span class="font-mono text-[11px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm">↵</span>
-                    </button>
-                </form>
-                
-                <div class="flex flex-col items-center gap-4 mt-5 md:mt-6">
-                    <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 opacity-70 font-sans text-[10px] md:text-[11px] font-medium tracking-wide text-white uppercase">
-                        
-                        <!-- TWEAK 2: The "Face Bridge" (Trust transfer for social media traffic) -->
-                        <div class="flex items-center gap-2">
-                            <div class="flex -space-x-1.5 opacity-90">
-                                <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=11" alt="Operator" loading="lazy">
-                                <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=33" alt="Operator" loading="lazy">
-                                <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=12" alt="Operator" loading="lazy">
+                <!-- Unified Wrapper: Fades out both the form AND the trust badges smoothly together -->
+                <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
+                    <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'));">
+                        <!-- Adjusted placeholder to perfectly fit mobile while remaining clear -->
+                        <input id="secure_email_1" type="email" autocomplete="email" inputmode="email" class="cmd-input caret-brandGold text-[16px] sm:text-[15px]" placeholder="Secure email (Free weekly)" required>
+                        <button type="submit" class="cmd-btn group">
+                            <span class="btn-text">DECRYPT PROTOCOL</span>
+                            <span class="font-mono text-[11px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon">↵</span>
+                        </button>
+                    </form>
+                    
+                    <div class="flex flex-col items-center gap-4 mt-5 md:mt-6">
+                        <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 opacity-70 font-sans text-[10px] md:text-[11px] font-medium tracking-wide text-white uppercase">
+                            
+                            <!-- TWEAK 2: The "Face Bridge" (Trust transfer for social media traffic) -->
+                            <div class="flex items-center gap-2">
+                                <div class="flex -space-x-1.5 opacity-90">
+                                    <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=11" alt="Operator" loading="lazy">
+                                    <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=33" alt="Operator" loading="lazy">
+                                    <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=12" alt="Operator" loading="lazy">
+                                </div>
+                                <span>Join 1,400+ Operators</span>
                             </div>
-                            <span>Join 1,400+ Operators</span>
+                            
+                            <span class="w-1 h-1 rounded-full bg-textMuted hidden sm:block"></span>
+                            <span>AVG Read Time: 3 Min</span>
+                            <span class="w-1 h-1 rounded-full bg-textMuted hidden sm:block"></span>
+                            <span>Zero Fluff</span>
                         </div>
-                        
-                        <span class="w-1 h-1 rounded-full bg-textMuted hidden sm:block"></span>
-                        <span>AVG Read Time: 3 Min</span>
-                        <span class="w-1 h-1 rounded-full bg-textMuted hidden sm:block"></span>
-                        <span>Zero Fluff</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- Success State -->
-            <div id="hero-success-state" class="hidden flex-col items-center justify-center py-6 mt-2 transition-all duration-700">
-                <div class="w-10 h-10 rounded-full bg-glass border border-glassBorder flex items-center justify-center mb-4 shadow-glow">
-                    <div class="w-2 h-2 bg-brandGold rounded-full animate-pulse"></div>
+                <!-- Success State: Pre-positioned to avoid massive layout shift -->
+                <div id="hero-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
+                    <div class="w-10 h-10 rounded-full bg-glass border border-glassBorder flex items-center justify-center mb-4 shadow-glow">
+                        <div class="w-2 h-2 bg-brandGold rounded-full animate-pulse"></div>
+                    </div>
+                    <h4 class="font-serif text-2xl text-textMain italic mb-1">Clearance Granted.</h4>
+                    <p class="text-[14px] text-textSub font-sans font-light mb-2">Dispatch 01 is en route to your secure inbox.</p>
+                    <p class="text-[10px] text-brandGold/70 font-mono uppercase tracking-[0.2em]">Action Required: Whitelist our address to ensure delivery.</p>
                 </div>
-                <h4 class="font-serif text-2xl text-textMain italic mb-1">Clearance Granted.</h4>
-                <p class="text-[14px] text-textSub font-sans font-light mb-2">Dispatch 01 is en route to your secure inbox.</p>
-                <p class="text-[10px] text-brandGold/70 font-mono uppercase tracking-[0.2em]">Action Required: Whitelist our address to ensure delivery.</p>
+
             </div>
 
         </div>
@@ -545,48 +568,48 @@
                 </div>
             </div>
 
-            <div id="footer-form-content" class="transition-opacity duration-500 max-w-[500px] mx-auto pt-2">
+            <!-- Unified Wrapper for Footer CTA -->
+            <div class="max-w-[500px] mx-auto relative min-h-[160px] flex flex-col justify-center">
                 
-                <div class="flex items-center justify-between mb-4 px-2 sm:px-4">
-                    <span class="font-mono text-[10px] text-textMuted tracking-[0.3em] uppercase font-medium">Initialize Access</span>
-                    <span class="font-mono text-[10px] text-brandGold tracking-[0.1em] uppercase font-medium flex items-center gap-1.5">
-                        <span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-pulse"></span>
-                        Next Dispatch: Compiling...
-                    </span>
-                </div>
-                
-                <!-- TWEAK 1: Changed div to form to enable mobile keyboard 'Go/Return' submission -->
-                <form class="cmd-bar" id="footer-form-content" onsubmit="event.preventDefault(); handleEntry('secure_email_2', 'footer-form-content', 'footer-success-state');">
-                    <!-- Adjusted placeholder to perfectly fit mobile while remaining clear -->
-                    <input id="secure_email_2" type="email" autocomplete="email" inputmode="email" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left" placeholder="Secure email (Free weekly)" required>
-                    <button type="submit" class="cmd-btn group">
-                        DECRYPT PROTOCOL
-                        <span class="font-mono text-[10px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm">↵</span>
-                    </button>
-                </form>
-                
-                <div class="flex flex-col items-center gap-4 mt-6">
-                    <div class="flex items-center justify-center gap-3 opacity-60 font-sans text-[11px] font-medium tracking-wide text-white uppercase">
-                        <!-- Cohort Ego Trigger -->
-                        <span class="flex items-center gap-1.5"><svg class="w-3 h-3 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Join 1,400+ Operators</span>
-                        <span class="w-1 h-1 rounded-full bg-textMuted"></span>
-                        <span>AVG Read Time: 3 Min</span>
-                        <span class="w-1 h-1 rounded-full bg-textMuted"></span>
-                        <span>Zero Fluff</span>
+                <div id="footer-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center pt-2">
+                    <div class="flex items-center justify-between mb-4 px-2 sm:px-4">
+                        <span class="font-mono text-[10px] text-textMuted tracking-[0.3em] uppercase font-medium">Initialize Access</span>
+                        <span class="font-mono text-[10px] text-brandGold tracking-[0.1em] uppercase font-medium flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-pulse"></span>
+                            Next Dispatch: Compiling...
+                        </span>
+                    </div>
+                    
+                    <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'));">
+                        <input id="secure_email_2" type="email" autocomplete="email" inputmode="email" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left" placeholder="Secure email (Free weekly)" required>
+                        <button type="submit" class="cmd-btn group">
+                            <span class="btn-text">DECRYPT PROTOCOL</span>
+                            <span class="font-mono text-[10px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon">↵</span>
+                        </button>
+                    </form>
+                    
+                    <div class="flex flex-col items-center gap-4 mt-6">
+                        <div class="flex items-center justify-center gap-3 opacity-60 font-sans text-[11px] font-medium tracking-wide text-white uppercase">
+                            <span class="flex items-center gap-1.5"><svg class="w-3 h-3 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Join 1,400+ Operators</span>
+                            <span class="w-1 h-1 rounded-full bg-textMuted"></span>
+                            <span>AVG Read Time: 3 Min</span>
+                            <span class="w-1 h-1 rounded-full bg-textMuted"></span>
+                            <span>Zero Fluff</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Bottom Success State -->
-            <div id="footer-success-state" class="hidden flex-col items-center justify-center py-6 mt-4 transition-all duration-700">
-                <div class="w-12 h-12 rounded-full bg-glass border border-glassBorder shadow-glow flex items-center justify-center mb-5">
-                    <div class="w-2 h-2 bg-brandGold rounded-full animate-pulse"></div>
+                <!-- Bottom Success State: Pre-positioned to avoid layout shift -->
+                <div id="footer-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
+                    <div class="w-12 h-12 rounded-full bg-glass border border-glassBorder shadow-glow flex items-center justify-center mb-5">
+                        <div class="w-2 h-2 bg-brandGold rounded-full animate-pulse"></div>
+                    </div>
+                    <h4 class="font-serif text-[28px] text-textMain italic mb-2">Clearance Granted.</h4>
+                    <p class="text-[14px] text-textSub font-sans font-light mb-2">Dispatch 01 is en route to your secure inbox.</p>
+                    <p class="text-[10px] text-brandGold/70 font-mono uppercase tracking-[0.2em]">Action Required: Whitelist our address to ensure delivery.</p>
                 </div>
-                <h4 class="font-serif text-[28px] text-textMain italic mb-2">Clearance Granted.</h4>
-                <p class="text-[14px] text-textSub font-sans font-light mb-2">Dispatch 01 is en route to your secure inbox.</p>
-                <p class="text-[10px] text-brandGold/70 font-mono uppercase tracking-[0.2em]">Action Required: Whitelist our address to ensure delivery.</p>
-            </div>
 
+            </div>
         </div>
     </section>
 
@@ -625,37 +648,61 @@
             observer.observe(el);
         });
 
-        // Form Handling logic (Mocking the success state swap)
-        function handleEntry(inputId, formContentId, successStateId) {
+        // Form Handling Logic (Elite Interaction Protocol)
+        function handleEntry(inputId, formWrapperId, successStateId, buttonElement) {
             const input = document.getElementById(inputId);
-            const formContent = document.getElementById(formContentId);
+            const formWrapper = document.getElementById(formWrapperId);
             const successState = document.getElementById(successStateId);
+            const btn = buttonElement;
+            const btnText = btn.querySelector('.btn-text');
+            const btnIcon = btn.querySelector('.btn-icon');
             
             // Basic validation
             if (input.value && input.value.includes('@')) {
-                // Fade out form
-                formContent.style.opacity = '0';
                 
+                // PHASE 1: The "Processing" State (Locks UI, creates anticipation)
+                btn.disabled = true;
+                input.readOnly = true;
+                if(btnIcon) btnIcon.style.display = 'none';
+                btnText.innerHTML = '<span class="animate-pulse tracking-[0.2em] font-mono">[ DECRYPTING... ]</span>';
+                
+                // Simulate secure backend authentication delay (1.2 seconds)
                 setTimeout(() => {
-                    formContent.classList.add('hidden');
-                    formContent.classList.remove('flex'); // Just in case
                     
-                    // Show success
-                    successState.classList.remove('hidden');
-                    successState.classList.add('flex');
+                    // PHASE 2: Smooth unified fade out of the entire form block
+                    formWrapper.style.opacity = '0';
+                    formWrapper.style.transform = 'scale(0.98)';
                     
-                    // Small delay to allow display:flex to apply before fading in
                     setTimeout(() => {
-                        successState.style.opacity = '1';
-                        successState.style.transform = 'translateY(0)';
-                    }, 50);
-                }, 500);
+                        // Swap display visibility
+                        formWrapper.classList.add('hidden');
+                        formWrapper.classList.remove('flex', 'flex-col');
+                        
+                        successState.classList.remove('hidden');
+                        successState.classList.add('flex');
+                        
+                        // PHASE 3: Elegant Success Reveal
+                        // Small delay ensures display:flex renders before CSS transition begins
+                        setTimeout(() => {
+                            successState.style.opacity = '1';
+                            successState.style.transform = 'translateY(0) scale(1)';
+                        }, 50);
+                        
+                    }, 700); // Matches the CSS duration-700
+                    
+                }, 1200); // The anticipation hold
+
             } else {
-                // Simple error shake
-                input.parentElement.style.transform = 'translateX(-10px)';
-                setTimeout(() => input.parentElement.style.transform = 'translateX(10px)', 100);
-                setTimeout(() => input.parentElement.style.transform = 'translateX(-10px)', 200);
-                setTimeout(() => input.parentElement.style.transform = 'translateX(0)', 300);
+                // PHASE ERROR: Hardware Accelerated CSS Shake
+                const bar = input.closest('.cmd-bar');
+                
+                // Reset animation trick
+                bar.classList.remove('animate-error-shake');
+                void bar.offsetWidth; // Trigger reflow
+                bar.classList.add('animate-error-shake');
+                
+                // Focus the input to prompt correction
+                input.focus();
             }
         }
     </script>
