@@ -19,6 +19,10 @@
     
     <title>Mastery in Motion | VYRTŪOSITI</title>
 
+    <!-- Pre-connect to Google Fonts to prevent Flash of Unstyled Text (FOUT) on slow networks -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <!-- Apple-level Typography: Inter for UI/Lab Data, Playfair for Editorial/Luxury, JetBrains for Terminal/Clinical -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -72,6 +76,11 @@
             --brandGoldHover: #D4B66A;
             /* OLED DIMMING: Softened from harsh pure white for luxury readability */
             --textMain: #FAFAFA; 
+        }
+
+        /* Nuke the default blue tap highlight on mobile browsers */
+        * {
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -229,7 +238,8 @@
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
                     <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <div class="auth-progress"></div>
-                        <input id="secure_email_1" type="email" autocomplete="email" inputmode="email" class="cmd-input caret-brandGold text-[16px] sm:text-[15px]" placeholder="Secure email (Free weekly)" required>
+                        <!-- ENGINEER TWEAK 1: Disabled autocapitalize, autocorrect, and spellcheck so mobile keyboards don't interfere -->
+                        <input id="secure_email_1" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group">
                             <span class="btn-text">DECRYPT PROTOCOL</span>
                             <span class="font-mono text-[11px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon">↵</span>
@@ -288,7 +298,7 @@
                     <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
                 </div>
                 <!-- Track 2 -->
-                <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40" aria-hidden="true">
+                <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40" aria-hidden="true" tabindex="-1">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-5 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
                     <span class="shrink-0 font-sans font-bold text-lg md:text-2xl tracking-[0.2em] text-white">TESLA</span>
                     <svg viewBox="0 0 100 50" class="shrink-0 h-5 md:h-7 w-auto fill-none stroke-white stroke-[2]">
@@ -300,7 +310,7 @@
                     <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
                 </div>
                 <!-- Track 3 -->
-                <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40" aria-hidden="true">
+                <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40" aria-hidden="true" tabindex="-1">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-5 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
                     <span class="shrink-0 font-sans font-bold text-lg md:text-2xl tracking-[0.2em] text-white">TESLA</span>
                     <svg viewBox="0 0 100 50" class="shrink-0 h-5 md:h-7 w-auto fill-none stroke-white stroke-[2]">
@@ -573,7 +583,8 @@
                     
                     <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <div class="auth-progress"></div>
-                        <input id="secure_email_2" type="email" autocomplete="email" inputmode="email" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left" placeholder="Secure email (Free weekly)" required>
+                        <!-- ENGINEER TWEAK 1: Disabled autocapitalize, autocorrect, and spellcheck so mobile keyboards don't interfere -->
+                        <input id="secure_email_2" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group">
                             <span class="btn-text">DECRYPT PROTOCOL</span>
                             <span class="font-mono text-[10px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon">↵</span>
