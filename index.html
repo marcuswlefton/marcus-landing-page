@@ -84,6 +84,22 @@
             overscroll-behavior-y: none; 
         }
 
+        /* EDGE REFINEMENT 1: The Classified Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+            border-left: 1px solid rgba(255,255,255,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(194, 163, 89, 0.3);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(194, 163, 89, 0.6);
+        }
+
         /* Ambient Background Glows (GPU Accelerated) */
         .ambient-glow-1 {
             position: absolute;
@@ -138,11 +154,26 @@
             -webkit-backdrop-filter: blur(20px);
             transition: all 0.3s ease;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            position: relative; /* For the progress line */
+            overflow: hidden;
         }
         .cmd-bar:focus-within {
             border-color: rgba(194, 163, 89, 0.4);
             box-shadow: 0 0 0 1px rgba(194, 163, 89, 0.2), 0 10px 40px rgba(0,0,0,0.5);
         }
+        
+        /* EDGE REFINEMENT 5: Authentication Progress Line */
+        .auth-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background-color: var(--brandGold);
+            width: 0%;
+            transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            opacity: 0;
+        }
+
         .cmd-input {
             flex-grow: 1;
             background: transparent;
@@ -181,6 +212,11 @@
             background-color: var(--brandGoldHover);
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 4px 15px rgba(194, 163, 89, 0.3);
         }
+        /* EDGE REFINEMENT 3: Mechanical Depression Physics */
+        .cmd-btn:active:not(:disabled) {
+            transform: scale(0.97);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.4);
+        }
         .cmd-btn:disabled {
             opacity: 0.8;
             cursor: not-allowed;
@@ -217,11 +253,14 @@
             border-radius: 24px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            transition: all 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
+        /* EDGE REFINEMENT 2: Tactile Hover Physics */
         .glass-panel:hover {
             background: rgba(20, 20, 20, 0.6);
             border-color: rgba(194, 163, 89, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8), 0 0 30px rgba(194, 163, 89, 0.05);
         }
 
         /* Mask for Marquee Edges */
@@ -241,6 +280,15 @@
         .animate-error-shake {
             animation: errorShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
             border-color: rgba(239, 68, 68, 0.5) !important; /* Tailwind red-500 */
+        }
+
+        /* EDGE REFINEMENT 4: The Terminal Blink */
+        @keyframes terminalBlink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        .animate-terminal {
+            animation: terminalBlink 1s infinite;
         }
     </style>
 </head>
@@ -279,7 +327,9 @@
 
                 <!-- Unified Wrapper: Fades out both the form AND the trust badges smoothly together -->
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
-                    <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'));">
+                    <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                        <!-- Progress line injection -->
+                        <div class="auth-progress"></div>
                         <!-- Adjusted placeholder to perfectly fit mobile while remaining clear -->
                         <input id="secure_email_1" type="email" autocomplete="email" inputmode="email" class="cmd-input caret-brandGold text-[16px] sm:text-[15px]" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group">
@@ -312,7 +362,8 @@
                 <!-- Success State: Pre-positioned to avoid massive layout shift -->
                 <div id="hero-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
                     <div class="w-10 h-10 rounded-full bg-glass border border-glassBorder flex items-center justify-center mb-4 shadow-glow">
-                        <div class="w-2 h-2 bg-brandGold rounded-full animate-pulse"></div>
+                        <!-- Replaced pulse with sharp terminal blink -->
+                        <div class="w-2 h-2 bg-brandGold rounded-full animate-terminal"></div>
                     </div>
                     <h4 class="font-serif text-2xl text-textMain italic mb-1">Clearance Granted.</h4>
                     <p class="text-[14px] text-textSub font-sans font-light mb-2">Dispatch 01 is en route to your secure inbox.</p>
@@ -483,7 +534,8 @@
     <!-- THE VELVET ROPE (Active Disqualification) -->
     <!-- ═══════════════════════════════════════════ -->
     <section class="py-12 md:py-16 relative z-10 w-full max-w-[800px] mx-auto px-6 reveal delay-200">
-        <div class="border border-brandGold/20 bg-brandGold/[0.02] p-6 md:p-10 rounded-2xl relative overflow-hidden group hover:border-brandGold/40 transition-colors duration-500">
+        <!-- Added hover tactile physics to the velvet rope box -->
+        <div class="border border-brandGold/20 bg-brandGold/[0.02] p-6 md:p-10 rounded-2xl relative overflow-hidden group hover:border-brandGold/40 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),0_0_30px_rgba(194,163,89,0.05)] transition-all duration-500">
             <!-- Subtle pulsing alert corner -->
             <div class="absolute top-0 right-0 w-16 h-16 overflow-hidden">
                 <div class="absolute top-0 right-0 w-2 h-2 bg-brandGold/50 rounded-full m-4 animate-ping"></div>
@@ -575,12 +627,15 @@
                     <div class="flex items-center justify-between mb-4 px-2 sm:px-4">
                         <span class="font-mono text-[10px] text-textMuted tracking-[0.3em] uppercase font-medium">Initialize Access</span>
                         <span class="font-mono text-[10px] text-brandGold tracking-[0.1em] uppercase font-medium flex items-center gap-1.5">
-                            <span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-pulse"></span>
+                            <!-- Replaced pulse with sharp terminal blink -->
+                            <span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span>
                             Next Dispatch: Compiling...
                         </span>
                     </div>
                     
-                    <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'));">
+                    <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                        <!-- Progress line injection -->
+                        <div class="auth-progress"></div>
                         <input id="secure_email_2" type="email" autocomplete="email" inputmode="email" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group">
                             <span class="btn-text">DECRYPT PROTOCOL</span>
@@ -602,7 +657,8 @@
                 <!-- Bottom Success State: Pre-positioned to avoid layout shift -->
                 <div id="footer-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
                     <div class="w-12 h-12 rounded-full bg-glass border border-glassBorder shadow-glow flex items-center justify-center mb-5">
-                        <div class="w-2 h-2 bg-brandGold rounded-full animate-pulse"></div>
+                        <!-- Replaced pulse with sharp terminal blink -->
+                        <div class="w-2 h-2 bg-brandGold rounded-full animate-terminal"></div>
                     </div>
                     <h4 class="font-serif text-[28px] text-textMain italic mb-2">Clearance Granted.</h4>
                     <p class="text-[14px] text-textSub font-sans font-light mb-2">Dispatch 01 is en route to your secure inbox.</p>
@@ -649,11 +705,12 @@
         });
 
         // Form Handling Logic (Elite Interaction Protocol)
-        function handleEntry(inputId, formWrapperId, successStateId, buttonElement) {
+        function handleEntry(inputId, formWrapperId, successStateId, buttonElement, progressElement) {
             const input = document.getElementById(inputId);
             const formWrapper = document.getElementById(formWrapperId);
             const successState = document.getElementById(successStateId);
             const btn = buttonElement;
+            const progressLine = progressElement;
             const btnText = btn.querySelector('.btn-text');
             const btnIcon = btn.querySelector('.btn-icon');
             
@@ -664,7 +721,18 @@
                 btn.disabled = true;
                 input.readOnly = true;
                 if(btnIcon) btnIcon.style.display = 'none';
-                btnText.innerHTML = '<span class="animate-pulse tracking-[0.2em] font-mono">[ DECRYPTING... ]</span>';
+                
+                // Switch to sharp terminal blink for decrypting
+                btnText.innerHTML = '<span class="animate-terminal tracking-[0.2em] font-mono">[ DECRYPTING... ]</span>';
+                
+                // Fire the authentication progress line
+                if (progressLine) {
+                    progressLine.style.opacity = '1';
+                    // Small timeout ensures CSS transition applies properly from 0
+                    setTimeout(() => {
+                        progressLine.style.width = '100%';
+                    }, 50);
+                }
                 
                 // Simulate secure backend authentication delay (1.2 seconds)
                 setTimeout(() => {
