@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Locks mobile zoom to prevent iOS input zoom bug -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- TWEAK 2: Open Graph & SEO Tags for Social/Slack Sharing -->
+    <meta name="description" content="The free, weekly email dispatch detailing the exact biological protocols to recalibrate your executive system.">
+    <meta property="og:title" content="Mastery in Motion | VYRTŪOSITI">
+    <meta property="og:description" content="You are solving the wrong problem. Discover the biological constraints destroying your decision velocity.">
+    <meta property="og:type" content="website">
+    <!-- Note: Replace the content URL below with a real link to an image of your site for social previews -->
+    <meta property="og:image" content="https://i.imgur.com/SJLnvwa.png"> 
+
+    <!-- TWEAK 4: Minimalist SVG Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23C2A359' font-family='serif'>V</text></svg>">
+    
+    <title>Mastery in Motion | VYRTŪOSITI</title>
+
+    <!-- Apple-level Typography: Inter for UI/Lab Data, Playfair for Editorial/Luxury, JetBrains for Terminal/Clinical -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS Compiler -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#000000',
+                        glass: 'rgba(20, 20, 20, 0.6)',
+                        glassHover: 'rgba(30, 30, 30, 0.8)',
+                        glassBorder: 'rgba(255, 255, 255, 0.08)',
+                        brandGold: '#C2A359',
+                        brandGoldHover: '#D4B66A',
+                        textMain: '#FFFFFF',
+                        textSub: 'rgba(255, 255, 255, 0.65)',
+                        textMuted: 'rgba(255, 255, 255, 0.4)'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    letterSpacing: {
+                        tightest: '-0.04em',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 30px rgba(194, 163, 89, 0.1)',
+                    },
+                    animation: {
+                        'marquee': 'marquee 40s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Missing Color Definitions Restored */
+        :root {
+            --void: #000000;
+            --brandGold: #C2A359;
+            --brandGoldHover: #D4B66A;
+            --textMain: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--void);
+            color: var(--textMain);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            /* Prevents pull-to-refresh on mobile from breaking immersion */
+            overscroll-behavior-y: none; 
+        }
+
+        /* Ambient Background Glows (GPU Accelerated) */
+        .ambient-glow-1 {
+            position: absolute;
+            top: -10%; right: -5%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(194, 163, 89, 0.08) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        .ambient-glow-2 {
+            position: absolute;
+            bottom: 0%; left: 50%;
+            transform: translateX(-50%) translateZ(0);
+            width: 800px; height: 400px;
+            background: radial-gradient(circle, rgba(194, 163, 89, 0.05) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform;
+        }
+
+        /* Cinematic Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            filter: blur(8px);
+            transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform, filter;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+
+        /* The Command Bar Inputs */
+        .cmd-bar {
+            display: flex;
+            background: rgba(10,10,10,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 100px;
+            padding: 6px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .cmd-bar:focus-within {
+            border-color: rgba(194, 163, 89, 0.4);
+            box-shadow: 0 0 0 1px rgba(194, 163, 89, 0.2), 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .cmd-input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            color: #fff;
+            padding: 0 24px;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            text-overflow: ellipsis;
+        }
+        .cmd-input::placeholder { color: rgba(255,255,255,0.3); font-weight: 300; }
+        
+        /* The Mechanical Button Physics */
+        .cmd-btn {
+            background-color: var(--brandGold);
+            color: #000000;
+            border-radius: 100px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 14px 36px;
+            white-space: nowrap;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 2px 10px rgba(194, 163, 89, 0.2);
+            touch-action: manipulation; /* Removes 300ms tap delay on mobile */
+        }
+        .cmd-btn:hover {
+            background-color: var(--brandGoldHover);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 4px 15px rgba(194, 163, 89, 0.3);
+        }
+
+        /* Mobile adjustments for command bar */
+        @media (max-width: 640px) {
+            .cmd-bar {
+                flex-direction: column;
+                border-radius: 20px;
+                padding: 8px;
+                gap: 8px;
+            }
+            .cmd-input { padding: 16px 20px; text-align: center; }
+            .cmd-btn { width: 100%; justify-content: center; padding: 16px 20px; }
+        }
+
+        /* Elite Texture Overlay (GPU Accelerated) */
+        .bg-noise {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.035;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        /* Glass Panel Aesthetics */
+        .glass-panel {
+            background: rgba(15, 15, 15, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+        }
+        .glass-panel:hover {
+            background: rgba(20, 20, 20, 0.6);
+            border-color: rgba(194, 163, 89, 0.15);
+        }
+
+        /* Mask for Marquee Edges */
+        .mask-edges {
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+    </style>
+</head>
+<body class="bg-void text-textMain antialiased selection:bg-brandGold selection:text-black">
+
+    <!-- Texture layer -->
+    <div class="bg-noise"></div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SUPERHUMAN HERO SECTION -->
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- TWEAK 1: Reduced mobile top padding from pt-28 to pt-16 to pull the form above the fold -->
+    <main class="pt-16 md:pt-48 pb-12 md:pb-24 relative z-10 flex flex-col items-center text-center overflow-hidden min-h-[90vh] md:min-h-0 justify-center">
+        <!-- Background Glow -->
+        <div class="ambient-glow-1"></div>
+
+        <div class="max-w-[800px] mx-auto px-6 w-full reveal">
+            
+            <div class="font-mono tracking-[0.3em] text-[10px] text-brandGold uppercase mb-6 md:mb-8 opacity-80 border border-brandGold/20 rounded-full px-5 py-2 inline-block bg-brandGold/5 shadow-glow">
+                System Diagnostic
+            </div>
+
+            <!-- TWEAK 1.5: Slightly tighter mobile typography leading -->
+            <h1 class="font-serif text-[38px] md:text-[64px] lg:text-[72px] text-textMain font-normal leading-[1.05] tracking-tightest mb-4 md:mb-6 drop-shadow-lg">
+                You are solving the<br>
+                <span class="italic text-brandGold block font-light mt-1">wrong problem.</span>
+            </h1>
+
+            <!-- TWEAK 3: Trimmed the fat. Shorter, punchier, scannable for cold traffic. -->
+            <p class="text-[15px] md:text-[18px] text-textSub font-light leading-[1.6] max-w-[600px] mx-auto mb-8 md:mb-10">
+                A stalled quarter. Brain fog at 3 PM. A dopamine habit eroding your self-trust. Stop treating them as separate issues. Join 1,400+ operators receiving the <strong class="text-white font-medium">free, weekly email dispatch</strong> detailing the exact biological protocols to recalibrate your system.
+            </p>
+
+            <!-- Command Bar Opt-In -->
+            <div class="max-w-[540px] mx-auto relative z-20">
+
+                <!-- TWEAK 1: Changed div to form to enable mobile keyboard 'Go/Return' submission -->
+                <form class="cmd-bar" id="hero-form-content" onsubmit="event.preventDefault(); handleEntry('secure_email_1', 'hero-form-content', 'hero-success-state');">
+                    <!-- Adjusted placeholder to perfectly fit mobile while remaining clear -->
+                    <input id="secure_email_1" type="email" autocomplete="email" inputmode="email" class="cmd-input caret-brandGold text-[16px] sm:text-[15px]" placeholder="Secure email (Free weekly)" required>
+                    <button type="submit" class="cmd-btn group">
+                        DECRYPT PROTOCOL
+                        <span class="font-mono text-[11px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm">↵</span>
+                    </button>
+                </form>
+                
+                <div class="flex flex-col items-center gap-4 mt-5 md:mt-6">
+                    <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 opacity-70 font-sans text-[10px] md:text-[11px] font-medium tracking-wide text-white uppercase">
+                        
+                        <!-- TWEAK 2: The "Face Bridge" (Trust transfer for social media traffic) -->
+                        <div class="flex items-center gap-2">
+                            <div class="flex -space-x-1.5 opacity-90">
+                                <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=11" alt="Operator" loading="lazy">
+                                <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=33" alt="Operator" loading="lazy">
+                                <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=12" alt="Operator" loading="lazy">
+                            </div>
+                            <span>Join 1,400+ Operators</span>
+                        </div>
+                        
+                        <span class="w-1 h-1 rounded-full bg-textMuted hidden sm:block"></span>
+                        <span>AVG Read Time: 3 Min</span>
+                        <span class="w-1 h-1 rounded-full bg-textMuted hidden sm:block"></span>
+                        <span>Zero Fluff</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success State -->
+            <div id="hero-success-state" class="hidden flex-col items-center justify-center py-6 mt-2 transition-all duration-700">
+                <div class="w-10 h-10 rounded-full bg-glass border border-glassBorder flex items-center justify-center mb-4 shadow-glow">
+                    <div class="w-2 h-2 bg-brandGold rounded-full animate-pulse"></div>
+                </div>
+                <h4 class="font-serif text-2xl text-textMain italic mb-1">Clearance Granted.</h4>
+                <p class="text-[14px] text-textSub font-sans font-light mb-2">Dispatch 01 is en route to your secure inbox.</p>
+                <p class="text-[10px] text-brandGold/70 font-mono uppercase tracking-[0.2em]">Action Required: Whitelist our address to ensure delivery.</p>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- INFINITE MARQUEE (The Proof) -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div class="mt-16 md:mt-32 w-full max-w-[1400px] mx-auto px-4 sm:px-6 reveal delay-100">
+            <p class="text-textMuted font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase mb-8 text-center font-medium">
+                Operators inside our network span across
+            </p>
+            
+            <!-- Flawless Linear Marquee Structure (Zero Overlap Guaranteed) -->
+            <div class="flex overflow-hidden w-full mask-edges pb-4" style="will-change: transform; transform: translateZ(0);">
+                
+                <!-- Track 1 -->
+                <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-5 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
+                    <span class="shrink-0 font-sans font-bold text-lg md:text-2xl tracking-[0.2em] text-white">TESLA</span>
+                    <svg viewBox="0 0 100 50" class="shrink-0 h-5 md:h-7 w-auto fill-none stroke-white stroke-[2]">
+                        <circle cx="20" cy="18" r="14" /><circle cx="50" cy="18" r="14" /><circle cx="80" cy="18" r="14" />
+                        <circle cx="35" cy="32" r="14" /><circle cx="65" cy="32" r="14" />
+                    </svg>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Major_League_Baseball_logo.svg" alt="MLB" loading="lazy" decoding="async" class="shrink-0 h-5 md:h-7 w-auto grayscale opacity-90 contrast-125" onerror="this.style.display='none';">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/US_Air_Force_Logo_Solid_Colour.svg" alt="Air Force" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-8 w-auto brightness-0 invert opacity-90" onerror="this.style.display='none';">
+                    <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
+                </div>
+                
+                <!-- Track 2 -->
+                <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40" aria-hidden="true">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-5 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
+                    <span class="shrink-0 font-sans font-bold text-lg md:text-2xl tracking-[0.2em] text-white">TESLA</span>
+                    <svg viewBox="0 0 100 50" class="shrink-0 h-5 md:h-7 w-auto fill-none stroke-white stroke-[2]">
+                        <circle cx="20" cy="18" r="14" /><circle cx="50" cy="18" r="14" /><circle cx="80" cy="18" r="14" />
+                        <circle cx="35" cy="32" r="14" /><circle cx="65" cy="32" r="14" />
+                    </svg>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Major_League_Baseball_logo.svg" alt="MLB" loading="lazy" decoding="async" class="shrink-0 h-5 md:h-7 w-auto grayscale opacity-90 contrast-125" onerror="this.style.display='none';">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/US_Air_Force_Logo_Solid_Colour.svg" alt="Air Force" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-8 w-auto brightness-0 invert opacity-90" onerror="this.style.display='none';">
+                    <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
+                </div>
+
+                <!-- Track 3 (Safety for Ultrawide Monitors) -->
+                <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40" aria-hidden="true">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-5 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
+                    <span class="shrink-0 font-sans font-bold text-lg md:text-2xl tracking-[0.2em] text-white">TESLA</span>
+                    <svg viewBox="0 0 100 50" class="shrink-0 h-5 md:h-7 w-auto fill-none stroke-white stroke-[2]">
+                        <circle cx="20" cy="18" r="14" /><circle cx="50" cy="18" r="14" /><circle cx="80" cy="18" r="14" />
+                        <circle cx="35" cy="32" r="14" /><circle cx="65" cy="32" r="14" />
+                    </svg>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Major_League_Baseball_logo.svg" alt="MLB" loading="lazy" decoding="async" class="shrink-0 h-5 md:h-7 w-auto grayscale opacity-90 contrast-125" onerror="this.style.display='none';">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/US_Air_Force_Logo_Solid_Colour.svg" alt="Air Force" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-8 w-auto brightness-0 invert opacity-90" onerror="this.style.display='none';">
+                    <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- IDENTITY & PROOF -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="py-16 md:py-32 relative z-10 border-t border-glassBorder">
+        <div class="max-w-[1200px] mx-auto px-6 sm:px-10">
+            
+            <!-- Superhuman Proof Cards (Editorial Redesign) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-20 md:mb-24 reveal">
+                
+                <div class="glass-panel p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
+                    <!-- Giant Editorial Quote Mark in Background -->
+                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)]"></div>
+                    
+                    <div class="mb-8 relative z-10 pt-2">
+                        <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
+                            The strongest testimonial I can give is the <span class="text-brandGold font-normal">five-digit sum</span> I pay for calls with Marcus. He helps me perform highly effective, highly leveraged work in just a few hours.
+                        </p>
+                    </div>
+                    <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
+                        <span class="text-white font-bold">ETHAN EVANS</span>
+                        <span class="text-brandGold/70">RETIRED VP, AMAZON</span>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
+                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.05),transparent_70%)]"></div>
+                    
+                    <div class="mb-8 relative z-10 pt-2">
+                        <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
+                            Coming up just shy of $1.3 million in sales, I realized I needed a different approach. Marcus showed me how to tap into flow states on demand. Within three months, I hit <span class="text-brandGold font-normal">almost 200% of plan</span>—the highest I've performed in five years.
+                        </p>
+                    </div>
+                    <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
+                        <span class="text-white font-bold">DAVID VARGAS</span>
+                        <span class="text-brandGold/70">ENTERPRISE SALES EXECUTIVE</span>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
+                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)]"></div>
+                    
+                    <div class="mb-8 relative z-10 pt-2">
+                        <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
+                            Marcus goes vertically deep and horizontally across your <span class="text-brandGold font-normal">operational, physical, and psychological</span> layers. He drilled down into my exact constraints with extreme candor. I have not been the same since.
+                        </p>
+                    </div>
+                    <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
+                        <span class="text-white font-bold">TED TANNER</span>
+                        <span class="text-brandGold/70">TECH EXECUTIVE & ARCHITECT</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Identity Block (High-End Editorial Redesign) -->
+            <div class="mt-20 md:mt-32 max-w-4xl mx-auto reveal delay-100">
+                <div class="flex items-center gap-4 mb-8 md:mb-12 justify-center md:justify-start">
+                    <div class="h-[1px] w-8 bg-brandGold/50"></div>
+                    <div class="font-mono text-[10px] text-brandGold tracking-[0.3em] uppercase font-medium">The Architect</div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-10 md:gap-16 items-center md:items-start">
+                    <!-- Left: Portrait Dossier (Image subtly breathes and illuminates on hover) -->
+                    <div class="shrink-0 relative group">
+                        <div class="absolute -inset-3 border border-white/5 rounded-2xl bg-white/[0.02] transition-all duration-700 group-hover:border-brandGold/20 group-hover:bg-brandGold/[0.02]"></div>
+                        <div class="relative w-40 h-48 md:w-48 md:h-56 rounded-xl overflow-hidden border border-white/10 bg-void z-10 shadow-2xl transition-all duration-700 group-hover:border-white/20 group-hover:shadow-[0_0_30px_rgba(194,163,89,0.1)]">
+                            <img src="https://i.imgur.com/SJLnvwa.png" alt="Marcus Lefton" loading="lazy" decoding="async" class="w-full h-full object-cover saturate-50 contrast-125 brightness-75 transition-all duration-700 group-hover:saturate-100 group-hover:brightness-105 group-hover:scale-105" onerror="this.style.display='none';">
+                        </div>
+                    </div>
+
+                    <!-- Right: Bio & Authority -->
+                    <div class="flex-1 text-center md:text-left">
+                        <h3 class="font-serif text-[28px] md:text-[36px] text-textMain leading-[1.1] mb-6">
+                            Not a coach.<br>
+                            <span class="text-brandGold italic font-light">A performance engineer.</span>
+                        </h3>
+                        <p class="text-[15px] leading-[1.7] text-textSub font-light mb-6">
+                            For the past decade, I have operated inside the biological infrastructure of the world's most demanding executives. The thesis is simple: your business metrics are a lagging indicator of your biological constraints.
+                        </p>
+                        <p class="text-[15px] leading-[1.7] text-textSub font-light mb-6">
+                            When we map neurochemistry, autonomic states, and circadian rhythm directly to your daily strategy, friction disappears. 
+                        </p>
+                        
+                        <div class="mt-8 pt-6 border-t border-glassBorder flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="font-mono text-[10px] text-textMuted tracking-[0.2em] uppercase">
+                                <span class="text-white">15,000+ Hours</span> Clinical Application
+                            </div>
+                            <div class="font-mono text-[10px] text-textMuted tracking-[0.2em] uppercase">
+                                Clearance Level: <span class="text-brandGold">Maximum</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- THE VELVET ROPE (Active Disqualification) -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="py-12 md:py-16 relative z-10 w-full max-w-[800px] mx-auto px-6 reveal delay-200">
+        <div class="border border-brandGold/20 bg-brandGold/[0.02] p-6 md:p-10 rounded-2xl relative overflow-hidden group hover:border-brandGold/40 transition-colors duration-500">
+            <!-- Subtle pulsing alert corner -->
+            <div class="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+                <div class="absolute top-0 right-0 w-2 h-2 bg-brandGold/50 rounded-full m-4 animate-ping"></div>
+                <div class="absolute top-0 right-0 w-2 h-2 bg-brandGold rounded-full m-4"></div>
+            </div>
+
+            <div class="flex items-center gap-3 mb-6">
+                <span class="font-mono text-[10px] text-brandGold tracking-[0.3em] uppercase font-bold bg-brandGold/10 px-3 py-1 rounded">Protocol Restriction</span>
+            </div>
+
+            <h3 class="font-serif text-[24px] md:text-[28px] text-textMain leading-[1.2] mb-4">
+                Who this is <span class="italic text-brandGold font-light">not</span> for.
+            </h3>
+
+            <p class="text-[15px] leading-[1.7] text-textSub font-light mb-6">
+                This network is strictly curated. We actively purge inactive readers to maintain signal density. Do not request access if you are looking for:
+            </p>
+
+            <ul class="space-y-4 font-mono text-[11px] md:text-[12px] tracking-[0.05em] text-textMuted">
+                <li class="flex items-start gap-3">
+                    <span class="text-brandGold/50 mt-0.5">✕</span>
+                    <span>Generic "hustle culture" motivation or basic time-management hacks.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-brandGold/50 mt-0.5">✕</span>
+                    <span>Copy-pasted morning routines that ignore neurochemical individuality.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-brandGold/50 mt-0.5">✕</span>
+                    <span>Surface-level coaching masquerading as systemic engineering.</span>
+                </li>
+            </ul>
+
+            <div class="mt-8 pt-6 border-t border-brandGold/10">
+                <p class="font-sans text-[13px] text-white/80 font-medium">
+                    If you are an operator ready to engineer the biological infrastructure beneath your strategy—<span class="text-brandGold italic">proceed to the index below.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FINAL CTA (The Silent Checkout) -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="py-16 md:py-32 border-t border-glassBorder relative z-10 text-center mt-10">
+        <!-- Background Glow -->
+        <div class="ambient-glow-2"></div>
+
+        <div class="max-w-[700px] mx-auto px-6 reveal relative z-20">
+            
+            <!-- The Proof of Concept Archive Index -->
+            <div class="max-w-[560px] mx-auto mb-10 text-left">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-1 h-1 rounded-full bg-brandGold/70"></div>
+                    <div class="font-mono text-[10px] text-brandGold tracking-[0.3em] uppercase font-medium">Archive Index</div>
+                </div>
+                <div class="space-y-5 border-l border-glassBorder pl-5 md:pl-6 ml-[2px]">
+                    <div class="group cursor-default">
+                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1 flex items-center gap-2">
+                            Endocrinology <span class="text-brandGold/50">×</span> Executive Capacity
+                        </span>
+                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
+                            The misdiagnosis of physiological debt as a discipline problem.
+                        </p>
+                    </div>
+                    <div class="group cursor-default">
+                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1 flex items-center gap-2">
+                            Neurochemistry <span class="text-brandGold/50">×</span> Decision Velocity
+                        </span>
+                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
+                            The biometric signature of hesitation in high-stakes negotiations.
+                        </p>
+                    </div>
+                    <div class="group cursor-default">
+                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1 flex items-center gap-2">
+                            Autonomic State <span class="text-brandGold/50">×</span> Leverage
+                        </span>
+                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
+                            CO2 tolerance as a literal predictor of boardroom dominance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="footer-form-content" class="transition-opacity duration-500 max-w-[500px] mx-auto pt-2">
+                
+                <div class="flex items-center justify-between mb-4 px-2 sm:px-4">
+                    <span class="font-mono text-[10px] text-textMuted tracking-[0.3em] uppercase font-medium">Initialize Access</span>
+                    <span class="font-mono text-[10px] text-brandGold tracking-[0.1em] uppercase font-medium flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-pulse"></span>
+                        Next Dispatch: Compiling...
+                    </span>
+                </div>
+                
+                <!-- TWEAK 1: Changed div to form to enable mobile keyboard 'Go/Return' submission -->
+                <form class="cmd-bar" id="footer-form-content" onsubmit="event.preventDefault(); handleEntry('secure_email_2', 'footer-form-content', 'footer-success-state');">
+                    <!-- Adjusted placeholder to perfectly fit mobile while remaining clear -->
+                    <input id="secure_email_2" type="email" autocomplete="email" inputmode="email" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left" placeholder="Secure email (Free weekly)" required>
+                    <button type="submit" class="cmd-btn group">
+                        DECRYPT PROTOCOL
+                        <span class="font-mono text-[10px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm">↵</span>
+                    </button>
+                </form>
+                
+                <div class="flex flex-col items-center gap-4 mt-6">
+                    <div class="flex items-center justify-center gap-3 opacity-60 font-sans text-[11px] font-medium tracking-wide text-white uppercase">
+                        <!-- Cohort Ego Trigger -->
+                        <span class="flex items-center gap-1.5"><svg class="w-3 h-3 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Join 1,400+ Operators</span>
+                        <span class="w-1 h-1 rounded-full bg-textMuted"></span>
+                        <span>AVG Read Time: 3 Min</span>
+                        <span class="w-1 h-1 rounded-full bg-textMuted"></span>
+                        <span>Zero Fluff</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Success State -->
+            <div id="footer-success-state" class="hidden flex-col items-center justify-center py-6 mt-4 transition-all duration-700">
+                <div class="w-12 h-12 rounded-full bg-glass border border-glassBorder shadow-glow flex items-center justify-center mb-5">
+                    <div class="w-2 h-2 bg-brandGold rounded-full animate-pulse"></div>
+                </div>
+                <h4 class="font-serif text-[28px] text-textMain italic mb-2">Clearance Granted.</h4>
+                <p class="text-[14px] text-textSub font-sans font-light mb-2">Dispatch 01 is en route to your secure inbox.</p>
+                <p class="text-[10px] text-brandGold/70 font-mono uppercase tracking-[0.2em]">Action Required: Whitelist our address to ensure delivery.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TWEAK 3: Compliance Micro-Footer for Ad Networks & Corporate Firewalls -->
+    <footer class="py-8 border-t border-glassBorder/30 text-center relative z-10">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 font-mono text-[9px] text-textMuted uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity">
+            <span>&copy; 2026 VYRTŪOSITI</span>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-brandGold transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-brandGold transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- INTERACTION LOGIC & EFFECTS -->
+    <!-- ═══════════════════════════════════════════ -->
+    <script>
+        // Cinematic Scroll Reveal Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Form Handling logic (Mocking the success state swap)
+        function handleEntry(inputId, formContentId, successStateId) {
+            const input = document.getElementById(inputId);
+            const formContent = document.getElementById(formContentId);
+            const successState = document.getElementById(successStateId);
+            
+            // Basic validation
+            if (input.value && input.value.includes('@')) {
+                // Fade out form
+                formContent.style.opacity = '0';
+                
+                setTimeout(() => {
+                    formContent.classList.add('hidden');
+                    formContent.classList.remove('flex'); // Just in case
+                    
+                    // Show success
+                    successState.classList.remove('hidden');
+                    successState.classList.add('flex');
+                    
+                    // Small delay to allow display:flex to apply before fading in
+                    setTimeout(() => {
+                        successState.style.opacity = '1';
+                        successState.style.transform = 'translateY(0)';
+                    }, 50);
+                }, 500);
+            } else {
+                // Simple error shake
+                input.parentElement.style.transform = 'translateX(-10px)';
+                setTimeout(() => input.parentElement.style.transform = 'translateX(10px)', 100);
+                setTimeout(() => input.parentElement.style.transform = 'translateX(-10px)', 200);
+                setTimeout(() => input.parentElement.style.transform = 'translateX(0)', 300);
+            }
+        }
+    </script>
+</body>
+</html>
