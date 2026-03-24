@@ -226,22 +226,23 @@
             </div>
 
             <h1 class="font-serif text-[38px] md:text-[64px] lg:text-[72px] text-textMain font-normal leading-[1.05] tracking-tightest mb-4 md:mb-6 drop-shadow-lg">
-                You are solving the<br>
-                <span class="italic text-brandGold block font-light mt-1">wrong problem.</span>
+                The elite don't<br>
+                <span class="italic text-brandGold block font-light mt-1">compartmentalize.</span>
             </h1>
 
             <p class="text-[15px] md:text-[18px] text-textSub font-light leading-[1.6] max-w-[600px] mx-auto mb-8 md:mb-10">
-                A stalled quarter. Brain fog at 3 PM. A ceiling you can't explain. Stop treating them as separate issues. Join 1,400+ operators getting the <strong class="text-white font-medium">weekly dispatch</strong> that decodes what your biology is already telling you.
+                Your physical energy, cognitive clarity, and business output share a single root cause. Brain fog at 3 PM and a stalled quarter are the exact same bottleneck. Join 1,400+ Executive Athletes getting the <strong class="text-white font-medium">weekly dispatch</strong> that aligns your physiology, psychology, and career into one unified state of mastery.
             </p>
 
-            <div class="max-w-[540px] mx-auto relative z-20 min-h-[140px] flex flex-col justify-center">
+            <!-- TWEAK 1: Increased min-h from 140px to 210px to give the success state breathing room on mobile -->
+            <div class="max-w-[540px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
                     <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <div class="auth-progress"></div>
                         <!-- ENGINEER TWEAK 1: Disabled autocapitalize, autocorrect, and spellcheck so mobile keyboards don't interfere -->
                         <input id="secure_email_1" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group">
-                            <span class="btn-text">DECRYPT PROTOCOL</span>
+                            <span class="btn-text">GET THE DISPATCH</span>
                             <span class="font-mono text-[11px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon">↵</span>
                         </button>
                     </form>
@@ -264,13 +265,25 @@
                     </div>
                 </div>
 
+                <!-- TWEAK 2: Upgraded Hero Success State -->
                 <div id="hero-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
-                    <div class="w-10 h-10 rounded-full bg-glass border border-glassBorder flex items-center justify-center mb-4 shadow-glow">
-                        <div class="w-2 h-2 bg-brandGold rounded-full animate-terminal"></div>
+                    
+                    <!-- Glowing Cryptographic Shield -->
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-brandGold/5 border border-brandGold/20 shadow-[0_0_30px_rgba(194,163,89,0.15)] flex items-center justify-center mb-4 md:mb-5 relative">
+                        <div class="absolute inset-0 rounded-full border border-brandGold/40 animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+                        <svg class="w-5 h-5 md:w-6 md:h-6 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                     </div>
-                    <h4 class="font-serif text-2xl text-textMain italic mb-1">Clearance Granted.</h4>
-                    <p class="text-[14px] text-textSub font-sans font-light mb-2">Dispatch 01 is en route to your secure inbox.</p>
-                    <p class="text-[10px] text-brandGold/70 font-mono uppercase tracking-[0.2em]">Action Required: Whitelist our address to ensure delivery.</p>
+                    
+                    <h4 class="font-serif text-[24px] md:text-[28px] text-textMain leading-tight mb-2">Protocol Unlocked.</h4>
+                    <p class="text-[14px] md:text-[15px] text-textSub font-sans font-light mb-5 text-center px-4">The first dispatch is en route to your secure inbox.</p>
+                    
+                    <!-- Tactical HUD Action Box -->
+                    <div class="bg-brandGold/5 border border-brandGold/20 rounded-lg px-4 py-3 max-w-[360px] mx-auto w-full backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+                        <p class="text-[10px] md:text-[11px] text-brandGold/90 font-mono uppercase tracking-[0.08em] md:tracking-[0.1em] text-center leading-relaxed">
+                            <span class="font-bold text-brandGold flex items-center justify-center gap-1.5 mb-1.5"><span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span> ACTION REQUIRED</span> 
+                            Check your inbox now. Move the dispatch to your primary folder to secure the feed.
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -341,52 +354,7 @@
                     
                     <div class="mb-8 relative z-10 pt-2">
                         <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
-                            The strongest testimonial I can give is the <span class="text-brandGold font-normal">five-digit sum</span> I pay for calls with Marcus. In a few hours he helps me produce what most people can't in weeks.
-                        </p>
-                    </div>
-                    <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
-                        <span class="text-white font-bold">ETHAN EVANS</span>
-                        <span class="text-brandGold/70">RETIRED VP, AMAZON</span>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
-                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.05),transparent_70%)]"></div>
-                    
-                    <div class="mb-8 relative z-10 pt-2">
-                        <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
-                            Some of my best seasons have been alongside Marcus. <span class="text-brandGold font-normal">Better on the field, more durable</span>, performing at a level I hadn't reached before.
-                        </p>
-                    </div>
-                    <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
-                        <span class="text-white font-bold">RYAN MCMAHON</span>
-                        <span class="text-brandGold/70">MLB ALL-STAR, NEW YORK YANKEES</span>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
-                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.05),transparent_70%)]"></div>
-                    
-                    <div class="mb-8 relative z-10 pt-2">
-                        <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
-                            Coming up just shy of $1.3M in sales, I needed a different approach. Three months with Marcus and I hit <span class="text-brandGold font-normal">almost 200% of plan</span>. The highest I'd performed in five years.
-                        </p>
-                    </div>
-                    <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
-                        <span class="text-white font-bold">DAVID VARGAS</span>
-                        <span class="text-brandGold/70">ENTERPRISE SALES EXECUTIVE</span>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
-                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)]"></div>
-                    
-                    <div class="mb-8 relative z-10 pt-2">
-                        <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
-                            Marcus drilled into my exact constraints with extreme candor — <span class="text-brandGold font-normal">operational, physical, psychological</span>. I have not been the same since.
+                            Marcus drilled into my exact constraints with extreme candor: <span class="text-brandGold font-normal">operational, physical, psychological</span>. I have not been the same since.
                         </p>
                     </div>
                     <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
@@ -424,15 +392,11 @@
                             </h3>
                             
                             <p class="text-[15px] leading-[1.7] text-textSub font-light mb-4">
-                                You've outgrown every framework you've tried. The protocols. The routines. The optimization stacks. You've done the work and you're still leaving performance on the table. Not because you lack discipline. Because nobody has mapped your biology to your ambition at the depth it requires.
+                                You have done the work and you are still leaving performance on the table. Not because you lack discipline. Because nobody has mapped your biology to your ambition at the depth it requires.
                             </p>
                             
                             <p class="text-[15px] leading-[1.7] text-textSub font-light mb-4">
-                                <strong class="text-white font-medium">Most stop at the symptom. I go to the system.</strong>
-                            </p>
-                            
-                            <p class="text-[15px] leading-[1.7] text-textSub font-light mb-4">
-                                Fifteen years. Major League Baseball. U.S. Air Force. The world's leading performance and flow research labs. Fortune 500 boardrooms and the founders rewriting entire industries.
+                                <strong class="text-white font-medium">Most stop at the symptom. I go to the system.</strong> Fifteen years across Major League Baseball, the U.S. Air Force, the world's leading flow research labs, Fortune 500 boardrooms, and the founders rewriting entire industries.
                             </p>
 
                             <p class="text-[15px] leading-[1.7] text-textSub font-light mb-6">
@@ -441,7 +405,7 @@
                             
                             <div class="pl-4 md:pl-5 border-l-2 border-brandGold/60 my-6 md:my-8">
                                 <p class="text-[15px] md:text-[16px] leading-[1.6] text-white font-medium">
-                                    I built the Human Compounding System to solve exactly that. Mastery in Motion is where I share it — weekly, free, built for the operator who runs on data, not motivation.
+                                    Mastery in Motion is where I share the frameworks before they become engagements. Weekly. Free. Built for the operator who runs on data, not motivation.
                                 </p>
                             </div>
                         </div>
@@ -499,12 +463,12 @@
             </h3>
 
             <p class="text-[15px] leading-[1.7] text-textSub font-light mb-6">
-                This isn't a motivation feed. If you want morning routine hacks, hustle content, or surface-level performance tips — this isn't for you.
+                This isn't a motivation feed. If you want morning routine hacks, hustle content, or surface-level performance tips, this isn't for you.
             </p>
 
             <div class="pt-6 border-t border-brandGold/10">
                 <p class="font-sans text-[15px] text-white/90 font-medium">
-                    If you're ready to operate at the biological layer, <span class="text-brandGold italic">keep reading.</span>
+                    If you're ready to operate at the system layer, <span class="text-brandGold italic">keep reading.</span>
                 </p>
             </div>
         </div>
@@ -560,13 +524,13 @@
                 <div class="mt-12 pt-10 border-t border-glassBorder/50">
                     <div class="border-l-2 border-brandGold/30 pl-5">
                         <p class="font-serif italic text-textSub text-[16px] md:text-[18px] leading-relaxed mb-3">"The strongest testimonial I can give is the five-digit sum I pay for calls with Marcus."</p>
-                        <p class="font-mono text-[9px] uppercase tracking-widest text-textMuted">— Ethan Evans, Retired VP, Amazon</p>
+                        <p class="font-mono text-[9px] uppercase tracking-widest text-textMuted">Ethan Evans, Retired VP, Amazon</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Unified Wrapper for Footer CTA (Now strictly focused on action) -->
-            <div class="max-w-[500px] mx-auto relative min-h-[160px] flex flex-col justify-center">
+            <!-- TWEAK 3: Increased min-h from 160px to 240px to give the bottom success state breathing room on mobile -->
+            <div class="max-w-[500px] mx-auto relative min-h-[240px] flex flex-col justify-center">
                 
                 <div id="footer-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center pt-2">
                     
@@ -577,8 +541,8 @@
                             <span class="font-mono text-[9px] text-brandGold tracking-[0.3em] uppercase font-bold mt-px">Initialize Access</span>
                         </div>
                         <p class="text-[13px] md:text-[14px] text-textMain font-light tracking-wide">
-                            Next dispatch drops this week. <span class="text-textSub italic">Not archived publicly.</span>
-                        </p>
+                    <div class="text-[10px] font-mono text-brandGold/80 uppercase tracking-[0.15em] mb-4 text-center sm:text-left px-2 sm:px-4">
+                        Next dispatch drops this week. Not archived publicly.
                     </div>
                     
                     <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
@@ -586,7 +550,7 @@
                         <!-- ENGINEER TWEAK 1: Disabled autocapitalize, autocorrect, and spellcheck so mobile keyboards don't interfere -->
                         <input id="secure_email_2" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group">
-                            <span class="btn-text">DECRYPT PROTOCOL</span>
+                            <span class="btn-text">GET THE DISPATCH</span>
                             <span class="font-mono text-[10px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon">↵</span>
                         </button>
                     </form>
@@ -602,14 +566,25 @@
                     </div>
                 </div>
 
-                <!-- Bottom Success State -->
+                <!-- TWEAK 4: Upgraded Footer Success State -->
                 <div id="footer-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
-                    <div class="w-12 h-12 rounded-full bg-glass border border-glassBorder shadow-glow flex items-center justify-center mb-5">
-                        <div class="w-2 h-2 bg-brandGold rounded-full animate-terminal"></div>
+                    
+                    <!-- Glowing Cryptographic Shield -->
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-brandGold/5 border border-brandGold/20 shadow-[0_0_30px_rgba(194,163,89,0.15)] flex items-center justify-center mb-4 md:mb-5 relative">
+                        <div class="absolute inset-0 rounded-full border border-brandGold/40 animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+                        <svg class="w-5 h-5 md:w-6 md:h-6 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                     </div>
-                    <h4 class="font-serif text-[28px] text-textMain italic mb-2">Clearance Granted.</h4>
-                    <p class="text-[14px] text-textSub font-sans font-light mb-2">Dispatch 01 is en route to your secure inbox.</p>
-                    <p class="text-[10px] text-brandGold/70 font-mono uppercase tracking-[0.2em]">Action Required: Whitelist our address to ensure delivery.</p>
+                    
+                    <h4 class="font-serif text-[24px] md:text-[28px] text-textMain leading-tight mb-2">Protocol Unlocked.</h4>
+                    <p class="text-[14px] md:text-[15px] text-textSub font-sans font-light mb-5 text-center px-4">The first dispatch is en route to your secure inbox.</p>
+                    
+                    <!-- Tactical HUD Action Box -->
+                    <div class="bg-brandGold/5 border border-brandGold/20 rounded-lg px-4 py-3 max-w-[360px] mx-auto w-full backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+                        <p class="text-[10px] md:text-[11px] text-brandGold/90 font-mono uppercase tracking-[0.08em] md:tracking-[0.1em] text-center leading-relaxed">
+                            <span class="font-bold text-brandGold flex items-center justify-center gap-1.5 mb-1.5"><span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span> ACTION REQUIRED</span> 
+                            Check your inbox now. Move the dispatch to your primary folder to secure the feed.
+                        </p>
+                    </div>
                 </div>
 
             </div>
