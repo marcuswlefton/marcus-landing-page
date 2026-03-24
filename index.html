@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Locks mobile zoom to prevent iOS input zoom bug. Font sizes set to 16px to prevent auto-zoom. -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Removed strict zoom locks. 16px font sizes on inputs naturally prevent iOS auto-zoom, allowing buttery smooth manual pinching. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
     
     <!-- Open Graph & SEO Tags for Social/Slack Sharing -->
@@ -487,8 +487,9 @@
     <!-- ═══════════════════════════════════════════ -->
     <!-- THE VELVET ROPE (Active Disqualification) -->
     <!-- ═══════════════════════════════════════════ -->
+    <!-- MOBILE TWEAK: Restored global hover states so the box lights up when tapped on mobile screens -->
     <section class="py-12 md:py-16 relative z-10 w-full max-w-[800px] mx-auto px-6 reveal delay-200">
-        <div class="border border-brandGold/20 bg-brandGold/[0.02] p-6 md:p-10 rounded-2xl relative overflow-hidden group md:hover:border-brandGold/40 md:hover:-translate-y-1 md:hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),0_0_30px_rgba(194,163,89,0.05)] transition-all duration-500">
+        <div class="border border-brandGold/20 bg-brandGold/[0.02] p-6 md:p-10 rounded-2xl relative overflow-hidden group hover:border-brandGold/40 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),0_0_30px_rgba(194,163,89,0.05)] transition-all duration-500">
             <!-- Subtle pulsing alert corner -->
             <div class="absolute top-0 right-0 w-16 h-16 overflow-hidden">
                 <div class="absolute top-0 right-0 w-2 h-2 bg-brandGold/50 rounded-full m-4 animate-ping"></div>
@@ -532,33 +533,33 @@
                 </div>
                 <div class="space-y-6 ml-[2px]">
                     
-                    <!-- MOBILE TWEAK: Changed to md:hover to prevent iOS "Sticky Hover" on non-clickable elements -->
-                    <div class="group cursor-default relative pl-5 transition-all duration-300 md:hover:translate-x-1">
-                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder md:group-hover:bg-brandGold/70 transition-colors duration-300"></div>
-                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors md:group-hover:text-brandGold/80">
+                    <!-- MOBILE TWEAK: Restored global hover states so the items light up and shift when tapped on mobile screens -->
+                    <div class="group cursor-default relative pl-5 transition-all duration-300 hover:translate-x-1">
+                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
+                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
                             Endocrinology <span class="text-brandGold/50">×</span> Executive Capacity
                         </span>
-                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors md:group-hover:text-white">
+                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
                             The misdiagnosis of physiological debt as a discipline problem.
                         </p>
                     </div>
 
-                    <div class="group cursor-default relative pl-5 transition-all duration-300 md:hover:translate-x-1">
-                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder md:group-hover:bg-brandGold/70 transition-colors duration-300"></div>
-                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors md:group-hover:text-brandGold/80">
+                    <div class="group cursor-default relative pl-5 transition-all duration-300 hover:translate-x-1">
+                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
+                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
                             Neurochemistry <span class="text-brandGold/50">×</span> Decision Velocity
                         </span>
-                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors md:group-hover:text-white">
+                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
                             The biometric signature of hesitation in high-stakes negotiations.
                         </p>
                     </div>
 
-                    <div class="group cursor-default relative pl-5 transition-all duration-300 md:hover:translate-x-1">
-                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder md:group-hover:bg-brandGold/70 transition-colors duration-300"></div>
-                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors md:group-hover:text-brandGold/80">
+                    <div class="group cursor-default relative pl-5 transition-all duration-300 hover:translate-x-1">
+                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
+                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
                             Autonomic State <span class="text-brandGold/50">×</span> Leverage
                         </span>
-                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors md:group-hover:text-white">
+                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
                             CO2 tolerance as a literal predictor of boardroom dominance.
                         </p>
                     </div>
@@ -619,7 +620,6 @@
                     <p class="text-[14px] md:text-[15px] text-textSub font-sans font-light mb-5 text-center px-4">The first dispatch is en route to your secure inbox.</p>
                     
                     <div class="bg-brandGold/5 border border-brandGold/20 rounded-lg px-4 py-3 max-w-[360px] mx-auto w-full backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-                        <!-- MOBILE TWEAK: Bumped text size to 11px so it is perfectly readable on small screens -->
                         <p class="text-[11px] md:text-[11px] text-brandGold/90 font-mono uppercase tracking-[0.08em] md:tracking-[0.1em] text-center leading-relaxed">
                             <span class="font-bold text-brandGold flex items-center justify-center gap-1.5 mb-1.5"><span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span> ACTION REQUIRED</span> 
                             Check your inbox now. Move the dispatch to your primary folder to secure the feed.
