@@ -210,7 +210,8 @@
         .animate-terminal { animation: terminalBlink 1s infinite; }
     </style>
 </head>
-<body class="bg-void text-textMain antialiased selection:bg-brandGold selection:text-black">
+<!-- ENGINEER TWEAK: Added ontouchstart="" to body to force iOS to instantly recognize all hover/active states on tap -->
+<body class="bg-void text-textMain antialiased selection:bg-brandGold selection:text-black" ontouchstart="">
 
     <div class="bg-noise"></div>
 
@@ -489,7 +490,8 @@
     <!-- ═══════════════════════════════════════════ -->
     <!-- MOBILE TWEAK: Restored global hover states so the box lights up when tapped on mobile screens -->
     <section class="py-12 md:py-16 relative z-10 w-full max-w-[800px] mx-auto px-6 reveal delay-200">
-        <div class="border border-brandGold/20 bg-brandGold/[0.02] p-6 md:p-10 rounded-2xl relative overflow-hidden group hover:border-brandGold/40 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),0_0_30px_rgba(194,163,89,0.05)] transition-all duration-500">
+        <!-- ENGINEER TWEAK: Added cursor-pointer so mobile browsers register this block as an interactive touch target -->
+        <div class="border border-brandGold/20 bg-brandGold/[0.02] p-6 md:p-10 rounded-2xl relative overflow-hidden group hover:border-brandGold/40 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),0_0_30px_rgba(194,163,89,0.05)] transition-all duration-500 cursor-pointer">
             <!-- Subtle pulsing alert corner -->
             <div class="absolute top-0 right-0 w-16 h-16 overflow-hidden">
                 <div class="absolute top-0 right-0 w-2 h-2 bg-brandGold/50 rounded-full m-4 animate-ping"></div>
@@ -533,8 +535,8 @@
                 </div>
                 <div class="space-y-6 ml-[2px]">
                     
-                    <!-- MOBILE TWEAK: Restored global hover states so the items light up and shift when tapped on mobile screens -->
-                    <div class="group cursor-default relative pl-5 transition-all duration-300 hover:translate-x-1">
+                    <!-- ENGINEER TWEAK: Changed cursor-default to cursor-pointer so iOS Safari recognizes the tap instantly -->
+                    <div class="group cursor-pointer relative pl-5 transition-all duration-300 hover:translate-x-1">
                         <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
                         <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
                             Endocrinology <span class="text-brandGold/50">×</span> Executive Capacity
@@ -544,7 +546,7 @@
                         </p>
                     </div>
 
-                    <div class="group cursor-default relative pl-5 transition-all duration-300 hover:translate-x-1">
+                    <div class="group cursor-pointer relative pl-5 transition-all duration-300 hover:translate-x-1">
                         <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
                         <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
                             Neurochemistry <span class="text-brandGold/50">×</span> Decision Velocity
@@ -554,7 +556,7 @@
                         </p>
                     </div>
 
-                    <div class="group cursor-default relative pl-5 transition-all duration-300 hover:translate-x-1">
+                    <div class="group cursor-pointer relative pl-5 transition-all duration-300 hover:translate-x-1">
                         <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
                         <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
                             Autonomic State <span class="text-brandGold/50">×</span> Leverage
