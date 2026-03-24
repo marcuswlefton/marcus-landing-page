@@ -155,6 +155,7 @@
             transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center;
             gap: 10px; box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 4px 15px rgba(194, 163, 89, 0.15);
             touch-action: manipulation; min-width: 220px; 
+            border: 1px solid transparent;
         }
         .cmd-btn:hover:not(:disabled) {
             background: linear-gradient(180deg, #D4B66A 0%, #C2A359 100%); 
@@ -234,26 +235,25 @@
                 Your physical energy, cognitive clarity, and business output share a single root cause. Brain fog at 3 PM and a stalled quarter are the exact same bottleneck. Join 1,400+ Executive Athletes getting the <strong class="text-white font-medium">weekly dispatch</strong> that aligns your physiology, psychology, and career into one unified state of mastery.
             </p>
 
-            <!-- TWEAK 1: Increased min-h from 140px to 210px to give the success state breathing room on mobile -->
             <div class="max-w-[540px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
                     <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <div class="auth-progress"></div>
-                        <!-- ENGINEER TWEAK 1: Disabled autocapitalize, autocorrect, and spellcheck so mobile keyboards don't interfere -->
                         <input id="secure_email_1" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
-                        <button type="submit" class="cmd-btn group">
-                            <span class="btn-text">GET THE DISPATCH</span>
-                            <span class="font-mono text-[11px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon">↵</span>
+                        <button type="submit" class="cmd-btn group transition-all duration-300">
+                            <span class="btn-text flex items-center gap-2">GET THE DISPATCH</span>
+                            <span class="font-mono text-[11px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity">↵</span>
                         </button>
                     </form>
                     
                     <div class="flex flex-col items-center gap-4 mt-5 md:mt-6">
                         <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 opacity-70 font-sans text-[10px] md:text-[11px] font-medium tracking-wide text-white uppercase">
                             <div class="flex items-center gap-2">
+                                <!-- MICRO-TWEAK 3: Added subtle ring-1 ring-white/10 to make avatars pop off the black void -->
                                 <div class="flex -space-x-1.5 opacity-90">
-                                    <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=11" alt="Operator" loading="lazy">
-                                    <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=33" alt="Operator" loading="lazy">
-                                    <img class="w-4 h-4 rounded-full border border-void saturate-0" src="https://i.pravatar.cc/100?img=12" alt="Operator" loading="lazy">
+                                    <img class="w-4 h-4 rounded-full border border-void ring-1 ring-white/10 saturate-0" src="https://i.pravatar.cc/100?img=11" alt="Operator" loading="lazy">
+                                    <img class="w-4 h-4 rounded-full border border-void ring-1 ring-white/10 saturate-0" src="https://i.pravatar.cc/100?img=33" alt="Operator" loading="lazy">
+                                    <img class="w-4 h-4 rounded-full border border-void ring-1 ring-white/10 saturate-0" src="https://i.pravatar.cc/100?img=12" alt="Operator" loading="lazy">
                                 </div>
                                 <span>Join 1,400+ Operators</span>
                             </div>
@@ -265,10 +265,8 @@
                     </div>
                 </div>
 
-                <!-- TWEAK 2: Upgraded Hero Success State -->
                 <div id="hero-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
                     
-                    <!-- Glowing Cryptographic Shield -->
                     <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-brandGold/5 border border-brandGold/20 shadow-[0_0_30px_rgba(194,163,89,0.15)] flex items-center justify-center mb-4 md:mb-5 relative">
                         <div class="absolute inset-0 rounded-full border border-brandGold/40 animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
                         <svg class="w-5 h-5 md:w-6 md:h-6 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
@@ -277,7 +275,6 @@
                     <h4 class="font-serif text-[24px] md:text-[28px] text-textMain leading-tight mb-2">Protocol Unlocked.</h4>
                     <p class="text-[14px] md:text-[15px] text-textSub font-sans font-light mb-5 text-center px-4">The first dispatch is en route to your secure inbox.</p>
                     
-                    <!-- Tactical HUD Action Box -->
                     <div class="bg-brandGold/5 border border-brandGold/20 rounded-lg px-4 py-3 max-w-[360px] mx-auto w-full backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
                         <p class="text-[10px] md:text-[11px] text-brandGold/90 font-mono uppercase tracking-[0.08em] md:tracking-[0.1em] text-center leading-relaxed">
                             <span class="font-bold text-brandGold flex items-center justify-center gap-1.5 mb-1.5"><span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span> ACTION REQUIRED</span> 
@@ -458,7 +455,6 @@
                             </div>
                         </div>
                         
-                        <!-- TWEAK: Updated to a dominant 2-column stats grid -->
                         <div class="pt-8 mt-auto border-t border-glassBorder grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 text-center md:text-left">
                             <div class="relative">
                                 <div class="font-mono text-[16px] md:text-[18px] text-white mb-1.5 flex items-center justify-center md:justify-start gap-2.5">
@@ -530,10 +526,12 @@
                     <div class="w-1 h-1 rounded-full bg-brandGold/70"></div>
                     <div class="font-mono text-[10px] text-brandGold tracking-[0.3em] uppercase font-medium">Archive Index</div>
                 </div>
-                <div class="space-y-6 border-l border-glassBorder pl-5 md:pl-6 ml-[2px]">
+                <div class="space-y-6 ml-[2px]">
                     
-                    <div class="group cursor-default">
-                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2">
+                    <!-- MICRO-TWEAK 1: Tactile Hover States for the Archive Index -->
+                    <div class="group cursor-default relative pl-5 transition-all duration-300 hover:translate-x-1">
+                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
+                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
                             Endocrinology <span class="text-brandGold/50">×</span> Executive Capacity
                         </span>
                         <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
@@ -541,8 +539,9 @@
                         </p>
                     </div>
 
-                    <div class="group cursor-default">
-                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2">
+                    <div class="group cursor-default relative pl-5 transition-all duration-300 hover:translate-x-1">
+                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
+                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
                             Neurochemistry <span class="text-brandGold/50">×</span> Decision Velocity
                         </span>
                         <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
@@ -550,8 +549,9 @@
                         </p>
                     </div>
 
-                    <div class="group cursor-default">
-                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2">
+                    <div class="group cursor-default relative pl-5 transition-all duration-300 hover:translate-x-1">
+                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
+                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
                             Autonomic State <span class="text-brandGold/50">×</span> Leverage
                         </span>
                         <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
@@ -561,7 +561,6 @@
 
                 </div>
 
-                <!-- Moved Micro-Testimonial to cleanly cap off the reading section -->
                 <div class="mt-12 pt-10 border-t border-glassBorder/50">
                     <div class="border-l-2 border-brandGold/30 pl-5">
                         <p class="font-serif italic text-textSub text-[16px] md:text-[18px] leading-relaxed mb-3">"The strongest testimonial I can give is the five-digit sum I pay for calls with Marcus."</p>
@@ -570,34 +569,32 @@
                 </div>
             </div>
 
-            <!-- TWEAK 3: Increased min-h from 160px to 240px to give the bottom success state breathing room on mobile -->
             <div class="max-w-[500px] mx-auto relative min-h-[240px] flex flex-col justify-center">
                 
                 <div id="footer-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center pt-2">
                     
-                    <!-- Cleaned up, consolidated headers -->
                     <div class="text-center mb-6">
                         <div class="inline-flex items-center justify-center gap-2 border border-brandGold/20 bg-brandGold/5 rounded-full px-4 py-1.5 mb-4 shadow-glow">
                             <span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span>
                             <span class="font-mono text-[9px] text-brandGold tracking-[0.3em] uppercase font-bold mt-px">Initialize Access</span>
                         </div>
                         <p class="text-[13px] md:text-[14px] text-textMain font-light tracking-wide">
-                    <div class="text-[10px] font-mono text-brandGold/80 uppercase tracking-[0.15em] mb-4 text-center sm:text-left px-2 sm:px-4">
-                        Next dispatch drops this week. Not archived publicly.
+                            Next dispatch drops this week. <span class="text-textSub italic">Not archived publicly.</span>
+                        </p>
                     </div>
                     
                     <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <div class="auth-progress"></div>
-                        <!-- ENGINEER TWEAK 1: Disabled autocapitalize, autocorrect, and spellcheck so mobile keyboards don't interfere -->
                         <input id="secure_email_2" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
-                        <button type="submit" class="cmd-btn group">
-                            <span class="btn-text">GET THE DISPATCH</span>
-                            <span class="font-mono text-[10px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon">↵</span>
+                        <button type="submit" class="cmd-btn group transition-all duration-300">
+                            <span class="btn-text flex items-center gap-2">GET THE DISPATCH</span>
+                            <span class="font-mono text-[10px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity">↵</span>
                         </button>
                     </form>
                     
                     <div class="flex flex-col items-center gap-4 mt-6">
                         <div class="flex items-center justify-center gap-2 opacity-60 font-sans text-[10px] font-medium tracking-wide text-white uppercase text-center flex-wrap px-4">
+                            <!-- MICRO-TWEAK 3: Added subtle ring to bottom avatars as well if desired, but opted for lock icon here for variety. Kept clean. -->
                             <span class="flex items-center gap-1.5"><svg class="w-3 h-3 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> JOIN 1,400+ OPERATORS</span>
                             <span class="hidden sm:inline">&middot;</span>
                             <span>AVG READ TIME: 3 MIN</span>
@@ -607,10 +604,8 @@
                     </div>
                 </div>
 
-                <!-- TWEAK 4: Upgraded Footer Success State -->
                 <div id="footer-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
                     
-                    <!-- Glowing Cryptographic Shield -->
                     <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-brandGold/5 border border-brandGold/20 shadow-[0_0_30px_rgba(194,163,89,0.15)] flex items-center justify-center mb-4 md:mb-5 relative">
                         <div class="absolute inset-0 rounded-full border border-brandGold/40 animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
                         <svg class="w-5 h-5 md:w-6 md:h-6 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
@@ -619,7 +614,6 @@
                     <h4 class="font-serif text-[24px] md:text-[28px] text-textMain leading-tight mb-2">Protocol Unlocked.</h4>
                     <p class="text-[14px] md:text-[15px] text-textSub font-sans font-light mb-5 text-center px-4">The first dispatch is en route to your secure inbox.</p>
                     
-                    <!-- Tactical HUD Action Box -->
                     <div class="bg-brandGold/5 border border-brandGold/20 rounded-lg px-4 py-3 max-w-[360px] mx-auto w-full backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
                         <p class="text-[10px] md:text-[11px] text-brandGold/90 font-mono uppercase tracking-[0.08em] md:tracking-[0.1em] text-center leading-relaxed">
                             <span class="font-bold text-brandGold flex items-center justify-center gap-1.5 mb-1.5"><span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span> ACTION REQUIRED</span> 
@@ -679,7 +673,13 @@
                 
                 btn.disabled = true;
                 input.readOnly = true;
-                if(btnIcon) btnIcon.style.display = 'none';
+                if(btnIcon) btnIcon.style.opacity = '0';
+                
+                // MICRO-TWEAK 2: Hardware "Processing" State for the Button
+                btn.style.background = '#000000';
+                btn.style.color = '#C2A359';
+                btn.style.border = '1px solid rgba(194, 163, 89, 0.4)';
+                btn.style.boxShadow = '0 0 20px rgba(194, 163, 89, 0.15), inset 0 0 10px rgba(194, 163, 89, 0.1)';
                 
                 btnText.innerHTML = '<span class="animate-terminal tracking-[0.2em] font-mono">[ DECRYPTING... ]</span>';
                 
