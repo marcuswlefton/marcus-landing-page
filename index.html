@@ -218,7 +218,6 @@
     <!-- ═══════════════════════════════════════════ -->
     <!-- SUPERHUMAN HERO SECTION -->
     <!-- ═══════════════════════════════════════════ -->
-    <!-- MOBILE TWEAK: Adjusted px-6 to px-4 on mobile for wider reading area, sm:px-6 for tablets -->
     <main class="pt-24 md:pt-48 pb-12 md:pb-24 relative z-10 flex flex-col items-center text-center overflow-hidden min-h-[90vh] md:min-h-0 justify-center">
         <div class="ambient-glow-1"></div>
 
@@ -239,13 +238,13 @@
 
             <div class="max-w-[540px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
-                    <form name="dispatch_signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="cmd-bar" onsubmit="event.preventDefault(); handleEntry(this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                    <!-- ENGINEER TWEAK: Bulletproof event passing using 'return handleEntry(event...)' -->
+                    <form name="dispatch_signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="cmd-bar" onsubmit="return handleEntry(event, this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <input type="hidden" name="form-name" value="dispatch_signup" />
                         <p class="sr-only">
                             <label>Don't fill this out if you're human: <input name="bot-field" /></label>
                         </p>
                         <div class="auth-progress"></div>
-                        <!-- ENGINEER TWEAK: Added name="email" so Netlify knows what data to map -->
                         <input id="secure_email_1" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group transition-all duration-300">
                             <span class="btn-text flex items-center gap-2">GET THE DISPATCH</span>
@@ -349,13 +348,11 @@
     <!-- IDENTITY & PROOF -->
     <!-- ═══════════════════════════════════════════ -->
     <section class="py-16 md:py-32 relative z-10 border-t border-glassBorder">
-        <!-- MOBILE TWEAK: Adjusted px-6 to px-4 on mobile for wider reading area, sm:px-6 md:px-10 for larger screens -->
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10">
             
             <!-- Superhuman Proof Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-20 md:mb-24 reveal">
                 
-                <!-- MOBILE TWEAK: Adjusted internal card padding from p-6 to p-5 on mobile so text isn't excessively boxed-in -->
                 <div class="glass-panel p-5 sm:p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
                     <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
                     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)]"></div>
@@ -463,7 +460,6 @@
                             </div>
                         </div>
                         
-                        <!-- MOBILE TWEAK: Tightened mobile vertical gap from gap-8 to gap-6 so the stats stay unified visually -->
                         <div class="pt-8 mt-auto border-t border-glassBorder grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 md:gap-10 text-center md:text-left">
                             <div class="relative">
                                 <div class="font-mono text-[16px] md:text-[18px] text-white mb-1.5 flex items-center justify-center md:justify-start gap-2.5">
@@ -492,9 +488,7 @@
     <!-- ═══════════════════════════════════════════ -->
     <!-- THE VELVET ROPE (Active Disqualification) -->
     <!-- ═══════════════════════════════════════════ -->
-    <!-- MOBILE TWEAK: Adjusted px-6 to px-4 on mobile -->
     <section class="py-12 md:py-16 relative z-10 w-full max-w-[800px] mx-auto px-4 sm:px-6 reveal delay-200">
-        <!-- MOBILE TWEAK: Adjusted internal card padding from p-6 to p-5 on mobile -->
         <div class="border border-brandGold/20 bg-brandGold/[0.02] p-5 sm:p-6 md:p-10 rounded-2xl relative overflow-hidden group hover:border-brandGold/40 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),0_0_30px_rgba(194,163,89,0.05)] transition-all duration-500 cursor-pointer">
             <div class="absolute top-0 right-0 w-16 h-16 overflow-hidden">
                 <div class="absolute top-0 right-0 w-2 h-2 bg-brandGold/50 rounded-full m-4 animate-ping"></div>
@@ -524,7 +518,6 @@
     <!-- ═══════════════════════════════════════════ -->
     <!-- FINAL CTA (The Silent Checkout) -->
     <!-- ═══════════════════════════════════════════ -->
-    <!-- MOBILE TWEAK: Adjusted px-6 to px-4 on mobile for wrappers -->
     <section class="py-16 md:py-32 border-t border-glassBorder relative z-10 text-center mt-10">
         <div class="ambient-glow-2"></div>
 
@@ -591,7 +584,8 @@
                         </p>
                     </div>
                     
-                    <form name="dispatch_signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="cmd-bar" onsubmit="event.preventDefault(); handleEntry(this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                    <!-- ENGINEER TWEAK: Bulletproof event passing using 'return handleEntry(event...)' -->
+                    <form name="dispatch_signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="cmd-bar" onsubmit="return handleEntry(event, this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <input type="hidden" name="form-name" value="dispatch_signup" />
                         <p class="sr-only">
                             <label>Don't fill this out if you're human: <input name="bot-field" /></label>
@@ -672,7 +666,12 @@
             observer.observe(el);
         });
 
-        function handleEntry(formElement, inputId, formWrapperId, successStateId, buttonElement, progressElement) {
+        // ENGINEER TWEAK: Added robust 'event' passing into the function to physically block standard form redirects across all mobile OS types
+        function handleEntry(event, formElement, inputId, formWrapperId, successStateId, buttonElement, progressElement) {
+            
+            // Double-Lock Prevention: Instantly stop the browser from reloading the page to Netlify's default screen
+            if (event) event.preventDefault();
+
             const input = document.getElementById(inputId);
             const formWrapper = document.getElementById(formWrapperId);
             const successState = document.getElementById(successStateId);
@@ -687,13 +686,11 @@
                 input.readOnly = true;
                 if(btnIcon) btnIcon.style.opacity = '0';
                 
-                // MICRO-TWEAK 2: Hardware "Processing" State for the Button
                 btn.style.background = '#000000';
                 btn.style.color = '#C2A359';
                 btn.style.border = '1px solid rgba(194, 163, 89, 0.4)';
                 btn.style.boxShadow = '0 0 20px rgba(194, 163, 89, 0.15), inset 0 0 10px rgba(194, 163, 89, 0.1)';
                 
-                // ENGINEER TWEAK: Updated loading state to match the "Get The Dispatch" CTA
                 btnText.innerHTML = '<span class="animate-terminal tracking-[0.2em] font-mono">[ AUTHORIZING... ]</span>';
                 
                 if (progressLine) {
@@ -703,7 +700,7 @@
                     }, 50);
                 }
 
-                // NETLIFY AJAX TRANSMISSION: Silently post data in the background
+                // NETLIFY AJAX TRANSMISSION: Silently post data in the background without refreshing the page
                 const formData = new FormData(formElement);
                 fetch('/', {
                     method: 'POST',
@@ -744,6 +741,9 @@
                 
                 input.focus();
             }
+
+            // Bulletproof Fallback: Return false ensures the form NEVER submits natively if JS hits a snag
+            return false;
         }
     </script>
 </body>
