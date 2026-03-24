@@ -239,9 +239,14 @@
 
             <div class="max-w-[540px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
-                    <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                    <form name="dispatch_signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="cmd-bar" onsubmit="event.preventDefault(); handleEntry(this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                        <input type="hidden" name="form-name" value="dispatch_signup" />
+                        <p class="sr-only">
+                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                        </p>
                         <div class="auth-progress"></div>
-                        <input id="secure_email_1" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
+                        <!-- ENGINEER TWEAK: Added name="email" so Netlify knows what data to map -->
+                        <input id="secure_email_1" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group transition-all duration-300">
                             <span class="btn-text flex items-center gap-2">GET THE DISPATCH</span>
                             <span class="font-mono text-[11px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity">↵</span>
@@ -586,9 +591,14 @@
                         </p>
                     </div>
                     
-                    <form class="cmd-bar" onsubmit="event.preventDefault(); handleEntry('secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                    <form name="dispatch_signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="cmd-bar" onsubmit="event.preventDefault(); handleEntry(this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                        <input type="hidden" name="form-name" value="dispatch_signup" />
+                        <p class="sr-only">
+                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                        </p>
                         <div class="auth-progress"></div>
-                        <input id="secure_email_2" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
+                        <!-- ENGINEER TWEAK: Added name="email" so Netlify knows what data to map -->
+                        <input id="secure_email_2" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group transition-all duration-300">
                             <span class="btn-text flex items-center gap-2">GET THE DISPATCH</span>
                             <span class="font-mono text-[10px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity">↵</span>
@@ -662,7 +672,7 @@
             observer.observe(el);
         });
 
-        function handleEntry(inputId, formWrapperId, successStateId, buttonElement, progressElement) {
+        function handleEntry(formElement, inputId, formWrapperId, successStateId, buttonElement, progressElement) {
             const input = document.getElementById(inputId);
             const formWrapper = document.getElementById(formWrapperId);
             const successState = document.getElementById(successStateId);
@@ -683,7 +693,8 @@
                 btn.style.border = '1px solid rgba(194, 163, 89, 0.4)';
                 btn.style.boxShadow = '0 0 20px rgba(194, 163, 89, 0.15), inset 0 0 10px rgba(194, 163, 89, 0.1)';
                 
-                btnText.innerHTML = '<span class="animate-terminal tracking-[0.2em] font-mono">[ DECRYPTING... ]</span>';
+                // ENGINEER TWEAK: Updated loading state to match the "Get The Dispatch" CTA
+                btnText.innerHTML = '<span class="animate-terminal tracking-[0.2em] font-mono">[ AUTHORIZING... ]</span>';
                 
                 if (progressLine) {
                     progressLine.style.opacity = '1';
@@ -691,6 +702,18 @@
                         progressLine.style.width = '100%';
                     }, 50);
                 }
+
+                // NETLIFY AJAX TRANSMISSION: Silently post data in the background
+                const formData = new FormData(formElement);
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(formData).toString()
+                }).then(() => {
+                    console.log('Dispatch secured.');
+                }).catch((error) => {
+                    console.error('Transmission error:', error);
+                });
                 
                 setTimeout(() => {
                     formWrapper.style.opacity = '0';
