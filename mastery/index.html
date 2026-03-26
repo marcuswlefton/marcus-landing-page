@@ -23,7 +23,7 @@
     <link rel="preload" as="script" href="https://cdn.tailwindcss.com">
     
     <!-- Standard Google Fonts (Stable Load) -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@100;400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@100;400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS Compiler -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -38,7 +38,7 @@
                 extend: {
                     colors: {
                         obsidian: '#050505',
-                        carbon: '#121212',
+                        carbon: '#0a0a0a', 
                         graphite: '#1A1A1A',
                         brand: {
                             400: '#C2A366',
@@ -55,9 +55,7 @@
                         mono: ['"JetBrains Mono"', 'monospace'],
                     },
                     boxShadow: {
-                        'glow': '0 0 20px rgba(166, 138, 87, 0.3)',
-                        'glow-intense': '0 0 40px rgba(166, 138, 87, 0.6)',
-                        'glass': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+                        'glow': '0 0 30px rgba(166, 138, 87, 0.15)',
                     }
                 }
             }
@@ -86,40 +84,38 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.4;
+            opacity: 0.08; /* Extremely subdued for quiet luxury */
+            will-change: opacity;
         }
 
-        /* Glassmorphism Utilities */
-        .glass-panel {
-            background: rgba(18, 18, 18, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        /* Editorial Matte Panels - Hardware Accelerated */
+        .editorial-panel {
+            background: #0a0a0a;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 10px 30px -10px rgba(0,0,0,0.8);
-        }
-
-        /* 3D Tilt Card Base */
-        .tilt-card {
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-            will-change: transform;
-        }
-        .tilt-content {
-            transform: translateZ(30px);
+            transition: border-color 0.5s ease, background-color 0.5s ease;
+            will-change: border-color, background-color;
         }
 
         /* Illumination Effect for Hover/Click */
         .illuminate-box {
             cursor: pointer;
-            transition: all 0.4s ease;
-            -webkit-tap-highlight-color: transparent; /* Fixes ugly gray tap flash on mobile */
+            -webkit-tap-highlight-color: transparent;
         }
-        .illuminate-box:hover, .illuminate-box:active, .illuminate-box:focus {
-            border-color: rgba(194, 163, 102, 0.8) !important;
-            background-color: rgba(166, 138, 87, 0.15) !important;
-            box-shadow: 0 0 30px rgba(166, 138, 87, 0.4), inset 0 0 20px rgba(166, 138, 87, 0.15) !important;
+        .illuminate-box:hover, .illuminate-box:focus {
+            border-color: rgba(166, 138, 87, 0.3) !important;
+            background-color: rgba(12, 12, 12, 1) !important;
             outline: none;
+        }
+
+        /* Tactile Button Physics (Enhanced Weight) */
+        .btn-press {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.2s ease;
+            transform-origin: center center;
+            will-change: transform, background-color, box-shadow, opacity;
+        }
+        .btn-press:active {
+            transform: scale(0.97);
+            opacity: 0.85;
         }
 
         /* UI Scanner Lines & Animations */
@@ -129,34 +125,70 @@
             left: 0;
             width: 100%;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(166, 138, 87, 0.8), transparent);
-            box-shadow: 0 0 15px rgba(166, 138, 87, 1);
-            animation: scan 4s ease-in-out infinite;
-            opacity: 0.5;
+            background: linear-gradient(90deg, transparent, rgba(166, 138, 87, 0.5), transparent);
+            box-shadow: 0 0 10px rgba(166, 138, 87, 0.5);
+            animation: scan 5s ease-in-out infinite;
+            opacity: 0.2;
             z-index: 10;
+            will-change: top, opacity;
         }
         @keyframes scan {
             0% { top: 0; opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
             100% { top: 100%; opacity: 0; }
         }
 
-        /* Reveal Animations */
+        /* Reveal Animations - Hardware Accelerated */
         .reveal {
             opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px) translateZ(0); /* Increased distance for gravity */
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform, opacity;
         }
         .reveal.active {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0) translateZ(0);
+        }
+
+        /* Custom Underline Input Form Styles */
+        .input-underline {
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0;
+            background-color: transparent !important;
+            padding: 12px 0;
+            color: #fff;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: none !important;
+        }
+        .input-underline:focus {
+            outline: none;
+            border-bottom-color: #A68A57;
+            box-shadow: 0 1px 0 0 #A68A57 !important;
+            background-color: transparent !important;
+        }
+        .input-underline::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 300;
+        }
+        
+        /* Remove webkit autofill styling */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            -webkit-text-fill-color: white;
+            -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+            transition: background-color 5000s ease-in-out 0s;
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #222; }
         ::-webkit-scrollbar-thumb:hover { background: #A68A57; }
 
         /* Chart Containers */
@@ -170,207 +202,187 @@
 </head>
 <body class="font-sans" style="background-color: #050505; color: #ffffff;">
 
-    <!-- Interactive Background -->
     <canvas id="neural-canvas"></canvas>
 
-    <!-- Floating Navigation (Hidden on Mobile) -->
-    <nav class="fixed top-6 left-1/2 transform -translate-x-1/2 w-[95%] max-w-5xl z-50 transition-all duration-300 hidden md:block" id="main-nav-container">
-        <div class="glass-panel rounded-full px-6 py-3 flex justify-between items-center border border-brand-500/20">
+    <!-- Minimalist Top Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-transparent bg-obsidian/0" id="main-nav-container">
+        <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <div class="w-2 h-2 rounded-full bg-brand-400 animate-pulse shadow-glow"></div>
-                <span class="font-mono text-xs tracking-widest uppercase text-white">VYRT<span class="text-brand-500">Ū</span>OSITI</span>
+                <div class="w-1.5 h-1.5 rounded-full bg-brand-400"></div>
+                <span class="font-mono text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white">VYRT<span class="text-brand-500">Ū</span>OSITI</span>
             </div>
             
-            <!-- Desktop Links -->
-            <div class="hidden md:flex space-x-8">
-                <a href="#hero" class="nav-item text-gray-400 hover:text-brand-500 text-[10px] font-mono tracking-[0.2em] uppercase transition-colors">Initialize</a>
-                <a href="#model" class="nav-item text-gray-400 hover:text-brand-500 text-[10px] font-mono tracking-[0.2em] uppercase transition-colors">Telemetry</a>
-                <a href="#architect" class="nav-item text-gray-400 hover:text-brand-500 text-[10px] font-mono tracking-[0.2em] uppercase transition-colors">Architect</a>
+            <div class="hidden md:flex space-x-10">
+                <a href="#model" class="nav-item text-gray-500 hover:text-brand-500 text-[10px] font-sans font-bold tracking-[0.2em] uppercase transition-colors">Telemetry</a>
+                <a href="#impact" class="nav-item text-gray-500 hover:text-brand-500 text-[10px] font-sans font-bold tracking-[0.2em] uppercase transition-colors">Data</a>
+                <a href="#architect" class="nav-item text-gray-500 hover:text-brand-500 text-[10px] font-sans font-bold tracking-[0.2em] uppercase transition-colors">Architect</a>
             </div>
 
-            <!-- Actions -->
             <div class="flex items-center space-x-4">
-                <button onclick="openBookingModal()" class="bg-brand-500/10 border border-brand-500 text-brand-400 px-4 py-1.5 rounded-full text-[10px] font-mono tracking-[0.2em] uppercase hover:bg-brand-500 hover:text-obsidian transition-all shadow-glow">
+                <button onclick="openBookingModal()" class="btn-press hidden sm:inline-flex px-8 py-3 text-[9px] tracking-[0.2em] text-obsidian bg-[#A68A57] font-sans font-bold uppercase hover:bg-white hover:shadow-glow">
                     Apply
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Bottom HUD (Scroll Spy & CTA) -->
-    <div class="md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] max-w-sm z-50 glass-panel rounded-full px-4 py-2.5 flex justify-between items-center border border-brand-500/30 transition-all duration-500 translate-y-20 opacity-0" id="mobile-bottom-hud">
+    <!-- Mobile Bottom HUD (Simplified & Padded) -->
+    <div class="md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] max-w-sm z-50 editorial-panel rounded-sm px-5 py-3 flex justify-between items-center transition-all duration-500 translate-y-20 opacity-0" id="mobile-bottom-hud">
         <div class="flex items-center space-x-2">
-            <div class="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse shadow-glow"></div>
+            <div class="w-1.5 h-1.5 rounded-full bg-brand-400"></div>
             <span class="font-mono text-[9px] tracking-[0.2em] uppercase text-gray-500">Loc: <span id="mobile-active-text" class="text-brand-500 font-bold">Initialize</span></span>
         </div>
-        <button onclick="openBookingModal()" class="bg-brand-500/20 border border-brand-500 text-brand-400 px-4 py-1.5 rounded-full text-[9px] font-mono tracking-[0.2em] uppercase hover:bg-brand-500 hover:text-obsidian transition-all shadow-glow">
+        <button onclick="openBookingModal()" class="btn-press px-5 py-2 text-[9px] tracking-[0.2em] text-obsidian bg-[#A68A57] font-sans font-bold uppercase transition-colors">
             Apply
         </button>
     </div>
 
-    <!-- Main Content -->
     <main>
 
-        <!-- Hero Section (Visible Immediately for FCP/LCP) -->
-        <section id="hero" class="min-h-screen relative flex items-center justify-center pt-20 pb-20 px-4 sm:px-6">
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen relative flex items-center justify-center pt-24 pb-20 px-4 sm:px-6">
             <div class="max-w-5xl mx-auto text-center z-10">
                 
-                <div class="inline-flex items-center space-x-2 border border-brand-500/30 bg-brand-500/5 px-4 py-1.5 rounded-full mb-8 backdrop-blur-sm reveal" style="border: 1px solid rgba(166, 138, 87, 0.3); padding: 6px 16px; border-radius: 9999px;">
-                    <span class="text-brand-500 font-mono tracking-[0.3em] uppercase text-[9px]" style="color: #A68A57; letter-spacing: 0.3em;">FOR OPERATORS PERFORMING AT THE ABSOLUTE EDGE</span>
+                <!-- Editorial Eyebrow -->
+                <div class="flex items-center justify-center space-x-4 mb-10 reveal">
+                    <div class="w-6 h-[1px] bg-brand-500/50"></div>
+                    <span class="text-brand-500 font-sans font-bold tracking-[0.3em] uppercase text-[9px]">For Operators Performing At The Absolute Edge</span>
+                    <div class="w-6 h-[1px] bg-brand-500/50"></div>
                 </div>
                 
-                <!-- Explicit HTML content guarantees instant text paint -->
-                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-bold leading-[1.1] mb-8 scramble-text" data-text="The Ceiling Was Never Effort. It Was Always Calibration." style="margin-bottom: 2rem;">
-                    The Ceiling Was Never Effort.<br><span class="italic text-brand-500" style="color: #A68A57;">It Was Always Calibration.</span>
+                <!-- Clean Reveal Headline -->
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-normal leading-[1.1] mb-8 reveal delay-100" style="margin-bottom: 2rem;">
+                    The Ceiling Was Never Effort.<br><span class="italic text-brand-500 font-light">It Was Always Calibration.</span>
                 </h1>
                 
-                <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed font-light reveal delay-200" style="color: #9ca3af;">
-                    Every MLB All-Star, Fortune 500 executive, and 8-figure founder I've worked with was already working harder than everyone around them. The ceiling they kept hitting wasn't effort. It was an uncalibrated system. VYRTŪOSITI is the calibration. Biometric-verified. Bespoke. Built for the operator who has already outgrown everything else.
+                <p class="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed font-light reveal delay-200">
+                    Every MLB All-Star, Fortune 500 executive, and 8-figure founder I've worked with was already working harder than everyone around them. The ceiling they kept hitting wasn't effort. It was an uncalibrated system. VYRTŪOSITI is the calibration. Built for the operator who has already outgrown everything else.
                 </p>
 
-                <!-- Credibility / Logos (Moved Above the Fold) -->
-                <div class="flex flex-col items-center justify-center mb-10 reveal delay-300">
-                    <p class="text-[9px] font-mono tracking-[0.3em] uppercase text-gray-500 mb-5">Trusted by operators inside</p>
-                    <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-10 md:gap-14 opacity-80">
-                        <span class="font-sans font-black text-xl md:text-2xl tracking-tighter text-white opacity-40 hover:opacity-100 active:opacity-100 transition-opacity duration-500 cursor-pointer">MLB</span>
-                        <span class="font-sans font-bold text-xs md:text-sm tracking-[0.3em] text-white opacity-40 hover:opacity-100 active:opacity-100 transition-opacity duration-500 uppercase cursor-pointer">FORTUNE 500</span>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" width="80" height="24" class="h-5 md:h-6 w-auto opacity-40 hover:opacity-100 active:opacity-100 transition-opacity duration-500 cursor-pointer translate-y-0.5" style="filter: brightness(0) invert(1);" />
-                        <span class="font-sans font-bold text-sm md:text-base tracking-[0.2em] text-white opacity-40 hover:opacity-100 active:opacity-100 transition-opacity duration-500 uppercase cursor-pointer">U.S. AIR FORCE</span>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Olympic_rings_without_rims.svg" alt="Olympics" loading="lazy" decoding="async" width="80" height="32" class="h-5 md:h-6 w-auto opacity-40 hover:opacity-100 active:opacity-100 transition-opacity duration-500 cursor-pointer" style="filter: brightness(0) invert(1);" />
+                <!-- Credibility Logos -->
+                <div class="flex flex-col items-center justify-center mb-20 reveal delay-300">
+                    <p class="text-[9px] font-mono tracking-[0.3em] uppercase text-gray-500 mb-6">Trusted by operators inside</p>
+                    <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-16 opacity-80">
+                        <span class="font-sans font-black text-xl md:text-2xl tracking-tighter text-white opacity-30 hover:opacity-100 active:opacity-100 transition-opacity duration-500 cursor-pointer">MLB</span>
+                        <span class="font-sans font-bold text-xs md:text-sm tracking-[0.3em] text-white opacity-30 hover:opacity-100 active:opacity-100 transition-opacity duration-500 uppercase cursor-pointer">FORTUNE 500</span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" width="80" height="24" class="h-5 md:h-6 w-auto opacity-30 hover:opacity-100 active:opacity-100 transition-opacity duration-500 cursor-pointer translate-y-0.5" style="filter: brightness(0) invert(1);" />
+                        <span class="font-sans font-bold text-sm md:text-base tracking-[0.2em] text-white opacity-30 hover:opacity-100 active:opacity-100 transition-opacity duration-500 uppercase cursor-pointer">U.S. AIR FORCE</span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Olympic_rings_without_rims.svg" alt="Olympics" loading="lazy" decoding="async" width="80" height="32" class="h-5 md:h-6 w-auto opacity-30 hover:opacity-100 active:opacity-100 transition-opacity duration-500 cursor-pointer" style="filter: brightness(0) invert(1);" />
                     </div>
                 </div>
                 
-                <!-- High-Tech Logic Toggle -->
-                <div class="glass-panel p-1.5 rounded-full inline-flex mb-10 relative overflow-hidden reveal delay-400 mx-auto max-w-full">
-                    <div id="toggle-bg" class="absolute top-1.5 bottom-1.5 left-1.5 w-[calc(50%-6px)] bg-white/10 rounded-full transition-transform duration-500 ease-in-out border border-white/20"></div>
-                    <button onclick="toggleLogic('better')" id="btn-better" class="relative z-10 py-3 rounded-full text-[9px] sm:text-[10px] font-mono tracking-[0.2em] uppercase transition-all text-white w-[140px] sm:w-48">Intensity</button>
-                    <button onclick="toggleLogic('different')" id="btn-different" class="relative z-10 py-3 rounded-full text-[9px] sm:text-[10px] font-mono tracking-[0.2em] uppercase transition-all text-gray-500 hover:text-white w-[140px] sm:w-48">Calibration</button>
+                <!-- Minimalist Editorial Tab System -->
+                <div class="flex justify-center space-x-8 sm:space-x-16 border-b border-white/10 mb-12 max-w-md mx-auto relative z-10 reveal delay-400">
+                    <button onclick="toggleLogic('better')" id="btn-better" class="pb-4 text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] uppercase transition-all duration-300 text-brand-500 border-b-[3px] border-brand-500">Intensity</button>
+                    <button onclick="toggleLogic('different')" id="btn-different" class="pb-4 text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] uppercase transition-all duration-300 text-gray-600 border-b-[3px] border-transparent hover:text-gray-300">Calibration</button>
                 </div>
 
-                <div id="logic-content" class="max-w-3xl mx-auto glass-panel p-10 md:p-14 rounded-3xl transition-all duration-500 reveal delay-500 tilt-card illuminate-box" tabindex="0">
-                    <div class="tilt-content">
-                        <div class="flex items-center justify-center space-x-2 mb-4 opacity-50">
-                            <span class="w-1 h-1 bg-data-red rounded-full" id="logic-dot"></span>
-                            <span class="text-[8px] font-mono tracking-widest text-data-red uppercase" id="logic-status">WARNING: SYSTEMIC DRAG DETECTED</span>
+                <div id="logic-content" class="max-w-3xl mx-auto editorial-panel p-10 md:p-14 rounded-sm reveal delay-500 illuminate-box" tabindex="0">
+                    <div>
+                        <div class="flex items-center justify-center space-x-3 mb-6">
+                            <span class="w-1.5 h-1.5 bg-data-red rounded-full" id="logic-dot"></span>
+                            <span class="text-[9px] font-sans font-bold tracking-[0.2em] text-data-red uppercase" id="logic-status">Warning: Systemic Drag</span>
                         </div>
-                        <h3 class="font-serif text-3xl mb-4 text-white italic" id="logic-title">The Intensity Trap</h3>
+                        <h3 class="font-serif text-3xl md:text-4xl mb-4 text-white italic" id="logic-title">The Intensity Trap</h3>
                         <p class="text-gray-400 text-lg leading-relaxed font-light" id="logic-text">
                             Intensity alone is a path to burnout. Most high performers are over-leveraged and under-calibrated, working at maximum output on a system that was never precisely built for them. The harder they push, the wider the gap between effort and result.
                         </p>
-                        <div class="mt-8 flex flex-wrap justify-center gap-4 sm:gap-12 opacity-40 font-mono" id="logic-tags">
-                            <span class="text-[9px] tracking-[0.2em] uppercase border-b border-gray-700 pb-1">SYSTEMIC FRICTION</span>
-                            <span class="text-[9px] tracking-[0.2em] uppercase border-b border-gray-700 pb-1">COGNITIVE DECAY</span>
-                            <span class="text-[9px] tracking-[0.2em] uppercase border-b border-gray-700 pb-1">BIOLOGICAL DEBT</span>
+                        <div class="mt-10 flex flex-wrap justify-center gap-6 sm:gap-12 opacity-60 font-sans" id="logic-tags">
+                            <span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-gray-700 pb-1">Systemic Friction</span>
+                            <span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-gray-700 pb-1">Cognitive Decay</span>
+                            <span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-gray-700 pb-1">Biological Debt</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Direct Action -->
-                <div class="mt-12 reveal delay-600 flex flex-col items-center px-4">
-                    <button onclick="openBookingModal()" class="group relative inline-flex items-center justify-center px-6 sm:px-10 py-5 font-mono text-[10px] sm:text-xs tracking-[0.3em] text-obsidian bg-brand-500 uppercase rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-glow-intense w-full sm:w-auto">
-                        <div class="absolute inset-0 w-full h-full bg-white/20 transform -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-                        <span class="relative font-bold">Initiate Friction Audit</span>
+                <div class="mt-16 reveal delay-600 flex flex-col items-center px-4">
+                    <button onclick="openBookingModal()" class="btn-press inline-flex items-center justify-center px-12 py-5 text-[11px] tracking-[0.2em] text-obsidian bg-[#A68A57] font-sans font-bold uppercase hover:bg-white hover:shadow-glow w-full sm:w-auto">
+                        Apply For A Friction Audit
                     </button>
                     
-                    <p class="mt-6 text-[8px] sm:text-[9px] text-gray-500 uppercase tracking-[0.1em] sm:tracking-[0.2em] font-mono text-center max-w-sm leading-relaxed opacity-80">
-                        Each audit requires deep diagnostic work and biometric analysis. We limit this to five new operators per month.
+                    <p class="mt-6 text-[9px] text-gray-500 uppercase tracking-[0.2em] font-sans font-bold text-center max-w-sm leading-relaxed">
+                        Five Operators Accepted Per Month
                     </p>
                     
-                    <!-- Scroll Indicator (Moved directly under the text) -->
-                    <div class="mt-10 flex flex-col items-center opacity-50 animate-bounce">
-                        <span class="text-[8px] font-mono tracking-[0.3em] uppercase text-brand-500 mb-2">Descend</span>
-                        <div class="w-[1px] h-8 bg-gradient-to-b from-brand-500 to-transparent"></div>
+                    <!-- Elegant Scroll Line -->
+                    <div class="mt-20 flex flex-col items-center opacity-30">
+                        <div class="w-[1px] h-20 bg-gradient-to-b from-gray-400 to-transparent"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- The Diagnostic Architecture -->
-        <section id="model" class="py-32 relative border-b border-white/5 reveal">
+        <!-- Diagnostic Architecture -->
+        <section id="model" class="py-32 md:py-40 relative border-b border-white/5 reveal">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
                 
                 <div class="flex flex-col lg:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8">
                     <div class="max-w-2xl">
-                        <div class="flex items-center space-x-3 mb-4">
-                            <div class="w-2 h-2 bg-brand-400 rounded-full animate-pulse shadow-[0_0_10px_#C2A366]"></div>
-                            <span class="text-[10px] font-mono tracking-[0.3em] uppercase text-brand-400">The Diagnostic Architecture</span>
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-8 h-[1px] bg-brand-500/50"></div>
+                            <span class="text-[10px] font-sans font-bold tracking-[0.4em] uppercase text-brand-400">The Architecture</span>
                         </div>
-                        <h2 class="font-serif text-4xl md:text-5xl text-white mb-6 font-bold leading-tight">Every Variable. Precisely Measured.</h2>
+                        <h2 class="font-serif text-4xl md:text-5xl text-white mb-6 font-normal leading-tight">Every Variable. Precisely Measured.</h2>
                         <p class="text-gray-400 text-sm md:text-base opacity-80 leading-relaxed max-w-xl font-light">
-                            Performance is multidisciplinary and multidimensional. A single unmeasured constraint in your biology, your cognition, your strategy, your state collapses output across everything else. Most operators are guessing at the source. The Friction Audit doesn't guess. It maps every dimension with the biometric precision the top 0.1% demand and identifies exactly where your system is leaking.
+                            Performance is multidisciplinary. A single unmeasured constraint in your biology, cognition, or strategy collapses output across everything else. The Friction Audit doesn't guess. It maps every dimension with the biometric precision the top 0.1% demand.
                         </p>
                     </div>
-                    <div class="mt-8 lg:mt-0 flex w-full lg:w-auto bg-carbon p-1 rounded-lg border border-white/5 shrink-0">
-                        <button id="btn-scan-gap" onclick="setChartData('gap')" class="flex-1 lg:flex-none text-[9px] sm:text-[10px] font-mono tracking-widest uppercase text-gray-400 border border-transparent px-2 sm:px-6 py-3 rounded hover:bg-white/5 transition-all whitespace-nowrap">Fragmented</button>
-                        <button id="btn-scan-optimal" onclick="setChartData('mastery')" class="flex-1 lg:flex-none text-[9px] sm:text-[10px] font-mono tracking-widest uppercase bg-brand-500/20 text-brand-400 border border-brand-500/50 px-2 sm:px-6 py-3 rounded hover:bg-brand-500 hover:text-obsidian transition-all shadow-glow whitespace-nowrap">Calibrated</button>
+                    <div class="mt-8 lg:mt-0 flex w-full lg:w-auto bg-carbon p-1 border border-white/5 shrink-0 rounded-sm">
+                        <button id="btn-scan-gap" onclick="setChartData('gap')" class="flex-1 lg:flex-none text-[9px] sm:text-[10px] font-sans font-bold tracking-widest uppercase text-gray-500 border border-transparent px-4 sm:px-8 py-3 rounded-sm hover:bg-white/5 transition-all whitespace-nowrap">Fragmented</button>
+                        <button id="btn-scan-optimal" onclick="setChartData('mastery')" class="flex-1 lg:flex-none text-[9px] sm:text-[10px] font-sans font-bold tracking-widest uppercase bg-brand-500/10 text-brand-400 border border-brand-500/30 px-4 sm:px-8 py-3 rounded-sm transition-all whitespace-nowrap">Calibrated</button>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
                     
-                    <!-- Radar Display -->
                     <div class="lg:col-span-7 flex flex-col">
-                        <div class="glass-panel rounded-3xl p-8 flex-grow flex flex-col min-h-[500px] relative overflow-hidden group">
-                            <!-- HUD Targeting Corners -->
-                            <div class="absolute top-6 left-6 w-8 h-8 border-t border-l border-white/20 rounded-tl-lg"></div>
-                            <div class="absolute top-6 right-6 w-8 h-8 border-t border-r border-white/20 rounded-tr-lg"></div>
-                            <div class="absolute bottom-6 left-6 w-8 h-8 border-b border-l border-white/20 rounded-bl-lg"></div>
-                            <div class="absolute bottom-6 right-6 w-8 h-8 border-b border-r border-white/20 rounded-br-lg"></div>
-                            
+                        <div class="editorial-panel rounded-sm p-8 flex-grow flex flex-col min-h-[500px] relative overflow-hidden group border border-white/10">
                             <div class="scanner-line hidden group-hover:block"></div>
                             
-                            <!-- Responsive Canvas -->
                             <div class="w-full flex-grow relative z-10 flex items-center justify-center mb-6">
                                 <div class="w-full max-w-[500px] aspect-square relative">
                                     <canvas id="masteryRadar"></canvas>
                                 </div>
                             </div>
                             
-                            <!-- Context Label -->
-                            <div class="relative z-10 text-center border-t border-white/10 pt-5 mt-auto">
-                                <p class="text-[9px] font-mono text-gray-500 uppercase tracking-[0.2em] opacity-80">> FRAGMENTED VS. CALIBRATED OPERATOR PROFILE — VISUALIZATION</p>
+                            <div class="relative z-10 text-center border-t border-white/10 pt-6 mt-auto">
+                                <p class="text-[9px] font-mono text-gray-500 uppercase tracking-[0.3em] opacity-80">Profile Visualization</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Interactive Modules -->
                     <div class="lg:col-span-5 flex flex-col space-y-4">
                         <div class="flex items-center justify-between px-2 mb-2">
-                            <span class="text-[9px] font-mono text-gray-500 uppercase tracking-widest">Select Sub-System</span>
-                            <span class="text-[9px] font-mono text-brand-500 uppercase border border-brand-500/30 px-2 py-0.5 rounded bg-brand-500/10">> ALL SYSTEMS MAPPED</span>
+                            <span class="text-[9px] font-sans font-bold text-gray-500 uppercase tracking-[0.2em]">Select Sub-System</span>
+                            <span class="text-[9px] font-sans font-bold text-brand-500 uppercase">All Systems Mapped</span>
                         </div>
                         
-                        <!-- Mini Module Grid -->
                         <div id="pillar-list" class="grid grid-cols-2 gap-3 mb-4">
-                            <!-- Populated by JS -->
+                            <!-- JS Populated -->
                         </div>
                         
-                        <!-- Detail Readout (Tilt Card) -->
-                        <div id="pillar-detail" class="glass-panel p-8 rounded-2xl transform transition-all duration-500 flex-grow flex flex-col justify-center tilt-card border-brand-500/30 illuminate-box" tabindex="0">
-                            <div class="tilt-content">
+                        <div id="pillar-detail" class="editorial-panel p-8 rounded-sm transition-all duration-500 flex-grow flex flex-col justify-center border border-white/10 illuminate-box" tabindex="0">
+                            <div>
                                 <div class="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
                                     <div class="flex items-center space-x-4">
-                                        <span class="text-3xl opacity-80 text-brand-400" id="detail-icon">◈</span>
+                                        <span class="text-2xl opacity-80 text-brand-400 font-serif" id="detail-icon">◈</span>
                                         <div>
-                                            <span class="text-[8px] font-mono tracking-[0.2em] uppercase text-brand-400 block mb-1">Target Locked</span>
-                                            <span class="text-[10px] font-mono tracking-widest uppercase border border-brand-500/30 bg-brand-500/10 text-brand-400 px-2 py-1 rounded" id="detail-category">SYS_01</span>
+                                            <span class="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-gray-400" id="detail-category">System 01</span>
                                         </div>
                                     </div>
-                                    <div class="w-2 h-2 rounded-full bg-brand-400 animate-pulse shadow-[0_0_8px_#C2A366]"></div>
                                 </div>
                                 <h3 class="font-serif text-3xl mb-4 text-white italic" id="detail-title">Cognition</h3>
                                 <p class="text-gray-400 text-sm leading-relaxed mb-8 font-light" id="detail-desc">
                                     High-output thinking and mental acuity. Uncalibrated: Cognitive drag, decision fatigue, and degrading focus under pressure.
                                 </p>
                                 <div class="mt-auto">
-                                    <div class="flex justify-between text-[9px] font-mono uppercase tracking-widest text-gray-400 mb-2">
+                                    <div class="flex justify-between text-[9px] font-sans font-bold uppercase tracking-widest text-gray-500 mb-3">
                                         <span id="label-left">Current Output</span>
                                         <span id="label-right" class="text-brand-500">Mastery Standard</span>
                                     </div>
-                                    <div class="w-full bg-black h-1.5 rounded-full overflow-hidden border border-white/10">
-                                        <div id="detail-bar" class="bg-brand-500 h-full w-full transition-all duration-1000 shadow-[0_0_10px_rgba(166,138,87,0.8)] relative">
-                                            <div class="absolute inset-0 bg-white/20 w-full h-full animate-pulse"></div>
-                                        </div>
+                                    <div class="w-full bg-black h-1 rounded-none overflow-hidden border border-white/5 relative">
+                                        <!-- Subtle glow effect added to the bar -->
+                                        <div id="detail-bar" class="bg-brand-500 h-full w-full transition-all duration-1000 relative shadow-[0_0_15px_rgba(166,138,87,0.4)]"></div>
                                     </div>
                                 </div>
                             </div>
@@ -378,131 +390,138 @@
                     </div>
                 </div>
 
-                <!-- Final Section Line -->
                 <div class="mt-20 text-center relative z-10 reveal">
-                    <p class="text-xl md:text-2xl font-serif text-white italic">This is what the audit reveals. Your specific constraint. Your precise architecture.</p>
+                    <p class="text-xl md:text-2xl font-serif text-white italic font-light">This is what the audit reveals. Your specific constraint. Your precise architecture.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Data Impact (The Matrix) -->
-        <section id="impact" class="py-32 reveal relative overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-                <div class="text-center mb-20">
-                    <span class="text-[10px] font-mono tracking-[0.3em] uppercase text-brand-500 mb-4 block">Telemetry Output</span>
-                    <h2 class="font-serif text-4xl md:text-6xl text-white mb-6 font-bold">Biometric Evidence.<br><span class="italic text-brand-500">Hard ROI.</span></h2>
-                    <p class="text-gray-400 text-lg opacity-80 max-w-2xl mx-auto font-light">
-                        Performance Mastery isn't a theory; it's a data-backed installation. These metrics represent the average transformation across our VYRTŪOSITI clients.
+        <!-- Editorial Telemetry Section -->
+        <section id="impact" class="py-32 md:py-40 bg-obsidian reveal relative overflow-hidden">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+                
+                <div class="mb-20 sm:mb-24">
+                    <div class="flex items-center space-x-6 mb-8">
+                        <div class="w-8 h-[1px] bg-brand-500/50"></div>
+                        <span class="text-brand-500 text-[10px] font-sans font-bold tracking-[0.4em] uppercase">What Actually Changes</span>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight">Measured in your life.<br>Not in a lab.</h2>
+                    <p class="text-gray-400 text-lg md:text-xl opacity-80 font-light max-w-2xl leading-relaxed">
+                        These are the specific shifts operators report within the first 90 days.
                     </p>
                 </div>
 
-                <!-- 9-Tile Tilt Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+                <!-- 9-Tile Illuminated Editorial Grid (Diagonal Waterfall Stagger) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 mb-32">
                     
-                    <!-- Cognitive -->
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box" tabindex="0">
-                        <div class="tilt-content">
-                            <span class="text-[10px] font-mono tracking-[0.2em] text-gray-500 uppercase block mb-4 border-b border-white/10 pb-2">Cognitive Load</span>
-                            <div class="text-4xl font-serif text-white my-4"><span class="stat-value text-brand-400" data-target="-37">0</span>%</div>
-                            <p class="text-xs text-white font-semibold mb-2">Reduction in Total Load</p>
-                            <p class="text-[10px] text-gray-400 font-mono">Reclaiming bandwidth for leverage.</p>
+                    <!-- Row 1 -->
+                    <div class="bg-[#0a0a0a] rounded-2xl p-8 md:p-10 border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal">
+                        <span class="text-[9px] font-mono tracking-[0.2em] text-gray-500 uppercase block border-b border-white/5 pb-4 mb-6">Cognitive Load</span>
+                        <div class="text-4xl md:text-5xl font-serif text-brand-400 mb-8 tracking-tight flex items-baseline">
+                            <span class="text-3xl mr-1">-</span><span class="stat-value" data-target="37">0</span><span class="text-3xl ml-1">%</span>
                         </div>
-                    </div>
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box" tabindex="0">
-                        <div class="tilt-content">
-                            <span class="text-[10px] font-mono tracking-[0.2em] text-gray-500 uppercase block mb-4 border-b border-white/10 pb-2">Decision Speed</span>
-                            <div class="text-4xl font-serif text-white my-4"><span class="stat-value text-brand-400" data-target="130">0</span>%</div>
-                            <p class="text-xs text-white font-semibold mb-2">Increase in Execution Speed</p>
-                            <p class="text-[10px] text-gray-400 font-mono">From hesitation to conviction.</p>
-                        </div>
-                    </div>
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box" tabindex="0">
-                        <div class="tilt-content">
-                            <span class="text-[10px] font-mono tracking-[0.2em] text-gray-500 uppercase block mb-4 border-b border-white/10 pb-2">Mental Drag</span>
-                            <div class="text-4xl font-serif text-white my-4"><span class="stat-value text-brand-400" data-target="-50">0</span>%</div>
-                            <p class="text-xs text-white font-semibold mb-2">Reduction in Open-Loops</p>
-                            <p class="text-[10px] text-gray-400 font-mono">Closing cycles that bleed energy.</p>
-                        </div>
+                        <p class="text-sm text-white font-sans font-bold mb-2 tracking-wide">Reduction in Total Load</p>
+                        <p class="text-[10px] text-gray-500 font-mono tracking-widest leading-relaxed">Reclaiming bandwidth for leverage.</p>
                     </div>
 
-                    <!-- Biological -->
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box" tabindex="0">
-                        <div class="tilt-content">
-                            <span class="text-[10px] font-mono tracking-[0.2em] text-brand-500 uppercase block mb-4 border-b border-brand-500/20 pb-2">CO2 Tolerance</span>
-                            <div class="text-4xl font-serif text-white my-4"><span class="stat-value text-brand-400" data-target="150">0</span>%</div>
-                            <p class="text-xs text-white font-semibold mb-2">Threshold Increase</p>
-                            <p class="text-[10px] text-gray-400 font-mono opacity-80">Hard biological indicator of resilience.</p>
+                    <div class="bg-[#0a0a0a] rounded-2xl p-8 md:p-10 border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal delay-100">
+                        <span class="text-[9px] font-mono tracking-[0.2em] text-gray-500 uppercase block border-b border-white/5 pb-4 mb-6">Decision Speed</span>
+                        <div class="text-4xl md:text-5xl font-serif text-brand-400 mb-8 tracking-tight flex items-baseline">
+                            <span class="text-3xl mr-1">+</span><span class="stat-value" data-target="130">0</span><span class="text-3xl ml-1">%</span>
                         </div>
-                    </div>
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box" tabindex="0">
-                        <div class="tilt-content">
-                            <span class="text-[10px] font-mono tracking-[0.2em] text-gray-500 uppercase block mb-4 border-b border-white/10 pb-2">Sleep Efficiency</span>
-                            <div class="text-4xl font-serif text-white my-4"><span class="stat-value text-brand-400" data-target="18">0</span>%</div>
-                            <p class="text-xs text-white font-semibold mb-2">Avg. Quality Improvement</p>
-                            <p class="text-[10px] text-gray-400 font-mono">Deep recovery cycles maximized.</p>
-                        </div>
-                    </div>
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box" tabindex="0">
-                        <div class="tilt-content">
-                            <span class="text-[10px] font-mono tracking-[0.2em] text-gray-500 uppercase block mb-4 border-b border-white/10 pb-2">Stress Recovery</span>
-                            <div class="text-4xl font-serif text-white my-4"><span class="stat-value text-brand-400" data-target="200">0</span>%</div>
-                            <p class="text-xs text-white font-semibold mb-2">Faster Baseline Return</p>
-                            <p class="text-[10px] text-gray-400 font-mono">Biological return to calm post-peak.</p>
-                        </div>
+                        <p class="text-sm text-white font-sans font-bold mb-2 tracking-wide">Increase in Execution Speed</p>
+                        <p class="text-[10px] text-gray-500 font-mono tracking-widest leading-relaxed">From hesitation to conviction.</p>
                     </div>
 
-                    <!-- Systemic -->
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box" tabindex="0">
-                        <div class="tilt-content">
-                            <span class="text-[10px] font-mono tracking-[0.2em] text-gray-500 uppercase block mb-4 border-b border-white/10 pb-2">Deep Work</span>
-                            <div class="text-4xl font-serif text-white my-4"><span class="stat-value text-brand-400" data-target="41">0</span>%</div>
-                            <p class="text-xs text-white font-semibold mb-2">Increase in Volume</p>
-                            <p class="text-[10px] text-gray-400 font-mono">Hours reclaimed for creation.</p>
+                    <div class="bg-[#0a0a0a] rounded-2xl p-8 md:p-10 border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal delay-200">
+                        <span class="text-[9px] font-mono tracking-[0.2em] text-gray-500 uppercase block border-b border-white/5 pb-4 mb-6">Mental Drag</span>
+                        <div class="text-4xl md:text-5xl font-serif text-brand-400 mb-8 tracking-tight flex items-baseline">
+                            <span class="text-3xl mr-1">-</span><span class="stat-value" data-target="50">0</span><span class="text-3xl ml-1">%</span>
                         </div>
+                        <p class="text-sm text-white font-sans font-bold mb-2 tracking-wide">Reduction in Open-Loops</p>
+                        <p class="text-[10px] text-gray-500 font-mono tracking-widest leading-relaxed">Closing cycles that bleed energy.</p>
                     </div>
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box" tabindex="0">
-                        <div class="tilt-content">
-                            <span class="text-[10px] font-mono tracking-[0.2em] text-gray-500 uppercase block mb-4 border-b border-white/10 pb-2">Flow Time</span>
-                            <div class="text-4xl font-serif text-white my-4"><span class="stat-value text-brand-400" data-target="103">0</span>%</div>
-                            <p class="text-xs text-white font-semibold mb-2">Weekly Accumulation</p>
-                            <p class="text-[10px] text-gray-400 font-mono">Accessing maximum output state.</p>
+
+                    <!-- Row 2 -->
+                    <div class="bg-[#0a0a0a] rounded-2xl p-8 md:p-10 border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal delay-100">
+                        <span class="text-[9px] font-mono tracking-[0.2em] text-brand-600 uppercase block border-b border-white/5 pb-4 mb-6">CO2 Tolerance</span>
+                        <div class="text-4xl md:text-5xl font-serif text-brand-400 mb-8 tracking-tight flex items-baseline">
+                            <span class="text-3xl mr-1">+</span><span class="stat-value" data-target="150">0</span><span class="text-3xl ml-1">%</span>
                         </div>
+                        <p class="text-sm text-white font-sans font-bold mb-2 tracking-wide">Threshold Increase</p>
+                        <p class="text-[10px] text-gray-500 font-mono tracking-widest leading-relaxed">Hard biological indicator of resilience.</p>
                     </div>
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box" tabindex="0">
-                        <div class="tilt-content">
-                            <span class="text-[10px] font-mono tracking-[0.2em] text-gray-500 uppercase block mb-4 border-b border-white/10 pb-2">Adaptation</span>
-                            <div class="text-4xl font-serif text-white my-4"><span class="stat-value text-brand-400" data-target="62">0</span>%</div>
-                            <p class="text-xs text-white font-semibold mb-2">System Integration Speed</p>
-                            <p class="text-[10px] text-gray-400 font-mono">Rate of new default establishment.</p>
+
+                    <div class="bg-[#0a0a0a] rounded-2xl p-8 md:p-10 border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal delay-200">
+                        <span class="text-[9px] font-mono tracking-[0.2em] text-gray-500 uppercase block border-b border-white/5 pb-4 mb-6">Sleep Efficiency</span>
+                        <div class="text-4xl md:text-5xl font-serif text-brand-400 mb-8 tracking-tight flex items-baseline">
+                            <span class="text-3xl mr-1">+</span><span class="stat-value" data-target="18">0</span><span class="text-3xl ml-1">%</span>
                         </div>
+                        <p class="text-sm text-white font-sans font-bold mb-2 tracking-wide">Avg. Quality Improvement</p>
+                        <p class="text-[10px] text-gray-500 font-mono tracking-widest leading-relaxed">Deep recovery cycles maximized.</p>
+                    </div>
+
+                    <div class="bg-[#0a0a0a] rounded-2xl p-8 md:p-10 border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal delay-300">
+                        <span class="text-[9px] font-mono tracking-[0.2em] text-gray-500 uppercase block border-b border-white/5 pb-4 mb-6">Stress Recovery</span>
+                        <div class="text-4xl md:text-5xl font-serif text-brand-400 mb-8 tracking-tight flex items-baseline">
+                            <span class="text-3xl mr-1">+</span><span class="stat-value" data-target="200">0</span><span class="text-3xl ml-1">%</span>
+                        </div>
+                        <p class="text-sm text-white font-sans font-bold mb-2 tracking-wide">Faster Baseline Return</p>
+                        <p class="text-[10px] text-gray-500 font-mono tracking-widest leading-relaxed">Biological return to calm post-peak.</p>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="bg-[#0a0a0a] rounded-2xl p-8 md:p-10 border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal delay-200">
+                        <span class="text-[9px] font-mono tracking-[0.2em] text-gray-500 uppercase block border-b border-white/5 pb-4 mb-6">Deep Work</span>
+                        <div class="text-4xl md:text-5xl font-serif text-brand-400 mb-8 tracking-tight flex items-baseline">
+                            <span class="text-3xl mr-1">+</span><span class="stat-value" data-target="41">0</span><span class="text-3xl ml-1">%</span>
+                        </div>
+                        <p class="text-sm text-white font-sans font-bold mb-2 tracking-wide">Increase in Volume</p>
+                        <p class="text-[10px] text-gray-500 font-mono tracking-widest leading-relaxed">Hours reclaimed for creation.</p>
+                    </div>
+
+                    <div class="bg-[#0a0a0a] rounded-2xl p-8 md:p-10 border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal delay-300">
+                        <span class="text-[9px] font-mono tracking-[0.2em] text-gray-500 uppercase block border-b border-white/5 pb-4 mb-6">Flow Time</span>
+                        <div class="text-4xl md:text-5xl font-serif text-brand-400 mb-8 tracking-tight flex items-baseline">
+                            <span class="text-3xl mr-1">+</span><span class="stat-value" data-target="103">0</span><span class="text-3xl ml-1">%</span>
+                        </div>
+                        <p class="text-sm text-white font-sans font-bold mb-2 tracking-wide">Weekly Accumulation</p>
+                        <p class="text-[10px] text-gray-500 font-mono tracking-widest leading-relaxed">Accessing maximum output state.</p>
+                    </div>
+
+                    <div class="bg-[#0a0a0a] rounded-2xl p-8 md:p-10 border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal delay-500">
+                        <span class="text-[9px] font-mono tracking-[0.2em] text-gray-500 uppercase block border-b border-white/5 pb-4 mb-6">Adaptation</span>
+                        <div class="text-4xl md:text-5xl font-serif text-brand-400 mb-8 tracking-tight flex items-baseline">
+                            <span class="text-3xl mr-1">+</span><span class="stat-value" data-target="62">0</span><span class="text-3xl ml-1">%</span>
+                        </div>
+                        <p class="text-sm text-white font-sans font-bold mb-2 tracking-wide">System Integration Speed</p>
+                        <p class="text-[10px] text-gray-500 font-mono tracking-widest leading-relaxed">Rate of new default establishment.</p>
                     </div>
                 </div>
 
-                <!-- Compound Visualization -->
-                <div class="glass-panel rounded-[2rem] p-10 md:p-14 relative overflow-hidden border-brand-500/30 illuminate-box" tabindex="0">
-                    <div class="absolute inset-0 bg-gradient-to-br from-brand-500/5 to-transparent pointer-events-none"></div>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+                <div class="pt-16 border-t border-white/5 relative z-10" tabindex="0">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div>
-                            <div class="inline-flex items-center space-x-2 border border-brand-500/30 px-3 py-1 rounded text-[9px] font-mono uppercase tracking-widest text-brand-400 mb-6 bg-brand-500/10">
-                                <span class="w-1 h-1 rounded-full bg-brand-500 animate-ping"></span>
-                                <span>Mastery vs. Effort Matrix</span>
+                            <div class="inline-flex items-center space-x-3 mb-8">
+                                <div class="w-4 h-[1px] bg-brand-500"></div>
+                                <span class="text-[9px] font-sans font-bold uppercase tracking-widest text-brand-400">Mastery vs. Effort Matrix</span>
                             </div>
-                            <h3 class="font-serif text-3xl md:text-5xl mb-6 text-white italic">The Compounding Calibration</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-8 font-light">
-                                Standard effort models assume linear growth that inevitably plateaus. Mastery Calibration prevents the decay curve by reclaiming <span class="text-white font-bold border-b border-brand-500">12.5+ hours of wasted energy</span> per week.
+                            <h3 class="font-serif text-3xl md:text-4xl mb-6 text-white">The Compounding Calibration</h3>
+                            <p class="text-gray-400 text-base leading-relaxed mb-10 font-light">
+                                Standard effort models assume linear growth that inevitably plateaus. Mastery Calibration prevents the decay curve by reclaiming <span class="text-white font-medium border-b border-brand-500 pb-0.5">12.5+ hours of wasted energy</span> per week.
                             </p>
-                            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
+                            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-10">
                                 <div class="flex items-center space-x-3">
-                                    <div class="w-3 h-3 rounded bg-brand-500 shadow-glow"></div>
-                                    <span class="text-[10px] font-mono uppercase tracking-widest text-white">VYRTŪOSITI</span>
+                                    <div class="w-3 h-3 bg-brand-500"></div>
+                                    <span class="text-[9px] font-sans font-bold uppercase tracking-widest text-white">VYRTŪOSITI</span>
                                 </div>
                                 <div class="flex items-center space-x-3">
-                                    <div class="w-3 h-3 rounded border border-gray-600 bg-transparent"></div>
-                                    <span class="text-[10px] font-mono uppercase tracking-widest text-gray-400">Standard Effort</span>
+                                    <div class="w-3 h-3 border border-gray-600 bg-transparent"></div>
+                                    <span class="text-[9px] font-sans font-bold uppercase tracking-widest text-gray-400">Standard Effort</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="chart-container h-80 bg-black/50 rounded-xl p-4 border border-white/5">
+                        <div class="chart-container h-80 bg-transparent rounded-sm p-2">
                             <canvas id="impactGaugeChart"></canvas>
                         </div>
                     </div>
@@ -510,77 +529,58 @@
             </div>
         </section>
 
-        <!-- System Architect Profile -->
-        <section id="architect" class="py-32 relative border-t border-white/5 reveal overflow-hidden">
+        <!-- Architect Profile -->
+        <section id="architect" class="py-32 md:py-40 relative border-t border-white/5 reveal overflow-hidden bg-carbon">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
                     
-                    <!-- Architect Image / HUD Frame -->
-                    <div class="lg:col-span-5 relative group illuminate-box p-2 rounded-2xl transition-all duration-500 max-w-sm mx-auto lg:max-w-none" tabindex="0">
-                        <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-brand-500/50 rounded-tl-lg transition-all duration-300 group-hover:w-12 group-hover:h-12"></div>
-                        <div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-brand-500/50 rounded-tr-lg transition-all duration-300 group-hover:w-12 group-hover:h-12"></div>
-                        <div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-brand-500/50 rounded-bl-lg transition-all duration-300 group-hover:w-12 group-hover:h-12"></div>
-                        <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-brand-500/50 rounded-br-lg transition-all duration-300 group-hover:w-12 group-hover:h-12"></div>
-                        
-                        <div class="relative rounded-xl overflow-hidden bg-black/50 aspect-[4/5] border border-white/5">
-                            <img src="https://i.imgur.com/SJLnvwa.png" alt="Lead Systems Architect - Performance Mastery" loading="lazy" decoding="async" width="400" height="500" class="w-full h-full object-cover object-top opacity-80 mix-blend-luminosity grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
-                            
-                            <!-- Telemetry Overlay -->
-                            <div class="absolute bottom-6 left-6 z-20">
-                                <div class="flex items-center space-x-2 mb-1">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse shadow-glow"></div>
-                                    <span class="text-[8px] font-mono tracking-widest text-brand-400 uppercase">Status: Online</span>
-                                </div>
-                                <span class="text-[10px] font-mono tracking-[0.2em] text-white uppercase bg-black/60 px-2 py-1 rounded backdrop-blur-md border border-white/10">ID: Marcus Wolffe Lefton</span>
-                            </div>
+                    <div class="lg:col-span-5 relative group max-w-sm mx-auto lg:max-w-none pb-20 md:pb-0 focus:outline-none cursor-pointer" tabindex="0">
+                        <div class="relative overflow-hidden bg-obsidian aspect-[4/5] border border-white/5 shadow-2xl transition-all duration-[1000ms] group-hover:border-brand-500/40 group-focus:border-brand-500/40 group-active:border-brand-500/40">
+                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent z-10 pointer-events-none transition-opacity duration-1000 group-hover:opacity-0 group-focus:opacity-0 group-active:opacity-0"></div>
+                            <img src="https://i.imgur.com/SJLnvwa.png" alt="Lead Systems Architect - Performance Mastery" loading="lazy" decoding="async" width="400" height="500" class="w-full h-full object-cover object-top opacity-60 grayscale brightness-75 transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grayscale-0 group-hover:opacity-100 group-hover:brightness-100 group-hover:scale-[1.03] group-focus:grayscale-0 group-focus:opacity-100 group-focus:brightness-100 group-focus:scale-[1.03] group-active:grayscale-0 group-active:opacity-100 group-active:brightness-100 group-active:scale-[1.03]">
                         </div>
                     </div>
 
-                    <!-- Architect Copy -->
                     <div class="lg:col-span-7">
-                        <span class="text-[10px] font-mono tracking-[0.3em] uppercase text-brand-500 block mb-4">> System Architect Profile</span>
-                        <h2 class="font-serif text-3xl md:text-5xl text-white mb-6 italic">The Engineer Behind the Protocol.</h2>
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-8 h-[1px] bg-brand-500/50"></div>
+                            <span class="text-[10px] font-sans font-bold tracking-[0.4em] uppercase text-brand-400">System Architect</span>
+                        </div>
+                        <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">Marcus Lefton.</h2>
                         
-                        <div class="space-y-5 text-gray-400 text-sm md:text-base leading-relaxed font-light">
+                        <div class="space-y-6 text-gray-400 text-base md:text-lg leading-relaxed font-light">
                             <p>
-                                <strong class="text-white font-semibold text-lg tracking-wide">I do not coach.</strong>
+                                Fifteen years engineering performance systems inside Major League Baseball, the U.S. Air Force, Fortune 500 organizations, and the world's leading performance research labs.
                             </p>
-                            <p>
-                                I engineer high-fidelity performance systems for elite operators who have outgrown standard effort models.
+                            <p class="text-xl text-white font-serif italic font-normal">
+                                I do not coach. I architect the operating system your ambition runs on.
                             </p>
-                            <p>
-                                Over the past decade I’ve worked inside environments where performance failure has real consequences — including Major League Baseball, Fortune 500 organizations, and advanced performance research institutions.
-                            </p>
-                            <p>
-                                Across every environment the pattern was the same. <strong class="text-white font-semibold">The ceiling wasn’t effort.</strong>
-                            </p>
-                            <p>
-                                <strong class="text-brand-400 font-semibold text-xl italic">It was calibration.</strong>
-                            </p>
-                            <p>
-                                The <strong class="text-white font-semibold">Performance Mastery OS</strong> emerged from thousands of hours diagnosing the hidden constraints limiting otherwise elite performers — integrating neuroscience, physiology, and performance strategy into a single calibrated architecture.
-                            </p>
-                            <p class="border-l-2 border-brand-500/50 pl-4 py-1 mt-4 text-gray-300">
-                                Designed for the operator who has already outgrown everything else.
-                            </p>
+                            
+                            <div class="pt-4">
+                                <a href="https://marcuslefton.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-3 text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-brand-400 hover:text-white transition-colors group">
+                                    <span class="border-b border-brand-500/30 group-hover:border-white/50 pb-0.5 transition-colors">Read the weekly frameworks</span>
+                                    <span class="transform group-hover:translate-x-2 transition-transform duration-300">→</span>
+                                </a>
+                            </div>
                         </div>
 
-                        <!-- Architect Metrics (Forced 1-line on Mobile) -->
-                        <div class="mt-10 grid grid-cols-3 gap-3 sm:flex sm:justify-start items-start sm:items-center sm:gap-8 border-t border-white/10 pt-8 w-full">
-                            <div class="flex flex-col pr-3 sm:pr-0 border-r border-white/10 sm:border-none h-full">
-                                <span class="text-lg sm:text-2xl font-serif text-white mb-1">10+</span>
-                                <span class="text-[6.5px] sm:text-[9px] font-mono text-brand-500 uppercase tracking-widest sm:max-w-[120px] leading-relaxed">Years Inside Elite Environments</span>
+                        <div class="mt-16 flex flex-col sm:flex-row items-start sm:items-center border-t border-white/10 pt-10 sm:pt-12 w-full gap-10 sm:gap-0">
+                            <div class="flex flex-col flex-1">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-gray-600 shrink-0"></div>
+                                    <span class="text-2xl sm:text-3xl font-mono text-white tracking-wide">15+ Years</span>
+                                </div>
+                                <span class="text-[9px] sm:text-[10px] font-sans font-bold text-gray-500 uppercase tracking-[0.3em] leading-relaxed pl-[18px]">High-Consequence<br>Environments</span>
                             </div>
-                            <div class="hidden sm:block w-[1px] h-10 bg-white/10"></div>
-                            <div class="flex flex-col px-1 sm:px-0 pr-3 border-r border-white/10 sm:border-none h-full">
-                                <span class="text-lg sm:text-2xl font-serif text-white mb-1">15k+</span>
-                                <span class="text-[6.5px] sm:text-[9px] font-mono text-brand-500 uppercase tracking-widest sm:max-w-[120px] leading-relaxed">Hours Of Performance Diagnostics</span>
-                            </div>
-                            <div class="hidden sm:block w-[1px] h-10 bg-white/10"></div>
-                            <div class="flex flex-col pl-1 sm:pl-0 h-full">
-                                <span class="text-lg sm:text-2xl font-serif text-white mb-1">500+</span>
-                                <span class="text-[6.5px] sm:text-[9px] font-mono text-brand-500 uppercase tracking-widest sm:max-w-[120px] leading-relaxed">Operators Across Elite Domains</span>
+                            
+                            <div class="hidden sm:block w-[1px] h-16 bg-white/10 mx-8 lg:mx-12 shrink-0"></div>
+                            
+                            <div class="flex flex-col flex-1">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-gray-600 shrink-0"></div>
+                                    <span class="text-2xl sm:text-3xl font-mono text-white tracking-wide">1,000+</span>
+                                </div>
+                                <span class="text-[9px] sm:text-[10px] font-sans font-bold text-gray-500 uppercase tracking-[0.3em] leading-relaxed pl-[18px]">Pro & Executive<br>Athletes</span>
                             </div>
                         </div>
                     </div>
@@ -588,378 +588,220 @@
             </div>
         </section>
 
-        <!-- Operator Field Reports (Testimonials) -->
-        <section id="reports" class="py-32 bg-carbon border-t border-white/5 reveal relative overflow-hidden">
-            <!-- Background accent -->
-            <div class="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-[150px] pointer-events-none transform -translate-y-1/2 -translate-x-1/2"></div>
-            
+        <!-- Testimonials -->
+        <section id="reports" class="py-32 md:py-40 bg-obsidian border-t border-white/5 reveal relative overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-                <div class="text-center mb-20">
-                    <span class="text-[10px] font-mono tracking-[0.3em] uppercase text-brand-500 mb-4 block">Verified Telemetry</span>
-                    <h2 class="font-serif text-4xl md:text-6xl text-white mb-6 font-bold italic">Operator Field Reports.</h2>
-                    <p class="text-gray-400 text-lg opacity-80 max-w-2xl mx-auto font-light">Feedback from VYRTŪOSITI leaders operating inside the Mastery ecosystem.</p>
+                <div class="text-center mb-24">
+                    <span class="text-[10px] font-sans font-bold tracking-[0.4em] uppercase text-brand-500 mb-4 block">Verified Telemetry</span>
+                    <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">Operator Reports.</h2>
+                    <p class="text-gray-400 text-lg md:text-xl opacity-80 max-w-2xl mx-auto font-light">What they said after.</p>
                 </div>
 
-                <!-- Responsive Flex Grid for Testimonials -->
-                <div class="flex flex-wrap justify-center gap-6">
-                    
-                    <!-- Ethan Evans -->
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] flex flex-col" tabindex="0">
-                        <div class="tilt-content flex flex-col h-full">
-                            <div class="flex items-center space-x-4 mb-6 border-b border-white/10 pb-4">
-                                <div class="w-10 h-10 rounded-full border border-brand-500/50 bg-brand-500/10 flex items-center justify-center text-brand-400 font-mono text-sm shadow-glow shrink-0">EE</div>
-                                <div>
-                                    <p class="text-white font-bold text-sm tracking-wide">ETHAN EVANS</p>
-                                    <p class="text-[9px] font-mono tracking-widest text-brand-500 uppercase">EX-AMAZON VP</p>
-                                </div>
-                            </div>
-                            <div class="relative flex-grow">
-                                <span class="absolute -top-4 -left-2 text-4xl text-brand-500/20 font-serif leading-none">"</span>
-                                <p class="text-gray-400 text-sm font-light leading-relaxed relative z-10">
-                                    Marcus helps me get the most out of every minute. To perform highly effective, highly leveraged work in just a few hours so that I can spend most of my time on the slopes, in the pool, with family, or with friends.
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-[#0a0a0a] p-10 md:p-12 rounded-2xl flex flex-col relative overflow-hidden border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal">
+                        <div class="flex flex-col h-full relative z-10">
+                            <div class="relative flex-grow mb-12">
+                                <p class="text-gray-300 text-sm md:text-base font-serif leading-relaxed">
+                                    "The strongest testimonial I can give is the <span class="text-brand-400 italic">five-digit sum</span> I pay for calls with Marcus. He helps me perform highly effective, highly leveraged work in just a few hours."
                                 </p>
+                            </div>
+                            <div class="border-t border-white/10 pt-6 mt-auto">
+                                <p class="text-white font-bold text-[10px] font-sans tracking-[0.2em] uppercase mb-1.5">Ethan Evans</p>
+                                <p class="text-[8px] font-mono tracking-widest text-brand-600 uppercase">Retired VP, Amazon</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- David Vargas -->
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] flex flex-col" tabindex="0">
-                        <div class="tilt-content flex flex-col h-full">
-                            <div class="flex items-center space-x-4 mb-6 border-b border-white/10 pb-4">
-                                <div class="w-10 h-10 rounded-full border border-brand-500/50 bg-brand-500/10 flex items-center justify-center text-brand-400 font-mono text-sm shadow-glow shrink-0">DV</div>
-                                <div>
-                                    <p class="text-white font-bold text-sm tracking-wide">DAVID VARGAS</p>
-                                    <p class="text-[9px] font-mono tracking-widest text-brand-500 uppercase">SALES EXECUTIVE</p>
-                                </div>
-                            </div>
-                            <div class="relative flex-grow">
-                                <span class="absolute -top-4 -left-2 text-4xl text-brand-500/20 font-serif leading-none">"</span>
-                                <p class="text-gray-400 text-sm font-light leading-relaxed relative z-10">
-                                    Marcus taught me how to tap into flow states on demand, which has helped me work smart, stay fully engaged at home and get real results. Within 3 months, I had my best Q1 ever, hitting over 200% of plan — the highest I have performed in 5 years.
+                    <div class="bg-[#0a0a0a] p-10 md:p-12 rounded-2xl flex flex-col relative overflow-hidden border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal delay-100">
+                        <div class="flex flex-col h-full relative z-10">
+                            <div class="relative flex-grow mb-12">
+                                <p class="text-gray-300 text-sm md:text-base font-serif leading-relaxed">
+                                    "Coming up just shy of $1.3 million in sales, I realized I needed a different approach. Marcus showed me how to tap into flow states on demand. Within three months, I hit <span class="text-brand-400 italic">almost 200% of plan</span>—the highest I've performed in five years."
                                 </p>
+                            </div>
+                            <div class="border-t border-white/10 pt-6 mt-auto">
+                                <p class="text-white font-bold text-[10px] font-sans tracking-[0.2em] uppercase mb-1.5">David Vargas</p>
+                                <p class="text-[8px] font-mono tracking-widest text-brand-600 uppercase">Enterprise Sales Executive</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Eugene Seagriff -->
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] flex flex-col" tabindex="0">
-                        <div class="tilt-content flex flex-col h-full">
-                            <div class="flex items-center space-x-4 mb-6 border-b border-white/10 pb-4">
-                                <div class="w-10 h-10 rounded-full border border-brand-500/50 bg-brand-500/10 flex items-center justify-center text-brand-400 font-mono text-sm shadow-glow shrink-0">ES</div>
-                                <div>
-                                    <p class="text-white font-bold text-sm tracking-wide">EUGENE SEAGRIFF</p>
-                                    <p class="text-[9px] font-mono tracking-widest text-brand-500 uppercase">EX-SAMSUNG CEO</p>
-                                </div>
-                            </div>
-                            <div class="relative flex-grow">
-                                <span class="absolute -top-4 -left-2 text-4xl text-brand-500/20 font-serif leading-none">"</span>
-                                <p class="text-gray-400 text-sm font-light leading-relaxed relative z-10">
-                                    Marcus has been a great help in many ways. Completely focused on my goals and helping me achieve them through his knowledge and experience.
+                    <div class="bg-[#0a0a0a] p-10 md:p-12 rounded-2xl flex flex-col relative overflow-hidden border border-white/5 transition-all duration-500 hover:border-brand-500/50 hover:bg-[#121212] hover:shadow-[0_0_40px_rgba(166,138,87,0.15)] hover:-translate-y-1 focus:border-brand-500/50 focus:bg-[#121212] focus:shadow-[0_0_40px_rgba(166,138,87,0.15)] focus:-translate-y-1 cursor-pointer outline-none tabindex="0" reveal delay-200">
+                        <div class="flex flex-col h-full relative z-10">
+                            <div class="relative flex-grow mb-12">
+                                <p class="text-gray-300 text-sm md:text-base font-serif leading-relaxed">
+                                    "Marcus goes vertically deep and horizontally across your <span class="text-brand-400 italic">operational, physical, and psychological layers</span>. He drilled down into my exact constraints with extreme candor. I have not been the same since."
                                 </p>
+                            </div>
+                            <div class="border-t border-white/10 pt-6 mt-auto">
+                                <p class="text-white font-bold text-[10px] font-sans tracking-[0.2em] uppercase mb-1.5">Ted Tanner</p>
+                                <p class="text-[8px] font-mono tracking-widest text-brand-600 uppercase">Tech Executive & Architect</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Ryan McMahon -->
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] flex flex-col" tabindex="0">
-                        <div class="tilt-content flex flex-col h-full">
-                            <div class="flex items-center space-x-4 mb-6 border-b border-white/10 pb-4">
-                                <div class="w-10 h-10 rounded-full border border-brand-500/50 bg-brand-500/10 flex items-center justify-center text-brand-400 font-mono text-sm shadow-glow shrink-0">RM</div>
-                                <div>
-                                    <p class="text-white font-bold text-sm tracking-wide">RYAN MCMAHON</p>
-                                    <p class="text-[9px] font-mono tracking-widest text-brand-500 uppercase">MLB ALL-STAR</p>
-                                </div>
-                            </div>
-                            <div class="relative flex-grow">
-                                <span class="absolute -top-4 -left-2 text-4xl text-brand-500/20 font-serif leading-none">"</span>
-                                <p class="text-gray-400 text-sm font-light leading-relaxed relative z-10">
-                                    Had some of my best seasons alongside Marcus.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Jay Norvell -->
-                    <div class="glass-panel p-8 rounded-2xl tilt-card group illuminate-box w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] flex flex-col" tabindex="0">
-                        <div class="tilt-content flex flex-col h-full">
-                            <div class="flex items-center space-x-4 mb-6 border-b border-white/10 pb-4">
-                                <div class="w-10 h-10 rounded-full border border-brand-500/50 bg-brand-500/10 flex items-center justify-center text-brand-400 font-mono text-sm shadow-glow shrink-0">JN</div>
-                                <div>
-                                    <p class="text-white font-bold text-sm tracking-wide">JAY NORVELL</p>
-                                    <p class="text-[9px] font-mono tracking-widest text-brand-500 uppercase">CSU HEAD COACH</p>
-                                </div>
-                            </div>
-                            <div class="relative flex-grow">
-                                <span class="absolute -top-4 -left-2 text-4xl text-brand-500/20 font-serif leading-none">"</span>
-                                <p class="text-gray-400 text-sm font-light leading-relaxed relative z-10">
-                                    We are having our best season in over a decade.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- Investment & Offer (Grand Slam) -->
-        <section id="offer" class="py-32 bg-carbon border-t border-white/10 reveal relative overflow-hidden">
-            <!-- Hexagon BG Pattern -->
-            <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#A68A57 1px, transparent 1px); background-size: 30px 30px;"></div>
-            
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-                <div class="text-center mb-24">
-                    <span class="text-[10px] font-mono tracking-[0.3em] uppercase text-brand-500 block mb-4">System Deployment</span>
-                    <h2 class="font-serif text-4xl md:text-6xl mb-6 italic leading-tight text-white">How the Performance Mastery OS is installed.</h2>
-                    <p class="text-gray-400 text-lg opacity-80 font-light max-w-2xl mx-auto">
-                        Four stages. One irreversible transformation. Every VYRTŪOSITI deployment follows the same arc. Engineered around the entire operator. Never a single variable. Never a template.
+        <!-- Final Installation Section -->
+        <section id="offer" class="py-32 md:py-40 bg-carbon border-y border-white/10 reveal relative overflow-hidden">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+                
+                <div class="mb-20 sm:mb-32">
+                    <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight text-white tracking-tight">Four stages. One irreversible shift.</h2>
+                    <p class="text-gray-400 text-lg opacity-80 font-light max-w-2xl leading-relaxed">
+                        Every engagement follows the same arc. Engineered around the entire operator.<br class="hidden sm:block">
+                        Never a single variable. Never a template.
                     </p>
                 </div>
 
-                <!-- The Engagement Architecture (Vertical Timeline) -->
-                <div class="relative max-w-5xl mx-auto mb-32">
-                    <!-- Connecting Line (Desktop) -->
-                    <div class="absolute left-1/2 top-8 bottom-8 w-[1px] bg-gradient-to-b from-brand-500/0 via-brand-500/50 to-brand-500/0 transform -translate-x-1/2 z-0 hidden md:block"></div>
-                    <!-- Connecting Line (Mobile) -->
-                    <div class="absolute left-6 top-8 bottom-8 w-[1px] bg-gradient-to-b from-brand-500/0 via-brand-500/50 to-brand-500/0 z-0 md:hidden"></div>
+                <div class="relative mb-32 pl-2 sm:pl-0">
+                    <div class="absolute left-[24px] sm:left-[40px] top-2 bottom-2 w-[1px] bg-white/5 z-0 transform -translate-x-1/2"></div>
 
-                    <!-- Stage 01 -->
-                    <div class="relative flex flex-col md:flex-row items-center justify-between mb-16 md:mb-24 group reveal">
-                        <!-- Center Node (Desktop) -->
-                        <div class="hidden md:flex absolute left-1/2 w-6 h-6 bg-carbon border-2 border-brand-500/30 rounded-full transform -translate-x-1/2 z-10 items-center justify-center group-hover:border-brand-500 group-hover:shadow-glow transition-all duration-500">
-                            <div class="w-2 h-2 bg-brand-400 rounded-full opacity-50 group-hover:opacity-100 group-hover:animate-pulse"></div>
-                        </div>
-                        <!-- Center Node (Mobile) -->
-                        <div class="md:hidden absolute left-6 w-4 h-4 bg-carbon border-2 border-brand-500/30 rounded-full transform -translate-x-1/2 z-10 flex items-center justify-center">
-                            <div class="w-1.5 h-1.5 bg-brand-400 rounded-full opacity-50"></div>
-                        </div>
-
-                        <!-- Left Content (Stage 01) -->
-                        <div class="w-full md:w-[calc(50%-3rem)] pl-16 md:pl-0 text-left">
-                            <div class="glass-panel p-8 md:p-10 rounded-2xl tilt-card illuminate-box h-full relative overflow-hidden border-white/5" tabindex="0">
-                                <div class="absolute -right-4 -top-4 text-8xl font-serif font-bold text-white/5 group-hover:text-brand-500/10 transition-colors duration-500 pointer-events-none">01</div>
-                                <div class="tilt-content relative z-10">
-                                    <div class="inline-flex items-center space-x-2 border border-white/10 px-3 py-1 rounded bg-white/5 mb-6">
-                                        <span class="text-gray-400 text-[9px] font-mono uppercase tracking-[0.2em]">Stage 01</span>
-                                    </div>
-                                    <h4 class="text-2xl font-serif text-white mb-3 italic">Friction Audit</h4>
-                                    <p class="text-brand-500 text-xs font-mono uppercase tracking-widest mb-6">Find the Precise Leak.</p>
-                                    <div class="text-sm text-gray-400 font-light leading-relaxed space-y-4">
-                                        <p>Before anything is built, everything is mapped. Oura data. Blood work. CO2 tolerance. HRV. Cognitive load. Strategic open loops. Every biological and strategic variable is audited to locate the single constraint holding your output back.</p>
-                                        <p class="text-brand-400 font-mono text-[9px] uppercase tracking-widest border-l border-brand-500/50 pl-3 bg-brand-500/5 p-2 rounded-r">> You cannot engineer what you haven't precisely diagnosed.</p>
-                                    </div>
-                                </div>
+                    <div class="space-y-16 sm:space-y-24 relative z-10">
+                        
+                        <div class="flex items-start group reveal">
+                            <div class="w-12 sm:w-20 shrink-0 flex justify-center text-brand-500 font-serif text-2xl sm:text-3xl bg-carbon relative z-10 py-1">01</div>
+                            <div class="flex-grow pl-6 sm:pl-12 pt-1">
+                                <h4 class="text-2xl sm:text-3xl font-serif text-white mb-4">Friction Audit</h4>
+                                <p class="text-gray-400 font-light leading-relaxed text-sm sm:text-base max-w-2xl">
+                                    Everything is mapped before anything is built. Biometric data, blood work, CO2 tolerance, HRV, cognitive load, strategic open loops. Every variable audited to locate the precise constraint.
+                                </p>
                             </div>
                         </div>
-                        <div class="hidden md:block w-[calc(50%-3rem)]"></div>
-                    </div>
 
-                    <!-- Stage 02 -->
-                    <div class="relative flex flex-col md:flex-row-reverse items-center justify-between mb-16 md:mb-24 group reveal delay-100">
-                        <!-- Center Node (Desktop) -->
-                        <div class="hidden md:flex absolute left-1/2 w-6 h-6 bg-carbon border-2 border-brand-500/30 rounded-full transform -translate-x-1/2 z-10 items-center justify-center group-hover:border-brand-500 group-hover:shadow-glow transition-all duration-500">
-                            <div class="w-2 h-2 bg-brand-400 rounded-full opacity-50 group-hover:opacity-100 group-hover:animate-pulse"></div>
-                        </div>
-                        <!-- Center Node (Mobile) -->
-                        <div class="md:hidden absolute left-6 w-4 h-4 bg-carbon border-2 border-brand-500/30 rounded-full transform -translate-x-1/2 z-10 flex items-center justify-center">
-                            <div class="w-1.5 h-1.5 bg-brand-400 rounded-full opacity-50"></div>
-                        </div>
-
-                        <!-- Right Content (Stage 02) -->
-                        <div class="w-full md:w-[calc(50%-3rem)] pl-16 md:pl-0 text-left">
-                            <div class="glass-panel p-8 md:p-10 rounded-2xl tilt-card illuminate-box h-full relative overflow-hidden border-white/5" tabindex="0">
-                                <div class="absolute -left-4 -top-4 text-8xl font-serif font-bold text-white/5 group-hover:text-brand-500/10 transition-colors duration-500 pointer-events-none">02</div>
-                                <div class="tilt-content relative z-10">
-                                    <div class="inline-flex items-center space-x-2 border border-white/10 px-3 py-1 rounded bg-white/5 mb-6">
-                                        <span class="text-gray-400 text-[9px] font-mono uppercase tracking-[0.2em]">Stage 02</span>
-                                    </div>
-                                    <h4 class="text-2xl font-serif text-white mb-3 italic">Architecture</h4>
-                                    <p class="text-brand-500 text-xs font-mono uppercase tracking-widest mb-6">Reverse engineer from the ideal operating state.</p>
-                                    <div class="text-sm text-gray-400 font-light leading-relaxed space-y-4">
-                                        <p>Most systems are built from where you are.</p>
-                                        <p>This one is built from where you're going.</p>
-                                        <p>We define the calibrated operator and then engineer the architecture required to reach it.</p>
-                                    </div>
-                                </div>
+                        <div class="flex items-start group reveal delay-100">
+                            <div class="w-12 sm:w-20 shrink-0 flex justify-center text-brand-500 font-serif text-2xl sm:text-3xl bg-carbon relative z-10 py-1">02</div>
+                            <div class="flex-grow pl-6 sm:pl-12 pt-1">
+                                <h4 class="text-2xl sm:text-3xl font-serif text-white mb-4">Architecture</h4>
+                                <p class="text-gray-400 font-light leading-relaxed text-sm sm:text-base max-w-2xl">
+                                    Most systems are built from where you are. This one is built from where you are going. We define the calibrated operator and reverse-engineer the architecture required to reach it.
+                                </p>
                             </div>
                         </div>
-                        <div class="hidden md:block w-[calc(50%-3rem)]"></div>
-                    </div>
 
-                    <!-- Stage 03 -->
-                    <div class="relative flex flex-col md:flex-row items-center justify-between mb-16 md:mb-24 group reveal delay-200">
-                        <!-- Center Node (Desktop) -->
-                        <div class="hidden md:flex absolute left-1/2 w-6 h-6 bg-carbon border-2 border-brand-500/30 rounded-full transform -translate-x-1/2 z-10 items-center justify-center group-hover:border-brand-500 group-hover:shadow-glow transition-all duration-500">
-                            <div class="w-2 h-2 bg-brand-400 rounded-full opacity-50 group-hover:opacity-100 group-hover:animate-pulse"></div>
-                        </div>
-                        <!-- Center Node (Mobile) -->
-                        <div class="md:hidden absolute left-6 w-4 h-4 bg-carbon border-2 border-brand-500/30 rounded-full transform -translate-x-1/2 z-10 flex items-center justify-center">
-                            <div class="w-1.5 h-1.5 bg-brand-400 rounded-full opacity-50"></div>
-                        </div>
-
-                        <!-- Left Content (Stage 03) -->
-                        <div class="w-full md:w-[calc(50%-3rem)] pl-16 md:pl-0 text-left">
-                            <div class="glass-panel p-8 md:p-10 rounded-2xl tilt-card illuminate-box h-full relative overflow-hidden border-white/5" tabindex="0">
-                                <div class="absolute -right-4 -top-4 text-8xl font-serif font-bold text-white/5 group-hover:text-brand-500/10 transition-colors duration-500 pointer-events-none">03</div>
-                                <div class="tilt-content relative z-10">
-                                    <div class="inline-flex items-center space-x-2 border border-white/10 px-3 py-1 rounded bg-white/5 mb-6">
-                                        <span class="text-gray-400 text-[9px] font-mono uppercase tracking-[0.2em]">Stage 03</span>
-                                    </div>
-                                    <h4 class="text-2xl font-serif text-white mb-3 italic">Real-Time Calibration</h4>
-                                    <p class="text-brand-500 text-xs font-mono uppercase tracking-widest mb-6">The System Adjusts as You Do.</p>
-                                    <div class="text-sm text-gray-400 font-light leading-relaxed space-y-4">
-                                        <p>Weekly system recalibration. Async communication between them. Continuous biometric monitoring feeding real-time protocol adjustments. As your data evolves, the system evolves.</p>
-                                        <p>Biology and strategy recalibrated simultaneously. Never in isolation from each other. This is not a static program. It is a living architecture.</p>
-                                    </div>
-                                </div>
+                        <div class="flex items-start group reveal delay-200">
+                            <div class="w-12 sm:w-20 shrink-0 flex justify-center text-brand-500 font-serif text-2xl sm:text-3xl bg-carbon relative z-10 py-1">03</div>
+                            <div class="flex-grow pl-6 sm:pl-12 pt-1">
+                                <h4 class="text-2xl sm:text-3xl font-serif text-white mb-4">Real-Time Calibration</h4>
+                                <p class="text-gray-400 font-light leading-relaxed text-sm sm:text-base max-w-2xl">
+                                    Weekly recalibration. Continuous biometric monitoring feeding real-time protocol adjustments. Biology and strategy calibrated simultaneously. Never in isolation. A living architecture.
+                                </p>
                             </div>
                         </div>
-                        <div class="hidden md:block w-[calc(50%-3rem)]"></div>
-                    </div>
 
-                    <!-- Terminal State -->
-                    <div class="relative flex flex-col md:flex-row-reverse items-center justify-between group reveal delay-300">
-                        <!-- Center Node (Desktop) -->
-                        <div class="hidden md:flex absolute left-1/2 w-8 h-8 bg-carbon border-2 border-brand-500 rounded-full transform -translate-x-1/2 z-10 items-center justify-center shadow-glow transition-all duration-500">
-                            <div class="w-3 h-3 bg-brand-400 rounded-full animate-pulse"></div>
-                        </div>
-                        <!-- Center Node (Mobile) -->
-                        <div class="md:hidden absolute left-6 w-6 h-6 bg-carbon border-2 border-brand-500 rounded-full transform -translate-x-1/2 z-10 flex items-center justify-center shadow-glow">
-                            <div class="w-2 h-2 bg-brand-400 rounded-full animate-pulse"></div>
-                        </div>
-
-                        <!-- Right Content (Terminal State) -->
-                        <div class="w-full md:w-[calc(50%-3rem)] pl-16 md:pl-0 text-left">
-                            <div class="glass-panel p-8 md:p-10 rounded-2xl tilt-card illuminate-box h-full relative overflow-hidden border-brand-500/40" tabindex="0">
-                                <div class="absolute inset-0 bg-brand-500/5 pointer-events-none"></div>
-                                <div class="absolute -left-4 -top-4 text-8xl font-serif font-bold text-brand-500/10 transition-colors duration-500 pointer-events-none">04</div>
-                                <div class="tilt-content relative z-10">
-                                    <div class="inline-flex items-center space-x-2 border border-brand-500/30 px-3 py-1 rounded bg-brand-500/20 mb-6">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse"></span>
-                                        <span class="text-brand-400 text-[9px] font-mono uppercase tracking-[0.2em] font-bold">Terminal State</span>
-                                    </div>
-                                    <h4 class="text-2xl font-serif text-white mb-3 italic">Biological Default</h4>
-                                    <p class="text-brand-500 text-xs font-mono uppercase tracking-widest mb-6">Elite Performance Stops Being Something You Summon.</p>
-                                    <div class="text-sm text-gray-400 font-light leading-relaxed space-y-4">
-                                        <p>The final stage is not a finish line. It is a new baseline. The protocols installed across every preceding phase become biological and strategic defaults. Operating automatically. Without active willpower.</p>
-                                        <p>Mental clarity under pressure. Physical resilience at peak demand. Vocational precision at the highest stakes.</p>
-                                        <p class="text-white font-medium border-l-2 border-brand-500 pl-3 py-1 bg-white/5 rounded-r">This is the operating state the top 0.1% are built to inhabit. Permanently.</p>
-                                    </div>
-                                </div>
+                        <div class="flex items-start group reveal delay-300">
+                            <div class="w-12 sm:w-20 shrink-0 flex justify-center text-brand-500 font-serif text-2xl sm:text-3xl bg-carbon relative z-10 py-1">04</div>
+                            <div class="flex-grow pl-6 sm:pl-12 pt-1">
+                                <h4 class="text-2xl sm:text-3xl font-serif text-white mb-4">Biological Default</h4>
+                                <p class="text-gray-400 font-light leading-relaxed text-sm sm:text-base max-w-2xl">
+                                    The protocols become your new operating system. Mental clarity under pressure. Physical resilience at peak demand. Vocational precision at the highest stakes. Automatic. Without willpower.
+                                </p>
                             </div>
                         </div>
-                        <div class="hidden md:block w-[calc(50%-3rem)]"></div>
+
                     </div>
                 </div>
 
-                <!-- Terminal CTA -->
-                <div class="bg-black border border-brand-500/30 p-10 md:p-14 rounded-3xl shadow-glow-intense transform transition-all relative text-center max-w-3xl mx-auto illuminate-box" tabindex="0">
-                    <!-- Scanner effect on CTA -->
-                    <div class="absolute top-0 left-0 w-full h-[1px] bg-brand-500 opacity-50 shadow-[0_0_10px_#A68A57] animate-[scan_3s_infinite]"></div>
+                <div class="text-center max-w-4xl mx-auto mt-20 md:mt-32 relative z-10 reveal delay-400">
+                    <div class="flex items-center justify-center space-x-6 mb-8">
+                        <div class="w-8 h-[1px] bg-brand-500/50"></div>
+                        <span class="text-brand-500 text-[10px] font-sans font-bold tracking-[0.4em] uppercase">Begin</span>
+                    </div>
                     
-                    <span class="text-brand-500 text-[10px] font-mono tracking-[0.3em] uppercase block mb-6">> Secure Entry Point</span>
-                    <h3 class="text-white font-serif text-3xl md:text-5xl mb-6 italic">The Friction Audit Guarantee</h3>
-                    <p class="text-gray-400 mb-10 font-light text-sm md:text-base leading-relaxed">
-                        Before we invite you to install the ecosystem, we must prove the ROI. Apply for a clinical diagnostic. <strong class="text-white font-normal">If we cannot map out exactly how to reclaim 10+ hours of high-leverage capacity per week, we will not offer you a spot.</strong> 
+                    <h2 class="text-white font-serif text-4xl md:text-5xl lg:text-6xl mb-8">The Friction Audit is where it starts.</h2>
+                    
+                    <p class="text-gray-400 mb-12 font-light text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
+                        If we cannot map out exactly how to reclaim 10+ hours of high-leverage capacity per week, we will not offer you a spot.
                     </p>
-                    <button onclick="openBookingModal()" class="group relative inline-flex items-center justify-center px-6 sm:px-12 py-5 font-mono text-[10px] sm:text-xs tracking-[0.3em] text-obsidian bg-brand-500 uppercase rounded-full overflow-hidden transition-all hover:bg-white w-full sm:w-auto">
-                        <div class="absolute inset-0 w-full h-full bg-white/20 transform -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-                        <span class="relative font-bold">Submit Audit Application</span>
+                    
+                    <button onclick="openBookingModal()" class="btn-press inline-flex items-center justify-center px-12 py-5 text-[11px] tracking-[0.2em] text-obsidian bg-[#A68A57] font-sans font-bold uppercase transition-all duration-300 hover:bg-white hover:shadow-glow w-full sm:w-auto">
+                        Apply For A Friction Audit
                     </button>
                     
-                    <div class="mt-8 flex items-start sm:items-center justify-center space-x-3 text-[8px] sm:text-[9px] text-gray-400 uppercase font-mono tracking-[0.1em] sm:tracking-[0.2em] text-left sm:text-center max-w-md mx-auto leading-relaxed border border-brand-500/20 bg-brand-500/5 px-4 py-3 rounded">
-                        <svg class="w-4 h-4 text-brand-500 shrink-0 drop-shadow-[0_0_8px_rgba(166,138,87,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        <span>Each audit requires deep diagnostic work and biometric analysis. We limit this to five new operators per month.</span>
-                    </div>
+                    <p class="mt-10 text-[9px] text-gray-500 uppercase font-sans font-bold tracking-[0.3em]">
+                        Five Operators Accepted Per Month
+                    </p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer (Added pb-24 on mobile to prevent HUD overlap) -->
-    <footer class="bg-obsidian pt-12 pb-24 md:pb-12 border-t border-white/5 text-center relative z-10">
+    <footer class="bg-obsidian pt-16 pb-24 md:pb-16 text-center relative z-10">
         <div class="max-w-6xl mx-auto px-4">
-            <span class="font-serif text-2xl font-bold tracking-[0.3em] uppercase text-white opacity-10">Mastery</span>
-            <div class="mt-6 flex justify-center space-x-6 text-[9px] font-mono tracking-widest uppercase text-gray-400">
+            <span class="font-serif text-2xl font-bold tracking-[0.3em] uppercase text-white opacity-20">Mastery</span>
+            <div class="mt-8 flex justify-center space-x-8 text-[9px] font-sans font-bold tracking-widest uppercase text-gray-500">
                 <a href="#" class="hover:text-brand-500 transition-colors">Protocol</a>
                 <a href="#" class="hover:text-brand-500 transition-colors">Privacy</a>
             </div>
-            <p class="mt-6 text-[9px] font-mono tracking-widest opacity-30 text-white uppercase">&copy; 2026 VYRTŪOSITI</p>
+            <p class="mt-8 text-[9px] font-mono tracking-widest opacity-30 text-white uppercase">&copy; 2026 VYRTŪOSITI</p>
         </div>
     </footer>
 
-    <!-- High-Tech Booking Modal (Wired for Netlify Forms) -->
+    <!-- White-Glove Booking Modal -->
     <div id="booking-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center">
-        <!-- Absolute backdrop intercepts clicks outside the modal -->
-        <div class="absolute inset-0 bg-obsidian/90 backdrop-blur-md transition-opacity" onclick="closeBookingModal()"></div>
+        <div class="absolute inset-0 bg-obsidian/95 backdrop-blur-lg transition-opacity" onclick="closeBookingModal()"></div>
         
-        <!-- Modal content wrapper (Relative z-10 puts it ABOVE the absolute backdrop, preventing click-blocking) -->
-        <!-- Note: removed .tilt-card from here to prevent 3D rotation from misaligning the input hitboxes -->
-        <div class="relative z-10 bg-carbon w-full max-w-lg p-10 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-brand-500/30">
-            <!-- Terminal Header -->
-            <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+        <div class="relative z-10 bg-carbon w-full max-w-lg p-10 sm:p-14 rounded-sm border border-white/10 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-white/10 pb-5 mb-8">
                 <div class="flex items-center space-x-2">
-                    <div class="w-2 h-2 rounded-full bg-brand-400 animate-pulse shadow-glow"></div>
-                    <span class="text-[10px] font-mono tracking-[0.2em] uppercase text-brand-400">Secure Terminal</span>
+                    <div class="w-1.5 h-1.5 bg-brand-400"></div>
+                    <span class="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-brand-400">Clinical Intake</span>
                 </div>
-                <button onclick="closeBookingModal()" class="text-gray-500 hover:text-white transition-colors font-mono text-sm">[ ESC ]</button>
+                <button onclick="closeBookingModal()" class="text-gray-500 hover:text-white transition-colors font-sans font-bold text-[10px] tracking-widest uppercase">Close</button>
             </div>
             
-            <div class="text-left mb-8">
-                <h3 class="font-serif text-3xl text-white italic mb-2">Initialize Audit</h3>
-                <p class="text-xs text-gray-400 font-mono leading-relaxed">> Provide credentials to request a 15-minute diagnostic. Availability restricted.</p>
+            <div class="text-left mb-10">
+                <h3 class="font-serif text-3xl md:text-4xl text-white mb-3">Diagnostic Application</h3>
+                <p class="text-sm text-gray-400 font-sans font-light leading-relaxed">Provide your operational details to request a 15-minute clinical diagnostic. Availability is strictly limited.</p>
             </div>
             
-            <!-- Accessible Application Form with Netlify Attributes -->
-            <form id="audit-form" name="audit" method="POST" data-netlify="true" class="space-y-5" onsubmit="handleFormSubmit(event)">
-                <!-- Netlify Form Name Hidden Field -->
+            <form id="audit-form" name="audit" method="POST" data-netlify="true" class="space-y-8" onsubmit="handleFormSubmit(event)">
                 <input type="hidden" name="form-name" value="audit">
                 
-                <!-- Advanced Referrer/URL Tracking Fields -->
-                <input type="hidden" id="lead_referrer" name="lead_referrer" value="">
-                <input type="hidden" id="lead_page_url" name="lead_page_url" value="">
-
                 <div class="group relative">
-                    <label for="legal_name" class="block text-[9px] font-mono tracking-widest uppercase text-gray-500 group-focus-within:text-brand-400 transition-colors mb-2">> Legal Name_</label>
-                    <input id="legal_name" name="legal_name" type="text" class="w-full bg-black border border-white/10 p-4 rounded text-sm text-white focus:border-brand-500 focus:ring-1 focus:ring-brand-500/50 focus:outline-none transition-all font-mono shadow-inner" placeholder="Input string..." required>
+                    <label for="legal_name" class="block text-[9px] font-sans font-bold tracking-widest uppercase text-gray-500 transition-all duration-300 group-focus-within:text-brand-400 group-focus-within:-translate-y-0.5 mb-1 inline-block">Legal Name</label>
+                    <input id="legal_name" name="legal_name" type="text" class="w-full input-underline" placeholder="e.g. John Doe" required>
                 </div>
                 <div class="group relative">
-                    <label for="secure_email" class="block text-[9px] font-mono tracking-widest uppercase text-gray-500 group-focus-within:text-brand-400 transition-colors mb-2">> Secure Email_</label>
-                    <input id="secure_email" name="secure_email" type="email" class="w-full bg-black border border-white/10 p-4 rounded text-sm text-white focus:border-brand-500 focus:ring-1 focus:ring-brand-500/50 focus:outline-none transition-all font-mono shadow-inner" placeholder="user@domain.com" required>
+                    <label for="secure_email" class="block text-[9px] font-sans font-bold tracking-widest uppercase text-gray-500 transition-all duration-300 group-focus-within:text-brand-400 group-focus-within:-translate-y-0.5 mb-1 inline-block">Primary Email</label>
+                    <input id="secure_email" name="secure_email" type="email" class="w-full input-underline" placeholder="operator@domain.com" required>
                 </div>
                 <div class="group relative">
-                    <label for="friction_point" class="block text-[9px] font-mono tracking-widest uppercase text-gray-500 group-focus-within:text-brand-400 transition-colors mb-2">> Primary Friction Point_</label>
-                    <select id="friction_point" name="friction_point" class="w-full bg-black border border-white/10 p-4 rounded text-sm text-gray-400 focus:text-white focus:border-brand-500 focus:ring-1 focus:ring-brand-500/50 focus:outline-none transition-all font-mono appearance-none shadow-inner" required>
-                        <option value="" disabled selected>Select system error...</option>
-                        <option value="cognitive">ERR 01: Can't think clearly under pressure</option>
-                        <option value="biological">ERR 02: Running on empty — can't recover fast enough</option>
-                        <option value="leverage">ERR 03: Effort high, output not matching</option>
-                        <option value="state">ERR 04: Reactive, not in control of my state</option>
-                        <option value="time">ERR 05: No capacity left for what actually matters</option>
-                    </select>
-                </div>
-                <button type="submit" id="audit-submit-btn" class="w-full bg-brand-500/20 border border-brand-500 text-brand-400 font-bold py-4 mt-6 rounded hover:bg-brand-500 hover:text-obsidian transition-all uppercase tracking-[0.3em] text-[10px] font-mono shadow-glow">Execute Application</button>
-            </form>
-
-            <!-- Custom Success UI State (Animated Terminal) -->
-            <div id="success-state" class="hidden flex-col items-center justify-center py-8 animate-[fade-in_0.5s_ease-out]">
-                <div class="relative w-20 h-20 mb-6 flex items-center justify-center">
-                    <div class="absolute inset-0 rounded-full border-t-2 border-brand-500 animate-spin" id="success-spinner"></div>
-                    <div class="w-12 h-12 bg-brand-500 rounded-full scale-0 transition-transform duration-500 flex items-center justify-center shadow-glow" id="success-check">
-                        <svg class="w-6 h-6 text-obsidian" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    <label for="friction_point" class="block text-[9px] font-sans font-bold tracking-widest uppercase text-gray-500 transition-all duration-300 group-focus-within:text-brand-400 group-focus-within:-translate-y-0.5 mb-1 inline-block">Primary Constraint</label>
+                    <div class="relative">
+                        <select id="friction_point" name="friction_point" class="w-full input-underline appearance-none text-gray-400 focus:text-white cursor-pointer pr-8" required>
+                            <option value="" disabled selected>Select the primary system leak...</option>
+                            <option value="cognitive">Can't think clearly under pressure</option>
+                            <option value="biological">Running on empty — can't recover fast enough</option>
+                            <option value="leverage">Effort is high, but output is not matching</option>
+                            <option value="state">Reactive, struggling to control my state</option>
+                            <option value="time">No capacity left for what actually matters</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
                     </div>
                 </div>
-                <h4 class="font-serif text-2xl text-white italic mb-4" id="success-heading">Establishing Link...</h4>
-                <div class="text-xs text-gray-400 font-mono leading-relaxed text-center space-y-2 h-12">
-                    <p class="opacity-0 transition-opacity duration-300" id="term-1">> Encrypting payload...</p>
-                    <p class="opacity-0 transition-opacity duration-300 text-brand-400" id="term-2">> Verifying credentials...</p>
+                <button type="submit" id="audit-submit-btn" class="btn-press w-full bg-[#A68A57] text-obsidian font-bold py-5 mt-8 rounded-sm hover:bg-white hover:shadow-glow uppercase tracking-[0.2em] text-[11px] font-sans">Request Diagnostic</button>
+            </form>
+
+            <div id="success-state" class="hidden flex-col items-center justify-center py-10 animate-[fade-in_0.5s_ease-out]">
+                <div class="relative w-16 h-16 mb-8 flex items-center justify-center">
+                    <div class="absolute inset-0 rounded-full border-t-2 border-brand-500 animate-spin" id="success-spinner"></div>
+                    <div class="w-12 h-12 bg-brand-500 rounded-full scale-0 transition-transform duration-500 flex items-center justify-center" id="success-check">
+                        <svg class="w-5 h-5 text-obsidian" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                </div>
+                <h4 class="font-serif text-3xl text-white mb-4 text-center" id="success-heading">Application Received.</h4>
+                <div class="text-sm text-gray-400 font-sans font-light leading-relaxed text-center flex items-center justify-center">
+                    <p class="opacity-0 transition-opacity duration-700 max-w-[280px]" id="success-message">The VYRTŪOSITI team will review your diagnostic profile and contact you regarding availability.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Application Logic -->
     <script>
         // Data Structure
         const pillars = [
@@ -975,9 +817,7 @@
         let isUserInteracting = false; 
         let currentPillarIndex = 0;
 
-        // --------------------------------------------------------
-        // Neural Network Canvas Background
-        // --------------------------------------------------------
+        // Neural Network Background (Performance Optimized)
         function initNeuralNetwork() {
             const canvas = document.getElementById('neural-canvas');
             if (!canvas) return;
@@ -992,25 +832,15 @@
                 initParticles();
             }
 
-            let currentWidth = window.innerWidth;
-            window.addEventListener('resize', () => {
-                if (window.innerWidth !== currentWidth) {
-                    currentWidth = window.innerWidth;
-                    resize();
-                }
-            });
-
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = e.x;
-                mouse.y = e.y;
-            });
+            window.addEventListener('resize', resize);
+            window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
 
             class Particle {
                 constructor() {
                     this.x = Math.random() * width;
                     this.y = Math.random() * height;
-                    this.vx = (Math.random() - 0.5) * 0.5;
-                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.vx = (Math.random() - 0.5) * 0.1;
+                    this.vy = (Math.random() - 0.5) * 0.1;
                     this.size = Math.random() * 1.5 + 0.5;
                 }
                 update() {
@@ -1018,50 +848,36 @@
                     this.y += this.vy;
                     if (this.x < 0 || this.x > width) this.vx = -this.vx;
                     if (this.y < 0 || this.y > height) this.vy = -this.vy;
-
-                    if(mouse.x != null) {
-                        let dx = mouse.x - this.x;
-                        let dy = mouse.y - this.y;
-                        let distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < mouse.radius) {
-                            const force = (mouse.radius - distance) / mouse.radius;
-                            this.x -= dx * force * 0.02;
-                            this.y -= dy * force * 0.02;
-                        }
-                    }
                 }
                 draw() {
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(166, 138, 87, 0.3)';
+                    ctx.fillStyle = 'rgba(166, 138, 87, 0.2)';
                     ctx.fill();
                 }
             }
 
             function initParticles() {
                 particles = [];
-                let numParticles = (width * height) / 15000;
+                // Cap particles at 100 to prevent O(N^2) exponential scroll lag on high-res displays
+                let numParticles = Math.min(100, (width * height) / 25000);
                 for (let i = 0; i < numParticles; i++) particles.push(new Particle());
             }
 
             function animate() {
                 requestAnimationFrame(animate);
                 if (document.hidden) return; 
-                
                 ctx.clearRect(0, 0, width, height);
-                
                 for (let i = 0; i < particles.length; i++) {
                     particles[i].update();
                     particles[i].draw();
-                    
                     for (let j = i; j < particles.length; j++) {
                         let dx = particles[i].x - particles[j].x;
                         let dy = particles[i].y - particles[j].y;
                         let distance = Math.sqrt(dx * dx + dy * dy);
-                        
-                        if (distance < 100) {
+                        if (distance < 120) {
                             ctx.beginPath();
-                            ctx.strokeStyle = `rgba(166, 138, 87, ${0.15 * (1 - distance/100)})`;
+                            ctx.strokeStyle = `rgba(166, 138, 87, ${0.1 * (1 - distance/120)})`;
                             ctx.lineWidth = 0.5;
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
@@ -1075,28 +891,21 @@
             animate();
         }
 
-        // --------------------------------------------------------
-        // Form Submission Logic (Netlify URL-Encoded Fix + Terminal UX)
-        // --------------------------------------------------------
+        // Form Submission Logic
         async function handleFormSubmit(e) {
             e.preventDefault();
-
             const form = document.getElementById('audit-form');
             const success = document.getElementById('success-state');
             const submitBtn = document.getElementById('audit-submit-btn');
 
-            // High-end UI feedback: Show transmitting state
             const originalBtnText = submitBtn.innerText;
-            submitBtn.innerText = 'TRANSMITTING...';
+            submitBtn.innerText = 'Submitting...';
             submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
             submitBtn.disabled = true;
 
             try {
                 const formData = new FormData(form);
-                
-                // CRITICAL FIX: Convert FormData to URL-encoded string for Netlify AJAX
                 const urlEncodedData = new URLSearchParams(formData).toString();
-
                 const res = await fetch("/", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -1105,177 +914,63 @@
 
                 if (!res.ok) throw new Error("Form submission failed");
 
-                // Transition to animated terminal success state
                 form.classList.add('hidden');
                 success.classList.remove('hidden');
                 success.classList.add('flex');
 
                 const spinner = document.getElementById('success-spinner');
                 const check = document.getElementById('success-check');
-                const heading = document.getElementById('success-heading');
-                const term1 = document.getElementById('term-1');
-                const term2 = document.getElementById('term-2');
+                const message = document.getElementById('success-message');
 
-                // Sequence timing
-                setTimeout(() => term1.classList.add('opacity-100'), 400);
-                setTimeout(() => term2.classList.add('opacity-100'), 1200);
-                
                 setTimeout(() => {
-                    spinner.classList.add('opacity-0'); // hide spinner
+                    spinner.classList.add('opacity-0'); 
                     check.classList.remove('scale-0');
-                    check.classList.add('scale-100'); // pop checkmark
-                    heading.innerText = 'Transmission Secure';
-                    term1.innerText = '> Biometric signature logged.';
-                    term2.innerText = '> Telemetry team will contact you.';
-                    term2.classList.remove('text-brand-400');
-                    term2.classList.add('text-gray-400');
-                }, 2400);
+                    check.classList.add('scale-100'); 
+                    message.classList.remove('opacity-0'); 
+                    message.classList.add('opacity-100');
+                }, 1200);
 
-                setTimeout(() => {
-                    closeBookingModal();
-                }, 5500);
+                setTimeout(() => { closeBookingModal(); }, 5500);
 
             } catch (err) {
                 console.error(err);
-                alert("Transmission failed. Please check your connection and try again.");
+                alert("Submission failed. Please check your connection and try again.");
             } finally {
-                // Reset button state incase of error or background form reset
                 submitBtn.innerText = originalBtnText;
                 submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                 submitBtn.disabled = false;
             }
         }
 
-        // --------------------------------------------------------
-        // 3D Tilt Effect Setup 
-        // --------------------------------------------------------
-        function initTiltCards() {
-            if (!window.matchMedia("(pointer: fine)").matches) return; 
-
-            const cards = document.querySelectorAll('.tilt-card');
-            cards.forEach(card => {
-                card.addEventListener('mousemove', e => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const multiplier = 10;
-                    const xRotate = multiplier * ((y - rect.height / 2) / rect.height);
-                    const yRotate = -multiplier * ((x - rect.width / 2) / rect.width);
-                    
-                    card.style.transform = `perspective(1000px) rotateX(${xRotate}deg) rotateY(${yRotate}deg) scale3d(1.02, 1.02, 1.02)`;
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                });
-            });
-        }
-
-        // --------------------------------------------------------
-        // Text Scramble Effect
-        // --------------------------------------------------------
-        class TextScramble {
-            constructor(el) {
-                this.el = el;
-                this.chars = '!<>-_\\/[]{}—=+*^?#________';
-                this.update = this.update.bind(this);
-            }
-            setText(newText) {
-                const oldText = this.el.innerText;
-                const length = Math.max(oldText.length, newText.length);
-                const promise = new Promise((resolve) => this.resolve = resolve);
-                this.queue = [];
-                for (let i = 0; i < length; i++) {
-                    const from = oldText[i] || '';
-                    const to = newText[i] || '';
-                    const start = Math.floor(Math.random() * 40);
-                    const end = start + Math.floor(Math.random() * 40);
-                    this.queue.push({ from, to, start, end });
-                }
-                cancelAnimationFrame(this.frameRequest);
-                this.frame = 0;
-                this.update();
-                return promise;
-            }
-            update() {
-                let output = '';
-                let complete = 0;
-                for (let i = 0, n = this.queue.length; i < n; i++) {
-                    let { from, to, start, end, char } = this.queue[i];
-                    if (this.frame >= end) {
-                        complete++;
-                        output += to;
-                    } else if (this.frame >= start) {
-                        if (!char || Math.random() < 0.28) {
-                            char = this.randomChar();
-                            this.queue[i].char = char;
-                        }
-                        output += `<span class="text-brand-500 opacity-50">${char}</span>`;
-                    } else {
-                        output += from;
-                    }
-                }
-                this.el.innerHTML = output;
-                if (complete === this.queue.length) {
-                    this.resolve();
-                } else {
-                    this.frameRequest = requestAnimationFrame(this.update);
-                    this.frame++;
-                }
-            }
-            randomChar() {
-                return this.chars[Math.floor(Math.random() * this.chars.length)];
-            }
-        }
-
-        function initScramble() {
-            const phrases = document.querySelectorAll('.scramble-text');
-            phrases.forEach(el => {
-                const text = el.getAttribute('data-text') || el.innerText;
-                el.classList.add('decoded');
-                const fx = new TextScramble(el);
-                
-                fx.setText(text.replace('It Was Always Calibration.', '')).then(() => {
-                    el.innerHTML = `The Ceiling Was Never Effort.<br><span class="italic text-brand-500" style="color: #A68A57;">It Was Always Calibration.</span>`;
-                });
-            });
-        }
-
-
-        // --------------------------------------------------------
-        // Main Boot Sequence
-        // --------------------------------------------------------
+        // Boot Sequence
         document.addEventListener('DOMContentLoaded', () => {
-            // Instantly render UI structure
             renderPillarList();
             updatePillarDetail(0);
-
-            // Execute scripts
-            initScramble();
             initNeuralNetwork();
             setupIntersectionObserver();
-            initTiltCards();
             setupScrollSpy();
 
-            // Populate Hidden Tracking Fields for Netlify Forms
-            const referrerInput = document.getElementById('lead_referrer');
-            const urlInput = document.getElementById('lead_page_url');
-            if (referrerInput) referrerInput.value = document.referrer || 'Direct/Unknown';
-            if (urlInput) urlInput.value = window.location.href;
-
-            // Sticky Nav Logic
+            // Throttled Scroll Listener for Performance
+            let isScrolling = false;
             window.addEventListener('scroll', () => {
-                const nav = document.getElementById('main-nav-container');
-                if(!nav) return;
-                const navChild = nav.firstElementChild;
-                if (window.scrollY > 50) {
-                    navChild.classList.add('bg-carbon/90', 'shadow-lg');
-                } else {
-                    navChild.classList.remove('bg-carbon/90', 'shadow-lg');
+                if (!isScrolling) {
+                    window.requestAnimationFrame(() => {
+                        const nav = document.getElementById('main-nav-container');
+                        if(nav) {
+                            if (window.scrollY > 50) {
+                                nav.classList.add('bg-obsidian/95', 'backdrop-blur-md', 'border-white/5');
+                                nav.classList.remove('bg-obsidian/0', 'border-transparent');
+                            } else {
+                                nav.classList.remove('bg-obsidian/95', 'backdrop-blur-md', 'border-white/5');
+                                nav.classList.add('bg-obsidian/0', 'border-transparent');
+                            }
+                        }
+                        isScrolling = false;
+                    });
+                    isScrolling = true;
                 }
             }, { passive: true });
 
-            // Global Escape Key Listener for Modal
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && !document.getElementById('booking-modal').classList.contains('hidden')) {
                     closeBookingModal();
@@ -1283,7 +978,7 @@
             });
         });
 
-        // Toggle Logic UI Update
+        // Toggle Logic (Synchronized Timing)
         function toggleLogic(mode) {
             const title = document.getElementById('logic-title');
             const text = document.getElementById('logic-text');
@@ -1291,77 +986,76 @@
             const btnBetter = document.getElementById('btn-better');
             const btnDifferent = document.getElementById('btn-different');
             const tags = document.getElementById('logic-tags');
-            const bg = document.getElementById('toggle-bg');
             const dot = document.getElementById('logic-dot');
             const status = document.getElementById('logic-status');
 
-            content.classList.add('fade-out');
+            // 1. Snappy fade out (200ms)
+            content.style.transition = 'opacity 0.2s ease-out, transform 0.2s ease-out';
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(10px)';
             
             setTimeout(() => {
+                // 2. Invisible Swap
                 if (mode === 'better') {
-                    bg.style.transform = 'translateX(0)';
-                    btnBetter.className = "relative z-10 py-3 rounded-full text-[9px] sm:text-[10px] font-mono tracking-[0.2em] uppercase transition-all text-white w-[140px] sm:w-48";
-                    btnDifferent.className = "relative z-10 py-3 rounded-full text-[9px] sm:text-[10px] font-mono tracking-[0.2em] uppercase transition-all text-gray-500 hover:text-white w-[140px] sm:w-48";
+                    btnBetter.className = "pb-4 text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] uppercase transition-all duration-300 text-brand-500 border-b-[3px] border-brand-500";
+                    btnDifferent.className = "pb-4 text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] uppercase transition-all duration-300 text-gray-600 border-b-[3px] border-transparent hover:text-gray-300";
                     
                     title.innerText = 'The Intensity Trap';
                     text.innerText = 'Intensity alone is a path to burnout. Most high performers are over-leveraged and under-calibrated, working at maximum output on a system that was never precisely built for them. The harder they push, the wider the gap between effort and result.';
-                    dot.className = "w-1 h-1 bg-data-red rounded-full";
-                    status.innerText = "WARNING: SYSTEMIC DRAG DETECTED";
-                    status.className = "text-[8px] font-mono tracking-widest text-data-red uppercase";
-                    tags.innerHTML = `<span class="text-[9px] tracking-[0.2em] uppercase border-b border-gray-700 pb-1">SYSTEMIC FRICTION</span><span class="text-[9px] tracking-[0.2em] uppercase border-b border-gray-700 pb-1">COGNITIVE DECAY</span><span class="text-[9px] tracking-[0.2em] uppercase border-b border-gray-700 pb-1">BIOLOGICAL DEBT</span>`;
+                    dot.className = "w-1.5 h-1.5 bg-data-red rounded-full";
+                    status.innerText = "Warning: Systemic Drag";
+                    status.className = "text-[9px] font-sans font-bold tracking-[0.2em] text-data-red uppercase";
+                    tags.innerHTML = `<span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-gray-700 pb-1">Systemic Friction</span><span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-gray-700 pb-1">Cognitive Decay</span><span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-gray-700 pb-1">Biological Debt</span>`;
                 } else {
-                    bg.style.transform = 'translateX(100%)';
-                    btnDifferent.className = "relative z-10 py-3 rounded-full text-[9px] sm:text-[10px] font-mono tracking-[0.2em] uppercase transition-all text-white w-[140px] sm:w-48";
-                    btnBetter.className = "relative z-10 py-3 rounded-full text-[9px] sm:text-[10px] font-mono tracking-[0.2em] uppercase transition-all text-gray-500 hover:text-white w-[140px] sm:w-48";
+                    btnDifferent.className = "pb-4 text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] uppercase transition-all duration-300 text-brand-500 border-b-[3px] border-brand-500";
+                    btnBetter.className = "pb-4 text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] uppercase transition-all duration-300 text-gray-600 border-b-[3px] border-transparent hover:text-gray-300";
                     
                     title.innerText = 'The Calibration Edge';
                     text.innerText = 'Instead of pushing the engine to redline, we re-engineer the engine itself. Every biological and strategic layer. Precisely mapped. Precisely built. When the system is calibrated to the operator, elite performance stops being something you summon. It becomes something you default to.';
-                    dot.className = "w-1 h-1 bg-brand-400 rounded-full animate-pulse shadow-[0_0_8px_#C2A366]";
-                    status.innerText = "OPTIMAL PROTOCOL VERIFIED";
-                    status.className = "text-[8px] font-mono tracking-widest text-brand-400 uppercase";
-                    tags.innerHTML = `<span class="text-[9px] tracking-[0.2em] uppercase border-b border-brand-500/50 text-brand-400 pb-1">SYSTEMIC LEVERAGE</span><span class="text-[9px] tracking-[0.2em] uppercase border-b border-brand-500/50 text-brand-400 pb-1">COGNITIVE ACUITY</span><span class="text-[9px] tracking-[0.2em] uppercase border-b border-brand-500/50 text-brand-400 pb-1">BIOLOGICAL SURPLUS</span>`;
+                    dot.className = "w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse shadow-glow";
+                    status.innerText = "Protocol Verified";
+                    status.className = "text-[9px] font-sans font-bold tracking-[0.2em] text-brand-400 uppercase";
+                    tags.innerHTML = `<span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-brand-500/50 text-brand-400 pb-1">Systemic Leverage</span><span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-brand-500/50 text-brand-400 pb-1">Cognitive Acuity</span><span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-brand-500/50 text-brand-400 pb-1">Biological Surplus</span>`;
                 }
-                content.classList.remove('fade-out');
-            }, 300);
+                
+                // 3. Luxurious fade in (800ms bezier)
+                content.style.transition = 'opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+                content.style.opacity = '1';
+                content.style.transform = 'translateY(0)';
+            }, 200); // Trigger instantly after fade out
         }
 
-        // HUD List Generation
+        // HUD Details
         function renderPillarList() {
             const container = document.getElementById('pillar-list');
             container.innerHTML = '';
             pillars.forEach((p, i) => {
                 const card = document.createElement('div');
-                card.className = `p-3 sm:p-4 rounded-lg border flex flex-col justify-center transition-all cursor-pointer tilt-card illuminate-box border-white/5 bg-white/5 text-gray-400`;
+                card.className = `p-3 sm:p-4 rounded-sm border flex flex-col justify-center transition-all cursor-pointer editorial-panel border-white/5 bg-white/5 text-gray-400 hover:border-brand-500/30`;
                 card.id = `pillar-card-${i}`;
                 card.onclick = () => {
                     isUserInteracting = true;
                     clearInterval(autoplayInterval);
                     clearTimeout(resumeTimeout); 
-                    
                     updatePillarDetail(i);
-
                     resumeTimeout = setTimeout(() => {
                         isUserInteracting = false;
                         startHudAutoplay();
                     }, 10000);
                 };
                 card.innerHTML = `
-                    <div class="tilt-content">
-                        <div class="flex justify-between items-center w-full mb-2">
-                            <span class="text-[8px] font-mono uppercase tracking-widest">Sys_0${i+1}</span>
-                            <span class="text-sm opacity-90">${p.icon}</span>
-                        </div>
-                        <span class="text-[9px] sm:text-[10px] font-mono tracking-widest uppercase truncate w-full text-left block">${p.title}</span>
+                    <div class="flex justify-between items-center w-full mb-2">
+                        <span class="text-[8px] font-mono uppercase tracking-widest">Sys_0${i+1}</span>
+                        <span class="text-sm opacity-90">${p.icon}</span>
                     </div>
+                    <span class="text-[9px] sm:text-[10px] font-sans font-bold tracking-widest uppercase truncate w-full text-left block">${p.title}</span>
                 `;
                 container.appendChild(card);
             });
         }
 
-        // HUD Detail Update
         function updatePillarDetail(index) {
             currentPillarIndex = index;
-
             const p = pillars[index];
             const detail = document.getElementById('pillar-detail');
             
@@ -1370,25 +1064,23 @@
                 document.getElementById('detail-title').innerText = p.title;
                 document.getElementById('detail-desc').innerText = p.desc;
                 document.getElementById('detail-icon').innerText = p.icon;
-                document.getElementById('detail-category').innerText = `SYS_0${index + 1}`;
+                document.getElementById('detail-category').innerText = `System 0${index + 1}`;
                 document.getElementById('label-left').innerText = p.label;
                 
                 const bar = document.getElementById('detail-bar');
                 bar.style.width = '0%';
                 
                 if (radarChart && radarChart.data && radarChart.data.datasets.length > 1) { 
-                    bar.className = 'bg-data-red h-full w-full transition-all duration-1000 shadow-[0_0_15px_#FF3366] relative';
+                    bar.className = 'bg-data-red h-full w-full transition-all duration-1000 relative shadow-[0_0_15px_rgba(255,51,102,0.4)]';
                     bar.style.width = `${(p.gapScore/10)*100}%`;
                 } else {
-                    bar.className = 'bg-brand-500 h-full w-full transition-all duration-1000 shadow-[0_0_15px_rgba(166,138,87,0.8)] relative';
+                    bar.className = 'bg-brand-500 h-full w-full transition-all duration-1000 relative shadow-[0_0_15px_rgba(166,138,87,0.4)]';
                     bar.style.width = '100%';
                 }
-                
                 detail.style.opacity = '1';
             }, 200);
         }
 
-        // HUD Auto-Cycle
         function startHudAutoplay() {
             if (isUserInteracting) return;
             clearInterval(autoplayInterval); 
@@ -1398,11 +1090,11 @@
             }, 3500);
         }
 
-        // Chart.js 
+        // Charts (Optimized Rendering)
         function initRadarChart() {
             if(typeof Chart === 'undefined') return;
             Chart.defaults.color = '#666';
-            Chart.defaults.font.family = '"JetBrains Mono", monospace';
+            Chart.defaults.font.family = '"Inter", sans-serif';
 
             const ctx = document.getElementById('masteryRadar').getContext('2d');
             radarChart = new Chart(ctx, {
@@ -1412,28 +1104,24 @@
                     datasets: [{
                         label: 'Mastery',
                         data: pillars.map(p => p.masteryScore),
-                        backgroundColor: 'rgba(166, 138, 87, 0.1)',
+                        backgroundColor: 'rgba(166, 138, 87, 0.05)',
                         borderColor: '#A68A57',
-                        borderWidth: 1.5,
+                        borderWidth: 1,
                         pointBackgroundColor: '#C2A366',
-                        pointBorderColor: '#1A1A1A',
-                        pointRadius: 4,
-                        pointHoverRadius: 6
+                        pointBorderColor: '#0a0a0a',
+                        pointRadius: 3,
+                        pointHoverRadius: 5
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, maintainAspectRatio: false,
+                    animation: { duration: 1000, easing: 'easeOutQuart' },
                     scales: {
                         r: {
                             angleLines: { color: 'rgba(255, 255, 255, 0.05)' },
                             grid: { color: 'rgba(255, 255, 255, 0.05)', circular: true },
-                            pointLabels: {
-                                font: { size: window.innerWidth < 768 ? 9 : 11, weight: '400' },
-                                color: '#A68A57'
-                            },
-                            ticks: { display: false },
-                            suggestedMin: 0, suggestedMax: 10
+                            pointLabels: { font: { size: window.innerWidth < 768 ? 9 : 11, weight: '600' }, color: '#A68A57' },
+                            ticks: { display: false }, suggestedMin: 0, suggestedMax: 10
                         }
                     },
                     plugins: { legend: { display: false }, tooltip: { enabled: false } }
@@ -1444,9 +1132,8 @@
         function initImpactChart() {
             if(typeof Chart === 'undefined') return;
             const ctx = document.getElementById('impactGaugeChart').getContext('2d');
-            
             let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, 'rgba(166, 138, 87, 0.4)');
+            gradient.addColorStop(0, 'rgba(166, 138, 87, 0.3)');
             gradient.addColorStop(1, 'rgba(166, 138, 87, 0.0)');
 
             impactChart = new Chart(ctx, {
@@ -1455,51 +1142,26 @@
                     labels: ['Start', 'Month 3', 'Month 6', 'Month 9', 'Month 12'],
                     datasets: [
                         {
-                            label: 'VYRTŪOSITI',
-                            data: [65, 82, 92, 95, 99],
-                            borderColor: '#A68A57',
-                            borderWidth: 3,
-                            tension: 0.4,
-                            fill: true,
-                            backgroundColor: gradient,
-                            pointRadius: 4,
-                            pointBackgroundColor: '#C2A366',
-                            pointBorderColor: '#050505',
-                            pointBorderWidth: 2
+                            label: 'VYRTŪOSITI', data: [65, 82, 92, 95, 99],
+                            borderColor: '#A68A57', borderWidth: 2, tension: 0.4, fill: true,
+                            backgroundColor: gradient, pointRadius: 3, pointBackgroundColor: '#C2A366', pointBorderColor: '#050505'
                         },
                         {
-                            label: 'Standard Effort',
-                            data: [60, 72, 58, 45, 30],
-                            borderColor: '#333',
-                            borderWidth: 2,
-                            borderDash: [5, 5],
-                            tension: 0.3,
-                            fill: false,
-                            pointRadius: 0
+                            label: 'Standard Effort', data: [60, 72, 58, 45, 30],
+                            borderColor: '#333', borderWidth: 1.5, borderDash: [5, 5], tension: 0.3, fill: false, pointRadius: 0
                         }
                     ]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false },
-                    scales: {
-                        x: { display: true, grid: { display: false }, border: {display: false}, ticks: { font: { size: 10 }, color: '#666' } },
-                        y: { display: false, suggestedMin: 0, suggestedMax: 110 }
-                    },
+                    responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+                    animation: { duration: 1500, easing: 'easeOutQuart' },
+                    scales: { x: { display: true, grid: { display: false }, border: {display: false}, ticks: { font: { size: 10 }, color: '#666' } }, y: { display: false, suggestedMin: 0, suggestedMax: 110 } },
                     plugins: { 
                         legend: { display: false },
                         tooltip: {
-                            backgroundColor: 'rgba(18, 18, 18, 0.9)',
-                            titleFont: { size: 11, family: '"JetBrains Mono", monospace' },
-                            bodyFont: { size: 13, family: '"Inter", sans-serif' },
-                            padding: 12,
-                            borderColor: 'rgba(166, 138, 87, 0.5)',
-                            borderWidth: 1,
-                            displayColors: false,
-                            callbacks: {
-                                label: function(context) { return `${context.dataset.label}: ${context.parsed.y} Output`; }
-                            }
+                            backgroundColor: '#0a0a0a', titleFont: { size: 11, family: '"Inter", sans-serif' }, bodyFont: { size: 13, family: '"Inter", sans-serif' },
+                            padding: 12, borderColor: 'rgba(255, 255, 255, 0.1)', borderWidth: 1, displayColors: false,
+                            callbacks: { label: function(context) { return `${context.dataset.label}: ${context.parsed.y} Output`; } }
                         }
                     }
                 }
@@ -1510,34 +1172,30 @@
             const btnGap = document.getElementById('btn-scan-gap');
             const btnOptimal = document.getElementById('btn-scan-optimal');
             
-            const activeClass = "flex-1 lg:flex-none text-[9px] sm:text-[10px] font-mono tracking-widest uppercase bg-brand-500/20 text-brand-400 border border-brand-500/50 px-2 sm:px-6 py-3 rounded hover:bg-brand-500 hover:text-obsidian transition-all shadow-glow whitespace-nowrap";
-            const inactiveClass = "flex-1 lg:flex-none text-[9px] sm:text-[10px] font-mono tracking-widest uppercase text-gray-400 border border-transparent px-2 sm:px-6 py-3 rounded hover:bg-white/5 transition-all whitespace-nowrap";
+            const activeClass = "flex-1 lg:flex-none text-[9px] sm:text-[10px] font-sans font-bold tracking-widest uppercase bg-brand-500/10 text-brand-400 border border-brand-500/30 px-4 sm:px-8 py-3 rounded-sm transition-all whitespace-nowrap";
+            const inactiveClass = "flex-1 lg:flex-none text-[9px] sm:text-[10px] font-sans font-bold tracking-widest uppercase text-gray-500 border border-transparent px-4 sm:px-8 py-3 rounded-sm hover:bg-white/5 transition-all whitespace-nowrap";
 
             if (mode === 'gap') {
                 if (btnGap) btnGap.className = activeClass;
                 if (btnOptimal) btnOptimal.className = inactiveClass;
-
                 radarChart.data.datasets = [
                     { label: 'Mastery', data: pillars.map(p => 10), borderColor: 'rgba(166, 138, 87, 0.3)', borderWidth: 1, borderDash: [4, 4], pointRadius: 0, backgroundColor: 'transparent' },
-                    { label: 'Diagnostic Leak', data: pillars.map(p => p.gapScore), borderColor: '#FF3366', backgroundColor: 'rgba(255, 51, 102, 0.1)', borderWidth: 2, pointBackgroundColor: '#FF3366', pointBorderColor: '#050505' }
+                    { label: 'Diagnostic Leak', data: pillars.map(p => p.gapScore), borderColor: '#FF3366', backgroundColor: 'rgba(255, 51, 102, 0.1)', borderWidth: 1.5, pointBackgroundColor: '#FF3366', pointBorderColor: '#050505' }
                 ];
             } else {
                 if (btnGap) btnGap.className = inactiveClass;
                 if (btnOptimal) btnOptimal.className = activeClass;
-
-                radarChart.data.datasets = [{ label: 'Mastery', data: pillars.map(p => 10), backgroundColor: 'rgba(166, 138, 87, 0.1)', borderColor: '#A68A57', borderWidth: 1.5, pointBackgroundColor: '#C2A366', pointBorderColor: '#1A1A1A' }];
+                radarChart.data.datasets = [{ label: 'Mastery', data: pillars.map(p => 10), backgroundColor: 'rgba(166, 138, 87, 0.05)', borderColor: '#A68A57', borderWidth: 1, pointBackgroundColor: '#C2A366', pointBorderColor: '#0a0a0a' }];
             }
             radarChart.update();
             updatePillarDetail(currentPillarIndex);
         }
 
-        // Stats Counter
         function animateStats() {
             const stats = document.querySelectorAll('.stat-value');
             stats.forEach(stat => {
                 if(stat.classList.contains('animated')) return; 
                 stat.classList.add('animated');
-                
                 const target = parseInt(stat.getAttribute('data-target'));
                 const duration = 2500;
                 let startTime = null;
@@ -1547,15 +1205,14 @@
                     const progress = Math.min((timestamp - startTime) / duration, 1);
                     const ease = 1 - Math.pow(1 - progress, 4);
                     const current = Math.floor(ease * target);
-                    stat.innerText = (target > 0 ? '+' : '') + current;
+                    stat.innerText = current;
                     if (progress < 1) requestAnimationFrame(animate);
-                    else stat.innerText = (target > 0 ? '+' : '') + target; 
+                    else stat.innerText = target; 
                 };
                 requestAnimationFrame(animate);
             });
         }
 
-        // Scroll Observers
         function setupIntersectionObserver() {
             let chartsInitialized = false;
             const observer = new IntersectionObserver((entries) => {
@@ -1564,112 +1221,80 @@
                         entry.target.classList.add('active');
                         if (entry.target.id === 'impact') animateStats();
                         if (entry.target.id === 'model') {
-                            if (!chartsInitialized) {
-                                initRadarChart();
-                                initImpactChart();
-                                chartsInitialized = true;
-                            }
+                            if (!chartsInitialized) { initRadarChart(); initImpactChart(); chartsInitialized = true; }
                             startHudAutoplay();
                         }
                     } else { 
-                        if (entry.target.id === 'model') {
-                            clearInterval(autoplayInterval); 
-                            autoplayInterval = null; 
-                        }
+                        if (entry.target.id === 'model') { clearInterval(autoplayInterval); autoplayInterval = null; }
                     }
                 });
-            }, { 
-                threshold: 0.05, 
-                rootMargin: "0px 0px 100px 0px" // Triggers animation slightly before it enters the viewport
-            });
-
+            // Re-calibrated threshold and margin so elements fade in deliberately while scrolling, not preemptively
+            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
 
+        // Throttled Scroll Spy
         function setupScrollSpy() {
             const sections = document.querySelectorAll('section');
             const navItems = document.querySelectorAll('.nav-item');
             const mobileHud = document.getElementById('mobile-bottom-hud');
             const mobileActiveText = document.getElementById('mobile-active-text');
-
+            
+            let isSpying = false;
             window.addEventListener('scroll', () => {
-                let current = 'hero';
-                const scrollPos = window.scrollY;
-                
-                sections.forEach(section => {
-                    // Use a tighter offset ratio (1/3 of screen height) for more accurate tracking
-                    if (scrollPos >= (section.offsetTop - (window.innerHeight / 3))) {
-                        current = section.getAttribute('id');
-                    }
-                });
+                if (!isSpying) {
+                    window.requestAnimationFrame(() => {
+                        let current = 'hero';
+                        const scrollPos = window.scrollY;
+                        sections.forEach(section => {
+                            if (scrollPos >= (section.offsetTop - (window.innerHeight / 3))) {
+                                current = section.getAttribute('id');
+                            }
+                        });
 
-                // Desktop Nav Spy
-                navItems.forEach(item => {
-                    item.classList.remove('text-brand-500');
-                    item.classList.add('text-gray-400');
-                    if (item.getAttribute('href').includes(current)) {
-                        item.classList.remove('text-gray-400');
-                        item.classList.add('text-brand-500');
-                    }
-                });
+                        navItems.forEach(item => {
+                            item.classList.remove('text-brand-500');
+                            item.classList.add('text-gray-500');
+                            if (item.getAttribute('href').includes(current)) {
+                                item.classList.remove('text-gray-500');
+                                item.classList.add('text-brand-500');
+                            }
+                        });
 
-                // Mobile Bottom HUD Logic
-                if (window.innerWidth < 768) {
-                    if (current !== 'hero' && pageYOffset > 100) {
-                        mobileHud.classList.remove('translate-y-20', 'opacity-0');
-                        
-                        const map = {
-                            'model': 'Telemetry',
-                            'impact': 'Data',
-                            'architect': 'Architect',
-                            'reports': 'Field Reports',
-                            'offer': 'Installation'
-                        };
-                        if(map[current]) mobileActiveText.innerText = map[current];
-                    } else {
-                        mobileHud.classList.add('translate-y-20', 'opacity-0');
-                    }
+                        if (window.innerWidth < 768) {
+                            if (current !== 'hero' && scrollPos > 100) {
+                                mobileHud.classList.remove('translate-y-20', 'opacity-0');
+                                const map = { 'model': 'Telemetry', 'impact': 'Data', 'architect': 'Architect', 'reports': 'Reports', 'offer': 'Installation' };
+                                if(map[current]) mobileActiveText.innerText = map[current];
+                            } else {
+                                mobileHud.classList.add('translate-y-20', 'opacity-0');
+                            }
+                        }
+                        isSpying = false;
+                    });
+                    isSpying = true;
                 }
             }, { passive: true });
         }
 
-        // Modal
         function openBookingModal() { 
             document.getElementById('booking-modal').classList.remove('hidden'); 
             document.body.style.overflow = 'hidden';
-            
-            // Auto-focus first input for frictionless UX
-            setTimeout(() => {
-                const input = document.getElementById('legal_name');
-                if(input) input.focus();
-            }, 100);
+            setTimeout(() => { const input = document.getElementById('legal_name'); if(input) input.focus(); }, 100);
         }
         function closeBookingModal() { 
             document.getElementById('booking-modal').classList.add('hidden'); 
             document.body.style.overflow = '';
-            
             setTimeout(() => {
-                // Reset Form
                 document.getElementById('audit-form').reset();
                 document.getElementById('audit-form').classList.remove('hidden');
-                
-                // Reset Success UI Elements
                 document.getElementById('success-state').classList.add('hidden');
                 document.getElementById('success-state').classList.remove('flex');
-                
                 document.getElementById('success-spinner').classList.remove('opacity-0');
                 document.getElementById('success-check').classList.remove('scale-100');
                 document.getElementById('success-check').classList.add('scale-0');
-                document.getElementById('success-heading').innerText = 'Establishing Link...';
-                
-                const term1 = document.getElementById('term-1');
-                const term2 = document.getElementById('term-2');
-                term1.classList.remove('opacity-100');
-                term2.classList.remove('opacity-100');
-                term1.innerText = '> Encrypting payload...';
-                term2.innerText = '> Verifying credentials...';
-                term2.classList.remove('text-gray-400');
-                term2.classList.add('text-brand-400');
+                document.getElementById('success-message').classList.remove('opacity-100');
+                document.getElementById('success-message').classList.add('opacity-0');
             }, 500);
         }
     </script>
