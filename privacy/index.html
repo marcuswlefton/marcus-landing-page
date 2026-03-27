@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy | VYRTŪOSITI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark-gold: #b8860b;
+    --gold-muted: rgba(184, 134, 11, 0.15);
+    --gold-border: rgba(184, 134, 11, 0.25);
+    --white: #f0ece4;
+    --gray-text: #a09a90;
+    --gray-dim: #5a5550;
+    --section-bg: rgba(255,255,255,0.02);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* --- CUSTOM SCROLLBAR --- */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--black);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--gray-dim);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-gold);
+  }
+
+  /* --- CUSTOM TEXT SELECTION --- */
+  ::selection {
+    background: rgba(184, 134, 11, 0.25);
+    color: var(--white);
+  }
+
+  .policy-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 100px 24px 120px;
+  }
+
+  .brand-mark {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--dark-gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .effective-date {
+    font-size: 13px;
+    color: var(--gray-dim);
+    margin-bottom: 56px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .intro-block {
+    border-left: 2px solid var(--dark-gold);
+    padding-left: 24px;
+    margin-bottom: 64px;
+    color: var(--gray-text);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .section {
+    margin-bottom: 56px;
+  }
+
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--dark-gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  h2 {
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  p {
+    color: var(--gray-text);
+    margin-bottom: 16px;
+    font-size: 15px;
+  }
+
+  .data-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 24px 0;
+  }
+
+  .data-list li {
+    color: var(--gray-text);
+    font-size: 14.5px;
+    padding: 8px 0 8px 24px;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .data-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 17px;
+    width: 8px;
+    height: 1px;
+    background: var(--dark-gold);
+  }
+
+  .highlight-box {
+    background: var(--section-bg);
+    border: 1px solid var(--gold-border);
+    padding: 24px 28px;
+    margin: 24px 0;
+    font-size: 14.5px;
+    color: var(--gray-text);
+    line-height: 1.7;
+    border-radius: 2px;
+  }
+
+  .highlight-box strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  a {
+    color: var(--dark-gold);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  a:hover {
+    border-bottom-color: var(--dark-gold);
+  }
+
+  .footer-block {
+    margin-top: 100px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+
+  .footer-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--gray-dim);
+    margin-bottom: 12px;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--gray-dim);
+  }
+
+  strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* --- ANIMATIONS --- */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    .policy-container { padding: 64px 20px 80px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 18px; }
+    .intro-block { padding-left: 16px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="policy-container">
+
+  <div class="brand-mark fade-up">VYRTŪOSITI</div>
+  <h1 class="fade-up" style="transition-delay: 0.1s;">Privacy Policy</h1>
+  <div class="effective-date fade-up" style="transition-delay: 0.2s;">Effective: March 27, 2026 &nbsp;|&nbsp; Last Updated: March 27, 2026</div>
+
+  <div class="intro-block fade-up" style="transition-delay: 0.3s;">
+    This Privacy Policy describes how VYRTŪOSITI LLC, a single-member limited liability company organized under the laws of Arizona ("VYRTŪOSITI," "we," "us," or "our"), collects, uses, shares, and protects your personal information when you visit our websites at marcuslefton.com and marcuslefton.com/mastery, subscribe to the Mastery in Motion newsletter, complete a performance diagnostic, submit an application or intake form, engage our coaching or consulting services, or otherwise interact with us. By using our websites or services, you acknowledge that you have read and understand this Policy.
+  </div>
+
+  <!-- Section 01 -->
+  <div class="section fade-up">
+    <span class="section-number">01</span>
+    <h2>Information We Collect</h2>
+    <p>We collect information you voluntarily provide, information collected automatically through your use of our websites, and information obtained from third-party sources.</p>
+
+    <p><strong>Information You Provide Directly</strong></p>
+    <ul class="data-list">
+      <li>Name (legal name and/or preferred name)</li>
+      <li>Email address</li>
+      <li>Phone number (when provided during application, engagement, or text-based communications)</li>
+      <li>Diagnostic application and intake form responses, including self-reported performance constraints, goals, and primary system limitations.</li>
+      <li>Performance diagnostic responses collected through interactive assessment tools on our websites (e.g., the Mastery in Motion diagnostic), which may include self-reported data about cognitive patterns, energy levels, physical capacity, recovery habits, and vocational performance.</li>
+      <li>Coaching engagement data, including session notes, action items, progress metrics, and communications exchanged during active engagements.</li>
+      <li>Biometric and health-related data you voluntarily share during engagements, such as HRV readings, CO2 tolerance scores, sleep data, blood work results, and other physiological markers (see Section 02).</li>
+      <li>Payment and billing information processed through our third-party payment providers (see Section 04).</li>
+      <li>Text messages and SMS communications exchanged during active engagements.</li>
+    </ul>
+
+    <p><strong>Information Collected Automatically</strong></p>
+    <ul class="data-list">
+      <li>IP address, browser type, device identifiers, and operating system.</li>
+      <li>Pages viewed, time spent on pages, referring URLs, and navigation patterns.</li>
+      <li>Cookies and similar tracking technologies (see Section 08).</li>
+      <li>Email engagement data, including open rates and click-through activity, collected through our email service provider.</li>
+    </ul>
+
+    <p><strong>Information from Third Parties</strong></p>
+    <ul class="data-list">
+      <li>Scheduling platform data collected when you book a session through our third-party scheduling provider (e.g., TidyCal).</li>
+      <li>Analytics data from website hosting and performance platforms.</li>
+    </ul>
+  </div>
+
+  <!-- Section 02 -->
+  <div class="section fade-up">
+    <span class="section-number">02</span>
+    <h2>Sensitive, Health-Related, and Pre-Engagement Data</h2>
+    <p>Certain engagements involve the voluntary disclosure of health-related or biometric data, including but not limited to heart rate variability, blood chemistry panels, respiratory metrics, sleep architecture data, and psychological self-assessments. This information is central to the performance architecture methodology we deliver.</p>
+
+    <div class="highlight-box">
+      <strong>Important:</strong> We collect health-related and biometric data only with your informed, voluntary participation. This data is used exclusively to deliver, refine, and personalize your engagement. We do not sell, rent, license, or share your health-related data with any third party for marketing, advertising, or commercial purposes. Health and biometric data is stored in secured, access-restricted systems and is handled with a heightened standard of care consistent with industry best practices for sensitive personal information.
+    </div>
+
+    <p><strong>Pre-Engagement Data:</strong> Before any formal engagement begins, we may collect self-reported performance and health-related information through diagnostic applications and intake forms. This pre-engagement data is treated with the same standard of care as engagement data.</p>
+  </div>
+
+  <!-- Section 03 -->
+  <div class="section fade-up">
+    <span class="section-number">03</span>
+    <h2>How We Use Your Information</h2>
+    <p>We use the information we collect for the following purposes:</p>
+    <ul class="data-list">
+      <li>To deliver, manage, and improve our coaching, consulting, and performance architecture services.</li>
+      <li>To process and respond to diagnostic applications, intake forms, and engagement inquiries.</li>
+      <li>To administer and score performance diagnostics and deliver results to you.</li>
+      <li>To personalize your experience and tailor engagement protocols to your specific data and objectives.</li>
+      <li>To process payments and manage billing through third-party payment processors.</li>
+      <li>To communicate with you regarding scheduling, session preparation, and engagement administration.</li>
+      <li>To create anonymized, aggregated data for research, content development, and methodology refinement (individual identities are never disclosed without explicit consent).</li>
+    </ul>
+  </div>
+
+  <!-- Section 04 -->
+  <div class="section fade-up">
+    <span class="section-number">04</span>
+    <h2>How We Share Your Information</h2>
+    <p>We do not sell your personal information. We share personal data only in the following limited circumstances:</p>
+    <ul class="data-list">
+      <li><strong>Service Providers:</strong> Third-party vendors who assist with website hosting, email delivery, payment processing, scheduling, and analytics. These providers are contractually or operationally bound to use your data only as necessary to perform services on our behalf.</li>
+      <li><strong>Payment Processors:</strong> We do not directly store your payment credentials. All transactions are processed through third-party providers (such as Stripe or PayPal) that maintain their own security standards.</li>
+      <li><strong>Professional Advisors:</strong> Attorneys, accountants, or other professionals as needed for business operations, subject to confidentiality obligations.</li>
+      <li><strong>Legal Requirements:</strong> When required by law, regulation, legal process, or governmental request.</li>
+      <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, reorganization, or sale of assets.</li>
+      <li><strong>With Your Consent:</strong> We may share information in other circumstances where you have provided explicit written consent, including the use of testimonials or case studies.</li>
+    </ul>
+  </div>
+
+  <!-- Section 05 -->
+  <div class="section fade-up">
+    <span class="section-number">05</span>
+    <h2>International Data Processing</h2>
+    <p>VYRTŪOSITI is based in Arizona, United States. In the course of operating our business, certain service providers who support administrative or operational functions may be located outside the United States.</p>
+    <div class="highlight-box">
+      <strong>Scope of International Access:</strong> Overseas service providers do not have access to client health data, biometric information, session notes, or engagement-specific performance records. Their access is strictly limited to operational data necessary to support business functions.
+    </div>
+  </div>
+
+  <!-- Section 06 -->
+  <div class="section fade-up">
+    <span class="section-number">06</span>
+    <h2>Communications: Email, SMS, and Text Messaging</h2>
+    <p><strong>Newsletter:</strong> When you subscribe to the Mastery in Motion newsletter, you consent to receive periodic email communications. You may unsubscribe at any time.</p>
+    <p><strong>SMS/Text:</strong> During active coaching engagements, we may communicate with you via SMS or text message for session scheduling, progress updates, and accountability check-ins. We do not use SMS for marketing purposes.</p>
+  </div>
+
+  <!-- Section 07 -->
+  <div class="section fade-up">
+    <span class="section-number">07</span>
+    <h2>AI and Automated Tools</h2>
+    <p>In the course of delivering our services, we may use artificial intelligence tools or large language models to assist with research, content development, and strategic analysis.</p>
+    <ul class="data-list">
+      <li>We do not input personally identifiable client information (including names, contact details, health data, or session-specific performance data) into third-party AI systems without your knowledge.</li>
+      <li>AI-generated outputs used in your engagement are reviewed and validated by your performance architect before being applied. No automated system is used as the sole basis for decisions that materially affect your health protocols or service delivery.</li>
+    </ul>
+  </div>
+
+  <!-- Section 08 -->
+  <div class="section fade-up">
+    <span class="section-number">08</span>
+    <h2>Cookies and Tracking Technologies</h2>
+    <p>Our websites use Essential, Analytics, and potentially Marketing cookies to enhance functionality, analyze site traffic, and improve your experience. Most browsers allow you to manage cookie preferences; however, disabling certain cookies may limit website functionality.</p>
+  </div>
+
+  <!-- Section 09 -->
+  <div class="section fade-up">
+    <span class="section-number">09</span>
+    <h2>Data Retention and Deletion</h2>
+    <p>We retain your personal information for as long as necessary to fulfill the purposes for which it was collected:</p>
+    <ul class="data-list">
+      <li><strong>Active clients:</strong> Engagement data, session records, and health-related information are retained for the duration of the engagement plus 36 months, unless otherwise requested.</li>
+      <li><strong>Applicants and leads:</strong> Intake form and diagnostic application data are retained for up to 24 months following your last interaction.</li>
+      <li>To request deletion of your data, contact us at the address in Section 11. We will respond to verified requests within 30 days.</li>
+    </ul>
+  </div>
+
+  <!-- Section 10 -->
+  <div class="section fade-up">
+    <span class="section-number">10</span>
+    <h2>Data Security</h2>
+    <p>We implement reasonable administrative, technical, and physical safeguards designed to protect your personal information from unauthorized access, disclosure, alteration, and destruction. If we become aware of a security breach affecting your personal information, we will notify you in accordance with applicable law, including Arizona data breach notification requirements.</p>
+  </div>
+
+  <!-- Section 11 -->
+  <div class="section fade-up">
+    <span class="section-number">11</span>
+    <h2>Contact & Your Rights</h2>
+    <p>Depending on your jurisdiction, you may have the right to access, correct, or delete your personal information, or opt out of certain processing. If you have questions about this Privacy Policy, wish to exercise your data rights, or need to report a concern, please contact us at:</p>
+    <div class="highlight-box">
+      <strong>VYRTŪOSITI LLC</strong><br>
+      Attn: Privacy<br>
+      Email: <a href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a><br>
+      Phoenix, Arizona, United States
+    </div>
+  </div>
+
+  <!-- Section 12 -->
+  <div class="section fade-up">
+    <span class="section-number">12</span>
+    <h2>Governing Law</h2>
+    <p>This Privacy Policy is governed by and construed in accordance with the laws of the State of Arizona, without regard to its conflict of law provisions. Any disputes arising under or in connection with this Policy shall be subject to the exclusive jurisdiction of the state and federal courts located in Maricopa County, Arizona.</p>
+  </div>
+
+  <div class="footer-block fade-up">
+    <div class="footer-brand">VYRTŪOSITI</div>
+    <div class="footer-copy">&copy; 2026 VYRTŪOSITI LLC. All rights reserved.</div>
+  </div>
+
+</div>
+
+<!-- Intersection Observer Script for Fade-Up Animations -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Stop observing once it's visible
+        }
+      });
+    }, observerOptions);
+
+    const fadeElements = document.querySelectorAll('.fade-up');
+    fadeElements.forEach(el => observer.observe(el));
+  });
+</script>
+</body>
+</html>
