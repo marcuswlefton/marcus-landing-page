@@ -198,6 +198,44 @@
             height: 100%;
             min-height: 350px;
         }
+
+        /* VYRTŪOSITI Mastery Footer */
+        .mastery-footer {
+            width: 100%;
+            padding: 40px 20px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06); /* Subtle premium line */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px; /* Perfect spacing between items */
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .mastery-footer span {
+            color: #5a5550; /* Muted gray */
+        }
+
+        .mastery-footer a {
+            color: #5a5550; /* Muted gray */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mastery-footer a:hover {
+            color: #b8860b; /* Mastery Gold on hover */
+        }
+
+        /* Responsive: stacks neatly on mobile phones */
+        @media (max-width: 600px) {
+            .mastery-footer {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
     </style>
 </head>
 <body class="font-sans" style="background-color: #050505; color: #ffffff;">
@@ -226,7 +264,7 @@
         </div>
     </nav>
 
-    <!-- Mobile Bottom HUD (Simplified & Padded) -->
+    <!-- Mobile Bottom HUD -->
     <div class="md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] max-w-sm z-50 editorial-panel rounded-sm px-5 py-3 flex justify-between items-center transition-all duration-500 translate-y-20 opacity-0" id="mobile-bottom-hud">
         <div class="flex items-center space-x-2">
             <div class="w-1.5 h-1.5 rounded-full bg-brand-400"></div>
@@ -240,8 +278,8 @@
     <main>
 
         <!-- Hero Section -->
-        <section id="hero" class="min-h-screen relative flex items-center justify-center pt-24 pb-20 px-4 sm:px-6">
-            <div class="max-w-5xl mx-auto text-center z-10">
+        <section id="hero" class="min-h-screen relative flex items-center justify-center pt-32 pb-20 px-4 sm:px-6">
+            <div class="max-w-5xl mx-auto text-center z-10 w-full flex flex-col items-center">
                 
                 <!-- Editorial Eyebrow -->
                 <div class="flex items-center justify-center space-x-4 mb-10 reveal">
@@ -277,7 +315,7 @@
                     <button onclick="toggleLogic('different')" id="btn-different" class="pb-4 text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] uppercase transition-all duration-300 text-gray-600 border-b-[3px] border-transparent hover:text-gray-300">Calibration</button>
                 </div>
 
-                <div id="logic-content" class="max-w-3xl mx-auto editorial-panel p-10 md:p-14 rounded-sm reveal delay-500 illuminate-box" tabindex="0">
+                <div id="logic-content" class="max-w-3xl mx-auto editorial-panel p-10 md:p-14 rounded-sm transition-all duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] reveal delay-500 illuminate-box" tabindex="0">
                     <div>
                         <div class="flex items-center justify-center space-x-3 mb-6">
                             <span class="w-1.5 h-1.5 bg-data-red rounded-full" id="logic-dot"></span>
@@ -728,14 +766,11 @@
 
     </main>
 
-    <footer class="bg-obsidian pt-16 pb-24 md:pb-16 text-center relative z-10">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="mt-8 flex justify-center space-x-8 text-[9px] font-sans font-bold tracking-widest uppercase text-gray-500">
-                <a href="/privacy/" target="_blank">PRIVACY POLICY</a>
-                <a href="/terms-of-service/" target="_blank">TERMS OF SERVICE</a>
-            </div>
-            <p class="mt-8 text-[9px] font-mono tracking-widest opacity-30 text-white uppercase">&copy; 2026 VYRTŪOSITI</p>
-        </div>
+    <!-- VYRTŪOSITI Mastery Footer -->
+    <footer class="mastery-footer relative z-10 bg-obsidian pb-32 sm:pb-10">
+        <span>&copy; 2026 VYRTŪOSITI</span>
+        <a href="/privacy/" target="_blank">Privacy Policy</a>
+        <a href="/terms-of-service/" target="_blank">Terms of Service</a>
     </footer>
 
     <!-- White-Glove Booking Modal -->
@@ -977,7 +1012,7 @@
             });
         });
 
-        // Toggle Logic (Synchronized Timing)
+        // Toggle Logic
         function toggleLogic(mode) {
             const title = document.getElementById('logic-title');
             const text = document.getElementById('logic-text');
@@ -988,7 +1023,7 @@
             const dot = document.getElementById('logic-dot');
             const status = document.getElementById('logic-status');
 
-            // 1. Snappy fade out (200ms)
+            // 1. Snappy fade out
             content.style.transition = 'opacity 0.2s ease-out, transform 0.2s ease-out';
             content.style.opacity = '0';
             content.style.transform = 'translateY(10px)';
@@ -1017,11 +1052,11 @@
                     tags.innerHTML = `<span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-brand-500/50 text-brand-400 pb-1">Systemic Leverage</span><span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-brand-500/50 text-brand-400 pb-1">Cognitive Acuity</span><span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-brand-500/50 text-brand-400 pb-1">Biological Surplus</span>`;
                 }
                 
-                // 3. Luxurious fade in (800ms bezier)
+                // 3. Luxurious fade in
                 content.style.transition = 'opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
                 content.style.opacity = '1';
                 content.style.transform = 'translateY(0)';
-            }, 200); // Trigger instantly after fade out
+            }, 200); 
         }
 
         // HUD Details
@@ -1227,7 +1262,6 @@
                         if (entry.target.id === 'model') { clearInterval(autoplayInterval); autoplayInterval = null; }
                     }
                 });
-            // Re-calibrated threshold and margin so elements fade in deliberately while scrolling, not preemptively
             }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
