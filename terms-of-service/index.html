@@ -1,492 +1,430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service | VYRTŪOSITI</title>
-    <!-- Premium sans-serif font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Base Reset & Mastery Variables */
-        :root {
-            --bg-color: #050505;
-            --surface-color: #0f0f0f;
-            --text-main: #f0f0f0;
-            --text-muted: #a3a3a3;
-            --accent: #d4af37; /* Mastery Gold */
-            --accent-glow: rgba(212, 175, 55, 0.15);
-            --font-family: 'Inter', sans-serif;
-            --border-subtle: rgba(255, 255, 255, 0.08);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service | VYRTŪOSITI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark-gold: #b8860b;
+    --gold-muted: rgba(184, 134, 11, 0.15);
+    --gold-border: rgba(184, 134, 11, 0.25);
+    --white: #f0ece4;
+    --gray-text: #a09a90;
+    --gray-dim: #5a5550;
+    --section-bg: rgba(255,255,255,0.02);
+  }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Custom Selection & Scrollbar */
-        ::selection {
-            background: rgba(212, 175, 55, 0.3);
-            color: #fff;
-        }
+  html {
+    scroll-behavior: smooth;
+  }
 
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-family);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            position: relative;
-            overflow-x: hidden;
-        }
+  /* --- CUSTOM SCROLLBAR --- */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--black);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--gray-dim);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-gold);
+  }
 
-        /* Ambient Background Motion */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200vw;
-            height: 200vh;
-            background: radial-gradient(circle at 50% 50%, var(--accent-glow) 0%, transparent 40%);
-            animation: ambientRotate 40s linear infinite;
-            z-index: -1;
-            pointer-events: none;
-        }
+  /* --- CUSTOM TEXT SELECTION --- */
+  ::selection {
+    background: rgba(184, 134, 11, 0.25);
+    color: var(--white);
+  }
 
-        @keyframes ambientRotate {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.1); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
+  .policy-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 100px 24px 120px;
+  }
 
-        /* Top Progress Bar */
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: transparent;
-            z-index: 100;
-        }
+  .brand-mark {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--dark-gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
 
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--accent));
-            width: 0%;
-            transition: width 0.1s ease-out;
-            box-shadow: 0 0 10px var(--accent-glow);
-            position: relative;
-        }
+  h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
 
-        /* The Comet Tip */
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 15px;
-            height: 100%;
-            background: #ffffff;
-            box-shadow: 0 0 15px #ffffff, 0 0 25px var(--accent);
-            border-radius: 50%;
-            opacity: 0.8;
-        }
+  .effective-date {
+    font-size: 13px;
+    color: var(--gray-dim);
+    margin-bottom: 56px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
 
-        /* Layout & Container */
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 6rem 2rem 8rem;
-        }
+  .intro-block {
+    border-left: 2px solid var(--dark-gold);
+    padding-left: 24px;
+    margin-bottom: 64px;
+    color: var(--gray-text);
+    font-size: 15px;
+    line-height: 1.8;
+  }
 
-        /* Typography & Header */
-        header {
-            margin-bottom: 5rem;
-            padding-bottom: 3rem;
-            border-bottom: 1px solid var(--border-subtle);
-            animation: cinematicEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
+  .section {
+    margin-bottom: 56px;
+  }
 
-        h1 {
-            font-size: 3rem;
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            margin-bottom: 0.75rem;
-            color: #ffffff;
-            background: linear-gradient(to right, #fff, #a3a3a3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-wrap: balance;
-        }
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--dark-gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+    display: block;
+  }
 
-        .subtitle {
-            color: var(--accent);
-            font-size: 0.95rem;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
+  h2 {
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
 
-        .meta-text {
-            margin-top: 1.5rem;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            max-width: 90%;
-        }
+  p {
+    color: var(--gray-text);
+    margin-bottom: 16px;
+    font-size: 15px;
+  }
 
-        /* Section Styling */
-        section {
-            margin-bottom: 4rem;
-            padding-left: 2rem;
-            border-left: 1px solid var(--border-subtle);
-            position: relative;
-            
-            /* Cinematic Reveal */
-            opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            filter: blur(4px);
-            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease-out, border-color 0.4s ease, background 0.4s ease;
-        }
+  .data-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 24px 0;
+  }
 
-        /* Interaction: Highlight reading position */
-        section:hover, section.active {
-            border-left-color: var(--accent);
-            background: linear-gradient(90deg, rgba(212, 175, 55, 0.03) 0%, transparent 100%);
-        }
+  .data-list li {
+    color: var(--gray-text);
+    font-size: 14.5px;
+    padding: 8px 0 8px 24px;
+    position: relative;
+    line-height: 1.6;
+  }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
-        }
+  .data-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 17px;
+    width: 8px;
+    height: 1px;
+    background: var(--dark-gold);
+  }
 
-        h2 {
-            font-size: 1.35rem;
-            font-weight: 500;
-            color: #ffffff;
-            margin-bottom: 1.25rem;
-            letter-spacing: -0.01em;
-            display: flex;
-            align-items: center;
-            text-wrap: balance;
-        }
+  .highlight-box {
+    background: var(--section-bg);
+    border: 1px solid var(--gold-border);
+    padding: 24px 28px;
+    margin: 24px 0;
+    font-size: 14.5px;
+    color: var(--gray-text);
+    line-height: 1.7;
+    border-radius: 2px;
+  }
 
-        p {
-            margin-bottom: 1.25rem;
-            font-weight: 300;
-            color: #cccccc;
-        }
+  .highlight-box strong {
+    color: var(--white);
+    font-weight: 500;
+  }
 
-        ul {
-            margin: 0 0 1.5rem 1.5rem;
-            font-weight: 300;
-            color: #cccccc;
-        }
+  a {
+    color: var(--dark-gold);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
 
-        li {
-            margin-bottom: 0.75rem;
-            padding-left: 0.5rem;
-        }
+  a:hover {
+    border-bottom-color: var(--dark-gold);
+  }
 
-        li::marker {
-            color: var(--accent);
-        }
+  .footer-block {
+    margin-top: 100px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
 
-        /* Contact Section Enhancement */
-        .contact-info {
-            margin-top: 6rem;
-            padding: 3rem;
-            background: linear-gradient(145deg, var(--surface-color), #0a0a0a);
-            border-radius: 12px;
-            border: 1px solid var(--border-subtle);
-            border-left: 3px solid var(--accent);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-        }
+  .footer-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--gray-dim);
+    margin-bottom: 12px;
+  }
 
-        .contact-info:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 25px var(--accent-glow);
-        }
+  .footer-copy {
+    font-size: 12px;
+    color: var(--gray-dim);
+  }
 
-        .contact-info p {
-            margin-bottom: 0.5rem;
-            color: #fff;
-        }
+  strong {
+    color: var(--white);
+    font-weight: 500;
+  }
 
-        .contact-info h2 {
-            margin-bottom: 1.5rem;
-        }
+  /* --- ANIMATIONS --- */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
-        a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid transparent;
-        }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-        a:hover {
-            border-bottom-color: var(--accent);
-            text-shadow: 0 0 8px var(--accent-glow);
-        }
-
-        /* Initial Load Animation */
-        @keyframes cinematicEntrance {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-                filter: blur(8px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .container {
-                padding: 4rem 1.5rem;
-            }
-            h1 {
-                font-size: 2.25rem;
-            }
-            section {
-                padding-left: 1.25rem;
-            }
-            .contact-info {
-                padding: 2rem 1.5rem;
-            }
-        }
-    </style>
+  @media (max-width: 600px) {
+    .policy-container { padding: 64px 20px 80px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 18px; }
+    .intro-block { padding-left: 16px; font-size: 14px; }
+  }
+</style>
 </head>
 <body>
+<div class="policy-container">
 
-    <!-- Scroll Progress Indicator -->
-    <div class="progress-container">
-        <div class="progress-bar" id="myBar"></div>
+  <div class="brand-mark fade-up">VYRTŪOSITI</div>
+  <h1 class="fade-up" style="transition-delay: 0.1s;">Terms of Service</h1>
+  <div class="effective-date fade-up" style="transition-delay: 0.2s;">Last Updated: March 27, 2026</div>
+
+  <div class="intro-block fade-up" style="transition-delay: 0.3s;">
+    This is a rolling Terms of Service. By using our Services, you agree to the most current version. We encourage you to review periodically for updates.
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">01</span>
+    <h2>Scope of Services</h2>
+    <p>VYRTŪOSITI, operated by VYRTŪOSITI LLC (“we,” “us,” or “our”), provides high-performance advisory, strategic consulting, and digital systems designed to elevate personal, professional, and organizational performance.</p>
+    <p>Services include, but are not limited to:</p>
+    <ul class="data-list">
+      <li>Performance partnerships and strategic advisory</li>
+      <li>Executive intensives and VIP days</li>
+      <li>Digital performance systems and toolkits</li>
+      <li>Custom frameworks, playbooks, and organizational architecture</li>
+      <li>Physiological performance assessments and biometric-informed protocols</li>
+      <li>Career strategy and interview preparation advisory</li>
+    </ul>
+    <p>Services may be delivered live or asynchronously and are subject to updates as our offerings evolve.</p>
+    <p>By using our Services, you represent that you are at least 18 years old and have the legal capacity to enter into a binding contract.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">02</span>
+    <h2>Client Commitments</h2>
+    <p>To ensure a successful partnership, you agree to:</p>
+    <ul class="data-list">
+      <li>Provide complete, accurate, and timely information</li>
+      <li>Disclose any known medical conditions, medications, injuries, or health concerns that may be relevant to the physiological, cognitive, or performance protocols discussed during your engagement</li>
+      <li>Participate fully and execute on strategic directives and co-created frameworks</li>
+      <li>Communicate openly about progress, friction, and challenges</li>
+      <li>Respect the confidentiality of all proprietary content and interactions</li>
+    </ul>
+    <p>You understand that this is an advisory relationship. You remain the primary decision-maker and are solely responsible for your choices, actions, and outcomes.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">03</span>
+    <h2>Confidentiality</h2>
+    <p>All personal, business, and strategic information shared during sessions or correspondence is treated as confidential. We will not share your information with third parties without written consent, unless legally required.</p>
+    <p>We may use anonymized insights for teaching or marketing purposes without disclosing your identity or sensitive details.</p>
+    <p>Recordings, assessments, and communications may be securely stored and accessed only by authorized members of our team. In the course of delivering Services, we may use artificial intelligence tools or automated systems to assist with research, content development, and strategic analysis. We do not input your personally identifiable information or health data into third-party AI systems without your knowledge. Additionally, certain administrative or operational functions may be supported by contractors or service providers located outside the United States, whose access is limited to scheduling and logistical data. For full details, see our Privacy Policy.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">04</span>
+    <h2>Payment Terms</h2>
+    <p>All fees and payment schedules are confirmed in writing prior to the start of Services.</p>
+    <ul class="data-list">
+      <li>Payment is required upfront or according to an agreed-upon plan</li>
+      <li>Engagements may be structured as fixed-term sprints, monthly retainers, quarterly billing, or annual arrangements as mutually agreed in writing. Payment terms specific to your engagement supersede the general terms in this section where a signed Statement of Work or engagement agreement exists.</li>
+      <li>All payments are non-refundable, unless otherwise stated in writing</li>
+      <li>Late or failed payments may result in paused access or termination</li>
+      <li>Access to digital programs may be revoked for non-payment</li>
+      <li>We reserve the right to use third-party collection services if necessary</li>
+    </ul>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">05</span>
+    <h2>Cancellations and Rescheduling</h2>
+    <p>You may cancel or reschedule live sessions with at least 24 hours’ notice.</p>
+    <ul class="data-list">
+      <li>Sessions canceled with less than 24 hours’ notice may be forfeited</li>
+      <li>Excessive rescheduling or no-shows may result in termination</li>
+      <li>If we must reschedule, we will notify you as soon as possible</li>
+    </ul>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">06</span>
+    <h2>Intellectual Property</h2>
+    <p>All content and materials provided by VYRTŪOSITI—including but not limited to documents, frameworks, templates, videos, and systems—are the exclusive intellectual property of VYRTŪOSITI LLC.</p>
+    <p>You receive a limited, non-transferable, non-exclusive license to use these materials for your personal and internal organizational development only.</p>
+    <p>You may not:</p>
+    <ul class="data-list">
+      <li>Reproduce, distribute, or resell materials</li>
+      <li>Share content with third parties</li>
+      <li>Use our materials to create derivative work or competitive services</li>
+      <li>Teach, license, or commercialize any part of the content without prior written consent</li>
+    </ul>
+    <p>Violation of this clause will result in immediate termination and potential legal action.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">07</span>
+    <h2>Disclaimer and Limitation of Liability</h2>
+    <p>We provide high-performance advisory and strategic intelligence backed by science and experience, but results are not guaranteed.</p>
+    <p>You acknowledge that:</p>
+    <ul class="data-list">
+      <li>We act as strategic advisors; we are not responsible for your ultimate business, financial, or health outcomes</li>
+      <li>We do not offer medical, legal, or psychological treatment. Our services may involve discussion of physiological data, biometric markers, breathing protocols, nutritional considerations, and other health-adjacent topics. These are provided in an educational and advisory capacity only and do not constitute medical advice, diagnosis, or treatment. You should consult a licensed healthcare provider before making changes to your health, fitness, nutrition, or supplementation practices based on any information provided through our Services.</li>
+      <li>You assume full executive responsibility for your actions and results</li>
+    </ul>
+    <p>By participating in any engagement that involves physiological assessment, breathing protocols, movement recommendations, or biometric-informed guidance, you acknowledge that you are voluntarily assuming the risks associated with such activities. You represent that you have obtained or will obtain appropriate medical clearance for participation in performance protocols that involve physical or physiological components.</p>
+    <p>To the maximum extent allowed by law, we disclaim all liability for direct, indirect, incidental, or consequential damages arising from your use of our Services. In no event shall our total liability to you for all damages, losses, or causes of action exceed the total amount of fees you have paid to us in the six (6) months preceding the claim.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">08</span>
+    <h2>Termination</h2>
+    <p>We reserve the right to terminate your access to Services at any time for:</p>
+    <ul class="data-list">
+      <li>Breach of these Terms</li>
+      <li>Failure to pay</li>
+      <li>Misuse of content or behavior inconsistent with our values</li>
+      <li>At our sole discretion</li>
+    </ul>
+    <p>Refunds are not issued for digital programs once accessed. Unused live sessions may be refunded on a case-by-case basis at our discretion.</p>
+    <p>You may terminate Services with written notice. Early termination does not entitle you to a refund unless otherwise stated.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">09</span>
+    <h2>Changes to Terms</h2>
+    <p>These Terms may be modified at any time. Updates become effective immediately upon being posted on our website or shared via direct communication.</p>
+    <p>Your continued use of our Services constitutes acceptance of the updated Terms. We recommend reviewing this page periodically. You are bound by the version of the Terms in effect at the time of your most recent purchase or engagement.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">10</span>
+    <h2>Governing Law</h2>
+    <p>These Terms are governed by and interpreted under the laws of the State of Arizona, without regard to its conflict-of-law rules.</p>
+    <p>All claims, disputes, or legal matters must be brought exclusively in the appropriate courts or arbitration forums located in Arizona.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">11</span>
+    <h2>Dispute Resolution</h2>
+    <p>In the event of a dispute, both parties agree to first attempt resolution through good faith communication.</p>
+    <p>If unresolved, the matter will be submitted to binding arbitration in Arizona, in accordance with the rules of the American Arbitration Association. The arbitrator’s decision shall be final and enforceable in any court of competent jurisdiction.</p>
+    <p>You agree that any claims must be brought in your individual capacity, and not as a plaintiff or class member in any purported class, consolidated, or representative proceeding.</p>
+    <p>Each party is responsible for their own legal costs unless otherwise ruled.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">12</span>
+    <h2>Data & Privacy (Including GDPR)</h2>
+    <p>We take your privacy seriously. Personal data is collected solely to deliver Services, enhance your experience, and fulfill our legal and contractual obligations. Data collection includes information provided through email, text/SMS, scheduling platforms, intake forms, diagnostic assessments, and any AI-assisted tools used in the course of service delivery.</p>
+    <p>We do not sell your personal data. We share data with third parties only as necessary to deliver Services, as described in our Privacy Policy.</p>
+    <p>You may request access to, correction of, or deletion of your personal data by contacting us directly. International clients acknowledge and agree to the processing of their data in accordance with our Privacy Policy.</p>
+    <p>For complete details on the categories of data we collect, how we use and share your information, data retention schedules, and your rights, please review our <a href="/privacy">Privacy Policy</a>.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">13</span>
+    <h2>Force Majeure</h2>
+    <p>We shall not be liable for any failure or delay in delivering our Services due to circumstances beyond our reasonable control. This includes, but is not limited to, natural disasters, platform or internet outages, illness, strikes, or governmental actions. In such events, we will make reasonable efforts to resume services as soon as possible.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">14</span>
+    <h2>Entire Agreement</h2>
+    <p>These Terms represent the entire agreement between you and VYRTŪOSITI. They supersede all prior verbal or written communications related to the Services.</p>
+    <p>No waiver or amendment is valid unless made in writing and signed by both parties.</p>
+  </div>
+
+  <div class="section fade-up">
+    <span class="section-number">15</span>
+    <h2>Contact Information</h2>
+    <p>If you have any questions about these Terms, please contact us at:</p>
+    <div class="highlight-box">
+      <strong>VYRTŪOSITI LLC</strong><br>
+      Attn: Legal Department<br>
+      Email: <a href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a><br>
+      Phoenix, Arizona, United States
     </div>
+  </div>
 
-    <div class="container">
-        <header>
-            <p class="subtitle">VYRTŪOSITI</p>
-            <h1>Terms of Service</h1>
-            <p class="meta-text">Last Updated: March 27, 2026<br><br>This is a rolling Terms of Service. By using our Services, you agree to the most current version. We encourage you to review periodically for updates.</p>
-        </header>
+  <div class="footer-block fade-up">
+    <div class="footer-brand">VYRTŪOSITI</div>
+    <div class="footer-copy">&copy; 2026 VYRTŪOSITI LLC. All rights reserved.</div>
+  </div>
 
-        <main id="content-main">
-            <section>
-                <h2>1. Scope of Services</h2>
-                <p>VYRTŪOSITI, operated by VYRTŪOSITI LLC (“we,” “us,” or “our”), provides high-performance advisory, strategic consulting, and digital systems designed to elevate personal, professional, and organizational performance.</p>
-                <p>Services include, but are not limited to:</p>
-                <ul>
-                    <li>Performance partnerships and strategic advisory</li>
-                    <li>Executive intensives and VIP days</li>
-                    <li>Digital performance systems and toolkits</li>
-                    <li>Custom frameworks, playbooks, and organizational architecture</li>
-                    <li>Physiological performance assessments and biometric-informed protocols</li>
-                    <li>Career strategy and interview preparation advisory</li>
-                </ul>
-                <p>Services may be delivered live or asynchronously and are subject to updates as our offerings evolve.</p>
-                <p>By using our Services, you represent that you are at least 18 years old and have the legal capacity to enter into a binding contract.</p>
-            </section>
+</div>
 
-            <section>
-                <h2>2. Client Commitments</h2>
-                <p>To ensure a successful partnership, you agree to:</p>
-                <ul>
-                    <li>Provide complete, accurate, and timely information</li>
-                    <li>Disclose any known medical conditions, medications, injuries, or health concerns that may be relevant to the physiological, cognitive, or performance protocols discussed during your engagement</li>
-                    <li>Participate fully and execute on strategic directives and co-created frameworks</li>
-                    <li>Communicate openly about progress, friction, and challenges</li>
-                    <li>Respect the confidentiality of all proprietary content and interactions</li>
-                </ul>
-                <p>You understand that this is an advisory relationship. You remain the primary decision-maker and are solely responsible for your choices, actions, and outcomes.</p>
-            </section>
+<!-- Intersection Observer Script for Fade-Up Animations -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1
+    };
 
-            <section>
-                <h2>3. Confidentiality</h2>
-                <p>All personal, business, and strategic information shared during sessions or correspondence is treated as confidential. We will not share your information with third parties without written consent, unless legally required.</p>
-                <p>We may use anonymized insights for teaching or marketing purposes without disclosing your identity or sensitive details.</p>
-                <p>Recordings, assessments, and communications may be securely stored and accessed only by authorized members of our team. In the course of delivering Services, we may use artificial intelligence tools or automated systems to assist with research, content development, and strategic analysis. We do not input your personally identifiable information or health data into third-party AI systems without your knowledge. Additionally, certain administrative or operational functions may be supported by contractors or service providers located outside the United States, whose access is limited to scheduling and logistical data. For full details, see our Privacy Policy.</p>
-            </section>
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Stop observing once it's visible
+        }
+      });
+    }, observerOptions);
 
-            <section>
-                <h2>4. Payment Terms</h2>
-                <p>All fees and payment schedules are confirmed in writing prior to the start of Services.</p>
-                <ul>
-                    <li>Payment is required upfront or according to an agreed-upon plan</li>
-                    <li>Engagements may be structured as fixed-term sprints, monthly retainers, quarterly billing, or annual arrangements as mutually agreed in writing. Payment terms specific to your engagement supersede the general terms in this section where a signed Statement of Work or engagement agreement exists.</li>
-                    <li>All payments are non-refundable, unless otherwise stated in writing</li>
-                    <li>Late or failed payments may result in paused access or termination</li>
-                    <li>Access to digital programs may be revoked for non-payment</li>
-                    <li>We reserve the right to use third-party collection services if necessary</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>5. Cancellations and Rescheduling</h2>
-                <p>You may cancel or reschedule live sessions with at least 24 hours’ notice.</p>
-                <ul>
-                    <li>Sessions canceled with less than 24 hours’ notice may be forfeited</li>
-                    <li>Excessive rescheduling or no-shows may result in termination</li>
-                    <li>If we must reschedule, we will notify you as soon as possible</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>6. Intellectual Property</h2>
-                <p>All content and materials provided by VYRTŪOSITI—including but not limited to documents, frameworks, templates, videos, and systems—are the exclusive intellectual property of VYRTŪOSITI LLC.</p>
-                <p>You receive a limited, non-transferable, non-exclusive license to use these materials for your personal and internal organizational development only.</p>
-                <p>You may not:</p>
-                <ul>
-                    <li>Reproduce, distribute, or resell materials</li>
-                    <li>Share content with third parties</li>
-                    <li>Use our materials to create derivative work or competitive services</li>
-                    <li>Teach, license, or commercialize any part of the content without prior written consent</li>
-                </ul>
-                <p>Violation of this clause will result in immediate termination and potential legal action.</p>
-            </section>
-
-            <section>
-                <h2>7. Disclaimer and Limitation of Liability</h2>
-                <p>We provide high-performance advisory and strategic intelligence backed by science and experience, but results are not guaranteed.</p>
-                <p>You acknowledge that:</p>
-                <ul>
-                    <li>We act as strategic advisors; we are not responsible for your ultimate business, financial, or health outcomes</li>
-                    <li>We do not offer medical, legal, or psychological treatment. Our services may involve discussion of physiological data, biometric markers, breathing protocols, nutritional considerations, and other health-adjacent topics. These are provided in an educational and advisory capacity only and do not constitute medical advice, diagnosis, or treatment. You should consult a licensed healthcare provider before making changes to your health, fitness, nutrition, or supplementation practices based on any information provided through our Services.</li>
-                    <li>You assume full executive responsibility for your actions and results</li>
-                </ul>
-                <p>By participating in any engagement that involves physiological assessment, breathing protocols, movement recommendations, or biometric-informed guidance, you acknowledge that you are voluntarily assuming the risks associated with such activities. You represent that you have obtained or will obtain appropriate medical clearance for participation in performance protocols that involve physical or physiological components.</p>
-                <p>To the maximum extent allowed by law, we disclaim all liability for direct, indirect, incidental, or consequential damages arising from your use of our Services. In no event shall our total liability to you for all damages, losses, or causes of action exceed the total amount of fees you have paid to us in the six (6) months preceding the claim.</p>
-            </section>
-
-            <section>
-                <h2>8. Termination</h2>
-                <p>We reserve the right to terminate your access to Services at any time for:</p>
-                <ul>
-                    <li>Breach of these Terms</li>
-                    <li>Failure to pay</li>
-                    <li>Misuse of content or behavior inconsistent with our values</li>
-                    <li>At our sole discretion</li>
-                </ul>
-                <p>Refunds are not issued for digital programs once accessed. Unused live sessions may be refunded on a case-by-case basis at our discretion.</p>
-                <p>You may terminate Services with written notice. Early termination does not entitle you to a refund unless otherwise stated.</p>
-            </section>
-
-            <section>
-                <h2>9. Changes to Terms</h2>
-                <p>These Terms may be modified at any time. Updates become effective immediately upon being posted on our website or shared via direct communication.</p>
-                <p>Your continued use of our Services constitutes acceptance of the updated Terms. We recommend reviewing this page periodically. You are bound by the version of the Terms in effect at the time of your most recent purchase or engagement.</p>
-            </section>
-
-            <section>
-                <h2>10. Governing Law</h2>
-                <p>These Terms are governed by and interpreted under the laws of the State of Arizona, without regard to its conflict-of-law rules.</p>
-                <p>All claims, disputes, or legal matters must be brought exclusively in the appropriate courts or arbitration forums located in Arizona.</p>
-            </section>
-
-            <section>
-                <h2>11. Dispute Resolution</h2>
-                <p>In the event of a dispute, both parties agree to first attempt resolution through good faith communication.</p>
-                <p>If unresolved, the matter will be submitted to binding arbitration in Arizona, in accordance with the rules of the American Arbitration Association. The arbitrator’s decision shall be final and enforceable in any court of competent jurisdiction.</p>
-                <p>You agree that any claims must be brought in your individual capacity, and not as a plaintiff or class member in any purported class, consolidated, or representative proceeding.</p>
-                <p>Each party is responsible for their own legal costs unless otherwise ruled.</p>
-            </section>
-
-            <section>
-                <h2>12. Data & Privacy (Including GDPR)</h2>
-                <p>We take your privacy seriously. Personal data is collected solely to deliver Services, enhance your experience, and fulfill our legal and contractual obligations. Data collection includes information provided through email, text/SMS, scheduling platforms, intake forms, diagnostic assessments, and any AI-assisted tools used in the course of service delivery.</p>
-                <p>We do not sell your personal data. We share data with third parties only as necessary to deliver Services, as described in our Privacy Policy.</p>
-                <p>You may request access to, correction of, or deletion of your personal data by contacting us directly. International clients acknowledge and agree to the processing of their data in accordance with our Privacy Policy.</p>
-                <p>For complete details on the categories of data we collect, how we use and share your information, data retention schedules, and your rights, please review our <a href="/privacy">Privacy Policy</a>.</p>
-            </section>
-
-            <section>
-                <h2>13. Force Majeure</h2>
-                <p>We shall not be liable for any failure or delay in delivering our Services due to circumstances beyond our reasonable control. This includes, but is not limited to, natural disasters, platform or internet outages, illness, strikes, or governmental actions. In such events, we will make reasonable efforts to resume services as soon as possible.</p>
-            </section>
-
-            <section>
-                <h2>14. Entire Agreement</h2>
-                <p>These Terms represent the entire agreement between you and VYRTŪOSITI. They supersede all prior verbal or written communications related to the Services.</p>
-                <p>No waiver or amendment is valid unless made in writing and signed by both parties.</p>
-            </section>
-
-            <section class="contact-info">
-                <h2>Contact Information</h2>
-                <p>If you have any questions about these Terms, please contact:</p>
-                <p>📧 <a href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a></p>
-                <p>📍 Phoenix, Arizona, United States</p>
-            </section>
-        </main>
-    </div>
-
-    <script>
-        // Progress Bar Logic
-        window.addEventListener('scroll', () => {
-            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrolled = (winScroll / height) * 100;
-            document.getElementById("myBar").style.width = scrolled + "%";
-        }, { passive: true });
-
-        // Advanced Intersection Observer for Cinematic Reveal and Active State
-        const sections = document.querySelectorAll('section');
-        
-        const observerOptions = {
-            root: null,
-            rootMargin: '-10% 0px -10% 0px', // Triggers slightly inward from the edges
-            threshold: 0.15
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Handle the entrance reveal
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // Add an active class to highlight the border of the section you're currently reading
-                    entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active');
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach((section, index) => {
-            // Stagger initial load slightly if they are already in viewport
-            section.style.transitionDelay = `${index * 0.05}s`;
-            observer.observe(section);
-            
-            // Remove the delay after the initial animation to make scrolling smooth
-            setTimeout(() => {
-                section.style.transitionDelay = '0s';
-            }, 1000);
-        });
-    </script>
+    const fadeElements = document.querySelectorAll('.fade-up');
+    fadeElements.forEach(el => observer.observe(el));
+  });
+</script>
 </body>
 </html>
