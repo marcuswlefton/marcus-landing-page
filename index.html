@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Removed strict zoom locks. 16px font sizes on inputs naturally prevent iOS auto-zoom, allowing buttery smooth manual pinching. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
     
@@ -11,7 +10,6 @@
     <meta property="og:title" content="Mastery in Motion | VYRTŪOSITI">
     <meta property="og:description" content="You are solving the wrong problem. Discover the biological constraints destroying your decision velocity.">
     <meta property="og:type" content="website">
-    <!-- Note: Replace the content URL below with a real link to an image of your site for social previews -->
     <meta property="og:image" content="https://i.imgur.com/SJLnvwa.png"> 
 
     <!-- Minimalist SVG Favicon -->
@@ -210,7 +208,6 @@
         .animate-terminal { animation: terminalBlink 1s infinite; }
     </style>
 </head>
-<!-- ENGINEER TWEAK: Added ontouchstart="" to body to force iOS to instantly recognize all hover/active states on tap -->
 <body class="bg-void text-textMain antialiased selection:bg-brandGold selection:text-black" ontouchstart="">
 
     <div class="bg-noise"></div>
@@ -238,7 +235,6 @@
 
             <div class="max-w-[540px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
-                    <!-- ENGINEER TWEAK: Bulletproof event passing using 'return handleEntry(event...)' -->
                     <form name="dispatch_signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="cmd-bar" onsubmit="return handleEntry(event, this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <input type="hidden" name="form-name" value="dispatch_signup" />
                         <p class="sr-only">
@@ -584,14 +580,12 @@
                         </p>
                     </div>
                     
-                    <!-- ENGINEER TWEAK: Bulletproof event passing using 'return handleEntry(event...)' -->
                     <form name="dispatch_signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="cmd-bar" onsubmit="return handleEntry(event, this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <input type="hidden" name="form-name" value="dispatch_signup" />
                         <p class="sr-only">
                             <label>Don't fill this out if you're human: <input name="bot-field" /></label>
                         </p>
                         <div class="auth-progress"></div>
-                        <!-- ENGINEER TWEAK: Added name="email" so Netlify knows what data to map -->
                         <input id="secure_email_2" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group transition-all duration-300">
                             <span class="btn-text flex items-center gap-2">GET THE DISPATCH</span>
@@ -632,13 +626,24 @@
         </div>
     </section>
 
-    <!-- Compliance Micro-Footer -->
-    <footer class="py-8 border-t border-glassBorder/30 text-center relative z-10">
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 font-mono text-[9px] text-textMuted uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity">
-            <span>&copy; 2026 VYRTŪOSITI</span>
-            <div class="flex gap-6">
-                <a href="/privacy/" target="_blank">PRIVACY POLICY</a>
-                <a href="/terms-of-service/" target="_blank">TERMS OF SERVICE</a>
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- UPGRADED COMPLIANCE MICRO-FOOTER            -->
+    <!-- ═══════════════════════════════════════════ -->
+    <footer class="py-10 border-t border-glassBorder/40 bg-void/80 backdrop-blur-md relative z-20 mt-12">
+        <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="font-mono text-[10px] text-textMuted uppercase tracking-widest opacity-60 text-center md:text-left">
+                &copy; 2026 VYRTŪOSITI <span class="hidden md:inline mx-2 text-glassBorder">|</span> <span class="block md:inline mt-2 md:mt-0">ALL RIGHTS RESERVED.</span>
+            </div>
+            
+            <div class="flex items-center gap-6 md:gap-8 font-mono text-[9px] text-textMuted uppercase tracking-widest font-medium">
+                <a href="/privacy/" target="_blank" rel="noopener noreferrer" class="hover:text-brandGold transition-colors duration-300 relative group">
+                    Privacy Policy
+                    <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandGold transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="/terms-of-service/" target="_blank" rel="noopener noreferrer" class="hover:text-brandGold transition-colors duration-300 relative group">
+                    Terms of Service
+                    <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandGold transition-all duration-300 group-hover:w-full"></span>
+                </a>
             </div>
         </div>
     </footer>
