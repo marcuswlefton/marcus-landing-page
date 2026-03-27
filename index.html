@@ -208,6 +208,20 @@
 
         @keyframes terminalBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
         .animate-terminal { animation: terminalBlink 1s infinite; }
+        /* ... (Your huge block of existing code for the newsletter will be up here) ... */
+    /* ... (Don't touch any of it) ... */
+
+    /* PASTE ONLY THIS PART AT THE VERY BOTTOM OF YOUR STYLES: */
+    .legal-footer {
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 80px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06); 
+      font-family: 'Inter', sans-serif;
+    }
+    .legal-footer a { color: #a09a90; text-decoration: none; font-size: 13px; margin: 0 16px; transition: color 0.3s ease; }
+    .legal-footer a:hover { color: #b8860b; }
+    .legal-notice { display: block; color: #5a5550; font-size: 11px; margin-top: 16px; letter-spacing: 0.05em; text-transform: uppercase; }
     </style>
 </head>
 <!-- ENGINEER TWEAK: Added ontouchstart="" to body to force iOS to instantly recognize all hover/active states on tap -->
@@ -746,5 +760,14 @@
             return false;
         }
     </script>
+<!-- ... all your existing newsletter/offer code ... -->
+    
+    <!-- VYRTŪOSITI Legal Footer -->
+    <footer class="legal-footer">
+      <a href="/terms-of-service/" target="_blank">Terms of Service</a>
+      <a href="/privacy/" target="_blank">Privacy Policy</a>
+      <span class="legal-notice">&copy; 2026 VYRTŪOSITI LLC</span>
+    </footer>
+    
 </body>
 </html>
