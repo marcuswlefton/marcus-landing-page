@@ -202,38 +202,66 @@
         /* VYRTŪOSITI Mastery Footer */
         .mastery-footer {
             width: 100%;
-            padding: 40px 20px;
-            margin-top: 80px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06); /* Subtle premium line */
+            max-width: 80rem; /* Matches max-w-7xl */
+            margin: 0 auto;
+            padding: 40px 24px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 40px; /* Perfect spacing between items */
             font-family: 'JetBrains Mono', monospace; 
-            font-size: 11px;
-            letter-spacing: 0.15em;
+            font-size: 10px;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
         }
 
-        .mastery-footer span {
-            color: #5a5550; /* Muted gray */
+        .mastery-footer .footer-text {
+            color: #555;
+        }
+
+        .mastery-footer .footer-divider {
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 16px;
+        }
+
+        .mastery-footer-links {
+            display: flex;
+            gap: 48px;
         }
 
         .mastery-footer a {
-            color: #5a5550; /* Muted gray */
+            color: #555;
             text-decoration: none;
-            transition: color 0.3s ease;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 4px;
+            transition: all 0.3s ease;
         }
 
-        .mastery-footer a:hover {
-            color: #b8860b; /* Mastery Gold on hover */
+        .mastery-footer a:hover, 
+        .mastery-footer a:active,
+        .mastery-footer a:focus {
+            color: #A68A57; /* Mastery Gold */
+            border-bottom-color: #A68A57; /* Underline lights up */
+            outline: none;
         }
 
         /* Responsive: stacks neatly on mobile phones */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .mastery-footer {
                 flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+            .mastery-footer-links {
+                flex-direction: column;
                 gap: 20px;
+            }
+            .mastery-footer .footer-divider {
+                display: none; /* Hide pipe on mobile for stacked layout */
+            }
+            .mastery-footer .footer-text {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
             }
         }
     </style>
@@ -767,10 +795,18 @@
     </main>
 
     <!-- VYRTŪOSITI Mastery Footer -->
-    <footer class="mastery-footer relative z-10 bg-obsidian pb-32 sm:pb-10">
-        <span>&copy; 2026 VYRTŪOSITI</span>
-        <a href="/privacy/" target="_blank">Privacy Policy</a>
-        <a href="/terms-of-service/" target="_blank">Terms of Service</a>
+    <footer class="relative z-10 bg-obsidian border-t border-white/5 pb-32 sm:pb-10">
+        <div class="mastery-footer">
+            <div class="footer-text">
+                <span>&copy; 2026 VYRTŪOSITI</span>
+                <span class="footer-divider">|</span>
+                <span>ALL RIGHTS RESERVED.</span>
+            </div>
+            <div class="mastery-footer-links">
+                <a href="/privacy/" target="_blank">Privacy Policy</a>
+                <a href="/terms-of-service/" target="_blank">Terms of Service</a>
+            </div>
+        </div>
     </footer>
 
     <!-- White-Glove Booking Modal -->
