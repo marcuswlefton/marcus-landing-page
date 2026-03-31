@@ -677,19 +677,25 @@
 
     const email = document.getElementById("secure_email_1").value;
 
-    const res = await fetch("/.netlify/functions/subscribe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email })
-    });
+    try {
+      const res = await fetch("/.netlify/functions/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email })
+      });
 
-    if (res.ok) {
-      alert("You’re in.");
-      form.reset();
-    } else {
-      alert("Something went wrong.");
+      const text = await res.text();
+
+      if (res.ok) {
+        alert("You’re in.");
+        form.reset();
+      } else {
+        alert("Error: " + text);
+      }
+    } catch (err) {
+      alert("Fetch failed: " + err.message);
     }
   });
 </script>
