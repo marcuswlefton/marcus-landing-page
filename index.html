@@ -235,11 +235,7 @@
 
             <div class="max-w-[540px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
-                    <form name="dispatch_signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="cmd-bar" onsubmit="return handleEntry(event, this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
-                        <input type="hidden" name="form-name" value="dispatch_signup" />
-                        <p class="sr-only">
-                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                        </p>
+                    <form id="newsletter-form" class="cmd-bar">
                         <div class="auth-progress"></div>
                         <input id="secure_email_1" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group transition-all duration-300">
@@ -751,5 +747,29 @@
             return false;
         }
     </script>
+    <script>
+  const form = document.getElementById("newsletter-form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("secure_email_1").value;
+
+    const res = await fetch("/.netlify/functions/subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email })
+    });
+
+    if (res.ok) {
+      alert("You’re in.");
+      form.reset();
+    } else {
+      alert("Something went wrong.");
+    }
+  });
+</script>
 </body>
 </html>
