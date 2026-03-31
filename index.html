@@ -72,11 +72,9 @@
             --void: #000000;
             --brandGold: #C2A359;
             --brandGoldHover: #D4B66A;
-            /* OLED DIMMING: Softened from harsh pure white for luxury readability */
             --textMain: #FAFAFA; 
         }
 
-        /* Nuke the default blue tap highlight on mobile browsers */
         * {
             -webkit-tap-highlight-color: transparent;
         }
@@ -95,7 +93,6 @@
         ::-webkit-scrollbar-thumb { background: rgba(194, 163, 89, 0.3); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(194, 163, 89, 0.6); }
 
-        /* CINEMATIC VOLUME: Multi-stop gradients for realistic light falloff */
         .ambient-glow-1 {
             position: absolute; top: -10%; right: -5%; width: 600px; height: 600px;
             background: radial-gradient(circle at center, rgba(194, 163, 89, 0.12) 0%, rgba(194, 163, 89, 0.04) 40%, rgba(0,0,0,0) 70%);
@@ -144,7 +141,6 @@
         .cmd-input::placeholder { color: rgba(255,255,255,0.3); font-weight: 300; }
         .cmd-input:read-only { opacity: 0.5; }
         
-        /* LIQUID METALLIC BUTTON: Replaced flat hex with machined alloy gradient and inner highlights */
         .cmd-btn {
             background: linear-gradient(180deg, #C2A359 0%, #AD8E45 100%); 
             color: #000000; border-radius: 100px;
@@ -170,12 +166,11 @@
 
         .bg-noise {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
-            z-index: 9999; opacity: 0.035; /* Sheer, subtle adjustment */
+            z-index: 9999; opacity: 0.035;
             background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
             transform: translateZ(0); will-change: transform;
         }
 
-        /* SPECULAR LIGHTING: Added diagonal inner gradient and top-edge white highlight mimicry */
         .glass-panel {
             background: linear-gradient(145deg, rgba(20,20,20,0.6) 0%, rgba(10,10,10,0.8) 100%);
             border: 1px solid rgba(255,255,255,0.03); border-radius: 24px;
@@ -235,7 +230,11 @@
 
             <div class="max-w-[540px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
-                    <form id="newsletter-form" class="cmd-bar">
+                    <!-- ══════════════════════════════════════════════════════════ -->
+                    <!-- FIX: Added name attribute and onsubmit handler to match   -->
+                    <!-- footer form. Both now use the same handleEntry() function -->
+                    <!-- ══════════════════════════════════════════════════════════ -->
+                    <form id="newsletter-form" name="hero_signup" class="cmd-bar" onsubmit="return handleEntry(event, this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <div class="auth-progress"></div>
                         <input id="secure_email_1" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group transition-all duration-300">
@@ -292,7 +291,6 @@
             </p>
             
             <div class="flex overflow-hidden w-full mask-edges pb-4" style="will-change: transform; transform: translateZ(0);">
-                <!-- Track 1 -->
                 <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
                     <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">TESLA</span>
@@ -305,7 +303,6 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/US_Air_Force_Logo_Solid_Colour.svg" alt="Air Force" loading="lazy" decoding="async" class="shrink-0 h-7 md:h-8 w-auto brightness-0 invert opacity-90" onerror="this.style.display='none';">
                     <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
                 </div>
-                <!-- Track 2 -->
                 <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40" aria-hidden="true" tabindex="-1">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
                     <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">TESLA</span>
@@ -318,7 +315,6 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/US_Air_Force_Logo_Solid_Colour.svg" alt="Air Force" loading="lazy" decoding="async" class="shrink-0 h-7 md:h-8 w-auto brightness-0 invert opacity-90" onerror="this.style.display='none';">
                     <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
                 </div>
-                <!-- Track 3 -->
                 <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40" aria-hidden="true" tabindex="-1">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
                     <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">TESLA</span>
@@ -342,11 +338,10 @@
     <section class="py-16 md:py-32 relative z-10 border-t border-glassBorder">
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10">
             
-            <!-- Superhuman Proof Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-20 md:mb-24 reveal">
                 
                 <div class="glass-panel p-5 sm:p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
+                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">"</div>
                     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)]"></div>
                     
                     <div class="mb-8 relative z-10 pt-2">
@@ -361,7 +356,7 @@
                 </div>
 
                 <div class="glass-panel p-5 sm:p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
+                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">"</div>
                     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.05),transparent_70%)]"></div>
                     
                     <div class="mb-8 relative z-10 pt-2">
@@ -376,7 +371,7 @@
                 </div>
 
                 <div class="glass-panel p-5 sm:p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
+                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">"</div>
                     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.05),transparent_70%)]"></div>
                     
                     <div class="mb-8 relative z-10 pt-2">
@@ -391,7 +386,7 @@
                 </div>
 
                 <div class="glass-panel p-5 sm:p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">“</div>
+                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">"</div>
                     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)]"></div>
                     
                     <div class="mb-8 relative z-10 pt-2">
@@ -416,7 +411,6 @@
 
                 <div class="flex flex-col md:flex-row gap-10 md:gap-12 lg:gap-16 items-stretch">
                     
-                    <!-- Portrait Dossier -->
                     <div class="shrink-0 relative group w-full max-w-[300px] mx-auto md:max-w-none md:w-[280px] lg:w-[340px]">
                         <div class="absolute -inset-3 border border-white/5 rounded-2xl bg-white/[0.02] transition-all duration-700 md:group-hover:border-brandGold/20 md:group-hover:bg-brandGold/[0.02] hidden md:block"></div>
                         
@@ -425,7 +419,6 @@
                         </div>
                     </div>
 
-                    <!-- Right: Bio & Authority -->
                     <div class="flex-1 text-center md:text-left flex flex-col">
                         <div>
                             <h3 class="font-serif text-[28px] md:text-[36px] text-textMain leading-[1.1] mb-6">
@@ -576,11 +569,12 @@
                         </p>
                     </div>
                     
-                    <form name="dispatch_signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="cmd-bar" onsubmit="return handleEntry(event, this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
-                        <input type="hidden" name="form-name" value="dispatch_signup" />
-                        <p class="sr-only">
-                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                        </p>
+                    <!-- ══════════════════════════════════════════════════════════════ -->
+                    <!-- FIX: Removed data-netlify, data-netlify-honeypot, hidden      -->
+                    <!-- form-name input, and bot-field. Clean form that uses           -->
+                    <!-- handleEntry() → serverless function → Kit API                 -->
+                    <!-- ══════════════════════════════════════════════════════════════ -->
+                    <form name="dispatch_signup" class="cmd-bar" onsubmit="return handleEntry(event, this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <div class="auth-progress"></div>
                         <input id="secure_email_2" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left focus:ring-0 focus:outline-none" placeholder="Secure email (Free weekly)" required>
                         <button type="submit" class="cmd-btn group transition-all duration-300">
@@ -623,7 +617,7 @@
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- UPGRADED COMPLIANCE MICRO-FOOTER            -->
+    <!-- COMPLIANCE MICRO-FOOTER                     -->
     <!-- ═══════════════════════════════════════════ -->
     <footer class="py-10 border-t border-glassBorder/40 bg-void/80 backdrop-blur-md relative z-20 mt-12">
         <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -645,15 +639,11 @@
     </footer>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- INTERACTION LOGIC & EFFECTS -->
+    <!-- SINGLE UNIFIED SCRIPT — NO DUPLICATES       -->
     <!-- ═══════════════════════════════════════════ -->
     <script>
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
-
+        // ── Scroll Reveal Observer ──
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -662,42 +652,97 @@
                 }
             });
         }, observerOptions);
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-        document.querySelectorAll('.reveal').forEach((el) => {
-            observer.observe(el);
-        });
+        // ══════════════════════════════════════════════════════════════════
+        // UNIFIED FORM HANDLER
+        // Both hero + footer forms call this same function.
+        // It runs the animation, then sends the email to your 
+        // Netlify serverless function → Kit API.
+        // ══════════════════════════════════════════════════════════════════
+        function handleEntry(event, formElement, inputId, formWrapperId, successStateId, buttonElement, progressElement) {
+            if (event) event.preventDefault();
 
-        // ENGINEER TWEAK: Added robust 'event' passing into the function to physically block standard form redirects across all mobile OS types
+            const input = document.getElementById(inputId);
+            const formWrapper = document.getElementById(formWrapperId);
+            const successState = document.getElementById(successStateId);
+            const btn = buttonElement;
+            const progressLine = progressElement;
+            const btnText = btn.querySelector('.btn-text');
+            const btnIcon = btn.querySelector('.btn-icon');
+            
+            if (input.value && input.value.includes('@')) {
+                
+                btn.disabled = true;
+                input.readOnly = true;
+                if(btnIcon) btnIcon.style.opacity = '0';
+                
+                btn.style.background = '#000000';
+                btn.style.color = '#C2A359';
+                btn.style.border = '1px solid rgba(194, 163, 89, 0.4)';
+                btn.style.boxShadow = '0 0 20px rgba(194, 163, 89, 0.15), inset 0 0 10px rgba(194, 163, 89, 0.1)';
+                
+                btnText.innerHTML = '<span class="animate-terminal tracking-[0.2em] font-mono">[ AUTHORIZING... ]</span>';
+                
+                if (progressLine) {
+                    progressLine.style.opacity = '1';
+                    setTimeout(() => { progressLine.style.width = '100%'; }, 50);
+                }
+
+                // ══════════════════════════════════════════════════
+                // THIS IS THE KEY FIX:
+                // Sends email as JSON to your Netlify function,
+                // which forwards it to Kit's API.
+                // ══════════════════════════════════════════════════
+                fetch('/.netlify/functions/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: input.value })
+                }).then(res => {
+                    if (res.ok) {
+                        console.log('Dispatch secured via Kit.');
+                    } else {
+                        console.error('Kit subscription failed:', res.status);
+                    }
+                }).catch(error => {
+                    console.error('Transmission error:', error);
+                });
+                
+                // Success animation (unchanged from your original)
+                setTimeout(() => {
+                    formWrapper.style.opacity = '0';
+                    formWrapper.style.transform = 'scale(0.98)';
+                    
+                    setTimeout(() => {
+                        formWrapper.classList.add('hidden');
+                        formWrapper.classList.remove('flex', 'flex-col');
+                        
+                        successState.classList.remove('hidden');
+                        successState.classList.add('flex');
+                        
+                        setTimeout(() => {
+                            successState.style.opacity = '1';
+                            successState.style.transform = 'translateY(0) scale(1)';
+                        }, 50);
+                        
+                    }, 700); 
+                    
+                }, 1200);
+
+            } else {
+                const bar = input.closest('.cmd-bar');
+                bar.classList.remove('animate-error-shake');
+                void bar.offsetWidth; 
+                bar.classList.add('animate-error-shake');
+                input.focus();
+            }
+
+            return false;
+        }
     </script>
-    <script>
-  const form = document.getElementById("newsletter-form");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("secure_email_1").value;
-
-    try {
-      const res = await fetch("/.netlify/functions/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email })
-      });
-
-      const text = await res.text();
-
-      if (res.ok) {
-        alert("You’re in.");
-        form.reset();
-      } else {
-        alert("Error: " + text);
-      }
-    } catch (err) {
-      alert("Fetch failed: " + err.message);
-    }
-  });
-</script>
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- FIX: The duplicate addEventListener script has been       -->
+    <!-- DELETED. It was conflicting with handleEntry().           -->
+    <!-- ══════════════════════════════════════════════════════════ -->
 </body>
 </html>
