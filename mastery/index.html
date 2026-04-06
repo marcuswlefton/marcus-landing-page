@@ -957,7 +957,7 @@
                 };
                 
                 // Post directly to Kit API endpoint using your specific Form ID
-                const res = await fetch("https://api.convertkit.com/v3/forms/18791747/subscribe", {
+                const res = await fetch("https://api.convertkit.com/v3/forms/9294713/subscribe", {
                     method: "POST",
                     headers: { 
                         "Content-Type": "application/json",
@@ -986,7 +986,8 @@
                     message.classList.add('opacity-100');
                 }, 1200);
 
-                setTimeout(() => { closeBookingModal(); }, 5500);
+                // Extended to 8.5 seconds so the user has plenty of time to read the success message
+                setTimeout(() => { closeBookingModal(); }, 8500);
 
             } catch (err) {
                 console.error(err);
