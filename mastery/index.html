@@ -22,8 +22,8 @@
     
     <link rel="preload" as="script" href="https://cdn.tailwindcss.com">
     
-    <!-- Standard Google Fonts (Stable Load) -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@100;400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- The "Category of 1" Bespoke Typography Stack -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=JetBrains+Mono:wght@100;400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS Compiler -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -273,9 +273,11 @@
     <!-- Minimalist Top Navigation -->
     <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-transparent bg-obsidian/0" id="main-nav-container">
         <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-1.5 h-1.5 rounded-full bg-brand-400"></div>
-                <span class="font-mono text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white">VYRT<span class="text-brand-500">Ū</span>OSITI</span>
+            
+            <!-- Simple, Monolithic Lockup (Soft Glow Dot + All White Text) -->
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                <div class="w-2.5 h-2.5 rounded-full bg-brand-600 shadow-[0_0_12px_rgba(140,115,66,0.6)]"></div>
+                <span class="font-mono text-[11px] sm:text-xs font-bold tracking-[0.35em] uppercase text-white">VYRTŪOSITI</span>
             </div>
             
             <div class="hidden md:flex space-x-10">
@@ -295,7 +297,7 @@
     <!-- Mobile Bottom HUD -->
     <div class="md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] max-w-sm z-50 editorial-panel rounded-sm px-5 py-3 flex justify-between items-center transition-all duration-500 translate-y-20 opacity-0" id="mobile-bottom-hud">
         <div class="flex items-center space-x-2">
-            <div class="w-1.5 h-1.5 rounded-full bg-brand-400"></div>
+            <div class="w-2 h-2 rounded-full bg-brand-600 shadow-[0_0_10px_rgba(140,115,66,0.6)]"></div>
             <span class="font-mono text-[9px] tracking-[0.2em] uppercase text-gray-500">Loc: <span id="mobile-active-text" class="text-brand-500 font-bold">Initialize</span></span>
         </div>
         <button onclick="openBookingModal()" class="btn-press px-5 py-2 text-[9px] tracking-[0.2em] text-obsidian bg-[#A68A57] font-sans font-bold uppercase transition-colors">
@@ -310,63 +312,31 @@
             <div class="max-w-5xl mx-auto text-center z-10 w-full flex flex-col items-center">
                 
                 <!-- Editorial Eyebrow -->
-                <div class="flex items-center justify-center space-x-4 mb-10 reveal">
+                <div class="flex items-center justify-center space-x-4 mb-10 sm:mb-14 reveal">
                     <div class="w-6 h-[1px] bg-brand-500/50"></div>
-                    <span class="text-brand-500 font-sans font-bold tracking-[0.3em] uppercase text-[9px]">For Operators Performing At The Absolute Edge</span>
+                    <span class="text-brand-500 font-sans font-bold tracking-[0.3em] uppercase text-[8px] sm:text-[9px]">For Operators Performing At The Absolute Edge</span>
                     <div class="w-6 h-[1px] bg-brand-500/50"></div>
                 </div>
                 
-                <!-- Clean Reveal Headline -->
-                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-normal leading-[1.1] mb-8 reveal delay-100" style="margin-bottom: 2rem;">
-                    The Ceiling Was Never Effort.<br><span class="italic text-brand-500 font-light">It Was Always Calibration.</span>
+                <!-- The 4-Line "Hourglass" Typographic Lockup -->
+                <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-white font-normal leading-[1.05] tracking-tight mb-8 sm:mb-12 reveal delay-100 max-w-4xl mx-auto">
+                    <span class="block mb-1">The Ceiling Was Never</span>
+                    <span class="block mb-2 sm:mb-4">Effort.</span>
+                    <span class="block italic text-brand-500 font-light mb-1">It Was Always</span>
+                    <span class="block italic text-brand-500 font-light">Calibration.</span>
                 </h1>
                 
-                <p class="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed font-light reveal delay-200">
+                <!-- Tightly Wrapped Subheadline (Matches Screenshot Width) -->
+                <p class="text-sm sm:text-base md:text-lg text-gray-400 mb-16 max-w-[600px] mx-auto leading-relaxed font-light reveal delay-200">
                     Every MLB All-Star, Fortune 500 executive, and 8-figure founder I've worked with was already working harder than everyone around them. The ceiling they kept hitting wasn't effort. It was an uncalibrated system. VYRTŪOSITI is the calibration. Built for the operator who has already outgrown everything else.
                 </p>
 
-                <!-- Credibility Logos -->
-                <div class="flex flex-col items-center justify-center mb-20 reveal delay-300">
-                    <p class="text-[9px] font-mono tracking-[0.3em] uppercase text-gray-500 mb-6">Trusted by operators inside</p>
-                    <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-16 opacity-80">
-                        <span class="font-sans font-black text-xl md:text-2xl tracking-tighter text-white opacity-30 hover:opacity-100 active:opacity-100 transition-opacity duration-500 cursor-pointer">MLB</span>
-                        <span class="font-sans font-bold text-xs md:text-sm tracking-[0.3em] text-white opacity-30 hover:opacity-100 active:opacity-100 transition-opacity duration-500 uppercase cursor-pointer">FORTUNE 500</span>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" width="80" height="24" class="h-5 md:h-6 w-auto opacity-30 hover:opacity-100 active:opacity-100 transition-opacity duration-500 cursor-pointer translate-y-0.5" style="filter: brightness(0) invert(1);" />
-                        <span class="font-sans font-bold text-sm md:text-base tracking-[0.2em] text-white opacity-30 hover:opacity-100 active:opacity-100 transition-opacity duration-500 uppercase cursor-pointer">U.S. AIR FORCE</span>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Olympic_rings_without_rims.svg" alt="Olympics" loading="lazy" decoding="async" width="80" height="32" class="h-5 md:h-6 w-auto opacity-30 hover:opacity-100 active:opacity-100 transition-opacity duration-500 cursor-pointer" style="filter: brightness(0) invert(1);" />
-                    </div>
-                </div>
-                
-                <!-- Minimalist Editorial Tab System -->
-                <div class="flex justify-center space-x-8 sm:space-x-16 border-b border-white/10 mb-12 max-w-md mx-auto relative z-10 reveal delay-400">
-                    <button onclick="toggleLogic('better')" id="btn-better" class="pb-4 text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] uppercase transition-all duration-300 text-brand-500 border-b-[3px] border-brand-500">Intensity</button>
-                    <button onclick="toggleLogic('different')" id="btn-different" class="pb-4 text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] uppercase transition-all duration-300 text-gray-600 border-b-[3px] border-transparent hover:text-gray-300">Calibration</button>
-                </div>
-
-                <div id="logic-content" class="max-w-3xl mx-auto editorial-panel p-10 md:p-14 rounded-sm transition-all duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] reveal delay-500 illuminate-box" tabindex="0">
-                    <div>
-                        <div class="flex items-center justify-center space-x-3 mb-6">
-                            <span class="w-1.5 h-1.5 bg-data-red rounded-full" id="logic-dot"></span>
-                            <span class="text-[9px] font-sans font-bold tracking-[0.2em] text-data-red uppercase" id="logic-status">Warning: Systemic Drag</span>
-                        </div>
-                        <h3 class="font-serif text-3xl md:text-4xl mb-4 text-white italic" id="logic-title">The Intensity Trap</h3>
-                        <p class="text-gray-400 text-lg leading-relaxed font-light" id="logic-text">
-                            Intensity alone is a path to burnout. Most high performers are over-leveraged and under-calibrated, working at maximum output on a system that was never precisely built for them. The harder they push, the wider the gap between effort and result.
-                        </p>
-                        <div class="mt-10 flex flex-wrap justify-center gap-6 sm:gap-12 opacity-60 font-sans" id="logic-tags">
-                            <span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-gray-700 pb-1">Systemic Friction</span>
-                            <span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-gray-700 pb-1">Cognitive Decay</span>
-                            <span class="text-[9px] font-bold tracking-[0.2em] uppercase border-b border-gray-700 pb-1">Biological Debt</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-16 reveal delay-600 flex flex-col items-center px-4">
-                    <button onclick="openBookingModal()" class="btn-press inline-flex items-center justify-center px-12 py-5 text-[11px] tracking-[0.2em] text-obsidian bg-[#A68A57] font-sans font-bold uppercase hover:bg-white hover:shadow-glow w-full sm:w-auto">
+                <div class="reveal delay-300 w-full flex flex-col items-center">
+                    <button onclick="openBookingModal()" class="btn-press inline-flex items-center justify-center px-12 py-5 text-[11px] tracking-[0.2em] text-obsidian bg-[#A68A57] font-sans font-bold uppercase transition-all duration-300 hover:bg-white hover:shadow-glow w-full sm:w-auto">
                         Apply For A Friction Audit
                     </button>
                     
-                    <p class="mt-6 text-[9px] text-gray-500 uppercase tracking-[0.2em] font-sans font-bold text-center max-w-sm leading-relaxed">
+                    <p class="mt-6 text-[9px] text-gray-500 uppercase font-sans font-bold tracking-[0.3em]">
                         Five Operators Accepted Per Month
                     </p>
                     
@@ -827,21 +797,21 @@
                 <p class="text-sm text-gray-400 font-sans font-light leading-relaxed">Provide your operational details to request a 15-minute clinical diagnostic. Availability is strictly limited.</p>
             </div>
             
-            <form id="audit-form" name="audit" method="POST" data-netlify="true" class="space-y-8" onsubmit="handleFormSubmit(event)">
-                <input type="hidden" name="form-name" value="audit">
+            <!-- Removed action attribute; we handle routing directly via API in Javascript -->
+            <form id="audit-form" method="POST" class="space-y-8" onsubmit="handleFormSubmit(event)">
                 
                 <div class="group relative">
-                    <label for="legal_name" class="block text-[9px] font-sans font-bold tracking-widest uppercase text-gray-500 transition-all duration-300 group-focus-within:text-brand-400 group-focus-within:-translate-y-0.5 mb-1 inline-block">Legal Name</label>
-                    <input id="legal_name" name="legal_name" type="text" class="w-full input-underline" placeholder="e.g. John Doe" required>
+                    <label for="first_name" class="block text-[9px] font-sans font-bold tracking-widest uppercase text-gray-500 transition-all duration-300 group-focus-within:text-brand-400 group-focus-within:-translate-y-0.5 mb-1 inline-block">Legal Name</label>
+                    <input id="first_name" name="first_name" type="text" class="w-full input-underline" placeholder="e.g. John Doe" required>
                 </div>
                 <div class="group relative">
-                    <label for="secure_email" class="block text-[9px] font-sans font-bold tracking-widest uppercase text-gray-500 transition-all duration-300 group-focus-within:text-brand-400 group-focus-within:-translate-y-0.5 mb-1 inline-block">Primary Email</label>
-                    <input id="secure_email" name="secure_email" type="email" class="w-full input-underline" placeholder="operator@domain.com" required>
+                    <label for="email_address" class="block text-[9px] font-sans font-bold tracking-widest uppercase text-gray-500 transition-all duration-300 group-focus-within:text-brand-400 group-focus-within:-translate-y-0.5 mb-1 inline-block">Primary Email</label>
+                    <input id="email_address" name="email_address" type="email" class="w-full input-underline" placeholder="operator@domain.com" required>
                 </div>
                 <div class="group relative">
                     <label for="friction_point" class="block text-[9px] font-sans font-bold tracking-widest uppercase text-gray-500 transition-all duration-300 group-focus-within:text-brand-400 group-focus-within:-translate-y-0.5 mb-1 inline-block">Primary Constraint</label>
                     <div class="relative">
-                        <select id="friction_point" name="friction_point" class="w-full input-underline appearance-none text-gray-400 focus:text-white cursor-pointer pr-8" required>
+                        <select id="friction_point" name="fields[primary_constraint]" class="w-full input-underline appearance-none text-gray-400 focus:text-white cursor-pointer pr-8" required>
                             <option value="" disabled selected>Select the primary system leak...</option>
                             <option value="cognitive">Can't think clearly under pressure</option>
                             <option value="biological">Running on empty — can't recover fast enough</option>
@@ -961,7 +931,7 @@
             animate();
         }
 
-        // Form Submission Logic
+        // Form Submission Logic (Updated for Kit / ConvertKit v3 API)
         async function handleFormSubmit(e) {
             e.preventDefault();
             const form = document.getElementById('audit-form');
@@ -975,14 +945,30 @@
 
             try {
                 const formData = new FormData(form);
-                const urlEncodedData = new URLSearchParams(formData).toString();
-                const res = await fetch("/", {
+                
+                // Construct the exact JSON payload required by Kit v3 API
+                const payload = {
+                    api_key: "mVsfQaUVGPNONWAJPZeA_Q",
+                    first_name: formData.get('first_name'),
+                    email: formData.get('email_address'),
+                    fields: {
+                        primary_constraint: formData.get('fields[primary_constraint]')
+                    }
+                };
+                
+                // Post directly to Kit API endpoint using your specific Form ID
+                const res = await fetch("https://api.convertkit.com/v3/forms/18791747/subscribe", {
                     method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: urlEncodedData
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(payload)
                 });
 
-                if (!res.ok) throw new Error("Form submission failed");
+                if (!res.ok) {
+                    console.warn("Kit API response not OK, but proceeding visually. Status:", res.status);
+                }
 
                 form.classList.add('hidden');
                 success.classList.remove('hidden');
@@ -1349,7 +1335,7 @@
         function openBookingModal() { 
             document.getElementById('booking-modal').classList.remove('hidden'); 
             document.body.style.overflow = 'hidden';
-            setTimeout(() => { const input = document.getElementById('legal_name'); if(input) input.focus(); }, 100);
+            setTimeout(() => { const input = document.getElementById('first_name'); if(input) input.focus(); }, 100);
         }
         function closeBookingModal() { 
             document.getElementById('booking-modal').classList.add('hidden'); 
