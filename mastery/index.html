@@ -960,14 +960,16 @@
                 const res = await fetch("https://api.convertkit.com/v3/forms/9294713/subscribe", {
                     method: "POST",
                     headers: { 
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
+                        "Content-Type": "application/json; charset=utf-8",
                     },
                     body: JSON.stringify(payload)
                 });
 
+                // STRICT ERROR HANDLING: If Kit rejects the data, we stop and throw an error for debugging.
                 if (!res.ok) {
-                    console.warn("Kit API response not OK, but proceeding visually. Status:", res.status);
+                    const errorText = await res.text();
+                    console.error("Kit API Error Details:", res.status, errorText);
+                    throw new Error(`Kit API rejected submission with status: ${res.status}`);
                 }
 
                 form.classList.add('hidden');
@@ -990,8 +992,8 @@
                 setTimeout(() => { closeBookingModal(); }, 8500);
 
             } catch (err) {
-                console.error(err);
-                alert("Submission failed. Please check your connection and try again.");
+                console.error("Submission Process Failed:", err);
+                alert("Submission failed. Please check your connection or Console logs, and try again.");
             } finally {
                 submitBtn.innerText = originalBtnText;
                 submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
