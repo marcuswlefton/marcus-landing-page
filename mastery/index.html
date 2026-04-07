@@ -348,45 +348,52 @@
             </div>
         </section>
 
-        <!-- The Paradigm Shift (Restored & Perfected Pill Toggle Card) -->
-        <section id="paradigm" class="py-24 md:py-32 border-b border-white/5 bg-carbon relative reveal">
+        <!-- The Paradigm Shift (Ultra-Premium Hardware Aesthetic) -->
+        <section id="paradigm" class="py-24 md:py-32 border-b border-white/5 bg-[#050505] relative reveal">
             <div class="max-w-4xl mx-auto px-4 sm:px-6">
                 
-                <!-- The Irresistible Pill Toggle -->
-                <div class="flex justify-center mb-10">
-                    <div class="inline-flex items-center bg-obsidian border border-white/10 rounded-full p-1.5 shadow-2xl relative">
-                        <button id="btn-better" onclick="toggleLogic('better')" class="relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-300 text-white bg-[#1a1a1a] shadow-md focus:outline-none">
+                <!-- The Hardware Inlay Toggle -->
+                <div class="flex justify-center mb-12">
+                    <div class="inline-flex items-center bg-[#020202] rounded-full p-1 border border-white/[0.03] shadow-[inset_0_4px_10px_rgba(0,0,0,0.5)] relative">
+                        <button id="btn-better" onclick="toggleLogic('better')" class="relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-500 text-white bg-[#151515] shadow-[0_4px_15px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] focus:outline-none">
                             Intensity
                         </button>
-                        <button id="btn-different" onclick="toggleLogic('different')" class="relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-300 text-gray-500 hover:text-gray-300 focus:outline-none">
+                        <button id="btn-different" onclick="toggleLogic('different')" class="relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-500 text-gray-600 hover:text-gray-300 focus:outline-none">
                             Calibration
                         </button>
                     </div>
                 </div>
 
-                <!-- The Centered Dossier Card (From Screenshot) -->
-                <div class="editorial-panel rounded-2xl border border-white/5 p-10 md:p-16 relative overflow-hidden group shadow-2xl bg-[#0a0a0a]">
-                    <!-- Subtle gradient background tied to the active state -->
-                    <div id="logic-bg-glow" class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-data-red/5 via-transparent to-transparent opacity-50 transition-colors duration-700 pointer-events-none"></div>
+                <!-- The Deep Dossier Card -->
+                <div class="bg-[#080808] rounded-[2.5rem] border border-white/[0.02] p-10 md:p-20 relative overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.8)]">
                     
-                    <div id="logic-content" class="transition-all duration-700 ease-out transform relative z-10 flex flex-col items-center text-center">
+                    <!-- Hardware Top-Edge Highlight -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+                    <!-- Volumetric Top Glow -->
+                    <div id="logic-bg-glow" class="absolute top-[-10%] left-1/2 -translate-x-1/2 w-3/4 h-64 bg-data-red/10 blur-[100px] pointer-events-none transition-colors duration-1000"></div>
+                    
+                    <div id="logic-content" class="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform relative z-10 flex flex-col items-center text-center">
                         
-                        <div class="flex items-center space-x-3 mb-6">
-                            <div id="logic-dot" class="w-1.5 h-1.5 bg-data-red rounded-full animate-pulse shadow-[0_0_10px_rgba(255,51,102,0.8)]"></div>
-                            <span id="logic-status" class="text-[9px] font-sans font-bold tracking-[0.2em] text-data-red uppercase">Warning: Systemic Drag Detected</span>
+                        <!-- Eyebrow -->
+                        <div class="flex items-center space-x-4 mb-8">
+                            <div id="logic-dot" class="w-1.5 h-1.5 bg-data-red rounded-full animate-pulse shadow-[0_0_12px_rgba(255,51,102,0.8)]"></div>
+                            <span id="logic-status" class="text-[8px] font-mono font-bold tracking-[0.3em] text-data-red uppercase">Warning: Systemic Drag Detected</span>
                         </div>
                         
-                        <h3 id="logic-title" class="font-serif italic text-4xl md:text-5xl text-white mb-6 leading-tight">The Intensity Trap.</h3>
+                        <!-- Headline -->
+                        <h3 id="logic-title" class="font-serif italic text-4xl md:text-5xl lg:text-6xl text-white mb-8 leading-tight tracking-tight">The Intensity Trap.</h3>
                         
-                        <p id="logic-text" class="text-gray-400 text-base md:text-lg leading-relaxed font-light mb-12 max-w-2xl">
+                        <!-- Body Copy -->
+                        <p id="logic-text" class="text-gray-400 text-base md:text-lg leading-relaxed font-light mb-14 max-w-2xl">
                             Skeptics are right: Intensity alone is a path to burnout. Most high-performers are over-leveraged and under-calibrated. We don't focus on pushing harder; we focus on the efficiency of your biological engine.
                         </p>
                         
-                        <!-- The Clean Underline Tags from the Screenshot -->
-                        <div id="logic-tags" class="flex flex-wrap justify-center gap-6 md:gap-10">
-                            <span class="text-[9px] font-mono tracking-[0.2em] uppercase border-b border-white/10 text-gray-500 pb-2 transition-colors duration-300">Systemic Friction</span>
-                            <span class="text-[9px] font-mono tracking-[0.2em] uppercase border-b border-white/10 text-gray-500 pb-2 transition-colors duration-300">Cognitive Decay</span>
-                            <span class="text-[9px] font-mono tracking-[0.2em] uppercase border-b border-white/10 text-gray-500 pb-2 transition-colors duration-300">Biological Debt</span>
+                        <!-- Micro-Tags -->
+                        <div id="logic-tags" class="flex flex-wrap justify-center gap-6 md:gap-12">
+                            <span class="text-[8px] font-mono tracking-[0.3em] uppercase border-b border-white/5 text-gray-500 pb-2 transition-colors duration-500">Systemic Friction</span>
+                            <span class="text-[8px] font-mono tracking-[0.3em] uppercase border-b border-white/5 text-gray-500 pb-2 transition-colors duration-500">Cognitive Decay</span>
+                            <span class="text-[8px] font-mono tracking-[0.3em] uppercase border-b border-white/5 text-gray-500 pb-2 transition-colors duration-500">Biological Debt</span>
                         </div>
                     </div>
                 </div>
@@ -1118,43 +1125,7 @@
             }
         }
 
-        // Boot Sequence
-        document.addEventListener('DOMContentLoaded', () => {
-            renderPillarList();
-            updatePillarDetail(0);
-            initNeuralNetwork();
-            setupIntersectionObserver();
-            setupScrollSpy();
-
-            // Throttled Scroll Listener for Performance
-            let isScrolling = false;
-            window.addEventListener('scroll', () => {
-                if (!isScrolling) {
-                    window.requestAnimationFrame(() => {
-                        const nav = document.getElementById('main-nav-container');
-                        if(nav) {
-                            if (window.scrollY > 50) {
-                                nav.classList.add('bg-obsidian/95', 'backdrop-blur-md', 'border-white/5');
-                                nav.classList.remove('bg-obsidian/0', 'border-transparent');
-                            } else {
-                                nav.classList.remove('bg-obsidian/95', 'backdrop-blur-md', 'border-white/5');
-                                nav.classList.add('bg-obsidian/0', 'border-transparent');
-                            }
-                        }
-                        isScrolling = false;
-                    });
-                    isScrolling = true;
-                }
-            }, { passive: true });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !document.getElementById('booking-modal').classList.contains('hidden')) {
-                    closeBookingModal();
-                }
-            });
-        });
-
-        // Toggle Logic (Upgraded for the Pill Toggle & Centered Card)
+        // Toggle Logic (Upgraded for Ultra-Premium Hardware Physics)
         function toggleLogic(mode) {
             const title = document.getElementById('logic-title');
             const text = document.getElementById('logic-text');
@@ -1166,7 +1137,7 @@
             const status = document.getElementById('logic-status');
             const bgGlow = document.getElementById('logic-bg-glow');
 
-            // 1. Snappy fade out & scale down slightly
+            // 1. Snappy fade out & scale down
             content.style.transition = 'opacity 0.2s ease-out, transform 0.2s ease-out';
             content.style.opacity = '0';
             content.style.transform = 'scale(0.98) translateY(10px)';
@@ -1174,55 +1145,55 @@
             setTimeout(() => {
                 // 2. Apply Styles & Content Swap
                 if (mode === 'better') {
-                    // Update Pill Buttons
-                    btnBetter.className = "relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-300 text-white bg-[#1a1a1a] shadow-md focus:outline-none";
-                    btnDifferent.className = "relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-300 text-gray-500 hover:text-gray-300 focus:outline-none";
+                    // Update Hardware Pill Buttons
+                    btnBetter.className = "relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-500 text-white bg-[#151515] shadow-[0_4px_15px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] focus:outline-none";
+                    btnDifferent.className = "relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-500 text-gray-600 hover:text-gray-300 focus:outline-none";
                     
-                    // Update Background Glow
-                    bgGlow.className = "absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-data-red/5 via-transparent to-transparent opacity-50 transition-colors duration-700 pointer-events-none";
+                    // Update Volumetric Glow
+                    bgGlow.className = "absolute top-[-10%] left-1/2 -translate-x-1/2 w-3/4 h-64 bg-data-red/10 blur-[100px] pointer-events-none transition-colors duration-1000";
                     
                     // Update Content
                     title.innerText = 'The Intensity Trap.';
                     text.innerText = "Skeptics are right: Intensity alone is a path to burnout. Most high-performers are over-leveraged and under-calibrated. We don't focus on pushing harder; we focus on the efficiency of your biological engine.";
                     
                     // Update Status Indicators
-                    dot.className = "w-1.5 h-1.5 bg-data-red rounded-full animate-pulse shadow-[0_0_10px_rgba(255,51,102,0.8)]";
+                    dot.className = "w-1.5 h-1.5 bg-data-red rounded-full animate-pulse shadow-[0_0_12px_rgba(255,51,102,0.8)]";
                     status.innerText = "Warning: Systemic Drag Detected";
-                    status.className = "text-[9px] font-sans font-bold tracking-[0.2em] text-data-red uppercase";
+                    status.className = "text-[8px] font-mono font-bold tracking-[0.3em] text-data-red uppercase";
                     
-                    // Update Tags (Minimalist Underlines)
+                    // Update Micro-Tags
                     tags.innerHTML = `
-                        <span class="text-[9px] font-mono tracking-[0.2em] uppercase border-b border-white/10 text-gray-500 pb-2 transition-colors duration-300">Systemic Friction</span>
-                        <span class="text-[9px] font-mono tracking-[0.2em] uppercase border-b border-white/10 text-gray-500 pb-2 transition-colors duration-300">Cognitive Decay</span>
-                        <span class="text-[9px] font-mono tracking-[0.2em] uppercase border-b border-white/10 text-gray-500 pb-2 transition-colors duration-300">Biological Debt</span>
+                        <span class="text-[8px] font-mono tracking-[0.3em] uppercase border-b border-white/5 text-gray-500 pb-2 transition-colors duration-500">Systemic Friction</span>
+                        <span class="text-[8px] font-mono tracking-[0.3em] uppercase border-b border-white/5 text-gray-500 pb-2 transition-colors duration-500">Cognitive Decay</span>
+                        <span class="text-[8px] font-mono tracking-[0.3em] uppercase border-b border-white/5 text-gray-500 pb-2 transition-colors duration-500">Biological Debt</span>
                     `;
                 } else {
-                    // Update Pill Buttons
-                    btnDifferent.className = "relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-300 text-white bg-[#1a1a1a] shadow-md focus:outline-none";
-                    btnBetter.className = "relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-300 text-gray-500 hover:text-gray-300 focus:outline-none";
+                    // Update Hardware Pill Buttons
+                    btnDifferent.className = "relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-500 text-white bg-[#151515] shadow-[0_4px_15px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] focus:outline-none";
+                    btnBetter.className = "relative z-10 px-8 py-3 rounded-full text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase transition-all duration-500 text-gray-600 hover:text-gray-300 focus:outline-none";
                     
-                    // Update Background Glow
-                    bgGlow.className = "absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-500/5 via-transparent to-transparent opacity-50 transition-colors duration-700 pointer-events-none";
+                    // Update Volumetric Glow
+                    bgGlow.className = "absolute top-[-10%] left-1/2 -translate-x-1/2 w-3/4 h-64 bg-brand-500/10 blur-[100px] pointer-events-none transition-colors duration-1000";
                     
                     // Update Content
                     title.innerText = 'The Calibration Edge.';
                     text.innerText = "Instead of pushing the engine to redline, we re-engineer the engine itself. Every biological and strategic layer. Precisely mapped. Precisely built. Elite performance stops being something you summon. It becomes something you default to.";
                     
                     // Update Status Indicators
-                    dot.className = "w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(166,138,87,0.8)]";
+                    dot.className = "w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse shadow-[0_0_12px_rgba(166,138,87,0.8)]";
                     status.innerText = "Protocol Verified";
-                    status.className = "text-[9px] font-sans font-bold tracking-[0.2em] text-brand-400 uppercase";
+                    status.className = "text-[8px] font-mono font-bold tracking-[0.3em] text-brand-400 uppercase";
                     
-                    // Update Tags (Minimalist Underlines)
+                    // Update Micro-Tags (Gold)
                     tags.innerHTML = `
-                        <span class="text-[9px] font-mono tracking-[0.2em] uppercase border-b border-brand-500/30 text-brand-400 pb-2 transition-colors duration-300">Systemic Leverage</span>
-                        <span class="text-[9px] font-mono tracking-[0.2em] uppercase border-b border-brand-500/30 text-brand-400 pb-2 transition-colors duration-300">Cognitive Acuity</span>
-                        <span class="text-[9px] font-mono tracking-[0.2em] uppercase border-b border-brand-500/30 text-brand-400 pb-2 transition-colors duration-300">Biological Surplus</span>
+                        <span class="text-[8px] font-mono tracking-[0.3em] uppercase border-b border-brand-500/20 text-brand-400 pb-2 transition-colors duration-500">Systemic Leverage</span>
+                        <span class="text-[8px] font-mono tracking-[0.3em] uppercase border-b border-brand-500/20 text-brand-400 pb-2 transition-colors duration-500">Cognitive Acuity</span>
+                        <span class="text-[8px] font-mono tracking-[0.3em] uppercase border-b border-brand-500/20 text-brand-400 pb-2 transition-colors duration-500">Biological Surplus</span>
                     `;
                 }
                 
-                // 3. Luxurious fade in & scale back to normal
-                content.style.transition = 'opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+                // 3. Luxurious fade in & scale back to normal (iOS style bezier)
+                content.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
                 content.style.opacity = '1';
                 content.style.transform = 'scale(1) translateY(0)';
             }, 250); 
@@ -1484,6 +1455,7 @@
             document.body.style.overflow = 'hidden';
             setTimeout(() => { const input = document.getElementById('first_name'); if(input) input.focus(); }, 100);
         }
+        
         function closeBookingModal() { 
             document.getElementById('booking-modal').classList.add('hidden'); 
             document.body.style.overflow = '';
@@ -1499,6 +1471,15 @@
                 document.getElementById('success-message').classList.add('opacity-0');
             }, 500);
         }
+
+        // Boot Sequence
+        document.addEventListener('DOMContentLoaded', () => {
+            initNeuralNetwork();
+            renderPillarList();
+            updatePillarDetail(0);
+            setupIntersectionObserver();
+            setupScrollSpy();
+        });
     </script>
 </body>
 </html>
