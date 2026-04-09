@@ -250,7 +250,7 @@
     <!-- ═══════════════════════════════════════════ -->
     <main id="main-audit-app" class="w-full max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-10 opacity-0 hidden transition-opacity duration-[1500ms] ease-in-out p-4 md:p-8">
         
-        <!-- RIGHT COLUMN (Visual Radar HUD) - Flex order 1 on mobile to ensure somatic feedback -->
+        <!-- RIGHT COLUMN (Visual Radar HUD) -->
         <div class="w-full order-1 lg:order-2 lg:col-span-7 relative flex items-center justify-center glass-panel p-6 md:p-12 min-h-[380px] lg:min-h-[600px] overflow-hidden group">
             
             <!-- HUD Viewfinder Brackets -->
@@ -307,7 +307,7 @@
             </div>
         </div>
 
-        <!-- LEFT COLUMN: Inputs & Logic - Flex order 2 on mobile -->
+        <!-- LEFT COLUMN: Inputs & Logic -->
         <div class="w-full order-2 lg:order-1 lg:col-span-5 flex flex-col space-y-8 lg:space-y-10" id="diagnostic-panel">
             
             <!-- Header -->
@@ -555,6 +555,8 @@
     <script>
         // DOM Elements
         const panels = {
+            landing: document.getElementById('landing-gate'),
+            app: document.getElementById('main-audit-app'),
             diagnostic: document.getElementById('diagnostic-panel'),
             processing: document.getElementById('processing-panel'),
             capture: document.getElementById('capture-panel'),
@@ -650,9 +652,9 @@
             }
         });
 
-        // The "Scramble" HUD Effect (Fixed race conditions)
+        // The "Scramble" HUD Effect
         function scrambleData(finalAvg) {
-            clearInterval(scrambleInterval); // Clear existing interval before starting a new one
+            clearInterval(scrambleInterval); 
             integrityScoreEl.classList.add('scrambling');
             
             let iterations = 0;
@@ -666,7 +668,6 @@
                 }
             }, 30);
             
-            // Jitter background telemetry slightly for visual flair
             if(telemetryLat && telemetryLon) {
                 telemetryLat.innerText = `LAT: ${(33.4942 + (Math.random() * 0.001)).toFixed(4)}`;
                 telemetryLon.innerText = `LON: ${(-111.9261 + (Math.random() * 0.001)).toFixed(4)}`;
@@ -680,7 +681,6 @@
             const autoVal = parseInt(sliders.auto.value);
             const archVal = parseInt(sliders.arch.value);
 
-            // Segmented bars
             document.getElementById('fill-cog').style.width = cogVal + '%';
             document.getElementById('thumb-cog').style.left = cogVal + '%';
             document.getElementById('fill-lev').style.width = levVal + '%';
@@ -692,7 +692,6 @@
 
             const newData = [cogVal, levVal, autoVal, archVal];
             
-            // Format Strings with "+" for edge boundaries (Quality of Life Fix)
             const cogHrs = ((cogVal / 100) * 4).toFixed(1) + (cogVal === 100 ? '+' : '') + ' HRS';
             const autoMgRaw = Math.round((100 - autoVal) * 4);
             const autoMg = (autoVal === 1 ? '400+' : autoMgRaw) + ' MG';
@@ -731,7 +730,6 @@
             slider.addEventListener('input', updateChart);
         });
 
-        // Arena Selector Logic
         const arenaBtns = document.querySelectorAll('.arena-btn');
         const arenaInput = document.getElementById('selected-arena');
         
@@ -744,18 +742,14 @@
             });
         });
 
-        // Unveil Audit Flow
         function unveilAudit() {
-            const gate = document.getElementById('landing-gate');
-            const app = document.getElementById('main-audit-app');
-            gate.classList.add('opacity-0');
-            
+            panels.landing.classList.add('opacity-0');
             setTimeout(() => {
-                gate.classList.add('hidden');
-                app.classList.remove('hidden');
+                panels.landing.classList.add('hidden');
+                panels.app.classList.remove('hidden');
                 radarChart.resize();
                 updateChart();
-                setTimeout(() => { app.classList.remove('opacity-0'); }, 50);
+                setTimeout(() => { panels.app.classList.remove('opacity-0'); }, 50);
             }, 1000); 
         }
 
@@ -817,20 +811,20 @@
             }, delay + 600); 
         }
 
-        function handleFormSubmit(e) {
+        async function handleFormSubmit(e) {
             e.preventDefault();
             
-            // Validate Arena Selection
             if (!arenaInput.value) {
                 const arenaBox = document.getElementById('arena-selector');
                 arenaBox.classList.remove('arena-error');
-                void arenaBox.offsetWidth; // Trigger reflow
+                void arenaBox.offsetWidth;
                 arenaBox.classList.add('arena-error');
                 return false;
             }
 
             const btn = e.target.querySelector('button');
             const btnText = btn.querySelector('.btn-text');
+            const emailValue = e.target.querySelector('input[type="email"]').value;
             
             btn.disabled = true;
             btn.style.background = '#000000';
@@ -838,15 +832,42 @@
             btn.style.border = '1px solid rgba(194, 163, 89, 0.4)';
             btnText.innerHTML = '<span class="animate-terminal tracking-[0.2em] font-mono">[ AUTHORIZING... ]</span>';
             
-            setTimeout(() => {
-                panels.capture.classList.add('hidden');
-                panels.success.classList.remove('hidden');
-            }, 1000);
+            const scores = [
+                { name: 'Mind', val: parseInt(sliders.cog.value) },
+                { name: 'Body', val: parseInt(sliders.auto.value) },
+                { name: 'Spirit', val: parseInt(sliders.arch.value) },
+                { name: 'Vocation', val: parseInt(sliders.lev.value) }
+            ];
+            scores.sort((a, b) => a.val - b.val);
+            const primaryLeak = scores[0].name;
+
+            try {
+                const res = await fetch('https://api.convertkit.com/v3/forms/9308200/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        api_key: 'mVsfQaUVGPNONWAJPZeA_Q',
+                        email: emailValue,
+                        fields: { primary_leak: primaryLeak, operating_arena: arenaInput.value }
+                    })
+                });
+                
+                if(res.ok) {
+                    setTimeout(() => {
+                        panels.capture.classList.add('hidden');
+                        panels.success.classList.remove('hidden');
+                    }, 1000);
+                } else {
+                    throw new Error('Transmission failed');
+                }
+            } catch(err) {
+                console.error(err);
+                btnText.innerHTML = 'RETRY TRANSMISSION';
+                btn.disabled = false;
+            }
         }
 
-        // Initialize on load
         window.onload = () => {
-            // Adjust point label padding on mobile for Chart JS on init
             if(window.innerWidth < 640) {
                radarChart.options.scales.r.pointLabels.padding = 10;
                radarChart.options.scales.r.pointLabels.font.size = 8;
