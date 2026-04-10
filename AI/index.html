@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>VYRTŪOSITI // Superhuman Lab</title>
+    <meta name="description" content="AI is now the baseline. If you aren't operating at your absolute peak, you're the bottleneck.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#050505',
+                        gold: {
+                            200: '#D4B66A',
+                            300: '#CDB175',
+                            400: '#C2A366', 
+                            500: '#A68A57',
+                            600: '#8C7342',
+                            900: '#1A1A1A'
+                        },
+                        alert: '#FF3366',
+                        slate: '#121212',
+                    },
+                    fontFamily: {
+                        display: ['"Rajdhani"', 'sans-serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    animation: {
+                        'marquee': 'marquee 40s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            background-color: #050505; 
+            color: #ffffff; 
+            scroll-behavior: smooth; 
+            overflow-x: hidden; 
+        }
+        
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+        ::-webkit-scrollbar-thumb:hover { background: #C2A366; }
+
+        .noise-overlay {
+            position: fixed; inset: 0; z-index: 100; pointer-events: none;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.06"/%3E%3C/svg%3E');
+            opacity: 0.8; mix-blend-mode: overlay;
+        }
+
+        .lab-grid {
+            position: fixed; inset: 0;
+            background-image: 
+                linear-gradient(rgba(194, 163, 102, 0.04) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(194, 163, 102, 0.04) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2; pointer-events: none;
+        }
+
+        .ambient-glow {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 90vw; height: 90vh;
+            background: radial-gradient(circle, rgba(194, 163, 102, 0.04) 0%, rgba(5, 5, 5, 0) 60%);
+            z-index: -1; pointer-events: none; mix-blend-mode: screen;
+        }
+
+        .lab-panel {
+            background: rgba(10, 8, 5, 0.8); backdrop-filter: blur(20px);
+            border: 1px solid rgba(194, 163, 102, 0.15); position: relative; border-radius: 0px; 
+        }
+        .lab-panel::before, .lab-panel::after {
+            content: ''; position: absolute; width: 12px; height: 12px; pointer-events: none;
+        }
+        .lab-panel::before { top: -1px; left: -1px; border-top: 2px solid #C2A366; border-left: 2px solid #C2A366; }
+        .lab-panel::after { bottom: -1px; right: -1px; border-bottom: 2px solid #C2A366; border-right: 2px solid #C2A366; }
+
+        .btn-tactical { border-radius: 0; position: relative; }
+        .btn-tactical::after {
+            content: ''; position: absolute; bottom: 0; right: 0;
+            border-bottom: 8px solid #C2A366; border-left: 8px solid transparent;
+        }
+        
+        .btn-disabled::after {
+            border-bottom-color: #4b5563 !important; /* Gray-600 */
+        }
+
+        .gold-glow { box-shadow: 0 0 30px rgba(194, 163, 102, 0.15); }
+        .gold-glow-intense { box-shadow: 0 0 60px rgba(194, 163, 102, 0.25); }
+        .text-shadow-glow { text-shadow: 0 0 30px rgba(194, 163, 102, 0.6), 0 0 10px rgba(212, 182, 106, 0.8); }
+
+        .plasma-bar {
+            background: linear-gradient(90deg, #8C7342 0%, #C2A366 50%, #D4B66A 100%);
+            background-size: 200% 100%; animation: plasmaFlow 3s ease infinite;
+        }
+        @keyframes plasmaFlow { 0% { background-position: 100% 0; } 50% { background-position: 0 0; } 100% { background-position: 100% 0; } }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .scanline {
+            width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #C2A366, transparent);
+            position: absolute; left: 0; animation: scan 3s ease-in-out infinite; z-index: 20;
+            box-shadow: 0 0 10px #C2A366;
+        }
+        @keyframes scan { 0% { top: 0%; opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { top: 100%; opacity: 0; } }
+
+        .avatar-scanner {
+            position: absolute; left: 10%; right: 10%; height: 2px; background: #C2A366;
+            box-shadow: 0 0 20px 2px #C2A366, 0 0 40px 2px rgba(194, 163, 102, 0.5);
+            opacity: 0; z-index: 20; animation: scan-vertical 4s ease-in-out infinite;
+        }
+        @keyframes scan-vertical { 0% { top: 5%; opacity: 0; } 10% { opacity: 0.6; } 50% { opacity: 0.9; box-shadow: 0 0 30px 4px #C2A366; } 90% { opacity: 0.6; } 100% { top: 95%; opacity: 0; } }
+
+        .attr-ticks { background: repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(5, 5, 5, 0.9) 3px, rgba(5, 5, 5, 0.9) 4px); }
+        .stat-bar { transition: width 1s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease; }
+        canvas#neural-bg { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.6; mix-blend-mode: screen; }
+
+        .blinking-cursor::after {
+            content: '█'; animation: blink 1s step-end infinite; color: #C2A366; margin-left: 4px;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .protocol-badge.active-hover { background-color: #C2A366; color: #050505; transform: scale(1.05); border-color: #fff; }
+
+        .glitch-anim { animation: glitch-skew 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite; }
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); filter: drop-shadow(0 0 0 rgba(194, 163, 102, 0)); }
+            20% { transform: skew(-10deg); filter: drop-shadow(-4px 0 0 rgba(255, 51, 102, 0.8)) drop-shadow(4px 0 0 rgba(0,240,255,0.8)); }
+            40% { transform: skew(10deg); filter: drop-shadow(0 0 0 rgba(194, 163, 102, 0)); }
+            60% { transform: skew(-5deg); filter: drop-shadow(3px 0 0 rgba(255, 51, 102, 0.8)) drop-shadow(-3px 0 0 rgba(0,240,255,0.8)); }
+            80% { transform: skew(5deg); filter: drop-shadow(0 0 0 rgba(194, 163, 102, 0)); }
+            100% { transform: skew(0deg); filter: drop-shadow(0 0 0 rgba(194, 163, 102, 0)); }
+        }
+
+        .wave-path { stroke-dasharray: 200; stroke-dashoffset: 200; animation: drawWave 2s linear infinite; }
+        @keyframes drawWave { to { stroke-dashoffset: 0; } }
+
+        .holo-ring { position: absolute; border-radius: 50%; transform: rotateX(75deg); transform-style: preserve-3d; }
+        
+        .mask-edges { 
+            -webkit-mask-image: linear-gradient(to right, transparent, black 25%, black 75%, transparent); 
+            mask-image: linear-gradient(to right, transparent, black 25%, black 75%, transparent); 
+        }
+
+        /* Checkbox Styling */
+        input[type="checkbox"]:checked + div {
+            background-color: #C2A366;
+            border-color: #C2A366;
+        }
+        input[type="checkbox"]:checked + div svg {
+            display: block;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-gold-400 selection:text-black">
+
+    <div class="noise-overlay"></div>
+    <div class="lab-grid"></div>
+    <div class="ambient-glow"></div>
+    <canvas id="neural-bg"></canvas>
+
+    <!-- Tactical HUD Nav -->
+    <nav class="fixed top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center transition-all duration-500 border-b border-transparent" id="nav">
+        <div class="flex items-center space-x-3">
+            <div class="w-2 h-2 bg-gold-400 animate-pulse shadow-[0_0_10px_#C2A366]"></div>
+            <div class="font-display text-sm md:text-base tracking-[0.4em] uppercase text-gold-400 font-bold">VYRTŪOSITI // CORE</div>
+        </div>
+        <div class="flex items-center space-x-6 md:space-x-8">
+            <a href="#about" class="hidden md:block text-[10px] font-mono uppercase tracking-widest text-gray-400 hover:text-gold-400 transition-colors">Diagnostics</a>
+            <a href="#proof" class="hidden md:block text-[10px] font-mono uppercase tracking-widest text-gray-400 hover:text-gold-400 transition-colors">Telemetry</a>
+            <a href="#upgrade" class="hidden md:block text-[10px] font-mono uppercase tracking-widest text-gray-400 hover:text-gold-400 transition-colors">Architecture</a>
+            <button onclick="openModal()" class="lab-panel px-6 py-2.5 text-[10px] font-mono uppercase tracking-widest text-gold-400 hover:bg-gold-400 hover:text-black transition-all cursor-pointer font-bold">
+                [ REQUEST_CLEARANCE ]
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- Hero: The Reality Check -->
+        <section class="min-h-[100svh] flex flex-col justify-between pt-32 pb-12 px-6 relative z-10">
+            <div class="flex-grow flex flex-col items-center justify-center w-full">
+                <div class="reveal text-center w-full max-w-5xl">
+                    <div class="inline-flex items-center space-x-3 border border-gold-400/50 bg-gold-900/40 px-6 py-2 mb-10 mx-auto rounded-none">
+                        <span class="text-gold-400 font-mono tracking-[0.3em] uppercase text-[10px] md:text-xs font-bold blinking-cursor">SYSTEM STATUS: MAXIMUM CAPACITY REACHED</span>
+                    </div>
+                    
+                    <!-- Massive, aggressive Display Font -->
+                    <h1 class="font-display text-6xl md:text-8xl lg:text-[140px] leading-[0.85] mb-8 font-bold uppercase tracking-tighter">
+                        AI IS THE ENGINE.<br>
+                        <span class="text-gold-400 text-shadow-glow">YOU ARE THE PILOT.</span>
+                    </h1>
+                    
+                    <p class="text-base md:text-xl lg:text-2xl font-light text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
+                        AI has zeroed the cost of strategy and execution. Your entire competitive edge has collapsed down to raw cognitive plasticity and creative bandwidth. The only remaining bottleneck is the exhausted biological processor trying to command it. <span class="text-white font-bold border-b-2 border-gold-400 pb-1">AI does not fatigue.</span> <strong class="text-white font-bold">If the pilot does, the empire fails.</strong>
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <button onclick="openModal()" class="btn-tactical w-full sm:w-auto bg-gold-400 text-black px-10 md:px-12 py-5 font-mono font-bold uppercase tracking-[0.2em] text-[11px] md:text-xs hover:bg-white transition-all duration-300 gold-glow shadow-[0_0_20px_rgba(194,163,102,0.4)] relative overflow-hidden group cursor-pointer">
+                            <span class="relative z-10">APPLY FOR DEPLOYMENT</span>
+                            <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                        </button>
+                        <div class="flex items-center justify-center space-x-3 text-[10px] font-mono text-gray-400 tracking-widest uppercase border border-white/20 px-6 py-5 lab-panel w-full sm:w-auto font-bold">
+                            <span class="w-2.5 h-2.5 bg-alert animate-pulse rounded-none"></span>
+                            <span class="dynamic-scarcity">WAITLIST ACTIVE: 5 SEATS / CYCLE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trust Anchor -->
+            <div class="w-full max-w-[1400px] mx-auto px-4 sm:px-6 reveal delay-300 border-t border-white/10 pt-8 mt-16 md:mt-24 text-center">
+                <p class="text-gray-500 font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase mb-8 text-center font-medium">
+                    Operators inside our network span across
+                </p>
+                <div class="flex overflow-hidden w-full mask-edges pb-4" style="will-change: transform; transform: translateZ(0);">
+                    <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
+                        <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">TESLA</span>
+                        <svg viewBox="0 0 100 50" class="shrink-0 h-6 md:h-7 w-auto fill-none stroke-white stroke-[2]">
+                            <circle cx="20" cy="18" r="14" /><circle cx="50" cy="18" r="14" /><circle cx="80" cy="18" r="14" />
+                            <circle cx="35" cy="32" r="14" /><circle cx="65" cy="32" r="14" />
+                        </svg>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Major_League_Baseball_logo.svg" alt="MLB" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto grayscale opacity-90 contrast-125" onerror="this.style.display='none';">
+                        <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">ŌURA</span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/US_Air_Force_Logo_Solid_Colour.svg" alt="Air Force" loading="lazy" decoding="async" class="shrink-0 h-7 md:h-8 w-auto brightness-0 invert opacity-90" onerror="this.style.display='none';">
+                        <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
+                    </div>
+                    <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40" aria-hidden="true" tabindex="-1">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
+                        <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">TESLA</span>
+                        <svg viewBox="0 0 100 50" class="shrink-0 h-6 md:h-7 w-auto fill-none stroke-white stroke-[2]">
+                            <circle cx="20" cy="18" r="14" /><circle cx="50" cy="18" r="14" /><circle cx="80" cy="18" r="14" />
+                            <circle cx="35" cy="32" r="14" /><circle cx="65" cy="32" r="14" />
+                        </svg>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Major_League_Baseball_logo.svg" alt="MLB" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto grayscale opacity-90 contrast-125" onerror="this.style.display='none';">
+                        <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">ŌURA</span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/US_Air_Force_Logo_Solid_Colour.svg" alt="Air Force" loading="lazy" decoding="async" class="shrink-0 h-7 md:h-8 w-auto brightness-0 invert opacity-90" onerror="this.style.display='none';">
+                        <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: The Gap (Interactive Character Builder HUD) -->
+        <section id="about" class="py-24 md:py-32 px-4 md:px-6 relative z-10">
+            <div class="max-w-7xl mx-auto">
+                
+                <div class="text-center mb-16 reveal">
+                    <span class="text-gold-400 font-mono text-[10px] tracking-widest uppercase mb-4 block font-bold">> SYSTEM_CALIBRATION // BIOMETRIC_LIMITS</span>
+                    <h2 class="font-display text-5xl md:text-7xl mb-6 font-bold uppercase tracking-tight">AI MULTIPLIES WHAT IT CONNECTS TO.</h2>
+                    <p class="text-gray-400 text-base md:text-xl leading-relaxed max-w-4xl mx-auto font-light">
+                        Attach infinite intelligence to an exhausted mind, and you get faster burnout. To wield AI as a weapon, the biological pilot must be upgraded. <strong class="text-white font-bold">Choose your operating framework.</strong>
+                    </p>
+                </div>
+
+                <!-- Fully Interactive Character HUD -->
+                <div class="reveal delay-200">
+                    <div class="bg-obsidian/95 border-2 border-gold-400/40 p-5 md:p-10 gold-glow-intense relative overflow-hidden font-mono text-white">
+                        
+                        <!-- Top HUD Bar: The Real Affordances -->
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-gold-400/30 pb-4 mb-8 gap-4">
+                            <div class="flex space-x-3 w-full md:w-auto">
+                                <button id="btn-base" onclick="setBuild('base')" class="btn-tactical flex-1 md:flex-none bg-slate border border-gray-600 px-6 py-3 text-[10px] md:text-xs uppercase tracking-widest text-gray-400 hover:text-white hover:bg-gray-800 transition-colors cursor-pointer">
+                                    BASE HUMAN
+                                </button>
+                                <button id="btn-symbiotic" onclick="setBuild('symbiotic')" class="btn-tactical flex-1 md:flex-none bg-gold-400 border border-gold-400 px-6 py-3 text-[10px] md:text-xs uppercase tracking-widest text-black font-bold shadow-[0_0_20px_rgba(194,163,102,0.5)] transition-colors cursor-pointer">
+                                    SYMBIOTIC ARCHITECT
+                                </button>
+                            </div>
+                            <div class="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-bold">
+                                FRAMEWORK > <span id="build-status-text" class="text-gold-200 font-bold text-shadow-glow">OPTIMIZED</span>
+                            </div>
+                        </div>
+
+                        <!-- HUD Grid -->
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                            
+                            <!-- LEFT PANEL: ATTRIBUTES -->
+                            <div class="lg:col-span-5 flex flex-col order-2 lg:order-1">
+                                <h3 class="text-xs font-bold uppercase tracking-widest text-white mb-6 border-b border-white/20 pb-3 flex justify-between items-center">
+                                    <span>BIOMETRIC CAPACITY LIMITS</span>
+                                    <span id="attr-rating" class="text-gold-200 text-lg bg-gold-400/20 px-2 py-1 border border-gold-300/50 shadow-[0_0_15px_rgba(212,182,106,0.3)]">98.7% SYNC</span>
+                                </h3>
+                                
+                                <!-- Cognitive Category -->
+                                <div class="mb-6">
+                                    <h4 class="text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-bold border-l-2 border-gray-600 pl-2">Cognitive Framework</h4>
+                                    
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-xs text-gray-300">Deep Focus Duration</span>
+                                        <div class="flex items-center flex-1 ml-4 space-x-3">
+                                            <div class="h-2.5 flex-1 bg-white/10 relative overflow-hidden">
+                                                <div id="stat-cog" class="stat-bar h-full bg-gold-400 w-[99.4%] shadow-[0_0_8px_#C2A366]"></div>
+                                                <div class="absolute inset-0 attr-ticks"></div>
+                                                <div class="absolute top-0 bottom-0 w-0.5 bg-gray-400 left-[45%] z-10"></div>
+                                            </div>
+                                            <span id="val-cog" class="text-sm text-gold-400 font-bold w-10 text-right transition-colors">99.4</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-xs text-gray-300">Decision Velocity</span>
+                                        <div class="flex items-center flex-1 ml-4 space-x-3">
+                                            <div class="h-2.5 flex-1 bg-white/10 relative overflow-hidden">
+                                                <div id="stat-vel" class="stat-bar h-full bg-gold-400 w-[95.2%] shadow-[0_0_8px_#C2A366]"></div>
+                                                <div class="absolute inset-0 attr-ticks"></div>
+                                                <div class="absolute top-0 bottom-0 w-0.5 bg-gray-400 left-[60%] z-10"></div>
+                                            </div>
+                                            <span id="val-vel" class="text-sm text-gold-400 font-bold w-10 text-right transition-colors">95.2</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Biological Category -->
+                                <div class="mb-6">
+                                    <h4 class="text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-bold border-l-2 border-gray-600 pl-2">Biological Baseline</h4>
+                                    
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-xs text-gray-300">Metabolic Endurance</span>
+                                        <div class="flex items-center flex-1 ml-4 space-x-3">
+                                            <div class="h-2.5 flex-1 bg-white/10 relative overflow-hidden">
+                                                <div id="stat-met" class="stat-bar h-full bg-gold-400 w-[98.8%] shadow-[0_0_8px_#C2A366]"></div>
+                                                <div class="absolute inset-0 attr-ticks"></div>
+                                                <div class="absolute top-0 bottom-0 w-0.5 bg-gray-400 left-[40%] z-10"></div>
+                                            </div>
+                                            <span id="val-met" class="text-sm text-gold-400 font-bold w-10 text-right transition-colors">98.8</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-xs text-gray-300">Sleep Architecture</span>
+                                        <div class="flex items-center flex-1 ml-4 space-x-3">
+                                            <div class="h-2.5 flex-1 bg-white/10 relative overflow-hidden">
+                                                <div id="stat-slp" class="stat-bar h-full bg-gold-400 w-[96.1%] shadow-[0_0_8px_#C2A366]"></div>
+                                                <div class="absolute inset-0 attr-ticks"></div>
+                                                <div class="absolute top-0 bottom-0 w-0.5 bg-gray-400 left-[55%] z-10"></div>
+                                            </div>
+                                            <span id="val-slp" class="text-sm text-gold-400 font-bold w-10 text-right transition-colors">96.1</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Operational / AI Category -->
+                                <div>
+                                    <h4 class="text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-bold border-l-2 border-gray-600 pl-2">Operational Leverage</h4>
+                                    
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-xs text-gray-300">AI Orchestration</span>
+                                        <div class="flex items-center flex-1 ml-4 space-x-3">
+                                            <div class="h-2.5 flex-1 bg-white/10 relative overflow-hidden">
+                                                <div id="stat-ai" class="stat-bar h-full bg-gold-400 w-[99.8%] shadow-[0_0_8px_#C2A366]"></div>
+                                                <div class="absolute inset-0 attr-ticks"></div>
+                                                <div class="absolute top-0 bottom-0 w-0.5 bg-gray-400 left-[20%] z-10"></div>
+                                            </div>
+                                            <span id="val-ai" class="text-sm text-gold-400 font-bold w-10 text-right transition-colors">99.8</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-xs text-gray-300">Output Scaling</span>
+                                        <div class="flex items-center flex-1 ml-4 space-x-3">
+                                            <div class="h-2.5 flex-1 bg-white/10 relative overflow-hidden">
+                                                <div id="stat-out" class="stat-bar h-full bg-gold-400 w-[97.5%] shadow-[0_0_8px_#C2A366]"></div>
+                                                <div class="absolute inset-0 attr-ticks"></div>
+                                                <div class="absolute top-0 bottom-0 w-0.5 bg-gray-400 left-[25%] z-10"></div>
+                                            </div>
+                                            <span id="val-out" class="text-sm text-gold-400 font-bold w-10 text-right transition-colors">97.5</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-8 flex items-center space-x-2 text-[10px] text-gray-400 uppercase tracking-widest bg-white/5 p-3 border border-white/10">
+                                        <span class="w-3 h-1.5 bg-gray-400"></span> <span>= BASELINE UNAUGMENTED LIMIT</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CENTER PANEL: AVATAR PREVIEW -->
+                            <div class="lg:col-span-4 flex flex-col border-2 border-white/10 bg-black/80 relative overflow-hidden h-[400px] lg:h-auto order-1 lg:order-2" id="avatar-container">
+                                <div id="avatar-header" class="absolute top-0 left-0 w-full bg-gold-400 text-black text-center py-2 text-[11px] md:text-xs font-bold uppercase tracking-[0.2em] z-20 shadow-[0_0_20px_#C2A366] transition-colors duration-500">
+                                    ENTITY: SYMBIOTIC ARCHITECT
+                                </div>
+                                
+                                <div id="avatar-bg-glow" class="absolute inset-0 bg-gold-400/15 blur-[70px] pointer-events-none transition-colors duration-500"></div>
+
+                                <!-- Live Telemetry Data Stream -->
+                                <div class="absolute top-12 right-2 bottom-4 w-12 overflow-hidden z-10 flex flex-col items-end opacity-40 pointer-events-none">
+                                    <div class="text-[6px] font-mono text-gold-400 text-right leading-tight tracking-widest break-all" id="hex-stream">
+                                        <!-- Populated by JS -->
+                                    </div>
+                                </div>
+
+                                <!-- Live Brainwave Monitor -->
+                                <div class="absolute top-14 left-3 z-20">
+                                    <div class="text-[6px] font-mono text-gold-400 mb-1 tracking-widest uppercase" id="wave-label">NEURAL_WAVE: OPTIMAL</div>
+                                    <svg viewBox="0 0 100 30" class="w-20 h-6 text-gold-400 drop-shadow-[0_0_5px_currentColor] transition-colors duration-500" id="wave-svg">
+                                        <polyline id="wave-line" class="wave-path" points="0,15 20,15 25,5 30,25 35,15 50,15 55,10 60,20 65,15 100,15" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                    </svg>
+                                </div>
+
+                                <!-- Evolved Bio-Neural Avatar -->
+                                <div class="flex-1 flex flex-col items-center justify-center relative pt-10 pb-8">
+                                    
+                                    <!-- Holographic Emitter Base -->
+                                    <div class="absolute bottom-10 md:bottom-14 left-1/2 -translate-x-1/2 w-[220px] h-[220px] flex items-center justify-center z-0 perspective-[1000px]">
+                                        <div id="holo-1" class="holo-ring w-full h-full border border-gold-400/20 animate-[spin_10s_linear_infinite]"></div>
+                                        <div id="holo-2" class="holo-ring w-[80%] h-[80%] border-2 border-gold-400/40 border-t-transparent animate-[spin_6s_linear_infinite_reverse]"></div>
+                                        <div id="holo-3" class="holo-ring w-[60%] h-[60%] bg-gold-400/10 border border-gold-400/60 shadow-[0_0_30px_#C2A366_inset]"></div>
+                                        <!-- Vertical Emitter Beams -->
+                                        <div id="holo-beams" class="absolute bottom-1/2 w-[60%] h-[150px] bg-gradient-to-t from-gold-400/20 to-transparent blur-sm transform origin-bottom" style="transform: rotateX(0deg);"></div>
+                                    </div>
+
+                                    <div class="avatar-scanner" id="avatar-laser"></div>
+                                    
+                                    <svg viewBox="0 0 200 400" id="avatar-svg" class="h-full w-full max-h-[340px] z-10 transition-all duration-500 relative pb-4">
+                                        <defs>
+                                            <linearGradient id="bioGold" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="#D4B66A"/>
+                                                <stop offset="50%" stop-color="#C2A366"/>
+                                                <stop offset="100%" stop-color="#8C7342"/>
+                                            </linearGradient>
+                                            <filter id="glow">
+                                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                                <feMerge>
+                                                    <feMergeNode in="coloredBlur"/>
+                                                    <feMergeNode in="SourceGraphic"/>
+                                                </feMerge>
+                                            </filter>
+                                            <filter id="glow-alert">
+                                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                                <feMerge>
+                                                    <feMergeNode in="coloredBlur"/>
+                                                    <feMergeNode in="SourceGraphic"/>
+                                                </feMerge>
+                                            </filter>
+                                        </defs>
+                                        
+                                        <!-- Data Brackets (Static HUD Elements) -->
+                                        <g stroke="currentColor" stroke-width="0.5" opacity="0.3">
+                                            <path d="M 25 30 L 15 30 L 15 50 M 175 30 L 185 30 L 185 50"/>
+                                            <path d="M 25 370 L 15 370 L 15 350 M 175 370 L 185 370 L 185 350"/>
+                                            <line x1="15" y1="100" x2="20" y2="100"/>
+                                            <line x1="15" y1="200" x2="25" y2="200"/>
+                                            <line x1="15" y1="300" x2="20" y2="300"/>
+                                            <line x1="185" y1="100" x2="180" y2="100"/>
+                                            <line x1="185" y1="200" x2="175" y2="200"/>
+                                            <line x1="185" y1="300" x2="180" y2="300"/>
+                                        </g>
+
+                                        <!-- Articulated Joints -->
+                                        <g id="ava-joints" stroke-width="1.5" fill="none" stroke="#D4B66A" filter="url(#glow)">
+                                            <circle cx="100" cy="45" r="2"/> 
+                                            <circle cx="100" cy="125" r="2"/> 
+                                            <circle cx="55" cy="155" r="3"/> 
+                                            <circle cx="145" cy="155" r="3"/> 
+                                            <circle cx="35" cy="245" r="2"/> 
+                                            <circle cx="165" cy="245" r="2"/> 
+                                            <circle cx="75" cy="300" r="3"/> 
+                                            <circle cx="125" cy="300" r="3"/> 
+                                            <circle cx="65" cy="370" r="2"/> 
+                                            <circle cx="135" cy="370" r="2"/> 
+                                        </g>
+                                        
+                                        <!-- Main Tactical Chassis -->
+                                        <g id="ava-chassis" stroke-width="1.5" fill="rgba(194, 163, 102, 0.08)" stroke="url(#bioGold)" filter="url(#glow)">
+                                            <!-- Cranium / Helmet -->
+                                            <path d="M 85 30 L 115 30 L 130 65 L 120 105 L 100 120 L 80 105 L 70 65 Z"/>
+                                            <path d="M 75 70 L 125 70 L 115 95 L 100 105 L 85 95 Z" opacity="0.4"/>
+                                            <!-- Neck & Shoulders -->
+                                            <path d="M 92 120 L 108 120 L 112 140 L 88 140 Z"/>
+                                            <!-- Chest Plate -->
+                                            <path d="M 88 140 L 50 150 L 60 210 L 100 230 L 140 210 L 150 150 L 112 140 Z"/>
+                                            <!-- Core Housing -->
+                                            <path d="M 100 165 L 125 180 L 125 210 L 100 225 L 75 210 L 75 180 Z" opacity="0.2"/>
+                                            <!-- Abdomen / Midsection -->
+                                            <path d="M 65 220 L 100 240 L 135 220 L 125 295 L 100 310 L 75 295 Z"/>
+                                            <!-- Pelvis -->
+                                            <path d="M 75 295 L 100 310 L 125 295 L 140 350 L 100 380 L 60 350 Z"/>
+                                            <!-- Truncated Upper Legs -->
+                                            <path d="M 60 350 L 70 400 M 140 350 L 130 400"/>
+                                            <path d="M 100 380 L 95 400 M 100 380 L 105 400"/>
+                                            <!-- Upper Arms & Forearms -->
+                                            <path d="M 50 150 L 30 230 L 50 240 L 60 210 Z"/>
+                                            <path d="M 150 150 L 170 230 L 150 240 L 140 210 Z"/>
+                                            <path d="M 30 230 L 20 290 L 40 300 L 50 240 Z"/>
+                                            <path d="M 170 230 L 180 290 L 160 300 L 150 240 Z"/>
+                                        </g>
+                                        
+                                        <!-- Glowing Neural Spine -->
+                                        <g id="ava-spine" stroke="#D4B66A" stroke-width="1.5" fill="none" class="animate-pulse" filter="url(#glow)">
+                                            <!-- CNS -->
+                                            <path d="M 100 45 L 100 115"/>
+                                            <path d="M 100 230 L 100 375" stroke-dasharray="3,4"/>
+                                            <!-- Brain Synapses -->
+                                            <path d="M 100 65 L 85 50 M 100 65 L 115 50 M 100 85 L 80 85 M 100 85 L 120 85"/>
+                                            <!-- Arm Synapses -->
+                                            <path d="M 55 180 L 40 235 M 145 180 L 160 235" stroke-dasharray="2,4"/>
+                                        </g>
+
+                                        <!-- Dynamic Neural/Plasma Core -->
+                                        <g id="avatar-core" transform="translate(100, 195)">
+                                            <circle r="16" fill="#050505" stroke="#D4B66A" stroke-width="1" filter="url(#glow)"/>
+                                            <circle r="6" fill="#D4B66A" class="animate-ping drop-shadow-[0_0_20px_#D4B66A]"/>
+                                            <circle r="6" fill="#CDB175"/>
+                                            <circle r="26" fill="none" stroke="#C2A366" stroke-width="1.5" stroke-dasharray="2,10" class="animate-[spin_6s_linear_infinite]" filter="url(#glow)"/>
+                                            <circle r="34" fill="none" stroke="rgba(212,182,106,0.4)" stroke-width="1" stroke-dasharray="15,10" class="animate-[spin_12s_linear_infinite]" style="animation-direction: reverse;"/>
+                                            <circle r="42" fill="none" stroke="rgba(194,163,102,0.2)" stroke-width="0.5" stroke-dasharray="4,16" class="animate-[spin_8s_linear_infinite]"/>
+                                        </g>
+                                    </svg>
+                                    
+                                    <!-- SYSTEM LEAKAGE WARNING -->
+                                    <div id="leakage-warning" class="mt-4 text-center font-mono text-[10px] tracking-widest font-bold text-gold-400 z-20">
+                                        > SYSTEM_LEAKAGE: 0.0 HRS/WK [OPTIMAL]
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT PANEL: BADGES & LOADOUT -->
+                            <div class="lg:col-span-3 flex flex-col order-3">
+                                <h3 class="text-xs font-bold uppercase tracking-widest text-white mb-6 border-b border-white/20 pb-3">INSTALLED PROTOCOLS</h3>
+                                
+                                <!-- Badge Grid -->
+                                <div class="mb-8">
+                                    <div class="flex justify-between items-end mb-4">
+                                        <span class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Core Synergies</span>
+                                        <span id="badge-count" class="text-[10px] text-gold-200 font-bold bg-gold-400/20 px-1.5 py-0.5 border border-gold-300/50 shadow-[0_0_10px_rgba(212,182,106,0.2)]">4/4 ONLINE</span>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-3">
+                                        <!-- Interactive Badges -->
+                                        <div onmouseover="showProtocolInfo('cognitive')" class="protocol-badge aspect-square bg-gold-900/40 border-2 border-gold-400 shadow-[inset_0_0_15px_rgba(194,163,102,0.3)] flex flex-col items-center justify-center cursor-pointer hover:bg-gold-400 hover:text-black transition-all duration-300">
+                                            <span class="text-3xl drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">🧠</span>
+                                        </div>
+                                        <div onmouseover="showProtocolInfo('metabolic')" class="protocol-badge aspect-square bg-gold-900/40 border-2 border-gold-400 shadow-[inset_0_0_15px_rgba(194,163,102,0.3)] flex flex-col items-center justify-center cursor-pointer hover:bg-gold-400 hover:text-black transition-all duration-300">
+                                            <span class="text-3xl drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">⚡</span>
+                                        </div>
+                                        <div onmouseover="showProtocolInfo('orchestration')" class="protocol-badge aspect-square bg-gold-900/40 border-2 border-gold-400 shadow-[inset_0_0_15px_rgba(194,163,102,0.3)] flex flex-col items-center justify-center cursor-pointer hover:bg-gold-400 hover:text-black transition-all duration-300">
+                                            <span class="text-3xl drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">👁️</span>
+                                        </div>
+                                        <div onmouseover="showProtocolInfo('leverage')" class="protocol-badge aspect-square bg-gold-900/40 border-2 border-gold-400 shadow-[inset_0_0_15px_rgba(194,163,102,0.3)] flex flex-col items-center justify-center cursor-pointer hover:bg-gold-400 hover:text-black transition-all duration-300">
+                                            <span class="text-3xl drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">⚙️</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Build Summary Panel (Dynamic Output) -->
+                                <div class="mt-auto border-2 border-gold-400/50 bg-gold-900/20 p-5 relative overflow-hidden min-h-[160px] flex flex-col">
+                                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none"></div>
+                                    <div class="absolute top-0 left-0 w-full h-[1px] bg-gold-400/50 hidden group-hover:block animate-[scan_2s_ease-in-out_infinite]"></div>
+                                    
+                                    <h4 id="protocol-title" class="text-sm font-display font-bold text-white uppercase tracking-widest mb-3 border-b border-white/20 pb-2">> PROTOCOL_OVERVIEW</h4>
+                                    <div class="space-y-2 relative z-10 flex-grow">
+                                        <p id="protocol-desc" class="text-[11px] md:text-xs text-gray-300 leading-relaxed font-mono">
+                                            Hover over an equipped core protocol badge above to view detailed diagnostic telemetry and biological integration status.
+                                        </p>
+                                    </div>
+                                    <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gold-400/50 m-2 pointer-events-none"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1.5: Social Proof (The Convincer) -->
+        <section id="proof" class="py-24 bg-gold-900/10 border-y border-gold-400/20 relative z-10">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold-900/20 via-obsidian to-obsidian -z-10"></div>
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <span class="text-gold-400 font-mono text-[10px] tracking-widest uppercase mb-4 block font-bold">> OBSERVED_OUTPUT // FIELD_REPORTS</span>
+                    <h2 class="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight text-white">WHAT HAPPENS WHEN YOU REMOVE THE BOTTLENECK.</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Static Quote 1 -->
+                    <div class="lab-panel p-8 md:p-12 reveal border-t-4 border-t-gold-400">
+                        <div class="font-mono text-[10px] md:text-xs text-gray-500 tracking-[0.2em] mb-6 border-b border-white/10 pb-3 font-bold">LOG // ENTRY_01</div>
+                        <p class="text-gray-300 text-lg md:text-xl font-light leading-relaxed mb-8">
+                            "I was working 70 hours a week and stalling out. VYRTŪOSITI didn't just give me energy; they helped me reclaim 15 hours a week while my output doubled. I tap into flow states on demand now. It's almost unfair."
+                        </p>
+                        <div class="pt-4 border-t border-white/5">
+                            <p class="text-white font-mono text-[11px] md:text-xs tracking-widest uppercase mb-1 font-bold">David V.</p>
+                            <p class="text-[9px] font-mono text-gold-500 uppercase tracking-widest">Enterprise Sales Leader</p>
+                        </div>
+                    </div>
+
+                    <!-- Static Quote 2 -->
+                    <div class="lab-panel p-8 md:p-12 reveal delay-100 border-t-4 border-t-gold-400">
+                        <div class="font-mono text-[10px] md:text-xs text-gray-500 tracking-[0.2em] mb-6 border-b border-white/10 pb-3 font-bold">LOG // ENTRY_02</div>
+                        <p class="text-gray-300 text-lg md:text-xl font-light leading-relaxed mb-8">
+                            "The strongest ROI I can report is the mid-five-figure sum I pay for this system. We completely rebuilt my biological baseline. I make clearer, faster, higher-leverage decisions in 4 hours than I used to make in 10."
+                        </p>
+                        <div class="pt-4 border-t border-white/5">
+                            <p class="text-white font-mono text-[11px] md:text-xs tracking-widest uppercase mb-1 font-bold">Ethan E.</p>
+                            <p class="text-[9px] font-mono text-gold-500 uppercase tracking-widest">Retired VP, Fortune 50</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Three Pillars -->
+        <section id="upgrade" class="py-24 md:py-32 px-6 relative z-10">
+            <div class="max-w-7xl mx-auto text-center mb-16 md:mb-24 reveal">
+                <span class="text-gold-400 font-mono text-[10px] tracking-widest uppercase mb-4 block font-bold">> INSTALLATION_PROTOCOL // THE_BUILD</span>
+                <h2 class="font-display text-5xl md:text-7xl font-bold uppercase tracking-tight mb-6">THE HARDWARE UPGRADE.</h2>
+                <p class="text-gray-400 text-base md:text-xl max-w-3xl mx-auto font-light">We don't do generic "coaching." We engineer a permanent new baseline for your life across three uncompromising layers.</p>
+            </div>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Brain -->
+                <div class="lab-panel p-10 reveal hover:border-gold-400/80 transition-all duration-500 cursor-pointer">
+                    <div class="w-16 h-16 border-2 border-gold-400/50 flex items-center justify-center mb-8 bg-gold-900/20">
+                        <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h4 class="text-3xl font-display font-bold uppercase tracking-wide mb-4">Cognitive Clarity</h4>
+                    <p class="text-gray-300 text-base leading-relaxed mb-8 font-light">Eliminate decision fatigue. We install protocols that allow you to stay in high-fidelity "Deep Work" for 4+ hours a day without mental decay.</p>
+                    <div class="bg-gold-900/50 border border-gold-400/50 px-4 py-3 text-[11px] font-mono text-gold-400 tracking-widest uppercase w-full text-center font-bold">
+                        TARGET: FOCUS ON COMMAND
+                    </div>
+                </div>
+                <!-- Body -->
+                <div class="lab-panel p-10 reveal delay-100 hover:border-gold-400/80 transition-all duration-500 cursor-pointer">
+                    <div class="w-16 h-16 border-2 border-gold-400/50 flex items-center justify-center mb-8 bg-gold-900/20">
+                        <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h4 class="text-3xl font-display font-bold uppercase tracking-wide mb-4">Metabolic Energy</h4>
+                    <p class="text-gray-300 text-base leading-relaxed mb-8 font-light">Stop borrowing energy from tomorrow. We optimize your sleep architecture and biology so you wake up charged and stay sharp until 10 PM.</p>
+                    <div class="bg-gold-900/50 border border-gold-400/50 px-4 py-3 text-[11px] font-mono text-gold-400 tracking-widest uppercase w-full text-center font-bold">
+                        TARGET: 16-HOUR OUTPUT
+                    </div>
+                </div>
+                <!-- Business -->
+                <div class="lab-panel p-10 reveal delay-200 hover:border-gold-400/80 transition-all duration-500 cursor-pointer">
+                    <div class="w-16 h-16 border-2 border-gold-400/50 flex items-center justify-center mb-8 bg-gold-900/20">
+                        <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                    </div>
+                    <h4 class="text-3xl font-display font-bold uppercase tracking-wide mb-4">Elite Impact</h4>
+                    <p class="text-gray-300 text-base leading-relaxed mb-8 font-light">Stop doing $50/hour tasks. We build operational systems that allow AI to handle the friction while you strictly execute on $10k/hour decisions.</p>
+                    <div class="bg-gold-900/50 border border-gold-400/50 px-4 py-3 text-[11px] font-mono text-gold-400 tracking-widest uppercase w-full text-center font-bold">
+                        TARGET: MAX LEVERAGE
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Architect (Authority Builder) -->
+        <section class="py-24 md:py-32 px-6 relative z-10 bg-obsidian">
+            <div class="max-w-[1000px] mx-auto flex flex-col md:flex-row items-center md:items-start gap-12 md:gap-16 reveal">
+                
+                <!-- Left: Clean Portrait (Version B) -->
+                <div class="w-64 h-64 md:w-[380px] md:h-[420px] shrink-0 relative p-1 border border-white/5 bg-[#0a0a0a]">
+                    <img src="https://i.imgur.com/SJLnvwa.png" alt="Marcus Lefton" loading="lazy" class="w-full h-full object-cover grayscale contrast-[1.1] brightness-90">
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian/40 via-transparent to-transparent pointer-events-none"></div>
+                </div>
+                
+                <!-- Right: Editorial Copy & Stats -->
+                <div class="flex-1 flex flex-col justify-center pt-2 md:pt-4 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
+                        <div class="w-8 h-[1px] bg-gold-600/50"></div>
+                        <span class="text-gold-500 font-mono text-[9px] tracking-[0.3em] uppercase font-bold">SYSTEM ARCHITECT</span>
+                    </div>
+                    
+                    <h2 class="font-serif text-5xl md:text-6xl text-white mb-6 tracking-tight">Marcus Lefton.</h2>
+                    
+                    <p class="text-gray-400 text-[15px] md:text-[16px] leading-[1.8] font-light max-w-xl mb-6 mx-auto md:mx-0">
+                        Fifteen years engineering performance systems inside Major League Baseball, the U.S. Air Force, Fortune 500 organizations, and the world's leading performance research labs.
+                    </p>
+                    
+                    <p class="font-serif italic text-white/90 text-lg md:text-xl mb-10 max-w-xl mx-auto md:mx-0">
+                        I do not coach. I architect the operating system your ambition runs on.
+                    </p>
+                    
+                    <a href="#footer-form-wrapper" class="text-gold-400 font-mono text-[9px] uppercase tracking-[0.2em] font-bold flex items-center justify-center md:justify-start gap-2 hover:text-white transition-colors w-fit mb-12 mx-auto md:mx-0">
+                        READ THE WEEKLY FRAMEWORKS <span class="text-lg leading-none mb-0.5">&rarr;</span>
+                    </a>
+                    
+                    <!-- Clean Divider -->
+                    <div class="w-full max-w-xl h-[1px] bg-white/5 mb-8 mx-auto md:mx-0"></div>
+                    
+                    <!-- Stats Block -->
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8 sm:gap-12">
+                        <div class="relative text-center sm:text-left">
+                            <div class="font-mono text-2xl md:text-3xl text-white mb-2 flex items-center justify-center sm:justify-start gap-3">
+                                <span class="w-1.5 h-1.5 bg-gray-500 rounded-full"></span> 15+ Years
+                            </div>
+                            <div class="font-mono text-[8px] md:text-[9px] text-gray-500 tracking-[0.2em] uppercase leading-relaxed font-bold sm:pl-5">
+                                HIGH-CONSEQUENCE<br>ENVIRONMENTS
+                            </div>
+                        </div>
+                        
+                        <!-- Vertical Divider -->
+                        <div class="hidden sm:block w-[1px] h-12 bg-white/5 mt-1"></div>
+                        
+                        <div class="relative text-center sm:text-left">
+                            <div class="font-mono text-2xl md:text-3xl text-white mb-2 flex items-center justify-center sm:justify-start gap-3">
+                                <span class="w-1.5 h-1.5 bg-gray-500 rounded-full"></span> 1,000+
+                            </div>
+                            <div class="font-mono text-[8px] md:text-[9px] text-gray-500 tracking-[0.2em] uppercase leading-relaxed font-bold sm:pl-5">
+                                PRO & EXECUTIVE<br>ATHLETES
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="py-24 md:py-32 px-6 text-center relative z-10">
+            <div class="reveal max-w-5xl mx-auto">
+                <span class="text-gold-400 font-mono text-[11px] tracking-widest uppercase mb-6 block font-bold">> TERMINAL_DECISION // EXECUTE</span>
+                <h2 class="font-display text-5xl md:text-8xl lg:text-[100px] leading-[0.9] mb-12 font-bold uppercase tracking-tighter">WILL YOU LEAD THE MACHINES,<br>OR BE REPLACED BY THEM?</h2>
+                <div class="flex flex-col items-center justify-center space-y-8">
+                    <button onclick="openModal()" class="btn-tactical w-full md:w-auto bg-gold-400 text-black px-12 md:px-20 py-6 font-mono font-bold uppercase tracking-[0.3em] hover:bg-white transition-all duration-300 text-xs md:text-sm gold-glow-intense shadow-[0_0_40px_rgba(194,163,102,0.4)] cursor-pointer">
+                        [ APPLY FOR WAITLIST CLEARANCE ]
+                    </button>
+                    <p class="text-[10px] md:text-xs font-mono text-gray-300 tracking-widest uppercase max-w-lg mx-auto leading-relaxed border border-alert/50 p-6 bg-alert/10 shadow-[inset_0_0_20px_rgba(255,51,102,0.1)]">
+                        <span class="text-alert font-bold">RESTRICTED ACCESS:</span> If we cannot map exactly how to reclaim 10+ hours of capacity per week during your initial telemetry review, your clearance will be denied.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-8 md:py-12 border-t border-white/5 bg-obsidian relative z-10 mt-8">
+        <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="font-mono text-[9px] md:text-[10px] text-gray-600 uppercase tracking-[0.3em] font-medium text-center md:text-left">
+                &copy; 2026 VYRTŪOSITI <span class="hidden md:inline mx-3 text-gray-700">|</span> <span class="block md:inline mt-2 md:mt-0">ALL RIGHTS RESERVED.</span>
+            </div>
+            <div class="flex items-center gap-6 md:gap-8 font-mono text-[9px] md:text-[10px] text-gray-600 uppercase tracking-widest font-medium">
+                <a href="https://www.marcuslefton.com/privacy/" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition-colors duration-300 relative group">
+                    PRIVACY POLICY
+                    <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-gold-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="https://www.marcuslefton.com/terms-of-service/" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition-colors duration-300 relative group">
+                    TERMS OF SERVICE
+                    <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-gold-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- High-Tech Secure Terminal Modal -->
+    <div id="modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-obsidian/95 backdrop-blur-xl" onclick="closeModal()"></div>
+        <div class="relative lab-panel max-w-2xl w-full p-8 md:p-14 gold-glow transform transition-all translate-y-0 border-t-4 border-t-gold-400 max-h-[95vh] overflow-y-auto">
+            
+            <div class="flex justify-between items-start mb-8 md:mb-10 border-b border-gold-400/30 pb-5">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="w-2.5 h-2.5 bg-gold-400 animate-pulse"></span>
+                        <span class="text-[10px] md:text-xs font-mono uppercase tracking-[0.4em] text-gold-400 font-bold">SECURE TERMINAL // WAITLIST ENTRY</span>
+                    </div>
+                    <h3 class="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">DEPLOYMENT CLEARANCE</h3>
+                </div>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-alert transition-colors font-mono text-[10px] md:text-xs tracking-widest mt-2 shrink-0 ml-4 cursor-pointer font-bold">
+                    [ ABORT ]
+                </button>
+            </div>
+            
+            <p class="text-gray-300 text-sm md:text-base font-mono mb-10 leading-relaxed bg-white/5 p-4 border-l-2 border-gold-400">Direct access is currently locked. We accept a maximum of 5 elite operators per deployment cycle. <strong class="text-gold-400 font-normal">Submit your biological and strategic constraints to request waitlist clearance.</strong></p>
+            
+            <form class="space-y-6" onsubmit="event.preventDefault(); document.getElementById('submit-btn').innerHTML = '[ TRANSMITTING... ]'; setTimeout(() => { closeModal(); alert('CLEARANCE REQUEST RECEIVED. Our telemetry team will review your data and contact you if a slot opens.'); }, 2000);">
+                <div>
+                    <label class="block text-[11px] font-mono uppercase tracking-widest text-gold-400 mb-3 font-bold">> OPERATOR_NAME</label>
+                    <input type="text" required class="w-full bg-obsidian border-2 border-gold-400/30 p-5 font-mono text-sm text-gold-400 focus:border-gold-400 outline-none transition-all placeholder:text-gray-700" placeholder="Input string...">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-mono uppercase tracking-widest text-gold-400 mb-3 font-bold">> PRIMARY_NODE (EMAIL)</label>
+                    <input type="email" required class="w-full bg-obsidian border-2 border-gold-400/30 p-5 font-mono text-sm text-gold-400 focus:border-gold-400 outline-none transition-all placeholder:text-gray-700" placeholder="user@domain.com">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-mono uppercase tracking-widest text-gold-400 mb-3 font-bold">> PRIMARY_SYSTEM_BOTTLENECK</label>
+                    <textarea required rows="2" class="w-full bg-obsidian border-2 border-gold-400/30 p-5 font-mono text-sm text-gold-400 focus:border-gold-400 outline-none transition-all placeholder:text-gray-700 resize-none" placeholder="Describe your primary biological or operational constraint..."></textarea>
+                </div>
+                
+                <!-- Mandatory Commitment Checkbox -->
+                <div class="mt-6 border-t border-gold-400/20 pt-6">
+                    <label class="flex items-start space-x-4 cursor-pointer group select-none">
+                        <input type="checkbox" id="commitment-check" class="mt-0.5 appearance-none w-5 h-5 border-2 border-gray-600 bg-obsidian focus:outline-none transition-all relative cursor-pointer" onchange="toggleSubmit()">
+                        <div class="absolute w-5 h-5 border-2 border-transparent bg-transparent pointer-events-none flex items-center justify-center transition-all duration-200" id="custom-check-box">
+                            <svg class="w-3 h-3 text-obsidian hidden" id="custom-check-mark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-[10px] md:text-[11px] font-mono text-gray-400 uppercase tracking-widest group-hover:text-gold-400 transition-colors leading-relaxed">
+                            I ACKNOWLEDGE THAT IF ACCEPTED, THIS PROTOCOL REQUIRES A RIGOROUS, UNCOMPROMISING COMMITMENT TO RECONSTRUCT MY OPERATIONAL BASELINE.
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" id="submit-btn" disabled class="btn-tactical btn-disabled w-full bg-gray-900/50 border-2 border-gray-600 text-gray-500 py-6 font-bold uppercase tracking-[0.3em] text-xs font-mono mt-6 transition-all cursor-not-allowed">
+                    [ TRANSMIT_CLEARANCE_REQUEST ]
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- HUD INTERACTIVITY SCRIPTS -->
+    <script>
+        // --- Boot Sequence Logic & Scarcity Date ---
+        window.addEventListener('DOMContentLoaded', () => {
+            // Dynamic Scarcity Date
+            document.querySelectorAll('.dynamic-scarcity').forEach(el => {
+                el.innerText = `NEXT DEPLOYMENT: LATE SUMMER 2026 // 5 SEATS REMAIN`;
+            });
+        });
+
+        // --- Commitment Friction Logic ---
+        function toggleSubmit() {
+            const check = document.getElementById('commitment-check');
+            const customBox = document.getElementById('custom-check-box');
+            const checkMark = document.getElementById('custom-check-mark');
+            const btn = document.getElementById('submit-btn');
+            
+            if(check.checked) {
+                customBox.classList.replace('bg-transparent', 'bg-gold-400');
+                customBox.classList.replace('border-transparent', 'border-gold-400');
+                checkMark.classList.remove('hidden');
+                
+                btn.disabled = false;
+                btn.classList.remove('bg-gray-900/50', 'border-gray-600', 'text-gray-500', 'cursor-not-allowed', 'btn-disabled');
+                btn.classList.add('bg-gold-400/10', 'border-gold-400', 'text-gold-400', 'hover:bg-gold-400', 'hover:text-black', 'cursor-pointer', 'shadow-[0_0_20px_rgba(194,163,102,0.2)]');
+            } else {
+                customBox.classList.replace('bg-gold-400', 'bg-transparent');
+                customBox.classList.replace('border-gold-400', 'border-transparent');
+                checkMark.classList.add('hidden');
+
+                btn.disabled = true;
+                btn.classList.add('bg-gray-900/50', 'border-gray-600', 'text-gray-500', 'cursor-not-allowed', 'btn-disabled');
+                btn.classList.remove('bg-gold-400/10', 'border-gold-400', 'text-gold-400', 'hover:bg-gold-400', 'hover:text-black', 'cursor-pointer', 'shadow-[0_0_20px_rgba(194,163,102,0.2)]');
+            }
+        }
+
+        // --- High-Tech Text Scrambler ---
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#________';
+                this.update = this.update.bind(this);
+            }
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                this.queue = [];
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 8);
+                    const end = start + Math.floor(Math.random() * 10);
+                    this.queue.push({ from, to, start, end });
+                }
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+            update() {
+                let output = '';
+                let complete = 0;
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += `<span class="text-gold-400 opacity-70">${char}</span>`;
+                    } else {
+                        output += from;
+                    }
+                }
+                this.el.innerHTML = output;
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+
+        // Initialize Scramblers
+        let titleScrambler;
+        let descScrambler;
+        let headerScrambler;
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            titleScrambler = new TextScramble(document.getElementById('protocol-title'));
+            descScrambler = new TextScramble(document.getElementById('protocol-desc'));
+            headerScrambler = new TextScramble(document.getElementById('avatar-header'));
+        });
+
+        // --- Number Counter Animation (Now supports Decimals) ---
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const easeProgress = 1 - Math.pow(1 - progress, 5);
+                const current = (easeProgress * (end - start) + start).toFixed(1);
+                obj.innerHTML = current;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    obj.innerHTML = end.toFixed(1);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // --- HUD State Logic ---
+        function setBuild(type) {
+            const isSymbiotic = type === 'symbiotic';
+            const btnBase = document.getElementById('btn-base');
+            const btnSym = document.getElementById('btn-symbiotic');
+            const statusText = document.getElementById('build-status-text');
+            const attrRating = document.getElementById('attr-rating');
+            const avatarContainer = document.getElementById('avatar-container');
+            const leakageWarning = document.getElementById('leakage-warning');
+            
+            // Trigger Glitch Transition
+            avatarContainer.classList.add('glitch-anim');
+            setTimeout(() => avatarContainer.classList.remove('glitch-anim'), 400);
+
+            if (isSymbiotic) {
+                btnBase.className = 'btn-tactical flex-1 md:flex-none bg-slate border border-gray-600 px-6 py-3 text-[10px] md:text-xs uppercase tracking-widest text-gray-400 hover:text-white hover:bg-gray-800 transition-colors cursor-pointer';
+                btnSym.className = 'btn-tactical flex-1 md:flex-none bg-gold-400 border border-gold-400 px-6 py-3 text-[10px] md:text-xs uppercase tracking-widest text-black font-bold shadow-[0_0_20px_rgba(194,163,102,0.5)] transition-colors cursor-pointer';
+                statusText.innerText = 'OPTIMIZED';
+                statusText.className = 'text-gold-200 font-bold text-shadow-glow';
+                attrRating.innerText = '98.7% SYNC';
+                attrRating.className = 'text-gold-200 text-lg bg-gold-400/20 px-2 py-1 border border-gold-300/50 shadow-[0_0_15px_rgba(212,182,106,0.3)]';
+                
+                // Set Leakage to 0
+                leakageWarning.innerText = '> SYSTEM_LEAKAGE: 0.0 HRS/WK [OPTIMAL]';
+                leakageWarning.className = 'mt-4 text-center font-mono text-[10px] tracking-widest font-bold text-gold-400 z-20';
+            } else {
+                btnBase.className = 'btn-tactical flex-1 md:flex-none bg-alert/20 border border-alert text-alert px-6 py-3 text-[10px] md:text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(255,51,102,0.5)] transition-colors cursor-pointer';
+                btnSym.className = 'btn-tactical flex-1 md:flex-none bg-slate border border-gray-600 px-6 py-3 text-[10px] md:text-xs uppercase tracking-widest text-gray-400 hover:text-white hover:bg-gray-800 transition-colors cursor-pointer';
+                statusText.innerText = 'COMPROMISED';
+                statusText.className = 'text-alert font-bold';
+                attrRating.innerText = '45.2% SYNC';
+                attrRating.className = 'text-alert text-lg bg-alert/10 px-2 py-1 border border-alert/30';
+
+                // Emphasize the leakage cost
+                leakageWarning.innerHTML = '<span class="animate-pulse">⚠️ WARNING: DETECTING 14.5 HRS/WK CAPACITY LEAK</span>';
+                leakageWarning.className = 'mt-4 text-center font-mono text-[10px] md:text-[11px] tracking-widest font-bold text-alert bg-alert/10 border border-alert/30 py-2 z-20 w-full';
+            }
+
+            // High Fidelity Stats
+            const statsMap = {
+                'cog': isSymbiotic ? ['99.4%', 99.4, 'plasma-bar', 'text-gold-200'] : ['45.1%', 45.1, 'bg-alert', 'text-alert'],
+                'vel': isSymbiotic ? ['95.2%', 95.2, 'plasma-bar', 'text-gold-200'] : ['60.8%', 60.8, 'bg-alert', 'text-alert'],
+                'met': isSymbiotic ? ['98.8%', 98.8, 'plasma-bar', 'text-gold-200'] : ['40.3%', 40.3, 'bg-alert', 'text-alert'],
+                'slp': isSymbiotic ? ['96.1%', 96.1, 'plasma-bar', 'text-gold-200'] : ['55.7%', 55.7, 'bg-gray-500', 'text-gray-500'],
+                'ai':  isSymbiotic ? ['99.8%', 99.8, 'plasma-bar', 'text-gold-200'] : ['20.4%', 20.4, 'bg-alert', 'text-alert'],
+                'out': isSymbiotic ? ['97.5%', 97.5, 'plasma-bar', 'text-gold-200'] : ['25.9%', 25.9, 'bg-alert', 'text-alert']
+            };
+
+            for (const [key, data] of Object.entries(statsMap)) {
+                const bar = document.getElementById(`stat-${key}`);
+                const val = document.getElementById(`val-${key}`);
+                
+                bar.style.width = data[0];
+                bar.className = `stat-bar h-full ${data[2]} ${isSymbiotic ? 'shadow-[0_0_12px_rgba(212,182,106,0.6)]' : ''}`;
+                
+                const currentVal = parseFloat(val.innerText) || 0;
+                animateValue(val, currentVal, data[1], 1000);
+                val.className = `text-sm font-bold w-10 text-right transition-colors duration-500 ${data[3]}`;
+            }
+
+            const avatarCore = document.getElementById('avatar-core');
+            const avatarHeader = document.getElementById('avatar-header');
+            const avatarBgGlow = document.getElementById('avatar-bg-glow');
+            const badgeCount = document.getElementById('badge-count');
+            const avatarLaser = document.getElementById('avatar-laser');
+            
+            const holo1 = document.getElementById('holo-1');
+            const holo2 = document.getElementById('holo-2');
+            const holo3 = document.getElementById('holo-3');
+            const holoBeams = document.getElementById('holo-beams');
+            const waveSvg = document.getElementById('wave-svg');
+            const waveLabel = document.getElementById('wave-label');
+            const waveLine = document.getElementById('wave-line');
+            const hexStream = document.getElementById('hex-stream');
+            
+            const aChassis = document.getElementById('ava-chassis');
+            const aJoints = document.getElementById('ava-joints');
+            const aSpine = document.getElementById('ava-spine');
+
+            if (isSymbiotic) {
+                aChassis.setAttribute('stroke', 'url(#bioGold)');
+                aChassis.setAttribute('fill', 'rgba(194,163,102,0.08)');
+                aJoints.setAttribute('stroke', '#D4B66A');
+                aSpine.setAttribute('stroke', '#D4B66A');
+                aSpine.style.opacity = '1';
+                
+                avatarHeader.className = 'absolute top-0 left-0 w-full bg-gold-400 text-black text-center py-2 text-[11px] md:text-xs font-bold uppercase tracking-[0.2em] z-20 shadow-[0_0_20px_#C2A366] transition-colors duration-500';
+                if(headerScrambler) headerScrambler.setText('ENTITY: SYMBIOTIC ARCHITECT');
+                
+                avatarBgGlow.className = 'absolute inset-0 bg-gold-400/15 blur-[70px] pointer-events-none transition-colors duration-500';
+                avatarLaser.style.backgroundColor = '#D4B66A';
+                avatarLaser.style.boxShadow = '0 0 20px 2px #D4B66A, 0 0 40px 2px rgba(194,163,102,0.6)';
+                
+                holo1.className = 'holo-ring w-full h-full border border-gold-400/20 animate-[spin_10s_linear_infinite]';
+                holo2.className = 'holo-ring w-[80%] h-[80%] border-2 border-gold-400/40 border-t-transparent animate-[spin_6s_linear_infinite_reverse]';
+                holo3.className = 'holo-ring w-[60%] h-[60%] bg-gold-400/10 border border-gold-400/60 shadow-[0_0_30px_#C2A366_inset]';
+                holoBeams.className = 'absolute bottom-1/2 w-[60%] h-[150px] bg-gradient-to-t from-gold-400/20 to-transparent blur-sm transform origin-bottom';
+                
+                waveSvg.classList.replace('text-alert', 'text-gold-400');
+                waveLabel.innerText = 'NEURAL_WAVE: OPTIMAL';
+                waveLabel.classList.replace('text-alert', 'text-gold-400');
+                waveLine.setAttribute('points', '0,15 20,15 25,5 30,25 35,15 50,15 55,10 60,20 65,15 100,15');
+                hexStream.classList.replace('text-alert', 'text-gold-400');
+
+                badgeCount.innerText = '4/4 ONLINE';
+                badgeCount.className = 'text-[10px] text-gold-200 font-bold bg-gold-400/20 px-1.5 py-0.5 border border-gold-300/50 shadow-[0_0_10px_rgba(212,182,106,0.2)]';
+                
+                avatarCore.innerHTML = `
+                    <circle r="16" fill="#050505" stroke="#D4B66A" stroke-width="1" filter="url(#glow)"/>
+                    <circle r="6" fill="#D4B66A" class="animate-ping drop-shadow-[0_0_20px_#D4B66A]"/>
+                    <circle r="6" fill="#CDB175"/>
+                    <circle r="26" fill="none" stroke="#C2A366" stroke-width="1.5" stroke-dasharray="2,10" class="animate-[spin_6s_linear_infinite]" filter="url(#glow)"/>
+                    <circle r="34" fill="none" stroke="rgba(212,182,106,0.4)" stroke-width="1" stroke-dasharray="15,10" class="animate-[spin_12s_linear_infinite]" style="animation-direction: reverse;"/>
+                    <circle r="42" fill="none" stroke="rgba(194,163,102,0.2)" stroke-width="0.5" stroke-dasharray="4,16" class="animate-[spin_8s_linear_infinite]"/>
+                `;
+            } else {
+                aChassis.setAttribute('stroke', '#FF3366');
+                aChassis.setAttribute('fill', 'rgba(255,51,102,0.05)');
+                aJoints.setAttribute('stroke', '#FF3366');
+                aSpine.style.opacity = '0'; 
+                
+                avatarHeader.className = 'absolute top-0 left-0 w-full bg-alert text-black text-center py-2 text-[11px] md:text-xs font-bold uppercase tracking-[0.2em] z-20 shadow-[0_0_20px_#FF3366] transition-colors duration-500';
+                if(headerScrambler) headerScrambler.setText('ENTITY: UNAUGMENTED HUMAN [OVERLOAD]');
+                
+                avatarBgGlow.className = 'absolute inset-0 bg-alert/15 blur-[70px] pointer-events-none transition-colors duration-500';
+                avatarLaser.style.backgroundColor = '#FF3366';
+                avatarLaser.style.boxShadow = '0 0 20px 2px #FF3366, 0 0 40px 2px rgba(255,51,102,0.5)';
+
+                holo1.className = 'holo-ring w-full h-full border border-alert/20 animate-[spin_12s_linear_infinite] opacity-50';
+                holo2.className = 'holo-ring w-[80%] h-[80%] border-2 border-alert/40 border-t-transparent animate-[spin_8s_linear_infinite_reverse] opacity-50';
+                holo3.className = 'holo-ring w-[60%] h-[60%] bg-alert/5 border border-alert/40 shadow-[0_0_15px_#FF3366_inset]';
+                holoBeams.className = 'absolute bottom-1/2 w-[60%] h-[150px] bg-gradient-to-t from-alert/10 to-transparent blur-sm transform origin-bottom';
+                
+                waveSvg.classList.replace('text-gold-400', 'text-alert');
+                waveLabel.innerText = 'NEURAL_WAVE: ERRATIC';
+                waveLabel.classList.replace('text-gold-400', 'text-alert');
+                waveLine.setAttribute('points', '0,15 10,15 12,0 15,30 18,15 30,15 32,5 34,28 36,15 50,15 52,-5 56,35 60,15 80,15 85,0 90,30 95,15 100,15');
+                hexStream.classList.replace('text-gold-400', 'text-alert');
+
+                badgeCount.innerText = '0/4 ONLINE';
+                badgeCount.className = 'text-[10px] text-alert font-bold bg-alert/10 px-1.5 py-0.5 border border-alert/30';
+
+                avatarCore.innerHTML = `
+                    <circle r="16" fill="#050505" stroke="#FF3366" stroke-width="1.5" filter="url(#glow-alert)"/>
+                    <path d="M-6,-6 L6,6 M-6,6 L6,-6" stroke="#FF3366" stroke-width="2" filter="url(#glow-alert)"/>
+                    <circle r="26" fill="none" stroke="#FF3366" stroke-width="1.5" stroke-dasharray="8,12" class="animate-[spin_8s_linear_infinite] opacity-50"/>
+                    <circle r="34" fill="none" stroke="#FF3366" stroke-width="0.5" stroke-dasharray="4,20" class="animate-[spin_10s_linear_infinite] opacity-30" style="animation-direction: reverse;"/>
+                `;
+            }
+        }
+
+        const protocolData = {
+            'cognitive': {
+                title: '> COGNITIVE_OVERDRIVE [TIER_1]',
+                desc: 'Eliminates biological decision fatigue. Enables continuous high-fidelity processing and extends deep focus duration past the standard 90-minute limit.'
+            },
+            'metabolic': {
+                title: '> METABOLIC_SYNC [TIER_1]',
+                desc: 'Optimizes recovery cycles and sleep architecture. Prevents the standard 15:00 hours energy crash, maintaining a flat, high-output energy curve for 16 hours.'
+            },
+            'orchestration': {
+                title: '> AUTONOMOUS_ORCHESTRATION [TIER_1]',
+                desc: 'Removes the operator from linear task execution. Provides the mental bandwidth required to orchestrate vast AI networks without context-switching penalties.'
+            },
+            'leverage': {
+                title: '> EXPONENTIAL_MATRIX [TIER_1]',
+                desc: 'The ultimate Symbiotic upgrade. Maximizes the ROI of every decision by routing low-leverage friction entirely out of the biological host system.'
+            }
+        };
+
+        function showProtocolInfo(protocolKey) {
+            if (!titleScrambler || !descScrambler) return;
+            const data = protocolData[protocolKey];
+            titleScrambler.setText(data.title);
+            descScrambler.setText(data.desc);
+        }
+    </script>
+
+    <script>
+        // Scroll Reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Sticky Nav Effect
+        window.onscroll = () => {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-obsidian/95', 'backdrop-blur-xl', 'border-gold-400/30');
+                nav.classList.remove('border-transparent');
+            } else {
+                nav.classList.remove('bg-obsidian/95', 'backdrop-blur-xl', 'border-gold-400/30');
+                nav.classList.add('border-transparent');
+            }
+        };
+
+        // Modal Logic
+        function openModal() { 
+            const modal = document.getElementById('modal');
+            modal.classList.remove('hidden'); 
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                modal.querySelector('.lab-panel').classList.add('translate-y-0');
+                modal.querySelector('.lab-panel').classList.remove('translate-y-8');
+            }, 10);
+        }
+        function closeModal() { 
+            const modal = document.getElementById('modal');
+            modal.querySelector('.lab-panel').classList.remove('translate-y-0');
+            modal.querySelector('.lab-panel').classList.add('translate-y-8');
+            setTimeout(() => {
+                modal.classList.add('hidden'); 
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    document.getElementById('submit-btn').innerHTML = '[ TRANSMIT_CLEARANCE_REQUEST ]';
+                }, 500);
+            }, 300);
+        }
+
+        // Environment Init
+        window.onload = () => {
+            // Hex Data Stream Generator
+            const hexStreamEl = document.getElementById('hex-stream');
+            if(hexStreamEl) {
+                setInterval(() => {
+                    let stream = '';
+                    for(let i=0; i<30; i++) {
+                        stream += Math.floor(Math.random() * 16777215).toString(16).toUpperCase() + '<br>';
+                    }
+                    hexStreamEl.innerHTML = stream;
+                }, 100); 
+            }
+
+            // High-Tech Connected Neural Canvas Background (Gold)
+            const bgCanvas = document.getElementById('neural-bg');
+            const bgCtx = bgCanvas.getContext('2d');
+            let w, h, particles = [];
+
+            function init() {
+                w = bgCanvas.width = window.innerWidth;
+                h = bgCanvas.height = window.innerHeight;
+                particles = [];
+                let numParticles = window.innerWidth < 768 ? 25 : (w * h) / 18000; 
+                for(let i=0; i<numParticles; i++) {
+                    particles.push({ 
+                        x: Math.random()*w, 
+                        y: Math.random()*h, 
+                        vx: (Math.random()-0.5)*0.6, 
+                        vy: (Math.random()-0.5)*0.6 
+                    });
+                }
+            }
+
+            window.addEventListener('resize', init);
+
+            function draw() {
+                bgCtx.clearRect(0,0,w,h);
+                bgCtx.shadowBlur = 10;
+                bgCtx.shadowColor = '#C2A366';
+                
+                for(let i=0; i<particles.length; i++) {
+                    let p1 = particles[i];
+                    p1.x += p1.vx; p1.y += p1.vy;
+                    
+                    if(p1.x < 0 || p1.x > w) p1.vx *= -1;
+                    if(p1.y < 0 || p1.y > h) p1.vy *= -1;
+
+                    bgCtx.fillStyle = 'rgba(212, 182, 106, 0.6)'; 
+                    bgCtx.beginPath();
+                    bgCtx.arc(p1.x, p1.y, 1.5, 0, Math.PI*2);
+                    bgCtx.fill();
+
+                    for(let j=i+1; j<particles.length; j++) {
+                        let p2 = particles[j];
+                        let dx = p1.x - p2.x;
+                        let dy = p1.y - p2.y;
+                        let dist = Math.sqrt(dx*dx + dy*dy);
+
+                        if(dist < 140) {
+                            bgCtx.strokeStyle = `rgba(194, 163, 102, ${0.25 * (1 - dist/140)})`;
+                            bgCtx.lineWidth = 1.2;
+                            bgCtx.beginPath();
+                            bgCtx.moveTo(p1.x, p1.y);
+                            bgCtx.lineTo(p2.x, p2.y);
+                            bgCtx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(draw);
+            }
+            init(); draw();
+        };
+    </script>
+</body>
+</html>
