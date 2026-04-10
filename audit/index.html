@@ -6,16 +6,18 @@
     <meta name="theme-color" content="#000000">
     <title>VYRTŪOSITI | System Radar Diagnostic</title>
     
-    <!-- Pre-connect to Google Fonts -->
+    <!-- Pre-connect to Google Fonts & CDNs for faster load -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     
     <!-- VYRTUOSITI Brand Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js for the dynamic radar chart -->
+    <!-- Chart.js for the dynamic radar chart (Deferred for speed) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <script>
@@ -66,19 +68,28 @@
             -moz-osx-font-smoothing: grayscale;
         }
         
+        /* Hardware Acceleration for smooth animations */
+        .gpu-accelerated {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
         /* VYRTUOSITI Ambient Glows */
         .ambient-glow-1 {
             position: absolute; top: -10%; right: -5%; width: 600px; height: 600px;
             background: radial-gradient(circle at center, rgba(194, 163, 89, 0.12) 0%, rgba(194, 163, 89, 0.04) 40%, rgba(0,0,0,0) 70%);
             border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 0;
+            will-change: opacity;
         }
         .ambient-glow-2 {
             position: absolute; bottom: 0%; left: 10%; width: 800px; height: 800px;
             background: radial-gradient(circle at center, rgba(194, 163, 89, 0.08) 0%, rgba(194, 163, 89, 0.02) 50%, rgba(0,0,0,0) 70%);
             border-radius: 50%; filter: blur(50px); pointer-events: none; z-index: 0;
+            will-change: opacity;
         }
 
-        /* Noise Overlay */
+        /* Noise Overlay - Optimized */
         .bg-noise {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
             z-index: 9999; opacity: 0.035;
@@ -96,7 +107,7 @@
         /* Command Bar Email Input */
         .cmd-bar {
             display: flex; background: rgba(10,10,10,0.8); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 100px; padding: 6px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 100px; padding: 8px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.5); position: relative; overflow: hidden;
         }
         .cmd-bar:focus-within {
@@ -108,12 +119,12 @@
             flex-grow: 1; background: transparent; border: none; color: #fff; padding: 0 24px;
             outline: none; font-family: 'Inter', sans-serif; text-overflow: ellipsis;
         }
-        .cmd-input::placeholder { color: rgba(255,255,255,0.3); font-weight: 300; }
+        .cmd-input::placeholder { color: rgba(255,255,255,0.4); font-weight: 400; }
         .cmd-btn {
             background: linear-gradient(180deg, #C2A359 0%, #AD8E45 100%); 
             color: #000000; border-radius: 100px;
-            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.12em;
-            text-transform: uppercase; padding: 14px 36px; white-space: nowrap;
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; padding: 16px 36px; white-space: nowrap;
             transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center;
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 4px 15px rgba(194, 163, 89, 0.15);
         }
@@ -134,6 +145,7 @@
             position: absolute; left: 0; width: 100%; height: 1px;
             background: rgba(194, 163, 89, 0.4);
             animation: scan 6s linear infinite; z-index: 10; pointer-events: none;
+            will-change: top, opacity;
         }
 
         /* HUD Corner Brackets - Muted */
@@ -148,7 +160,7 @@
         .hud-br { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
         .group:hover .hud-bracket { border-color: rgba(194, 163, 89, 0.3); }
 
-        /* UPGRADED: Hardware-Style Segmented Capacity Bars */
+        /* Segmented Capacity Bars */
         .segmented-track-bg {
             background-image: repeating-linear-gradient(to right, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 3px, transparent 3px, transparent 5px);
             width: 100%; height: 6px; position: absolute; top: 50%; transform: translateY(-50%); border-radius: 1px; pointer-events: none;
@@ -158,26 +170,29 @@
             height: 6px; position: absolute; top: 50%; transform: translateY(-50%); border-radius: 1px;
             transition: width 0.1s ease-out; pointer-events: none;
             box-shadow: 0 0 15px rgba(194,163,89,0.15);
+            will-change: width;
         }
         .segmented-thumb {
             width: 8px; height: 20px; position: absolute; top: 50%; transform: translate(-50%, -50%);
             border-left: 2px solid #fff; border-right: 2px solid #fff; background: rgba(0,0,0,0.8);
             box-shadow: 0 0 10px rgba(255,255,255,0.3); pointer-events: none; transition: left 0.1s ease-out;
             z-index: 5;
+            will-change: left;
         }
-        /* MASSIVE touch target for mobile usability */
+        /* EXPANDED touch target for mobile usability */
         input[type=range] {
-            -webkit-appearance: none; width: 100%; height: 40px; background: transparent; 
+            -webkit-appearance: none; width: 100%; height: 50px; background: transparent; 
             margin: 0; position: relative; z-index: 20; cursor: pointer; opacity: 0;
             touch-action: pan-y; /* Prevent page scroll when dragging horizontally */
         }
 
-        /* Operating Arena Selector Styles */
+        /* Operating Arena Selector Styles - Expanded for Mobile */
         .arena-btn {
             border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: rgba(255,255,255,0.5);
-            font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase;
-            padding: 12px 8px; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden;
-            border-radius: 4px; touch-action: manipulation;
+            font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+            padding: 16px 8px; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden;
+            border-radius: 6px; touch-action: manipulation;
+            will-change: border-color, background, color;
         }
         .arena-btn:hover { border-color: rgba(194, 163, 89, 0.4); color: rgba(255,255,255,0.8); }
         .arena-btn.selected {
@@ -199,7 +214,11 @@
         @keyframes blink { 50% { opacity: 0; } }
         
         .fade-enter { opacity: 0; transform: translateY(5px); }
-        .fade-enter-active { opacity: 1; transform: translateY(0); transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .fade-enter-active { 
+            opacity: 1; transform: translateY(0); 
+            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); 
+            will-change: opacity, transform;
+        }
         
         .grid-bg {
             background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
@@ -208,36 +227,115 @@
 
         /* HUD Text Scramble Effect */
         .scrambling { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.8); }
+
+        /* JARVIS HUD ELEMENTS - GPU Accelerated */
+        .reticle-ring {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            border-radius: 50%; pointer-events: none; z-index: -1;
+            will-change: transform;
+        }
+        .reticle-1 {
+            width: 105%; height: 105%;
+            border: 1px dashed rgba(194, 163, 89, 0.3);
+            animation: spin 45s linear infinite;
+        }
+        .reticle-2 {
+            width: 80%; height: 80%;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(194, 163, 89, 0.6);
+            border-bottom: 1px solid rgba(194, 163, 89, 0.6);
+            animation: spin-reverse 20s linear infinite;
+        }
+        .radar-sweep {
+            position: absolute; top: 50%; left: 50%; width: 110%; height: 110%;
+            transform: translate(-50%, -50%); border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 70%, rgba(194, 163, 89, 0.05) 95%, rgba(194, 163, 89, 0.5) 100%);
+            animation: spin 3s linear infinite; pointer-events: none; z-index: -1;
+            will-change: transform;
+        }
+        .center-crosshair {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 12px; height: 12px; pointer-events: none; z-index: 10;
+        }
+        .center-crosshair::before { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: rgba(194, 163, 89, 0.8); }
+        .center-crosshair::after { content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 100%; background: rgba(194, 163, 89, 0.8); }
+        @keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
+
+        /* PATTERN INTERRUPT ADDITIONS */
+        
+        /* 1. Boot Sequence Overlay */
+        #boot-sequence {
+            position: fixed; inset: 0; z-index: 99999; background: #000;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+        }
+        .boot-console {
+            width: 100%; max-w: 600px; padding: 20px; font-family: 'JetBrains Mono', monospace;
+            font-size: 14px; color: #C2A359; line-height: 1.6; opacity: 0.8;
+            text-shadow: 0 0 5px rgba(194, 163, 89, 0.3);
+        }
+        
+        /* 2. Tactical Energy Grid */
+        #neural-canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: auto; 
+            opacity: 0.85;
+            transform: translateZ(0); 
+        }
+
+        /* 3. Hero Scanner Button Overlay */
+        .scanner-btn {
+            position: relative; overflow: hidden;
+            will-change: border-color, box-shadow;
+        }
+        .scanner-btn::after {
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 20px; background: rgba(255, 255, 255, 0.1);
+            transform: rotate(35deg) translateY(-200px); transition: none;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); pointer-events: none;
+            will-change: transform;
+        }
+        .scanner-btn:hover::after {
+            transform: rotate(35deg) translateY(200px);
+            transition: transform 0.8s ease-in-out;
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center font-sans" ontouchstart="">
 
-    <div class="bg-noise"></div>
-    <div class="ambient-glow-1"></div>
-    <div class="ambient-glow-2"></div>
+    <!-- BOOT SEQUENCE OVERLAY -->
+    <div id="boot-sequence">
+        <div class="boot-console" id="boot-text"></div>
+    </div>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- THE MINIMALIST FRONT DOOR (GATE) -->
-    <!-- ═══════════════════════════════════════════ -->
-    <div id="landing-gate" class="absolute inset-0 z-50 flex flex-col items-center justify-center transition-opacity duration-1000 px-6 backdrop-blur-sm bg-void/90">
-        <div class="max-w-3xl text-center flex flex-col items-center relative z-10">
+    <div class="bg-noise"></div>
+    <div class="ambient-glow-1 gpu-accelerated"></div>
+    <div class="ambient-glow-2 gpu-accelerated"></div>
+
+    <!-- THE MINIMALIST FRONT DOOR -->
+    <div id="landing-gate" class="absolute inset-0 z-50 flex flex-col items-center justify-center transition-opacity duration-1000 px-6 bg-void/80 backdrop-blur-sm opacity-0 invisible">
+        
+        <canvas id="neural-canvas"></canvas>
+
+        <div class="max-w-4xl text-center flex flex-col items-center relative z-10 pointer-events-none">
             
-            <div class="font-mono tracking-[0.3em] text-[9px] text-brandGold uppercase mb-8 border border-brandGold/20 rounded-full px-4 py-1.5 inline-flex items-center gap-2 bg-brandGold/5 shadow-glow">
+            <div class="font-mono tracking-[0.3em] text-[10px] text-brandGold uppercase mb-8 border border-brandGold/20 rounded-full px-5 py-2 inline-flex items-center gap-2 bg-brandGold/5 shadow-glow opacity-0 transform translate-y-4" id="hero-tag">
                 <span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-pulse"></span>
                 RESTRICTED // VYRTŪOSITI ACCESS
             </div>
             
-            <h1 class="font-serif text-4xl md:text-5xl lg:text-7xl text-textMain leading-[1.05] tracking-tightest mb-6">
-                Stop Managing Time.<br>
-                <span class="italic text-brandGold font-light">Architect Your Biology.</span>
+            <h1 class="font-serif text-4xl md:text-5xl lg:text-7xl text-textMain leading-[1.05] tracking-tightest mb-6 min-h-[90px] lg:min-h-[160px]">
+                <span class="block" data-target="Stop Managing Time." id="decode-text-1"></span>
+                <span class="italic text-brandGold font-light block mt-2" data-target="Architect Your Biology." id="decode-text-2"></span>
             </h1>
             
-            <p class="text-textSub font-sans font-light text-sm md:text-base leading-[1.7] max-w-xl mx-auto mb-12">
+            <p class="text-textSub font-sans font-light text-base md:text-lg leading-[1.7] max-w-xl mx-auto mb-12 opacity-0 transform translate-y-4" id="hero-sub">
                 The elite do not fail from a lack of discipline. They fail from a fractured operating system. Identify the biological and operational capacity limits diluting your executive output.
             </p>
             
-            <button onclick="unveilAudit()" class="group relative px-10 py-4 bg-transparent border border-glassBorder rounded-full overflow-hidden transition-all duration-500 hover:border-brandGold/50 shadow-[0_0_20px_rgba(194,163,89,0)] hover:shadow-glowStrong">
-                <span class="relative z-10 flex items-center justify-center gap-3 transition-colors duration-300 text-brandGold font-mono text-[10px] font-medium tracking-[0.2em] uppercase group-hover:text-void">
+            <button onclick="unveilAudit()" class="scanner-btn group relative px-10 py-5 bg-transparent border border-glassBorder rounded-full overflow-hidden transition-all duration-500 hover:border-brandGold/50 shadow-[0_0_20px_rgba(194,163,89,0)] hover:shadow-glowStrong opacity-0 transform translate-y-4 pointer-events-auto" id="hero-btn">
+                <span class="relative z-10 flex items-center justify-center gap-3 transition-colors duration-300 text-brandGold font-mono text-[12px] font-bold tracking-[0.2em] uppercase group-hover:text-void">
                     [ INITIALIZE DIAGNOSTIC ]
                 </span>
                 <div class="absolute inset-0 bg-brandGold transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-0"></div>
@@ -245,63 +343,61 @@
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════ -->
     <!-- MAIN AUDIT APP -->
-    <!-- ═══════════════════════════════════════════ -->
-    <main id="main-audit-app" class="w-full max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-10 opacity-0 hidden transition-opacity duration-[1500ms] ease-in-out p-4 md:p-8">
+    <main id="main-audit-app" class="w-full max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-10 opacity-0 hidden transition-opacity duration-[1500ms] ease-in-out p-4 md:p-8 pb-16">
         
         <!-- RIGHT COLUMN (Visual Radar HUD) -->
-        <div class="w-full order-1 lg:order-2 lg:col-span-7 relative flex items-center justify-center glass-panel p-6 md:p-12 min-h-[380px] lg:min-h-[600px] overflow-hidden group">
+        <!-- OPTIMIZED FOR MOBILE: Reduced height, cleaner footprint so it stays visible while reading Q1/Q2 -->
+        <div class="w-full order-1 lg:order-2 lg:col-span-7 relative flex items-center justify-center glass-panel p-6 md:p-12 min-h-[300px] sm:min-h-[380px] lg:min-h-[600px] overflow-hidden group gpu-accelerated">
             
-            <!-- HUD Viewfinder Brackets -->
             <div class="hud-tl hud-bracket"></div>
             <div class="hud-tr hud-bracket"></div>
             <div class="hud-bl hud-bracket"></div>
             <div class="hud-br hud-bracket"></div>
 
-            <!-- Biometric Scanner Line -->
-            <div class="biometric-scanner" id="scanner-line"></div>
+            <div class="biometric-scanner gpu-accelerated" id="scanner-line"></div>
 
-            <!-- Floating Decorative Telemetry Data -->
-            <div class="absolute top-6 right-6 lg:top-8 lg:right-8 font-mono text-[8px] lg:text-[9px] text-textMuted tracking-widest text-right hidden sm:block opacity-60">
-                <p class="mb-1 text-brandGold/70 font-bold">FRAMEWORK > OPTIMIZED</p>
+            <div class="absolute top-6 right-6 lg:top-8 lg:right-8 font-mono text-[10px] lg:text-[11px] text-textMuted tracking-widest text-right hidden sm:block opacity-80">
+                <p class="mb-1 text-brandGold/90 font-bold tracking-[0.2em]">SYS.VER. 4.9.2</p>
                 <p class="mb-1" id="telemetry-lat">LAT: 33.4942</p>
-                <p id="telemetry-lon">LON: -111.9261</p>
+                <p class="mb-1" id="telemetry-lon">LON: -111.9261</p>
+                <p class="mt-2 text-[9px] text-brandGold/50 font-bold" id="live-hex">0x4F9A : 0x88B2</p>
             </div>
             
-            <!-- Dynamic Data Overlay -->
             <div class="absolute top-6 left-6 lg:top-8 lg:left-8 font-mono z-10">
-                <p class="text-[8px] lg:text-[9px] text-textMuted uppercase tracking-[0.2em] mb-1 lg:mb-2 font-medium">
+                <p class="text-[10px] lg:text-[11px] text-textMuted uppercase tracking-[0.2em] mb-1 lg:mb-2 font-medium">
                     SYSTEM INTEGRITY
                 </p>
-                <p class="text-3xl lg:text-4xl xl:text-5xl text-brandGold font-light tracking-tighter transition-all duration-75" id="integrity-score">50<span class="text-xl lg:text-2xl text-brandGold/50">%</span></p>
+                <p class="text-3xl lg:text-4xl xl:text-5xl text-brandGold font-light tracking-tighter transition-all duration-75 gpu-accelerated" id="integrity-score">50<span class="text-xl lg:text-2xl text-brandGold/50">%</span></p>
             </div>
             
             <div class="absolute bottom-6 right-6 lg:bottom-8 lg:right-8 font-mono text-right z-10">
-                <p class="text-[8px] lg:text-[9px] text-textMuted uppercase tracking-[0.2em] mb-1 lg:mb-2 font-medium">STATUS CODE</p>
+                <p class="text-[10px] lg:text-[11px] text-textMuted uppercase tracking-[0.2em] mb-1 lg:mb-2 font-medium">STATUS CODE</p>
                 <div class="border border-vyrtRed/30 bg-vyrtRed/10 px-2 lg:px-3 py-1 lg:py-1.5 rounded-sm inline-block backdrop-blur-sm transition-colors duration-300" id="status-container">
-                    <p class="text-[8px] lg:text-[10px] text-vyrtRed uppercase tracking-widest font-bold" id="system-status">SUB-OPTIMAL</p>
+                    <p class="text-[10px] lg:text-[11px] text-vyrtRed uppercase tracking-widest font-bold" id="system-status">SUB-OPTIMAL</p>
                 </div>
             </div>
 
-            <!-- Chart Legend -->
             <div class="absolute bottom-6 left-6 lg:bottom-8 lg:left-8 font-mono z-10 space-y-1.5 lg:space-y-2">
                 <div class="flex items-center gap-2">
-                    <div class="w-3 h-[2px] bg-brandGold"></div>
-                    <span class="text-[7px] lg:text-[8px] text-white uppercase tracking-widest">Current Architecture</span>
+                    <div class="w-3 h-[2px] bg-brandGold shadow-[0_0_5px_#C2A359]"></div>
+                    <span class="text-[9px] lg:text-[10px] text-white uppercase tracking-widest">Current Architecture</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <div class="w-3 h-[2px] bg-white/30 border-dashed border-t-2 border-transparent" style="border-image: repeating-linear-gradient(to right, rgba(255,255,255,0.4) 0, rgba(255,255,255,0.4) 2px, transparent 2px, transparent 4px) 1;"></div>
-                    <span class="text-[7px] lg:text-[8px] text-textMuted uppercase tracking-widest">Architected Potential</span>
+                    <div class="w-3 h-[2px] bg-white/40 border-dashed border-t-2 border-transparent" style="border-image: repeating-linear-gradient(to right, rgba(255,255,255,0.6) 0, rgba(255,255,255,0.6) 2px, transparent 2px, transparent 4px) 1;"></div>
+                    <span class="text-[9px] lg:text-[10px] text-textMuted uppercase tracking-widest">Architected Potential</span>
                 </div>
             </div>
 
-            <!-- Canvas for Chart.js -->
-            <div class="w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[420px] aspect-square relative z-0 opacity-90 transition-transform duration-100 mt-4 lg:mt-0" id="radar-container">
+            <!-- OPTIMIZED FOR MOBILE: Compact Chart Size -->
+            <div class="w-full max-w-[240px] sm:max-w-[340px] lg:max-w-[420px] aspect-square relative z-0 opacity-90 transition-transform duration-100 mt-4 lg:mt-0" id="radar-container">
+                <div class="radar-sweep gpu-accelerated"></div>
+                <div class="reticle-ring reticle-1 gpu-accelerated"></div>
+                <div class="reticle-ring reticle-2 gpu-accelerated"></div>
+                <div class="center-crosshair"></div>
                 <canvas id="radarChart"></canvas>
             </div>
             
-            <!-- Grid decorative background (Lab feel) -->
             <div class="absolute inset-0 z-[-1] grid-bg opacity-40">
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80px] lg:w-[120px] h-[80px] lg:h-[120px] border border-glassBorder rounded-full"></div>
             </div>
@@ -310,106 +406,104 @@
         <!-- LEFT COLUMN: Inputs & Logic -->
         <div class="w-full order-2 lg:order-1 lg:col-span-5 flex flex-col space-y-8 lg:space-y-10" id="diagnostic-panel">
             
-            <!-- Header -->
             <div class="border-b border-glassBorder pb-4 lg:pb-6 relative">
-                <p class="font-mono text-textMuted text-[8px] lg:text-[9px] tracking-widestPlus uppercase mb-2 lg:mb-3 flex items-center gap-2">
-                    <svg class="w-3 h-3 text-brandGold/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                <p class="font-mono text-textMuted text-[10px] lg:text-[11px] tracking-widestPlus uppercase mb-2 lg:mb-3 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-brandGold/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                     BIOMETRIC CAPACITY LIMITS
                 </p>
-                <h2 class="font-serif text-2xl lg:text-4xl font-light tracking-tightest mb-2 text-textMain">
+                <h2 class="font-serif text-3xl lg:text-4xl font-light tracking-tightest mb-2 text-textMain">
                     System <span class="italic text-brandGold font-light">Dispersion.</span>
                 </h2>
-                <p class="text-textSub font-sans font-light text-[12px] lg:text-[13px] leading-relaxed hidden sm:block">
+                <p class="text-textSub font-sans font-light text-[13px] lg:text-[14px] leading-relaxed">
                     Map current constraints against unaugmented baselines.
                 </p>
             </div>
 
-            <!-- Sliders Container -->
-            <div class="space-y-6 lg:space-y-8" id="sliders-container">
+            <div class="space-y-8 lg:space-y-10" id="sliders-container">
                 
                 <!-- Quadrant 1: Mind -->
                 <div class="slider-group relative">
-                    <div class="flex justify-between items-end mb-1.5">
-                        <label class="font-mono text-[9px] lg:text-[10px] tracking-widest uppercase text-textMain font-medium border-l-2 border-brandGold/40 pl-2">1. Cognitive Bandwidth</label>
-                        <span class="font-mono text-brandGold text-[10px] lg:text-[11px] transition-colors duration-300 font-bold" id="val-cog">2.0 HRS</span>
+                    <div class="flex justify-between items-end mb-2">
+                        <label class="font-mono text-[11px] lg:text-[12px] tracking-widest uppercase text-textMain font-medium border-l-2 border-brandGold/40 pl-3">1. Deep Work Capacity</label>
+                        <span class="font-mono text-brandGold text-[12px] lg:text-[13px] transition-colors duration-300 font-bold" id="val-cog">2.0 HRS</span>
                     </div>
-                    <p class="text-[11px] lg:text-[12px] text-textSub font-light leading-relaxed mb-1 lg:mb-2">Hours of morning architecture vs. reactive high-paid firefighting?</p>
+                    <p class="text-[13px] lg:text-[14px] text-textSub font-light leading-relaxed mb-3">How many uninterrupted hours of high-leverage deep work do you average before noon?</p>
                     <div class="relative w-full h-[40px] flex items-center justify-center">
                         <div class="segmented-track-bg"></div>
                         <div class="segmented-track-fill" id="fill-cog" style="width: 50%;"></div>
                         <div class="segmented-thumb" id="thumb-cog" style="left: 50%;"></div>
                         <input type="range" id="slider-cog" min="1" max="100" value="50">
                     </div>
-                    <div class="flex justify-between text-[7px] lg:text-[8.5px] font-mono text-textMuted uppercase mt-0 lg:mt-1 tracking-widest opacity-80 pointer-events-none">
-                        <span>REACTIVE BLEED</span>
-                        <span>DEEP WORK</span>
+                    <div class="flex justify-between text-[9px] lg:text-[10px] font-mono text-textMuted uppercase mt-2 tracking-widest opacity-80 pointer-events-none">
+                        <span>CONSTANT FIREFIGHTING</span>
+                        <span>TOTAL ISOLATION</span>
                     </div>
                 </div>
 
                 <!-- Quadrant 2: Body -->
                 <div class="slider-group relative">
-                    <div class="flex justify-between items-end mb-1.5">
-                        <label class="font-mono text-[9px] lg:text-[10px] tracking-widest uppercase text-textMain font-medium border-l-2 border-brandGold/40 pl-2">2. Autonomic Baseline</label>
-                        <span class="font-mono text-brandGold text-[10px] lg:text-[11px] transition-colors duration-300 font-bold" id="val-auto">200 MG</span>
+                    <div class="flex justify-between items-end mb-2">
+                        <label class="font-mono text-[11px] lg:text-[12px] tracking-widest uppercase text-textMain font-medium border-l-2 border-brandGold/40 pl-3">2. Energy Dependency</label>
+                        <span class="font-mono text-brandGold text-[12px] lg:text-[13px] transition-colors duration-300 font-bold" id="val-auto">200 MG</span>
                     </div>
-                    <p class="text-[11px] lg:text-[12px] text-textSub font-light leading-relaxed mb-1 lg:mb-2">Milligrams of stimulant required after 14:00 to prevent collapse?</p>
+                    <p class="text-[13px] lg:text-[14px] text-textSub font-light leading-relaxed mb-3">How much caffeine (or equivalent stimulant) is required to survive the afternoon without crashing?</p>
                     <div class="relative w-full h-[40px] flex items-center justify-center">
                         <div class="segmented-track-bg"></div>
                         <div class="segmented-track-fill" id="fill-auto" style="width: 50%;"></div>
                         <div class="segmented-thumb" id="thumb-auto" style="left: 50%;"></div>
                         <input type="range" id="slider-auto" min="1" max="100" value="50">
                     </div>
-                    <div class="flex justify-between text-[7px] lg:text-[8.5px] font-mono text-textMuted uppercase mt-0 lg:mt-1 tracking-widest opacity-80 pointer-events-none">
-                        <span>DEBT / RELIANT</span>
-                        <span>SUSTAINED</span>
+                    <div class="flex justify-between text-[9px] lg:text-[10px] font-mono text-textMuted uppercase mt-2 tracking-widest opacity-80 pointer-events-none">
+                        <span>HEAVY RELIANCE</span>
+                        <span>CLEAN BASELINE</span>
                     </div>
                 </div>
 
                 <!-- Quadrant 3: Spirit -->
                 <div class="slider-group relative">
-                    <div class="flex justify-between items-end mb-1.5">
-                        <label class="font-mono text-[9px] lg:text-[10px] tracking-widest uppercase text-textMain font-medium border-l-2 border-brandGold/40 pl-2">3. Innate Architecture</label>
-                        <span class="font-mono text-brandGold text-[10px] lg:text-[11px] transition-colors duration-300 font-bold" id="val-arch">50% MASKING</span>
+                    <div class="flex justify-between items-end mb-2">
+                        <label class="font-mono text-[11px] lg:text-[12px] tracking-widest uppercase text-textMain font-medium border-l-2 border-brandGold/40 pl-3">3. Execution Friction</label>
+                        <span class="font-mono text-brandGold text-[12px] lg:text-[13px] transition-colors duration-300 font-bold" id="val-arch">50% WILLPOWER</span>
                     </div>
-                    <p class="text-[11px] lg:text-[12px] text-textSub font-light leading-relaxed mb-1 lg:mb-2">Percentage of daily output driven by brute-force willpower rather than systemic alignment?</p>
+                    <p class="text-[13px] lg:text-[14px] text-textSub font-light leading-relaxed mb-3">What percentage of your daily output requires brute-force willpower instead of natural flow?</p>
                     <div class="relative w-full h-[40px] flex items-center justify-center">
                         <div class="segmented-track-bg"></div>
                         <div class="segmented-track-fill" id="fill-arch" style="width: 50%;"></div>
                         <div class="segmented-thumb" id="thumb-arch" style="left: 50%;"></div>
                         <input type="range" id="slider-arch" min="1" max="100" value="50">
                     </div>
-                    <div class="flex justify-between text-[7px] lg:text-[8.5px] font-mono text-textMuted uppercase mt-0 lg:mt-1 tracking-widest opacity-80 pointer-events-none">
-                        <span>BRUTE-FORCE EXHAUSTION</span>
-                        <span>EFFORTLESS FLOW</span>
+                    <div class="flex justify-between text-[9px] lg:text-[10px] font-mono text-textMuted uppercase mt-2 tracking-widest opacity-80 pointer-events-none">
+                        <span>BRUTE-FORCE SURVIVAL</span>
+                        <span>EFFORTLESS ALIGNMENT</span>
                     </div>
                 </div>
 
                 <!-- Quadrant 4: Vocation -->
                 <div class="slider-group relative">
-                    <div class="flex justify-between items-end mb-1.5">
-                        <label class="font-mono text-[9px] lg:text-[10px] tracking-widest uppercase text-textMain font-medium border-l-2 border-brandGold/40 pl-2">4. Operational Leverage</label>
-                        <span class="font-mono text-brandGold text-[10px] lg:text-[11px] transition-colors duration-300 font-bold" id="val-lev">50% BOTTLENECK</span>
+                    <div class="flex justify-between items-end mb-2">
+                        <label class="font-mono text-[11px] lg:text-[12px] tracking-widest uppercase text-textMain font-medium border-l-2 border-brandGold/40 pl-3">4. Operational Bottleneck</label>
+                        <span class="font-mono text-brandGold text-[12px] lg:text-[13px] transition-colors duration-300 font-bold" id="val-lev">50% DEPENDENT</span>
                     </div>
-                    <p class="text-[11px] lg:text-[12px] text-textSub font-light leading-relaxed mb-1 lg:mb-2">Percentage of organizational output that completely halts without your direct intervention?</p>
+                    <p class="text-[13px] lg:text-[14px] text-textSub font-light leading-relaxed mb-3">If you disconnected for 7 days, what percentage of organizational output would completely halt?</p>
                     <div class="relative w-full h-[40px] flex items-center justify-center">
                         <div class="segmented-track-bg"></div>
                         <div class="segmented-track-fill" id="fill-lev" style="width: 50%;"></div>
                         <div class="segmented-thumb" id="thumb-lev" style="left: 50%;"></div>
                         <input type="range" id="slider-lev" min="1" max="100" value="50">
                     </div>
-                    <div class="flex justify-between text-[7px] lg:text-[8.5px] font-mono text-textMuted uppercase mt-0 lg:mt-1 tracking-widest opacity-80 pointer-events-none">
-                        <span>PRIMARY BOTTLENECK</span>
-                        <span>INFINITE LEVERAGE</span>
+                    <div class="flex justify-between text-[9px] lg:text-[10px] font-mono text-textMuted uppercase mt-2 tracking-widest opacity-80 pointer-events-none">
+                        <span>SINGLE POINT OF FAILURE</span>
+                        <span>FULL AUTONOMY</span>
                     </div>
                 </div>
 
             </div>
 
             <!-- Primary CTA -->
-            <button onclick="startProcessingSequence()" class="group relative px-6 lg:px-8 py-4 bg-transparent border border-glassBorder rounded-md overflow-hidden transition-all duration-500 hover:border-brandGold/40 mt-2 w-full shadow-[inset_0_0_20px_rgba(255,255,255,0.02)]">
-                <span class="relative z-10 flex items-center justify-center gap-3 transition-colors duration-300 text-brandGold font-mono text-[10px] font-bold tracking-[0.2em] uppercase group-hover:text-void">
+            <button onclick="startProcessingSequence()" class="group relative px-6 lg:px-8 py-5 bg-transparent border border-glassBorder rounded-md overflow-hidden transition-all duration-500 hover:border-brandGold/40 mt-6 w-full shadow-[inset_0_0_20px_rgba(255,255,255,0.02)] gpu-accelerated">
+                <span class="relative z-10 flex items-center justify-center gap-3 transition-colors duration-300 text-brandGold font-mono text-[12px] font-bold tracking-[0.2em] uppercase group-hover:text-void">
                     EXECUTE SYSTEM ANALYSIS
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="opacity-70 group-hover:translate-x-1 transition-transform"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="opacity-70 group-hover:translate-x-1 transition-transform"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </span>
                 <div class="absolute inset-0 bg-gradient-to-r from-brandGold to-brandGoldHover transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out z-0"></div>
             </button>
@@ -417,12 +511,12 @@
 
         <!-- PROCESSING STATE -->
         <div class="w-full order-2 lg:order-1 lg:col-span-5 flex flex-col justify-center h-full min-h-[400px] lg:min-h-[500px] hidden" id="processing-panel">
-            <div class="glass-panel p-6 lg:p-8">
-                <p class="font-mono text-brandGold text-[9px] lg:text-[10px] tracking-[0.2em] uppercase mb-6 flex items-center gap-3 font-medium">
-                    <span class="w-1.5 h-1.5 bg-brandGold inline-block animate-ping rounded-full"></span>
+            <div class="glass-panel p-6 lg:p-8 gpu-accelerated">
+                <p class="font-mono text-brandGold text-[11px] lg:text-[12px] tracking-[0.2em] uppercase mb-6 flex items-center gap-3 font-medium">
+                    <span class="w-2 h-2 bg-brandGold inline-block animate-ping rounded-full"></span>
                     SCANNING BIOMETRICS <span class="cursor-blink">_</span>
                 </p>
-                <div class="font-mono text-[10px] lg:text-[11px] text-textSub space-y-4 tracking-wider leading-relaxed" id="terminal-lines">
+                <div class="font-mono text-[11px] lg:text-[12px] text-textSub space-y-4 tracking-wider leading-relaxed" id="terminal-lines">
                     <!-- JS will inject lines here -->
                 </div>
                 <div class="w-full h-[2px] bg-glassBorder mt-10 relative overflow-hidden">
@@ -432,93 +526,93 @@
         </div>
 
         <!-- OPT-IN STATE (The Paywall / Inventory Hook) -->
-        <div class="w-full order-2 lg:order-1 lg:col-span-5 flex flex-col space-y-4 lg:space-y-5 hidden" id="capture-panel">
-            <div class="border-b border-glassBorder pb-4 lg:pb-5 fade-enter" id="capture-header">
+        <div class="w-full order-2 lg:order-1 lg:col-span-5 flex flex-col space-y-5 lg:space-y-6 hidden" id="capture-panel">
+            <div class="border-b border-glassBorder pb-5 lg:pb-6 fade-enter" id="capture-header">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="inline-flex items-center gap-2 border border-vyrtRed/30 bg-vyrtRed/10 rounded-sm px-2 py-1 lg:px-3">
+                    <div class="inline-flex items-center gap-2 border border-vyrtRed/30 bg-vyrtRed/10 rounded-sm px-3 py-1.5 lg:px-4">
                         <span class="w-1.5 h-1.5 bg-vyrtRed rounded-full animate-pulse"></span>
-                        <span class="font-mono text-[8px] lg:text-[9px] text-vyrtRed tracking-widest uppercase font-bold mt-px">CRITICAL: ASYMMETRY DETECTED</span>
+                        <span class="font-mono text-[9px] lg:text-[10px] text-vyrtRed tracking-widest uppercase font-bold mt-px">CRITICAL: ASYMMETRY DETECTED</span>
                     </div>
-                    <span class="font-mono text-[7px] lg:text-[8px] text-textMuted uppercase tracking-widest border border-glassBorder px-2 py-0.5">AUTH REQ.</span>
+                    <span class="font-mono text-[9px] lg:text-[10px] text-textMuted uppercase tracking-widest border border-glassBorder px-2 py-1">AUTH REQ.</span>
                 </div>
                 
-                <h2 class="font-serif text-2xl lg:text-3xl font-light tracking-tightest mb-4 text-textMain">Initialize <br><span class="italic text-brandGold font-light">Recalibration.</span></h2>
+                <h2 class="font-serif text-3xl lg:text-4xl font-light tracking-tightest mb-5 text-textMain">Initialize <br><span class="italic text-brandGold font-light">Recalibration.</span></h2>
                 
                 <!-- Pre-Paywall Insight -->
-                <div class="bg-void border border-glassBorder border-l-2 border-l-vyrtRed/80 p-4 mb-4 lg:mb-5 relative overflow-hidden shadow-inner">
+                <div class="bg-void border border-glassBorder border-l-2 border-l-vyrtRed/80 p-5 mb-5 lg:mb-6 relative overflow-hidden shadow-inner gpu-accelerated">
                     <div class="absolute right-0 top-0 w-24 h-24 bg-vyrtRed/5 blur-2xl rounded-full"></div>
-                    <p class="text-[11px] lg:text-[12px] text-textMain font-mono leading-[1.6] tracking-wide relative z-10" id="dynamic-insight">
+                    <p class="text-[13px] lg:text-[14px] text-textMain font-mono leading-[1.6] tracking-wide relative z-10" id="dynamic-insight">
                         <!-- JS injects brutal truth here -->
                     </p>
                 </div>
 
                 <!-- Installed Protocols Inventory -->
-                <div class="mt-4">
-                    <p class="font-mono text-[8px] lg:text-[9px] text-textMuted uppercase tracking-[0.2em] mb-2 flex items-center justify-between">
+                <div class="mt-5">
+                    <p class="font-mono text-[10px] lg:text-[11px] text-textMuted uppercase tracking-[0.2em] mb-3 flex items-center justify-between">
                         <span>Installed Protocols</span>
-                        <span class="text-brandGold border border-brandGold/20 bg-brandGold/5 px-2 py-0.5">1/4 UNLOCKED</span>
+                        <span class="text-brandGold border border-brandGold/20 bg-brandGold/5 px-2 py-1">1/4 UNLOCKED</span>
                     </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         
-                        <div class="border border-brandGold/50 bg-brandGold/10 p-2.5 flex flex-col items-center justify-center relative group cursor-help transition-all shadow-[inset_0_0_15px_rgba(194,163,89,0.1)]">
+                        <div class="border border-brandGold/50 bg-brandGold/10 p-3 flex flex-col items-center justify-center relative group cursor-help transition-all shadow-[inset_0_0_15px_rgba(194,163,89,0.1)]">
                             <div class="absolute inset-0 bg-brandGold/20 animate-pulse"></div>
-                            <svg class="w-4 h-4 text-brandGold relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                            <p class="text-[7px] font-mono text-brandGold mt-1 relative z-10 font-bold tracking-wider">PHASE-1</p>
+                            <svg class="w-5 h-5 text-brandGold relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                            <p class="text-[9px] font-mono text-brandGold mt-2 relative z-10 font-bold tracking-wider">PHASE-1</p>
                         </div>
-                        <div class="border border-[#222] bg-[#0A0A0A] p-2.5 flex flex-col items-center justify-center opacity-50 relative">
-                            <svg class="w-4 h-4 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                            <p class="text-[7px] font-mono text-[#666] mt-1 tracking-wider">COG-GATE</p>
+                        <div class="border border-[#222] bg-[#0A0A0A] p-3 flex flex-col items-center justify-center opacity-50 relative">
+                            <svg class="w-5 h-5 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            <p class="text-[9px] font-mono text-[#666] mt-2 tracking-wider">COG-GATE</p>
                         </div>
-                        <div class="border border-[#222] bg-[#0A0A0A] p-2.5 flex flex-col items-center justify-center opacity-50 relative hidden sm:flex">
-                            <svg class="w-4 h-4 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                            <p class="text-[7px] font-mono text-[#666] mt-1 tracking-wider">ENDO-SYNC</p>
+                        <div class="border border-[#222] bg-[#0A0A0A] p-3 flex flex-col items-center justify-center opacity-50 relative hidden sm:flex">
+                            <svg class="w-5 h-5 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            <p class="text-[9px] font-mono text-[#666] mt-2 tracking-wider">ENDO-SYNC</p>
                         </div>
-                        <div class="border border-[#222] bg-[#0A0A0A] p-2.5 flex flex-col items-center justify-center opacity-50 relative hidden sm:flex">
-                            <svg class="w-4 h-4 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                            <p class="text-[7px] font-mono text-[#666] mt-1 tracking-wider">AUTO-POL</p>
+                        <div class="border border-[#222] bg-[#0A0A0A] p-3 flex flex-col items-center justify-center opacity-50 relative hidden sm:flex">
+                            <svg class="w-5 h-5 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            <p class="text-[9px] font-mono text-[#666] mt-2 tracking-wider">AUTO-POL</p>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 mt-3">
-                        <div class="w-1 h-1 bg-brandGold rounded-full"></div>
-                        <span class="font-mono text-[8px] text-textMuted uppercase tracking-widest"><span class="text-brandGold">1x</span> SECURE PROTOCOL DISPATCH</span>
+                    <div class="flex items-center gap-2 mt-4">
+                        <div class="w-1.5 h-1.5 bg-brandGold rounded-full"></div>
+                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest"><span class="text-brandGold">1x</span> SECURE PROTOCOL DISPATCH</span>
                     </div>
                 </div>
             </div>
             
             <!-- The Operating Arena Gate -->
-            <div class="fade-enter mt-1 lg:mt-2" style="transition-delay: 0.1s" id="arena-gate">
-                <p class="font-mono text-[8px] lg:text-[9px] text-textMuted uppercase tracking-widest mb-2 flex items-center justify-between">
+            <div class="fade-enter mt-2 lg:mt-3" style="transition-delay: 0.1s" id="arena-gate">
+                <p class="font-mono text-[10px] lg:text-[11px] text-textMuted uppercase tracking-widest mb-3 flex items-center justify-between">
                     <span>1. DECLARE OPERATING ARENA</span>
-                    <span class="text-vyrtRed/70 text-[7px] lg:text-[8px]">*REQUIRED</span>
+                    <span class="text-vyrtRed/70 text-[9px] lg:text-[10px]">*REQUIRED</span>
                 </p>
-                <div class="grid grid-cols-2 gap-2" id="arena-selector">
-                    <button type="button" class="arena-btn" data-value="C-Suite">C-SUITE / ENTERPRISE</button>
-                    <button type="button" class="arena-btn" data-value="Founder">FOUNDER / SCALING</button>
-                    <button type="button" class="arena-btn" data-value="Pro">PRO ATHLETICS</button>
-                    <button type="button" class="arena-btn" data-value="Tactical">MILITARY / TACTICAL</button>
+                <div class="grid grid-cols-2 gap-3" id="arena-selector">
+                    <button type="button" class="arena-btn gpu-accelerated" data-value="C-Suite">C-SUITE / ENTERPRISE</button>
+                    <button type="button" class="arena-btn gpu-accelerated" data-value="Founder">FOUNDER / SCALING</button>
+                    <button type="button" class="arena-btn gpu-accelerated" data-value="Pro">PRO ATHLETICS</button>
+                    <button type="button" class="arena-btn gpu-accelerated" data-value="Tactical">MILITARY / TACTICAL</button>
                 </div>
                 <input type="hidden" id="selected-arena" required>
             </div>
 
             <!-- Command Bar Email Input -->
-            <form onsubmit="handleFormSubmit(event)" class="cmd-bar fade-enter mt-1 lg:mt-2" style="transition-delay: 0.15s" id="capture-form">
-                <input type="email" required placeholder="2. SECURE ROUTING (PROTOCOL DELIVERY)" class="cmd-input text-[12px] lg:text-[14px]">
-                <button type="submit" class="cmd-btn group transition-all duration-300 !min-w-0 !px-6">
+            <form onsubmit="handleFormSubmit(event)" class="cmd-bar fade-enter mt-2 lg:mt-3 gpu-accelerated" style="transition-delay: 0.15s" id="capture-form">
+                <input type="email" required placeholder="2. SECURE ROUTING (PROTOCOL DELIVERY)" class="cmd-input text-[13px] lg:text-[15px]">
+                <button type="submit" class="cmd-btn group transition-all duration-300 !min-w-0 !px-8">
                     <span class="btn-text flex items-center gap-2">EXTRACT</span>
                 </button>
             </form>
             
             <!-- The Authority Anchor -->
-            <div class="mt-3 lg:mt-4 pt-3 lg:pt-4 fade-enter" style="transition-delay: 0.2s" id="authority-anchor">
-                <div class="flex items-start gap-3 lg:gap-4 glass-panel p-3 lg:p-4 rounded-md">
-                    <div class="w-10 h-14 rounded-sm border border-glassBorder flex-shrink-0 grayscale opacity-80 overflow-hidden shadow-inner mt-1">
-                        <img src="https://i.imgur.com/SJLnvwa.png" alt="Marcus Lefton" class="w-full h-full object-cover object-top">
+            <div class="mt-5 pt-5 fade-enter border-t border-glassBorder" style="transition-delay: 0.2s" id="authority-anchor">
+                <div class="flex items-start gap-4 lg:gap-5 glass-panel p-4 lg:p-5 rounded-md">
+                    <div class="w-12 h-16 rounded-sm border border-glassBorder flex-shrink-0 grayscale opacity-80 overflow-hidden shadow-inner mt-1">
+                        <img src="https://i.imgur.com/SJLnvwa.png" alt="Marcus Lefton" width="48" height="64" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="text-left">
-                        <p class="font-serif text-textSub text-[11px] lg:text-[12px] italic leading-[1.5] lg:leading-[1.6] border-l border-brandGold/30 pl-3">
+                        <p class="font-serif text-textSub text-[12px] lg:text-[13px] italic leading-[1.6] lg:leading-[1.7] border-l border-brandGold/30 pl-4">
                             "The strongest testimonial I can give is the five-digit sum I pay for calls with Marcus. In a few hours he helps me produce what most people can't in weeks."
                         </p>
-                        <p class="font-mono text-[7px] lg:text-[8px] text-brandGold uppercase tracking-widest mt-1.5 pl-3">— Ethan Evans, Retired VP, Amazon</p>
+                        <p class="font-mono text-[9px] lg:text-[10px] text-brandGold uppercase tracking-widest mt-2 pl-4">— Ethan Evans, Retired VP, Amazon</p>
                     </div>
                 </div>
             </div>
@@ -526,25 +620,25 @@
 
         <!-- SUCCESS STATE -->
         <div class="w-full order-2 lg:order-1 lg:col-span-5 flex flex-col justify-center h-full min-h-[400px] lg:min-h-[500px] hidden" id="success-panel">
-            <div class="glass-panel p-8 lg:p-10 text-center relative flex flex-col items-center">
-                <div class="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-brandGold/5 border border-brandGold/20 shadow-[0_0_30px_rgba(194,163,89,0.15)] flex items-center justify-center mb-5 lg:mb-6 relative">
+            <div class="glass-panel p-8 lg:p-10 text-center relative flex flex-col items-center gpu-accelerated">
+                <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-brandGold/5 border border-brandGold/20 shadow-[0_0_30px_rgba(194,163,89,0.15)] flex items-center justify-center mb-6 relative">
                     <div class="absolute inset-0 rounded-full border border-brandGold/40 animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
-                    <svg class="w-5 h-5 lg:w-6 lg:h-6 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <svg class="w-6 h-6 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                 </div>
                 
-                <h4 class="font-serif text-[24px] lg:text-[28px] text-textMain leading-tight mb-3">Protocol Unlocked.</h4>
-                <p class="text-[13px] lg:text-[14px] text-textSub font-sans font-light mb-6 lg:mb-8 text-center">
+                <h4 class="font-serif text-[26px] lg:text-[30px] text-textMain leading-tight mb-3">Protocol Unlocked.</h4>
+                <p class="text-[14px] lg:text-[15px] text-textSub font-sans font-light mb-8 text-center">
                     The Phase-1 Recalibration is en route to your secure inbox.
                 </p>
                 
-                <div class="bg-brandGold/5 border border-brandGold/20 rounded-lg px-4 py-3 max-w-[360px] mx-auto w-full mb-6 lg:mb-8">
-                    <p class="text-[10px] lg:text-[11px] text-brandGold/90 font-mono uppercase tracking-[0.1em] text-center leading-relaxed">
-                        <span class="font-bold text-brandGold flex items-center justify-center gap-1.5 mb-1.5"><span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span> ACTION REQUIRED</span> 
+                <div class="bg-brandGold/5 border border-brandGold/20 rounded-lg px-5 py-4 max-w-[360px] mx-auto w-full mb-8">
+                    <p class="text-[11px] lg:text-[12px] text-brandGold/90 font-mono uppercase tracking-[0.1em] text-center leading-relaxed">
+                        <span class="font-bold text-brandGold flex items-center justify-center gap-1.5 mb-2"><span class="w-2 h-2 bg-brandGold rounded-full animate-terminal"></span> ACTION REQUIRED</span> 
                         Move the dispatch to your primary folder to secure the feed.
                     </p>
                 </div>
 
-                <button onclick="location.reload()" class="font-mono text-[8px] lg:text-[9px] tracking-widest text-textMuted uppercase hover:text-brandGold transition-colors duration-300">
+                <button onclick="location.reload()" class="font-mono text-[9px] lg:text-[10px] tracking-widest text-textMuted uppercase hover:text-brandGold transition-colors duration-300">
                     [ RESTART DIAGNOSTIC ]
                 </button>
             </div>
@@ -553,7 +647,277 @@
     </main>
 
     <script>
-        // DOM Elements
+        // ==========================================
+        // OPTIMIZATION: Engine State Flags
+        // ==========================================
+        let isGridActive = true; 
+        let isTelemetryActive = true; 
+
+        // ==========================================
+        // 1. BOOT SEQUENCE & DECODE ANIMATION
+        // ==========================================
+        const bootText = [
+            "INITIATING SECURE HANDSHAKE...",
+            "ESTABLISHING ENCRYPTED CONNECTION...",
+            "BYPASSING FIREWALL PROTOCOLS...",
+            "ACCESSING VYRTŪOSITI MAINFRAME...",
+            "CONNECTION SECURED. INITIALIZING DIAGNOSTIC."
+        ];
+        
+        function runBootSequence() {
+            const bootContainer = document.getElementById('boot-sequence');
+            const bootDisplay = document.getElementById('boot-text');
+            let lineIndex = 0;
+
+            function printLine() {
+                if (lineIndex < bootText.length) {
+                    bootDisplay.innerHTML += `> ${bootText[lineIndex]}<br>`;
+                    lineIndex++;
+                    setTimeout(printLine, 300 + Math.random() * 400); 
+                } else {
+                    setTimeout(() => {
+                        bootContainer.style.opacity = '0';
+                        bootContainer.style.visibility = 'hidden';
+                        initHeroReveal();
+                    }, 800);
+                }
+            }
+            setTimeout(printLine, 500);
+        }
+
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+        function decodeText(element, delay = 0) {
+            const targetText = element.getAttribute('data-target');
+            let iteration = 0;
+            let interval = null;
+            
+            setTimeout(() => {
+                clearInterval(interval);
+                interval = setInterval(() => {
+                    element.innerText = targetText
+                        .split("")
+                        .map((letter, index) => {
+                            if(index < iteration) return targetText[index];
+                            return letters[Math.floor(Math.random() * 26)];
+                        })
+                        .join("");
+                    
+                    if(iteration >= targetText.length){ 
+                        clearInterval(interval);
+                    }
+                    iteration += 1 / 2;
+                }, 30);
+            }, delay);
+        }
+
+        function initHeroReveal() {
+            const landingGate = document.getElementById('landing-gate');
+            landingGate.classList.remove('opacity-0', 'invisible');
+            
+            setTimeout(() => { document.getElementById('hero-tag').classList.remove('opacity-0', 'translate-y-4'); }, 300);
+            
+            decodeText(document.getElementById('decode-text-1'), 600);
+            decodeText(document.getElementById('decode-text-2'), 1200);
+
+            setTimeout(() => { document.getElementById('hero-sub').classList.remove('opacity-0', 'translate-y-4'); }, 1800);
+            setTimeout(() => { document.getElementById('hero-btn').classList.remove('opacity-0', 'translate-y-4'); }, 2200);
+        }
+
+        // ==========================================
+        // 2. TACTICAL ENERGY GRID (Performance Optimized)
+        // ==========================================
+        function initTacticalGrid() {
+            const canvas = document.getElementById('neural-canvas');
+            const ctx = canvas.getContext('2d', { alpha: false }); 
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particlesArray = [];
+            let mouse = { x: null, y: null, radius: 250, radiusSq: 62500 }; 
+
+            window.addEventListener('mousemove', function(event) {
+                mouse.x = event.x; mouse.y = event.y;
+            });
+            window.addEventListener('mouseout', function() {
+                mouse.x = undefined; mouse.y = undefined;
+            });
+
+            class Particle {
+                constructor(x, y, directionX, directionY, size) {
+                    this.x = x; this.y = y;
+                    this.vx = directionX; this.vy = directionY;
+                    this.size = size;
+                    this.baseSize = size;
+                }
+                draw() {
+                    let distSq = 999999;
+                    if (mouse.x) {
+                        let dx = mouse.x - this.x;
+                        let dy = mouse.y - this.y;
+                        distSq = dx * dx + dy * dy; 
+                    }
+
+                    if (distSq < mouse.radiusSq) {
+                        let distance = Math.sqrt(distSq); 
+                        let intensity = 1 - (distance / mouse.radius);
+                        ctx.shadowBlur = 15 * intensity;
+                        ctx.shadowColor = '#D4B66A';
+                        ctx.fillStyle = `rgba(255, 240, 200, ${0.4 + intensity * 0.6})`;
+                    } else {
+                        ctx.shadowBlur = 0;
+                        ctx.fillStyle = 'rgba(194, 163, 89, 0.2)';
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+                update() {
+                    if (this.x > canvas.width || this.x < 0) this.vx = -this.vx;
+                    if (this.y > canvas.height || this.y < 0) this.vy = -this.vy;
+                    
+                    if (mouse.x) {
+                        let dx = mouse.x - this.x;
+                        let dy = mouse.y - this.y;
+                        let distSq = dx * dx + dy * dy;
+                        
+                        if (distSq < mouse.radiusSq) {
+                            let distance = Math.sqrt(distSq);
+                            const force = (mouse.radius - distance) / mouse.radius;
+                            this.x += (dx / distance) * force * 2.5;
+                            this.y += (dy / distance) * force * 2.5;
+                            this.size = this.baseSize + (force * 2); 
+                        } else {
+                            this.size = this.baseSize;
+                        }
+                    } else {
+                        this.size = this.baseSize;
+                    }
+
+                    this.x += this.vx; 
+                    this.y += this.vy;
+                    this.draw();
+                }
+            }
+
+            function initParticles() {
+                particlesArray = [];
+                const isMobile = window.innerWidth < 768;
+                const densityDevisor = isMobile ? 35000 : 18000; 
+                let numberOfParticles = Math.floor((canvas.height * canvas.width) / densityDevisor);
+
+                for (let i = 0; i < numberOfParticles; i++) {
+                    let size = (Math.random() * 1.5) + 0.5;
+                    let x = Math.random() * canvas.width;
+                    let y = Math.random() * canvas.height;
+                    let vx = (Math.random() * 0.6) - 0.3;
+                    let vy = (Math.random() * 0.6) - 0.3;
+                    particlesArray.push(new Particle(x, y, vx, vy, size));
+                }
+            }
+
+            function connectAndLightning() {
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a; b < particlesArray.length; b++) {
+                        let dx = particlesArray[a].x - particlesArray[b].x;
+                        let dy = particlesArray[a].y - particlesArray[b].y;
+                        let distanceSq = dx * dx + dy * dy; 
+
+                        if (distanceSq < 22000) { 
+                            let distance = Math.sqrt(distanceSq);
+                            let opacityValue = 1 - (distanceSq / 22000);
+                            
+                            let midX = (particlesArray[a].x + particlesArray[b].x) / 2;
+                            let midY = (particlesArray[a].y + particlesArray[b].y) / 2;
+                            
+                            let distToMouseSq = mouse.x ? (mouse.x - midX)*(mouse.x - midX) + (mouse.y - midY)*(mouse.y - midY) : 999999;
+
+                            if (distToMouseSq < mouse.radiusSq) {
+                                let distToMouse = Math.sqrt(distToMouseSq);
+                                let intensity = 1 - (distToMouse / mouse.radius);
+                                opacityValue = opacityValue + intensity; 
+                                ctx.lineWidth = 0.8 + intensity * 1.5;
+                                ctx.strokeStyle = `rgba(255, 230, 160, ${Math.min(1, opacityValue)})`;
+                                ctx.shadowBlur = 8 * intensity;
+                                ctx.shadowColor = '#C2A359';
+                            } else {
+                                ctx.lineWidth = 0.6;
+                                ctx.strokeStyle = `rgba(194, 163, 89, ${opacityValue * 0.25})`;
+                                ctx.shadowBlur = 0;
+                            }
+
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+                            ctx.shadowBlur = 0;
+                        }
+                    }
+                }
+
+                if (mouse.x) {
+                    let closeNodes = particlesArray.filter(p => {
+                        let dx = mouse.x - p.x;
+                        let dy = mouse.y - p.y;
+                        return (dx*dx + dy*dy) < (mouse.radiusSq * 0.49); 
+                    });
+                    
+                    if (closeNodes.length > 0 && Math.random() > 0.88) {
+                        let target = closeNodes[Math.floor(Math.random() * closeNodes.length)];
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(mouse.x, mouse.y);
+                        
+                        let segments = 3;
+                        let sDx = (target.x - mouse.x) / segments;
+                        let sDy = (target.y - mouse.y) / segments;
+                        
+                        for(let j=1; j<segments; j++) {
+                            let jx = mouse.x + sDx * j + (Math.random() - 0.5) * 30;
+                            let jy = mouse.y + sDy * j + (Math.random() - 0.5) * 30;
+                            ctx.lineTo(jx, jy);
+                        }
+                        ctx.lineTo(target.x, target.y);
+                        
+                        ctx.shadowBlur = 15;
+                        ctx.shadowColor = '#FFF';
+                        ctx.lineWidth = 1.5;
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${Math.random() * 0.6 + 0.4})`;
+                        ctx.stroke();
+                        ctx.shadowBlur = 0;
+                    }
+                }
+            }
+
+            function animate() {
+                if (!isGridActive) return; 
+                
+                requestAnimationFrame(animate);
+                
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                }
+                connectAndLightning();
+            }
+
+            window.addEventListener('resize', function(){
+                if (!isGridActive) return;
+                canvas.width = window.innerWidth; 
+                canvas.height = window.innerHeight;
+                initParticles();
+            });
+
+            initParticles();
+            animate();
+        }
+
+        // ==========================================
+        // 3. EXISTING APP LOGIC
+        // ==========================================
         const panels = {
             landing: document.getElementById('landing-gate'),
             app: document.getElementById('main-audit-app'),
@@ -582,13 +946,14 @@
         const statusContainer = document.getElementById('status-container');
         const scannerLine = document.getElementById('scanner-line');
         const radarContainer = document.getElementById('radar-container');
+        
         const telemetryLat = document.getElementById('telemetry-lat');
         const telemetryLon = document.getElementById('telemetry-lon');
+        const hexEl = document.getElementById('live-hex');
 
         const brandGold = '#C2A359';
         const vyrtRed = '#9b2c2c';
         
-        // Critical UX Fix: Global Interval state prevents race conditions on rapid drag
         let scrambleInterval;
 
         function getColorForValue(val) {
@@ -597,62 +962,65 @@
             return '#FAFAFA'; 
         }
 
-        // Chart Initialization
-        const ctx = document.getElementById('radarChart').getContext('2d');
-        Chart.defaults.color = 'rgba(255, 255, 255, 0.4)';
-        Chart.defaults.font.family = "'JetBrains Mono', monospace";
-        
-        const radarChart = new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: ['Cognitive', 'Leverage', 'Autonomic', 'Architecture'],
-                datasets: [
-                    {
-                        label: 'Current Architecture',
-                        data: [50, 50, 50, 50],
-                        backgroundColor: 'rgba(194, 163, 89, 0.08)',
-                        borderColor: 'rgba(194, 163, 89, 0.8)',
-                        borderWidth: 1.5,
-                        pointBackgroundColor: 'transparent',
-                        pointBorderColor: 'transparent',
-                        pointHoverBackgroundColor: brandGold,
-                        pointHoverBorderColor: '#000',
-                        pointRadius: 0,
-                        pointHoverRadius: 5
-                    },
-                    {
-                        label: 'Architected Potential',
-                        data: [95, 95, 95, 95], 
-                        backgroundColor: 'transparent',
-                        borderColor: 'rgba(255, 255, 255, 0.15)',
-                        borderWidth: 1,
-                        borderDash: [3, 3], 
-                        pointRadius: 0,
-                        pointHoverRadius: 0
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    r: {
-                        angleLines: { color: 'rgba(255, 255, 255, 0.08)', lineWidth: 1 },
-                        grid: { color: 'rgba(255, 255, 255, 0.03)', circular: false },
-                        pointLabels: {
-                            font: { size: window.innerWidth < 640 ? 8 : 10, weight: '500', letterSpacing: 2 },
-                            color: 'rgba(255, 255, 255, 0.6)',
-                            padding: window.innerWidth < 640 ? 12 : 24
-                        },
-                        ticks: { display: false, min: 0, max: 100, stepSize: 25 }
-                    }
-                },
-                plugins: { legend: { display: false }, tooltip: { enabled: false } },
-                animation: { duration: 0 } 
-            }
-        });
+        let radarChart; 
 
-        // The "Scramble" HUD Effect
+        function initChart() {
+            if(typeof Chart === 'undefined') return; 
+            
+            const ctxChart = document.getElementById('radarChart').getContext('2d');
+            Chart.defaults.color = 'rgba(255, 255, 255, 0.7)'; 
+            Chart.defaults.font.family = "'JetBrains Mono', monospace";
+            
+            radarChart = new Chart(ctxChart, {
+                type: 'radar',
+                data: {
+                    labels: ['Deep Work', 'Autonomy', 'Energy', 'Alignment'],
+                    datasets: [
+                        {
+                            label: 'Current Architecture',
+                            data: [50, 50, 50, 50],
+                            backgroundColor: 'rgba(194, 163, 89, 0.25)',
+                            borderColor: 'rgba(194, 163, 89, 1)', 
+                            borderWidth: 2,
+                            pointBackgroundColor: '#C2A359',
+                            pointBorderColor: '#FFF',
+                            pointBorderWidth: 1.5,
+                            pointRadius: 4, 
+                            pointHoverRadius: 7
+                        },
+                        {
+                            label: 'Architected Potential',
+                            data: [95, 95, 95, 95], 
+                            backgroundColor: 'transparent',
+                            borderColor: 'rgba(255, 255, 255, 0.25)', 
+                            borderWidth: 1.5,
+                            borderDash: [4, 4], 
+                            pointRadius: 0,
+                            pointHoverRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.08)', lineWidth: 1 },
+                            grid: { color: 'rgba(255, 255, 255, 0.03)', circular: false },
+                            pointLabels: {
+                                font: { size: window.innerWidth < 640 ? 10 : 12, weight: '500', letterSpacing: 2 },
+                                color: 'rgba(255, 255, 255, 0.6)',
+                                padding: window.innerWidth < 640 ? 12 : 24
+                            },
+                            ticks: { display: false, min: 0, max: 100, stepSize: 25 }
+                        }
+                    },
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    animation: { duration: 0 } 
+                }
+            });
+        }
+
         function scrambleData(finalAvg) {
             clearInterval(scrambleInterval); 
             integrityScoreEl.classList.add('scrambling');
@@ -667,14 +1035,25 @@
                     integrityScoreEl.innerHTML = finalAvg + '<span class="text-xl lg:text-2xl text-brandGold/50">%</span>';
                 }
             }, 30);
-            
-            if(telemetryLat && telemetryLon) {
-                telemetryLat.innerText = `LAT: ${(33.4942 + (Math.random() * 0.001)).toFixed(4)}`;
-                telemetryLon.innerText = `LON: ${(-111.9261 + (Math.random() * 0.001)).toFixed(4)}`;
-            }
         }
 
-        // Main Update Function
+        function startLiveTelemetry() {
+            setInterval(() => {
+                if(!isTelemetryActive) return;
+                
+                const hex1 = Math.random().toString(16).substring(2, 6).toUpperCase();
+                const hex2 = Math.random().toString(16).substring(2, 6).toUpperCase();
+                if(hexEl) hexEl.innerText = `0x${hex1} : 0x${hex2}`;
+                
+                if(telemetryLat && telemetryLon && !integrityScoreEl.classList.contains('scrambling')) {
+                    const lat = 33.4942 + (Math.random() * 0.0004 - 0.0002);
+                    const lon = -111.9261 + (Math.random() * 0.0004 - 0.0002);
+                    telemetryLat.innerText = `LAT: ${lat.toFixed(4)}`;
+                    telemetryLon.innerText = `LON: ${lon.toFixed(4)}`;
+                }
+            }, 120); 
+        }
+
         function updateChart() {
             const cogVal = parseInt(sliders.cog.value);
             const levVal = parseInt(sliders.lev.value);
@@ -695,16 +1074,18 @@
             const cogHrs = ((cogVal / 100) * 4).toFixed(1) + (cogVal === 100 ? '+' : '') + ' HRS';
             const autoMgRaw = Math.round((100 - autoVal) * 4);
             const autoMg = (autoVal === 1 ? '400+' : autoMgRaw) + ' MG';
-            const archPct = (100 - archVal) + (archVal === 1 ? '%+' : '%') + ' MASKING';
-            const levPct = (100 - levVal) + (levVal === 1 ? '%+' : '%') + ' BOTTLENECK';
+            const archPct = (100 - archVal) + (archVal === 1 ? '%+' : '%') + ' WILLPOWER';
+            const levPct = (100 - levVal) + (levVal === 1 ? '%+' : '%') + ' DEPENDENT';
 
             values.cog.innerText = cogHrs; values.cog.style.color = getColorForValue(cogVal);
             values.auto.innerText = autoMg; values.auto.style.color = getColorForValue(autoVal);
             values.arch.innerText = archPct; values.arch.style.color = getColorForValue(archVal);
             values.lev.innerText = levPct; values.lev.style.color = getColorForValue(levVal);
 
-            radarChart.data.datasets[0].data = newData;
-            radarChart.update();
+            if(radarChart) {
+                radarChart.data.datasets[0].data = newData;
+                radarChart.update();
+            }
 
             const sum = newData.reduce((a, b) => a + b, 0);
             const avg = Math.round(sum / 4);
@@ -713,16 +1094,16 @@
 
             if (avg >= 85) {
                 systemStatusEl.innerText = "ELITE INTEGRATION";
-                systemStatusEl.className = "text-[8px] lg:text-[10px] text-brandGold uppercase tracking-widest font-bold";
-                statusContainer.className = "border border-brandGold/30 bg-brandGold/10 px-2 lg:px-3 py-1 lg:py-1.5 rounded-sm inline-block backdrop-blur-sm transition-colors duration-300";
+                systemStatusEl.className = "text-[10px] lg:text-[11px] text-brandGold uppercase tracking-widest font-bold";
+                statusContainer.className = "border border-brandGold/30 bg-brandGold/10 px-3 lg:px-4 py-1.5 lg:py-2 rounded-sm inline-block backdrop-blur-sm transition-colors duration-300";
             } else if (avg >= 60) {
                 systemStatusEl.innerText = "VULNERABLE";
-                systemStatusEl.className = "text-[8px] lg:text-[10px] text-gray-300 uppercase tracking-widest font-bold";
-                statusContainer.className = "border border-gray-600/50 bg-gray-600/20 px-2 lg:px-3 py-1 lg:py-1.5 rounded-sm inline-block backdrop-blur-sm transition-colors duration-300";
+                systemStatusEl.className = "text-[10px] lg:text-[11px] text-gray-300 uppercase tracking-widest font-bold";
+                statusContainer.className = "border border-gray-600/50 bg-gray-600/20 px-3 lg:px-4 py-1.5 lg:py-2 rounded-sm inline-block backdrop-blur-sm transition-colors duration-300";
             } else {
                 systemStatusEl.innerText = "SEVERE DISPERSION";
-                systemStatusEl.className = "text-[8px] lg:text-[10px] text-vyrtRed uppercase tracking-widest font-bold animate-pulse";
-                statusContainer.className = "border border-vyrtRed/30 bg-vyrtRed/10 px-2 lg:px-3 py-1 lg:py-1.5 rounded-sm inline-block backdrop-blur-sm transition-colors duration-300";
+                systemStatusEl.className = "text-[10px] lg:text-[11px] text-vyrtRed uppercase tracking-widest font-bold animate-pulse";
+                statusContainer.className = "border border-vyrtRed/30 bg-vyrtRed/10 px-3 lg:px-4 py-1.5 lg:py-2 rounded-sm inline-block backdrop-blur-sm transition-colors duration-300";
             }
         }
 
@@ -743,11 +1124,18 @@
         });
 
         function unveilAudit() {
+            isGridActive = false; 
+            const canvas = document.getElementById('neural-canvas');
+            canvas.style.display = 'none';
+
             panels.landing.classList.add('opacity-0');
             setTimeout(() => {
                 panels.landing.classList.add('hidden');
                 panels.app.classList.remove('hidden');
-                radarChart.resize();
+                
+                if(!radarChart) initChart();
+                if(radarChart) radarChart.resize();
+                
                 updateChart();
                 setTimeout(() => { panels.app.classList.remove('opacity-0'); }, 50);
             }, 1000); 
@@ -755,16 +1143,18 @@
 
         function generateDynamicInsight(cog, auto, arch, lev) {
             const scores = [
-                { name: 'cog', val: cog, text: "Your deep-state architecture deficiency indicates your Central Nervous System is operating in a chronic sympathetic state. You are leaking approx. 35% of your baseline capacity by 14:00." },
-                { name: 'auto', val: auto, text: "Your stimulant reliance confirms systemic autonomic debt. You are masking a physiological collapse with chemistry, borrowing from tomorrow's baseline to survive today." },
-                { name: 'arch', val: arch, text: "Your high masking ratio reveals severe structural friction. You are burning massive cognitive resources simply forcing execution against your innate wiring." },
-                { name: 'lev', val: lev, text: "Your tactical dilution is catastrophic. You are operating as the primary bottleneck in your own system, paying a massive cognitive tax for low-level execution." }
+                { name: 'Mind', val: cog, text: "Your deep-state architecture deficiency indicates your Central Nervous System is operating in a chronic sympathetic state. You are leaking approx. 35% of your baseline capacity by 14:00." },
+                { name: 'Body', val: auto, text: "Your stimulant reliance confirms systemic autonomic debt. You are masking a physiological collapse with chemistry, borrowing from tomorrow's baseline to survive today." },
+                { name: 'Spirit', val: arch, text: "Your high masking ratio reveals severe structural friction. You are burning massive cognitive resources simply forcing execution against your innate wiring." },
+                { name: 'Vocation', val: lev, text: "Your tactical dilution is catastrophic. You are operating as the primary bottleneck in your own system, paying a massive cognitive tax for low-level execution." }
             ];
             scores.sort((a, b) => a.val - b.val);
             return scores[0].text;
         }
 
         function startProcessingSequence() {
+            isTelemetryActive = false; 
+            
             const cogVal = parseInt(sliders.cog.value);
             const autoVal = parseInt(sliders.auto.value);
             const archVal = parseInt(sliders.arch.value);
@@ -780,7 +1170,7 @@
 
             const terminal = document.getElementById('terminal-lines');
             const lines = [
-                "Extracting Cognitive Bandwidth inputs...",
+                "Extracting Deep Work metrics...",
                 "Calculating Autonomic Debt ratios...",
                 "Analyzing Tactical Dilution...",
                 "Identifying primary system constraint...",
@@ -868,12 +1258,10 @@
         }
 
         window.onload = () => {
-            if(window.innerWidth < 640) {
-               radarChart.options.scales.r.pointLabels.padding = 10;
-               radarChart.options.scales.r.pointLabels.font.size = 8;
-               radarChart.update();
-            }
-            updateChart();
+            runBootSequence();
+            initTacticalGrid();
+            startLiveTelemetry();
+            setTimeout(initChart, 1000);
         };
     </script>
 </body>
