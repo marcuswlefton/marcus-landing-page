@@ -199,11 +199,14 @@
     <!-- ========================================== -->
     <!-- MAIN HERO SECTION (Split Layout)           -->
     <!-- ========================================== -->
-    <section class="w-full pt-36 pb-16 lg:pt-44 lg:pb-20 px-6 md:px-12 flex items-center relative z-10">
-        <div class="max-w-[1300px] mx-auto w-full flex flex-col lg:flex-row gap-14 lg:gap-10 items-stretch justify-between">
+    <!-- FIX: Removed 'flex items-center' from the section wrapper to allow top-alignment -->
+    <section class="w-full pt-36 pb-16 lg:pt-44 lg:pb-20 px-6 md:px-12 relative z-10">
+        <!-- FIX: Changed from 'items-center' to 'lg:items-start' to pin both columns to the top -->
+        <div class="max-w-[1300px] mx-auto w-full flex flex-col lg:flex-row gap-14 lg:gap-10 lg:items-start justify-between">
             
             <!-- LEFT COLUMN: Visuals & Quote -->
-            <div class="w-full lg:w-[45%] flex flex-col justify-between items-center lg:items-start relative z-10 group">
+            <!-- FIX: Added 'lg:pt-2' so the physical top of the mockup aligns optically with the top of the trust stars -->
+            <div class="w-full lg:w-[45%] flex flex-col items-center lg:items-start relative z-10 group lg:pt-2">
                 
                 <!-- High-End Mockup Composite -->
                 <div class="relative w-full max-w-[500px] aspect-[1/1.1] mb-10 lg:mb-0 mx-auto lg:mx-0 cursor-default">
@@ -406,7 +409,7 @@
                 </div>
 
                 <!-- Architectural Pull Quote -->
-                <div class="text-center lg:text-left max-w-[420px] px-4 lg:px-0 mt-auto group pt-8 lg:pt-0">
+                <div class="text-center lg:text-left max-w-[420px] px-4 lg:px-0 mt-8 lg:mt-12 group">
                     <p class="text-[20px] md:text-[22px] font-serif text-gray-300/90 leading-[1.5] mb-6 italic tracking-wide transition-colors duration-700 group-hover:text-white font-light">
                         "You don't need a 3-hour morning routine. You need the exact <span class="circled-word font-normal text-white">minimum dose</span> of inputs that guarantee maximum output."
                     </p>
@@ -461,27 +464,32 @@
                     <span class="text-metallic font-serif italic font-light tracking-normal opacity-95 block mt-1 lg:mt-2 normal-case">Effective Dose</span>
                 </h1>
                 
-                <!-- Highlighted Subheadline (Flawless Spacing) -->
-                <div class="relative inline-block mb-10 max-w-[560px]">
+                <!-- Highlighted Subheadline (Perfect Block Aesthetics) -->
+                <div class="relative inline-block mb-12 max-w-[560px]">
                     <div class="absolute -inset-2 bg-gradient-to-r from-[#93722A]/15 to-transparent blur-xl rounded-full opacity-60 pointer-events-none"></div>
                     <div class="relative z-10 text-center lg:text-left">
-                        <!-- High line-height pushes the wrapped highlight blocks comfortably apart -->
-                        <h3 class="text-[17px] md:text-[20px] leading-[2.2] mb-4">
-                            <span class="highlight-text tracking-tight">
-                                My foundational protocols for sustaining elite physical and cognitive output
+                        <!-- Forced explicit blocks for absolute perfect marker aesthetics -->
+                        <div class="flex flex-col items-center lg:items-start gap-[10px] mb-4">
+                            <span class="highlight-text text-[17px] md:text-[21px] tracking-tight inline-block shadow-[0_4px_15px_rgba(147,114,42,0.15)]">
+                                My foundational protocols for sustaining
                             </span>
-                        </h3>
+                            <span class="highlight-text text-[17px] md:text-[21px] tracking-tight inline-block shadow-[0_4px_15px_rgba(147,114,42,0.15)]">
+                                elite physical and cognitive output
+                            </span>
+                        </div>
                         <!-- Completely separate plain text block for pure alignment -->
-                        <p class="text-[16px] md:text-[19px] text-[#A3A3A3] font-light leading-[1.6]">
+                        <p class="text-[16px] md:text-[19.5px] text-[#D1D5DB] font-light leading-[1.6] mt-2 pl-1">
                             (as I get older, navigate entrepreneurial stress, lead a growing family).
                         </p>
                     </div>
                 </div>
 
-                <!-- Black Card Form Box -->
-                <div class="w-full max-w-[580px] bg-[#030303] border border-white/[0.04] rounded-xl p-7 md:p-9 shadow-[0_40px_80px_-15px_rgba(0,0,0,1)] relative h-full flex flex-col justify-center backdrop-blur-sm group/formbox transition-colors duration-700 hover:border-white/[0.08]">
+                <!-- Premium Form Box (Elevated, Glowing Gradient) -->
+                <div class="w-full max-w-[580px] bg-gradient-to-b from-[#0A0A0A] to-[#030303] border border-[#93722A]/20 rounded-2xl p-7 md:p-9 shadow-[0_0_40px_rgba(147,114,42,0.08),_0_40px_80px_-15px_rgba(0,0,0,1)] relative h-full flex flex-col justify-center backdrop-blur-md group/formbox transition-all duration-700 hover:border-[#93722A]/40 hover:shadow-[0_0_60px_rgba(147,114,42,0.12),_0_40px_80px_-15px_rgba(0,0,0,1)] z-20">
+                    <!-- Subtle inner glow -->
+                    <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/[0.02] pointer-events-none"></div>
                     
-                    <div class="text-center lg:text-left mb-6 form-header">
+                    <div class="text-center lg:text-left mb-6 form-header relative z-10">
                         <h2 class="text-xl md:text-2xl font-bold text-white/90 uppercase tracking-tight mb-3 font-sans">Access the Protocols</h2>
                         
                         <!-- Tangible Deliverable -->
@@ -491,30 +499,42 @@
                             </p>
                         </div>
                         
-                        <div class="space-y-2.5 text-[13px] text-gray-400 font-normal leading-relaxed text-left inline-block w-full">
-                            <p class="flex items-start gap-4"><span class="text-[#93722A] font-bold font-mono text-[9px] mt-[3px] tracking-[0.2em] bg-[#111] px-1.5 py-0.5 rounded-sm border border-white/[0.05]">01</span> <span class="text-gray-300 text-[14px]">Enter email to bypass the noise.</span></p>
-                            <p class="flex items-start gap-4"><span class="text-[#93722A] font-bold font-mono text-[9px] mt-[3px] tracking-[0.2em] bg-[#111] px-1.5 py-0.5 rounded-sm border border-white/[0.05]">02</span> <span class="text-gray-300 text-[14px]">Receive the unlisted M.E.D. document.</span></p>
-                            <p class="flex items-start gap-4"><span class="text-[#93722A] font-bold font-mono text-[9px] mt-[3px] tracking-[0.2em] bg-[#111] px-1.5 py-0.5 rounded-sm border border-white/[0.05]">03</span> <span class="text-gray-300 text-[14px]">Implement and reclaim 2+ hours a day.</span></p>
+                        <!-- Restored copy, but with gold checkmarks -->
+                        <div class="space-y-3.5 text-[14px] text-gray-400 font-normal leading-relaxed text-left inline-block w-full">
+                            <p class="flex items-start gap-3.5">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-[#93722A] shrink-0 mt-[3px]"></i> 
+                                <span class="text-gray-300">Enter email to bypass the noise.</span>
+                            </p>
+                            <p class="flex items-start gap-3.5">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-[#93722A] shrink-0 mt-[3px]"></i> 
+                                <span class="text-gray-300">Receive the unlisted M.E.D. document.</span>
+                            </p>
+                            <p class="flex items-start gap-3.5">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-[#93722A] shrink-0 mt-[3px]"></i> 
+                                <span class="text-gray-300">Implement and reclaim 2+ hours a day.</span>
+                            </p>
                         </div>
                     </div>
 
                     <!-- Low Friction Form -->
                     <form id="optin-form" class="space-y-5 relative" onsubmit="handleFormSubmit(event)">
                         <div class="grid grid-cols-1 gap-5">
-                            <div class="relative group/input">
-                                <label for="name" class="block font-mono text-[9px] text-[#666] uppercase tracking-[0.2em] font-semibold mb-2 ml-1 transition-colors duration-500 group-focus-within/input:text-[#93722A]">First Name</label>
-                                <input type="text" id="name" required class="w-full bg-[#080808] border border-white/[0.05] rounded-md px-5 py-4 text-white text-[15px] placeholder:text-[#333] outline-none input-premium active:scale-[0.99] placeholder:font-light" placeholder="Enter first name">
+                            <div class="relative group/input z-10">
+                                <label for="name" class="block font-mono text-[9px] text-[#777] uppercase tracking-[0.2em] font-semibold mb-2 ml-1 transition-colors duration-500 group-focus-within/input:text-[#93722A]">First Name</label>
+                                <!-- Lighter, embossed input field -->
+                                <input type="text" id="name" required class="w-full bg-[#0F0F0F] border border-white/[0.08] rounded-md px-5 py-4 text-white text-[15px] placeholder:text-[#444] outline-none input-premium active:scale-[0.99] placeholder:font-light shadow-[inset_0_2px_5px_rgba(0,0,0,0.5)] focus:bg-[#050505] focus:border-[#93722A]/50 transition-all duration-300" placeholder="Enter first name">
                             </div>
                             
-                            <div class="relative group/input">
-                                <label for="email" class="block font-mono text-[9px] text-[#666] uppercase tracking-[0.2em] font-semibold mb-2 ml-1 transition-colors duration-500 group-focus-within/input:text-[#93722A]">Best Email</label>
-                                <input type="email" id="email" required class="w-full bg-[#080808] border border-white/[0.05] rounded-md px-5 py-4 text-white text-[15px] placeholder:text-[#333] outline-none input-premium active:scale-[0.99] placeholder:font-light" placeholder="Enter email address">
+                            <div class="relative group/input z-10">
+                                <label for="email" class="block font-mono text-[9px] text-[#777] uppercase tracking-[0.2em] font-semibold mb-2 ml-1 transition-colors duration-500 group-focus-within/input:text-[#93722A]">Best Email</label>
+                                <!-- Lighter, embossed input field -->
+                                <input type="email" id="email" required class="w-full bg-[#0F0F0F] border border-white/[0.08] rounded-md px-5 py-4 text-white text-[15px] placeholder:text-[#444] outline-none input-premium active:scale-[0.99] placeholder:font-light shadow-[inset_0_2px_5px_rgba(0,0,0,0.5)] focus:bg-[#050505] focus:border-[#93722A]/50 transition-all duration-300" placeholder="Enter email address">
                             </div>
                         </div>
 
-                        <div class="pt-4">
+                        <div class="pt-4 relative z-10">
                             <!-- Premium Solid Button -->
-                            <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-[#93722A] via-[#C9A653] to-[#93722A] text-[#110D05] font-bold tracking-[0.2em] text-[13px] uppercase py-5 rounded-sm hover:brightness-110 transition-all duration-300 flex justify-center items-center gap-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),_0_5px_20px_rgba(147,114,42,0.2)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_8px_30px_rgba(147,114,42,0.3)] active:scale-[0.98] group relative overflow-hidden bg-[length:200%_auto] hover:bg-right">
+                            <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-[#93722A] via-[#C9A653] to-[#93722A] text-[#110D05] font-bold tracking-[0.2em] text-[13px] uppercase py-5 rounded-md hover:brightness-110 transition-all duration-300 flex justify-center items-center gap-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),_0_5px_20px_rgba(147,114,42,0.2)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_8px_30px_rgba(147,114,42,0.3)] active:scale-[0.98] group relative overflow-hidden bg-[length:200%_auto] hover:bg-right">
                                 <span class="relative z-10 drop-shadow-[0_1px_1px_rgba(255,255,255,0.2)]">SEND ME THE BLUEPRINT</span>
                                 <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 transition-transform duration-500 group-hover:translate-x-1.5"></i>
                                 <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-25deg] group-hover:animate-shimmer pointer-events-none"></div>
@@ -530,7 +550,7 @@
                     </form>
 
                     <!-- Success State -->
-                    <div id="success-state" class="hidden text-center py-10">
+                    <div id="success-state" class="hidden text-center py-10 relative z-10">
                         <div class="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 bg-gradient-to-br from-[#93722A]/20 to-transparent border border-[#93722A]/30 relative shadow-[0_0_30px_rgba(147,114,42,0.1)]">
                             <div class="absolute inset-0 rounded-full border-t-[1.5px] border-[#93722A] animate-spin"></div>
                             <i data-lucide="check" class="w-10 h-10 text-[#E0C379] stroke-[1.5]"></i>
