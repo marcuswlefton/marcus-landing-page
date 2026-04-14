@@ -92,7 +92,7 @@
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
 
-        /* Print/PDF Export Optimization - COMPLETELY OVERHAULED */
+        /* TACTICAL LIGHT MODE: Print/PDF Export Optimization */
         @media print {
             @page {
                 size: A4 landscape;
@@ -103,21 +103,24 @@
                 font-size: 11px !important; 
             }
             body {
-                background-color: #030303 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
+                background-color: #FFFFFF !important;
+                color: #111111 !important;
                 margin: 0 !important;
                 padding: 0 !important;
                 width: 100vw !important;
                 overflow-x: hidden !important;
             }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
             
             /* Hide UI elements and overlays */
-            .bg-noise, #scroll-progress-container {
+            .bg-noise, #scroll-progress-container, nav, button, .print\:hidden {
                 display: none !important;
             }
             
-            /* Disable animations */
+            /* Disable animations & Web FX */
             .reveal-on-scroll {
                 opacity: 1 !important;
                 transform: none !important;
@@ -125,14 +128,6 @@
                 transition: none !important;
             }
             
-            /* Force Desktop Grid Constraints (Prevents mobile collapse in PDF) */
-            .grid { display: grid !important; }
-            .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
-            .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
-            .lg\:col-span-7 { grid-column: span 7 / span 7 !important; }
-            .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-            .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-
             /* Strict Section Framing */
             section {
                 width: 100vw !important;
@@ -149,30 +144,80 @@
                 justify-content: center !important;
                 box-sizing: border-box !important;
                 position: relative !important;
+                background: #FFFFFF !important; /* Force all full-page gradients to white */
             }
 
-            .max-w-\[1200px\] {
-                max-width: 90vw !important;
-                margin: 0 auto !important;
+            .max-w-\[1200px\] { max-width: 90vw !important; margin: 0 auto !important; }
+
+            /* --- THE COLOR INVERSION CORE --- */
+            
+            /* Convert Backgrounds to Light Grey / White */
+            .bg-\[\#030303\], .bg-\[\#050505\], .bg-\[\#0A0A0A\], .bg-black {
+                background-color: #FFFFFF !important;
+            }
+            .bg-\[\#222\] {
+                background-color: #E5E7EB !important; /* Fragmented blocks in Time Matrix */
             }
 
-            /* Clean up hardware gradients for clean PDF rendering */
+            /* Strip heavy box shadows and convert dark cards to clean, wireframe architecture */
             .machined-edge {
-                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15) !important;
-                background: #080808 !important;
-                border: none !important;
+                background: #FAFAFA !important;
+                box-shadow: none !important;
+                border: 1px solid #E5E7EB !important;
+            }
+            
+            /* The Rules block (which was dark gold gradient) */
+            .bg-gradient-to-b.from-\[\#0F0F0F\] {
+                background: #FAFAFA !important;
+                box-shadow: none !important;
+                border: 1px solid rgba(147,114,42,0.3) !important;
             }
 
-            svg {
-                max-width: 100% !important;
-                height: auto !important;
+            /* Convert Typography to Black / Dark Grey */
+            h1, h2, h3, h4, h5, p, span, strong, div { text-shadow: none !important; }
+            .text-white, .text-white\/95, .text-white\/90, .text-white\/80, .text-white\/70 { color: #111111 !important; }
+            .text-gray-300, .text-gray-400 { color: #374151 !important; } /* Tailwind gray-700 */
+            .text-gray-500, .text-gray-600, .text-gray-700 { color: #6B7280 !important; } /* Tailwind gray-500 */
+            
+            /* Preserve Gold Elements */
+            .text-gold-400, .text-gold-500, .text-gold-600 { color: #93722A !important; }
+            .text-metallic {
+                background: none !important;
+                color: #93722A !important;
+                -webkit-text-fill-color: #93722A !important;
             }
 
-            /* Scale down massive background watermarks */
-            .absolute.text-\[11rem\], .absolute.text-\[12rem\], .absolute.text-\[13rem\], .absolute.text-\[10rem\] {
-                font-size: 8rem !important;
-                opacity: 0.02 !important;
+            /* Thin out the dark borders to light grey */
+            .border-white\/\[0\.04\], .border-white\/\[0\.05\], .border-white\/\[0\.08\], .border-white\/\[0\.1\], .border-white\/\[0\.02\], .border-white\/\[0\.03\] {
+                border-color: #E5E7EB !important;
             }
+
+            /* The massive section watermarks */
+            .text-white\/\[0\.012\], .text-white\/\[0\.015\] {
+                color: rgba(0,0,0,0.03) !important;
+            }
+
+            /* Drop shadow strippers */
+            [class*="drop-shadow-"] { filter: none !important; }
+
+            /* Checkboxes on Appendix */
+            .border-white\/20 { border-color: #D1D5DB !important; }
+            .w-4.h-4.rounded-\[3px\].bg-black {
+                background-color: #FFFFFF !important;
+            }
+
+            /* SVG Architecture Adjustments */
+            svg line[stroke^="rgba(255"] { stroke: rgba(0,0,0,0.15) !important; }
+            svg circle[fill="#0A0A0A"], svg circle[fill="#030303"] { fill: #FFFFFF !important; }
+            svg path[stroke="#E0C379"] { stroke: #93722A !important; }
+            
+            /* Force Desktop Grid Constraints (Prevents mobile collapse in PDF) */
+            .grid { display: grid !important; }
+            .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
+            .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
+            .lg\:col-span-7 { grid-column: span 7 / span 7 !important; }
+            .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+            .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 
             /* Automatic footer numbering in PDF */
             section::after {
@@ -181,7 +226,7 @@
                 right: 30px;
                 font-family: 'Space Mono', monospace;
                 font-size: 8px;
-                color: rgba(255,255,255,0.3);
+                color: rgba(0,0,0,0.4);
                 content: "VYRTŪOSITI M.E.D. DOSSIER";
             }
         }
@@ -680,19 +725,15 @@
                 <div class="w-full bg-[#050505] border border-white/[0.04] rounded-lg p-7 shadow-[inset_0_2px_20px_rgba(0,0,0,0.5)]">
                     <span class="font-mono text-[10px] text-gold-500 uppercase tracking-widest block mb-6 font-bold">FIG 4.0 // The Cognitive J-Curve</span>
                     <svg class="w-full h-36" viewBox="0 0 200 100">
-                        <!-- Phase Divider -->
                         <line x1="100" y1="10" x2="100" y2="90" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="2 2" />
                         <text x="50" y="15" fill="#555" font-size="5" font-family="monospace" text-anchor="middle" letter-spacing="0.1em" font-weight="bold">PHASE 1: EXPLORE</text>
                         <text x="150" y="15" fill="#555" font-size="5" font-family="monospace" text-anchor="middle" letter-spacing="0.1em" font-weight="bold">PHASE 2: EXPLOIT</text>
 
-                        <!-- Baseline Reference -->
                         <line x1="10" y1="45" x2="190" y2="45" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="1 3" />
                         <text x="12" y="42" fill="#444" font-size="4" font-family="monospace">BASELINE OUTPUT</text>
 
-                        <!-- The J-Curve Path -->
                         <path d="M 10 45 C 30 75, 50 85, 70 85 C 90 85, 100 70, 110 45 C 130 5, 160 15, 190 15" fill="none" stroke="#E0C379" stroke-width="2" class="drop-shadow-[0_0_6px_rgba(224,195,121,0.6)] svg-animate-draw"/>
                         
-                        <!-- Gradient Fill under curve -->
                         <path d="M 10 45 C 30 75, 50 85, 70 85 C 90 85, 100 70, 110 45 C 130 5, 160 15, 190 15 L 190 100 L 10 100 Z" fill="url(#jCurveGrad)" opacity="0.15"/>
                         <defs>
                             <linearGradient id="jCurveGrad" x1="0" y1="0" x2="0" y2="1">
@@ -701,15 +742,11 @@
                             </linearGradient>
                         </defs>
 
-                        <!-- Data Nodes -->
-                        <!-- Start Node -->
                         <circle cx="10" cy="45" r="2.5" fill="#0A0A0A" stroke="#E0C379" stroke-width="1.5" class="drop-shadow-[0_0_4px_rgba(224,195,121,0.5)]"/>
                         
-                        <!-- The Valley of Friction Node -->
                         <circle cx="70" cy="85" r="2.5" fill="#0A0A0A" stroke="#ef4444" stroke-width="1.5" class="drop-shadow-[0_0_6px_rgba(239,68,68,0.6)]"/>
                         <text x="70" y="95" fill="#ef4444" font-size="4.5" font-family="monospace" text-anchor="middle">The Friction Tax</text>
                         
-                        <!-- Exponential Scale Node -->
                         <circle cx="190" cy="15" r="2.5" fill="#0A0A0A" stroke="#4ADE80" stroke-width="1.5" class="drop-shadow-[0_0_8px_rgba(74,222,128,0.7)]"/>
                         <text x="190" y="25" fill="#4ADE80" font-size="4.5" font-family="monospace" text-anchor="end">Exponential Scale</text>
                     </svg>
@@ -756,7 +793,7 @@
         <div class="max-w-[800px] mx-auto text-center relative z-10 reveal-on-scroll">
             
             <div class="w-20 h-20 mx-auto mb-8 relative flex items-center justify-center">
-                <div class="absolute inset-0 bg-gold-600/20 rounded-full blur-[20px]"></div>
+                <div class="absolute inset-0 bg-gold-600/20 rounded-full blur-[20px] print:hidden"></div>
                 <i data-lucide="shield" class="w-10 h-10 text-gold-500 relative z-10 drop-shadow-[0_0_10px_rgba(224,195,121,0.5)]"></i>
             </div>
             
