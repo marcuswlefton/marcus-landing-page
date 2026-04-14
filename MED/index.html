@@ -92,43 +92,89 @@
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
 
-        /* Print/PDF Export Optimization */
+        /* Print/PDF Export Optimization - COMPLETELY OVERHAULED */
         @media print {
             @page {
                 size: A4 landscape;
                 margin: 0;
             }
+            html {
+                /* Shrinks all rem units by ~30% so content fits perfectly inside A4 */
+                font-size: 11px !important; 
+            }
             body {
                 background-color: #030303 !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100vw !important;
+                overflow-x: hidden !important;
             }
-            .page-break {
-                page-break-after: always;
-                break-after: page;
-            }
-            .bg-noise, .no-print, #scroll-progress-container {
+            
+            /* Hide UI elements and overlays */
+            .bg-noise, #scroll-progress-container {
                 display: none !important;
             }
+            
+            /* Disable animations */
             .reveal-on-scroll {
                 opacity: 1 !important;
                 transform: none !important;
                 filter: none !important;
                 transition: none !important;
             }
-            .machined-edge {
-                background: #080808 !important;
-                box-shadow: none !important;
-                border: 1px solid rgba(255,255,255,0.1) !important;
-            }
+            
+            /* Force Desktop Grid Constraints (Prevents mobile collapse in PDF) */
+            .grid { display: grid !important; }
+            .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
+            .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
+            .lg\:col-span-7 { grid-column: span 7 / span 7 !important; }
+            .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+            .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+
+            /* Strict Section Framing */
             section {
+                width: 100vw !important;
                 height: 100vh !important;
                 min-height: 100vh !important;
-                page-break-inside: avoid;
-                padding-top: 5vh !important;
-                padding-bottom: 5vh !important;
+                max-height: 100vh !important;
+                margin: 0 !important;
+                padding: 5vh 5vw !important;
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
                 overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                box-sizing: border-box !important;
+                position: relative !important;
             }
+
+            .max-w-\[1200px\] {
+                max-width: 90vw !important;
+                margin: 0 auto !important;
+            }
+
+            /* Clean up hardware gradients for clean PDF rendering */
+            .machined-edge {
+                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15) !important;
+                background: #080808 !important;
+                border: none !important;
+            }
+
+            svg {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+
+            /* Scale down massive background watermarks */
+            .absolute.text-\[11rem\], .absolute.text-\[12rem\], .absolute.text-\[13rem\], .absolute.text-\[10rem\] {
+                font-size: 8rem !important;
+                opacity: 0.02 !important;
+            }
+
+            /* Automatic footer numbering in PDF */
             section::after {
                 position: absolute;
                 bottom: 20px;
@@ -161,15 +207,15 @@
 <body class="relative overflow-x-hidden selection:bg-gold-600 selection:text-black">
 
     <!-- Ambient Texture -->
-    <div class="bg-noise"></div>
+    <div class="bg-noise print:hidden"></div>
 
     <!-- Microscopic Scroll Progress Bar -->
-    <div id="scroll-progress-container" class="fixed top-0 left-0 w-full h-[1.5px] bg-white/[0.03] z-50 no-print">
+    <div id="scroll-progress-container" class="fixed top-0 left-0 w-full h-[1.5px] bg-white/[0.03] z-50 print:hidden">
         <div id="scroll-progress" class="h-full bg-gradient-to-r from-gold-600 via-gold-400 to-[#FFF3C7] w-0 transition-all duration-75 ease-out shadow-[0_0_12px_rgba(224,195,121,0.9)]"></div>
     </div>
 
     <!-- Global Floating Header (Standardized Lockup) -->
-    <nav class="fixed top-0 left-0 w-full px-8 py-7 flex justify-between items-center z-40 no-print pointer-events-none mix-blend-difference">
+    <nav class="fixed top-0 left-0 w-full px-8 py-7 flex justify-between items-center z-40 print:hidden pointer-events-none mix-blend-difference">
         <div class="flex items-center gap-4">
             <div class="relative flex items-center justify-center">
                 <div class="absolute w-4 h-4 rounded-full bg-gold-600 blur-[8px] opacity-60"></div>
@@ -222,7 +268,7 @@
     <!-- ========================================== -->
     <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[#050505] overflow-hidden">
         <!-- Cinematic Watermark -->
-        <div class="absolute -right-10 top-1/4 text-[13rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none no-print">Audit</div>
+        <div class="absolute -right-10 top-1/4 text-[13rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Audit</div>
 
         <!-- Page Marginalia -->
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
@@ -309,7 +355,7 @@
     <!-- PAGE 02: TEMPORAL LEVERAGE                 -->
     <!-- ========================================== -->
     <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[radial-gradient(ellipse_at_top,_rgba(147,114,42,0.03)_0%,_#020202_80%)] overflow-hidden">
-        <div class="absolute -left-10 top-1/3 text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none no-print">Time</div>
+        <div class="absolute -left-10 top-1/3 text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Time</div>
 
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 02 — Temporal Leverage
@@ -407,7 +453,7 @@
     <!-- PAGE 03: THE RECOVERY BASELINE             -->
     <!-- ========================================== -->
     <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[#050505] overflow-hidden">
-        <div class="absolute -left-10 top-1/3 text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none no-print">Recovery</div>
+        <div class="absolute -left-10 top-1/3 text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Recovery</div>
 
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 03 — Recovery & Restoration
@@ -505,7 +551,7 @@
     <!-- PAGE 04: OSCILLATION & BIOCHEMISTRY        -->
     <!-- ========================================== -->
     <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[radial-gradient(ellipse_at_bottom,_rgba(147,114,42,0.03)_0%,_#020202_80%)] overflow-hidden">
-        <div class="absolute right-0 bottom-10 text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none no-print">Rhythm</div>
+        <div class="absolute right-0 bottom-10 text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Rhythm</div>
 
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 04 — Oscillation & Fuel
@@ -610,7 +656,7 @@
     <!-- PAGE 05: THE LEVERAGE MATRIX               -->
     <!-- ========================================== -->
     <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[radial-gradient(ellipse_at_top_right,_rgba(147,114,42,0.06)_0%,_#050505_70%)] overflow-hidden">
-        <div class="absolute left-0 bottom-20 text-[13rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none no-print">Leverage</div>
+        <div class="absolute left-0 bottom-20 text-[13rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Leverage</div>
 
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 05 — The Leverage Matrix
@@ -700,7 +746,7 @@
     <!-- ========================================== -->
     <section class="page-break w-full h-screen min-h-[800px] flex flex-col items-center justify-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[#000000]">
         <!-- Full Page Ambient Glow -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(147,114,42,0.1)_0%,_transparent_60%)] pointer-events-none transform-gpu blur-[60px]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(147,114,42,0.1)_0%,_transparent_60%)] pointer-events-none transform-gpu blur-[60px] print:hidden"></div>
 
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 06 — The Moat
@@ -728,15 +774,15 @@
             </div>
 
             <div class="border border-white/[0.04] p-8 md:p-12 rounded-2xl machined-edge reveal-on-scroll delay-200">
-                <p class="font-mono text-[10px] text-gold-500 uppercase tracking-[0.3em] mb-7 font-bold drop-shadow-[0_0_5px_rgba(224,195,121,0.5)]">Deploy The System</p>
+                <p class="font-mono text-[10px] text-gold-500 uppercase tracking-[0.3em] mb-7 font-bold drop-shadow-[0_0_5px_rgba(224,195,121,0.5)] print:hidden">Deploy The System</p>
                 
-                <button onclick="window.print()" class="inline-flex w-full sm:w-auto bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 text-[#110D05] font-bold tracking-[0.2em] text-[13px] uppercase py-5 px-12 rounded-md hover:brightness-110 transition-all duration-300 justify-center items-center gap-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_10px_30px_rgba(147,114,42,0.3)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),_0_15px_40px_rgba(147,114,42,0.4)] active:scale-[0.98] group relative overflow-hidden bg-[length:200%_auto] hover:bg-right">
+                <button onclick="window.print()" class="print:hidden inline-flex w-full sm:w-auto bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 text-[#110D05] font-bold tracking-[0.2em] text-[13px] uppercase py-5 px-12 rounded-md hover:brightness-110 transition-all duration-300 justify-center items-center gap-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_10px_30px_rgba(147,114,42,0.3)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),_0_15px_40px_rgba(147,114,42,0.4)] active:scale-[0.98] group relative overflow-hidden bg-[length:200%_auto] hover:bg-right">
                     <span class="relative z-10 drop-shadow-[0_1px_1px_rgba(255,255,255,0.3)]">DOWNLOAD & DEPLOY</span>
                     <i data-lucide="download" class="w-4 h-4 relative z-10 transition-transform duration-500 group-hover:translate-y-0.5"></i>
                     <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] group-hover:animate-shimmer pointer-events-none"></div>
                 </button>
                 
-                <p class="text-gray-600 text-[10px] font-mono tracking-[0.2em] uppercase mt-7 hover:text-gold-500 transition-colors cursor-pointer">MarcusLefton.com</p>
+                <p class="print:hidden text-gray-600 text-[10px] font-mono tracking-[0.2em] uppercase mt-7 hover:text-gold-500 transition-colors cursor-pointer">MarcusLefton.com</p>
             </div>
 
         </div>
@@ -758,7 +804,7 @@
                     <h2 class="text-metallic font-mono tracking-[0.3em] text-[11px] uppercase font-bold mb-3">Tear-Sheet / Quick Reference</h2>
                     <h3 class="text-3xl md:text-4xl font-extrabold uppercase tracking-tighter drop-shadow-md">The 1-Page M.E.D. Operating System</h3>
                 </div>
-                <div class="text-left md:text-right border border-white/[0.08] bg-[#0A0A0A] px-4 py-2.5 rounded shadow-inner cursor-pointer hover:bg-[#111] transition-colors group" onclick="window.print()">
+                <div class="print:hidden text-left md:text-right border border-white/[0.08] bg-[#0A0A0A] px-4 py-2.5 rounded shadow-inner cursor-pointer hover:bg-[#111] transition-colors group" onclick="window.print()">
                     <p class="font-mono text-[9px] text-gold-500 uppercase tracking-[0.2em] font-bold flex items-center gap-2 group-hover:text-gold-400 transition-colors"><i data-lucide="printer" class="w-3 h-3"></i> Print & Deploy</p>
                 </div>
             </header>
