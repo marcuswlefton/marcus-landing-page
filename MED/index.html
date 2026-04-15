@@ -86,19 +86,29 @@
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
 
-        /* TACTICAL LIGHT MODE: Print/PDF Export Optimization */
+        /* TACTICAL LIGHT MODE: Hardware-Level Print/PDF Export Optimization */
         @media print {
-            @page { size: A4 landscape; margin: 0; }
-            html { font-size: 11px !important; }
+            @page { 
+                size: A4 landscape !important; 
+                margin: 0 !important; 
+            }
+            html { 
+                font-size: 11px !important; 
+                width: 297mm !important;
+                height: 210mm !important;
+                -webkit-text-size-adjust: none !important;
+                text-size-adjust: none !important;
+            }
             body {
                 background-color: #FFFFFF !important;
                 color: #111111 !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                width: 100vw !important;
+                width: 297mm !important;
+                min-width: 297mm !important;
+                height: 210mm !important;
+                min-height: 210mm !important;
                 overflow-x: hidden !important;
-            }
-            * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
@@ -113,12 +123,12 @@
             }
             
             section {
-                width: 100vw !important;
-                height: 100vh !important;
-                min-height: 100vh !important;
-                max-height: 100vh !important;
+                width: 297mm !important;
+                height: 210mm !important;
+                min-height: 210mm !important;
+                max-height: 210mm !important;
                 margin: 0 !important;
-                padding: 5vh 5vw !important;
+                padding: 12mm 15mm !important;
                 page-break-after: always !important;
                 page-break-inside: avoid !important;
                 overflow: hidden !important;
@@ -130,9 +140,9 @@
                 background: #FFFFFF !important;
             }
 
-            .max-w-\[1200px\] { max-width: 90vw !important; margin: 0 auto !important; }
+            .max-w-\[1200px\] { max-width: 260mm !important; margin: 0 auto !important; }
 
-            /* Color Inversion Core */
+            /* --- THE COLOR INVERSION CORE --- */
             .bg-\[\#030303\], .bg-\[\#050505\], .bg-\[\#0A0A0A\], .bg-black { background-color: #FFFFFF !important; }
             .bg-\[\#222\] { background-color: #E5E7EB !important; }
 
@@ -175,12 +185,54 @@
             svg circle[fill="#0A0A0A"], svg circle[fill="#030303"] { fill: #FFFFFF !important; }
             svg path[stroke="#E0C379"] { stroke: #93722A !important; }
             
+            /* --- FORCED DESKTOP MATRIX FOR MOBILE PDF EXPORT --- */
+            /* Force grids */
             .grid { display: grid !important; }
             .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
             .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
             .lg\:col-span-7 { grid-column: span 7 / span 7 !important; }
             .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
             .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+            
+            /* Force Flex Rows */
+            .md\:flex-row, .lg\:flex-row, .sm\:flex-row { flex-direction: row !important; }
+            .md\:justify-between { justify-content: space-between !important; }
+            .md\:items-end { align-items: flex-end !important; }
+            .sm\:items-center { align-items: center !important; }
+            .sm\:w-1\/2 { width: 50% !important; }
+
+            /* Force Gaps */
+            .lg\:gap-20 { gap: 5rem !important; }
+            .lg\:gap-8 { gap: 2rem !important; }
+            .sm\:gap-6 { gap: 1.5rem !important; }
+
+            /* Force Visibility */
+            .hidden.lg\:block, .hidden.sm\:block, .hidden.md\:block { display: block !important; }
+            .hidden.sm\:inline-block { display: inline-block !important; }
+            .sm\:hidden { display: none !important; }
+
+            /* Force Typography Sizing */
+            .lg\:text-\[7rem\] { font-size: 7rem !important; line-height: 1 !important; }
+            .md\:text-8xl { font-size: 6rem !important; line-height: 1 !important; }
+            .lg\:text-\[13rem\] { font-size: 13rem !important; }
+            .lg\:text-\[11rem\] { font-size: 11rem !important; }
+            .md\:text-5xl { font-size: 3rem !important; line-height: 1 !important; }
+            .md\:text-4xl { font-size: 2.25rem !important; line-height: 2.5rem !important; }
+            .lg\:text-2xl { font-size: 1.5rem !important; line-height: 2rem !important; }
+
+            /* Force Spacing/Padding */
+            .lg\:mt-0 { margin-top: 0 !important; }
+            .lg\:mb-0 { margin-bottom: 0 !important; }
+            .md\:p-20 { padding: 5rem !important; }
+            .lg\:p-12 { padding: 3rem !important; }
+            .md\:p-8 { padding: 2rem !important; }
+
+            /* Protect text from squishing */
+            p, h1, h2, h3, h4, h5, span {
+                word-break: normal !important;
+                overflow-wrap: normal !important;
+                white-space: normal !important;
+            }
 
             section::after {
                 position: absolute;
@@ -235,7 +287,6 @@
     </nav>
 
     <!-- PAGE 00: COVER -->
-    <!-- Mobile adjustment: Swapped fixed h-screen for min-h-[100dvh] flex growth -->
     <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex flex-col items-center justify-center relative p-6 py-20 md:p-20 overflow-hidden bg-[#030303]">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square bg-[radial-gradient(circle,_rgba(147,114,42,0.08)_0%,_transparent_70%)] pointer-events-none"></div>
         <div class="absolute inset-0 border-[1px] border-white/[0.03] m-4 md:m-8 rounded-sm pointer-events-none"></div>
@@ -264,7 +315,6 @@
     </section>
 
     <!-- PAGE 01: THE PARADIGM SHIFT -->
-    <!-- Mobile adjustment: Switched gap-12 to gap-10 for tighter mobile view, py-20 for vertical clearance -->
     <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex items-center relative p-6 py-24 md:p-20 border-t border-white/[0.03] bg-[#050505] overflow-hidden">
         <div class="absolute -right-10 top-1/4 text-[8rem] lg:text-[13rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Audit</div>
 
@@ -765,7 +815,6 @@
     </section>
 
     <!-- PAGE 07: THE CHEAT SHEET (APPENDIX) -->
-    <!-- Mobile: Kept grid-cols-1 which flows perfectly on phones. -->
     <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex items-center relative p-6 py-20 md:p-20 border-t border-white/[0.03] bg-[#020202]">
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Appendix — The 1-Page O.S.
