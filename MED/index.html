@@ -33,7 +33,6 @@
     </script>
     
     <style>
-        /* Base Resets & Hardware Acceleration */
         body {
             background-color: #030303;
             color: #FFFFFF;
@@ -42,7 +41,6 @@
             text-rendering: optimizeLegibility;
         }
 
-        /* Micro-Texture Noise */
         .bg-noise {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -53,7 +51,6 @@
             transform: translateZ(0);
         }
 
-        /* VYRTŪOSITI Metallic Gradient */
         .text-metallic {
             background: linear-gradient(to right, #E0C379 0%, #93722A 40%, #C9A653 70%, #664E1C 100%);
             -webkit-background-clip: text;
@@ -62,7 +59,6 @@
             color: transparent;
         }
         
-        /* The Advanced Machined Edge Effect */
         .machined-edge {
             background: linear-gradient(180deg, rgba(15,15,15,1) 0%, rgba(5,5,5,1) 100%);
             box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 1px 0px rgba(255,255,255,0.08), inset 0 0 20px rgba(255,255,255,0.02);
@@ -73,7 +69,6 @@
             border-color: rgba(255,255,255,0.08);
         }
 
-        /* Apple-Tier Cinematic Scroll Reveal Engine */
         .reveal-on-scroll {
             opacity: 0;
             transform: translateY(30px) scale(0.98);
@@ -87,21 +82,14 @@
             filter: blur(0);
         }
         
-        /* Stagger delays for beautiful cascading load */
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
 
         /* TACTICAL LIGHT MODE: Print/PDF Export Optimization */
         @media print {
-            @page {
-                size: A4 landscape;
-                margin: 0;
-            }
-            html {
-                /* Shrinks all rem units by ~30% so content fits perfectly inside A4 */
-                font-size: 11px !important; 
-            }
+            @page { size: A4 landscape; margin: 0; }
+            html { font-size: 11px !important; }
             body {
                 background-color: #FFFFFF !important;
                 color: #111111 !important;
@@ -115,12 +103,8 @@
                 print-color-adjust: exact !important;
             }
             
-            /* Hide UI elements and overlays */
-            .bg-noise, #scroll-progress-container, nav, button, .print\:hidden {
-                display: none !important;
-            }
+            .bg-noise, #scroll-progress-container, nav, button, .print\:hidden { display: none !important; }
             
-            /* Disable animations & Web FX */
             .reveal-on-scroll {
                 opacity: 1 !important;
                 transform: none !important;
@@ -128,7 +112,6 @@
                 transition: none !important;
             }
             
-            /* Strict Section Framing */
             section {
                 width: 100vw !important;
                 height: 100vh !important;
@@ -144,42 +127,32 @@
                 justify-content: center !important;
                 box-sizing: border-box !important;
                 position: relative !important;
-                background: #FFFFFF !important; /* Force all full-page gradients to white */
+                background: #FFFFFF !important;
             }
 
             .max-w-\[1200px\] { max-width: 90vw !important; margin: 0 auto !important; }
 
-            /* --- THE COLOR INVERSION CORE --- */
-            
-            /* Convert Backgrounds to Light Grey / White */
-            .bg-\[\#030303\], .bg-\[\#050505\], .bg-\[\#0A0A0A\], .bg-black {
-                background-color: #FFFFFF !important;
-            }
-            .bg-\[\#222\] {
-                background-color: #E5E7EB !important; /* Fragmented blocks in Time Matrix */
-            }
+            /* Color Inversion Core */
+            .bg-\[\#030303\], .bg-\[\#050505\], .bg-\[\#0A0A0A\], .bg-black { background-color: #FFFFFF !important; }
+            .bg-\[\#222\] { background-color: #E5E7EB !important; }
 
-            /* Strip heavy box shadows and convert dark cards to clean, wireframe architecture */
             .machined-edge {
                 background: #FAFAFA !important;
                 box-shadow: none !important;
                 border: 1px solid #E5E7EB !important;
             }
             
-            /* The Rules block (which was dark gold gradient) */
             .bg-gradient-to-b.from-\[\#0F0F0F\] {
                 background: #FAFAFA !important;
                 box-shadow: none !important;
                 border: 1px solid rgba(147,114,42,0.3) !important;
             }
 
-            /* Convert Typography to Black / Dark Grey */
             h1, h2, h3, h4, h5, p, span, strong, div { text-shadow: none !important; }
             .text-white, .text-white\/95, .text-white\/90, .text-white\/80, .text-white\/70 { color: #111111 !important; }
-            .text-gray-300, .text-gray-400 { color: #374151 !important; } /* Tailwind gray-700 */
-            .text-gray-500, .text-gray-600, .text-gray-700 { color: #6B7280 !important; } /* Tailwind gray-500 */
+            .text-gray-300, .text-gray-400 { color: #374151 !important; }
+            .text-gray-500, .text-gray-600, .text-gray-700 { color: #6B7280 !important; }
             
-            /* Preserve Gold Elements */
             .text-gold-400, .text-gold-500, .text-gold-600 { color: #93722A !important; }
             .text-metallic {
                 background: none !important;
@@ -187,31 +160,21 @@
                 -webkit-text-fill-color: #93722A !important;
             }
 
-            /* Thin out the dark borders to light grey */
             .border-white\/\[0\.04\], .border-white\/\[0\.05\], .border-white\/\[0\.08\], .border-white\/\[0\.1\], .border-white\/\[0\.02\], .border-white\/\[0\.03\] {
                 border-color: #E5E7EB !important;
             }
 
-            /* The massive section watermarks */
-            .text-white\/\[0\.012\], .text-white\/\[0\.015\] {
-                color: rgba(0,0,0,0.03) !important;
-            }
+            .text-white\/\[0\.012\], .text-white\/\[0\.015\] { color: rgba(0,0,0,0.03) !important; }
 
-            /* Drop shadow strippers */
             [class*="drop-shadow-"] { filter: none !important; }
 
-            /* Checkboxes on Appendix */
             .border-white\/20 { border-color: #D1D5DB !important; }
-            .w-4.h-4.rounded-\[3px\].bg-black {
-                background-color: #FFFFFF !important;
-            }
+            .w-4.h-4.rounded-\[3px\].bg-black { background-color: #FFFFFF !important; }
 
-            /* SVG Architecture Adjustments */
             svg line[stroke^="rgba(255"] { stroke: rgba(0,0,0,0.15) !important; }
             svg circle[fill="#0A0A0A"], svg circle[fill="#030303"] { fill: #FFFFFF !important; }
             svg path[stroke="#E0C379"] { stroke: #93722A !important; }
             
-            /* Force Desktop Grid Constraints (Prevents mobile collapse in PDF) */
             .grid { display: grid !important; }
             .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
             .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
@@ -219,7 +182,6 @@
             .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
             .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 
-            /* Automatic footer numbering in PDF */
             section::after {
                 position: absolute;
                 bottom: 20px;
@@ -231,14 +193,12 @@
             }
         }
 
-        /* Marginalia / Vertical Text */
         .vertical-text {
             writing-mode: vertical-rl;
             text-orientation: mixed;
             transform: rotate(180deg);
         }
         
-        /* SVG Animation Utilities */
         @keyframes drawLine {
             to { stroke-dashoffset: 0; }
         }
@@ -249,121 +209,112 @@
         }
     </style>
 </head>
-<body class="relative overflow-x-hidden selection:bg-gold-600 selection:text-black">
+<body class="relative overflow-x-hidden selection:bg-gold-600 selection:text-black min-h-[100dvh]">
 
-    <!-- Ambient Texture -->
     <div class="bg-noise print:hidden"></div>
 
-    <!-- Microscopic Scroll Progress Bar -->
     <div id="scroll-progress-container" class="fixed top-0 left-0 w-full h-[1.5px] bg-white/[0.03] z-50 print:hidden">
         <div id="scroll-progress" class="h-full bg-gradient-to-r from-gold-600 via-gold-400 to-[#FFF3C7] w-0 transition-all duration-75 ease-out shadow-[0_0_12px_rgba(224,195,121,0.9)]"></div>
     </div>
 
-    <!-- Global Floating Header (Standardized Lockup) -->
-    <nav class="fixed top-0 left-0 w-full px-8 py-7 flex justify-between items-center z-40 print:hidden pointer-events-none mix-blend-difference">
-        <div class="flex items-center gap-4">
+    <nav class="fixed top-0 left-0 w-full px-6 lg:px-8 py-5 lg:py-7 flex justify-between items-center z-40 print:hidden pointer-events-none mix-blend-difference">
+        <div class="flex items-center gap-3 lg:gap-4">
             <div class="relative flex items-center justify-center">
                 <div class="absolute w-4 h-4 rounded-full bg-gold-600 blur-[8px] opacity-60"></div>
                 <div class="w-2.5 h-2.5 rounded-full bg-[#93722A] relative z-10"></div>
             </div>
-            <span class="text-white font-bold tracking-[0.4em] text-[13px] mt-[3px]">VYRTŪOSITI</span>
+            <span class="text-white font-bold tracking-[0.3em] lg:tracking-[0.4em] text-[11px] lg:text-[13px] mt-[3px]">VYRTŪOSITI</span>
         </div>
         <div class="flex items-center gap-3">
             <div class="relative flex items-center justify-center">
                 <div class="absolute w-4 h-4 rounded-full bg-[#4ADE80] blur-[8px] opacity-40"></div>
                 <div class="w-2.5 h-2.5 rounded-full bg-[#4ADE80] relative z-10"></div>
             </div>
-            <span class="text-[#777] font-mono text-[11px] tracking-[0.2em] uppercase mt-[3px]">System Online</span>
+            <span class="hidden sm:inline-block text-[#777] font-mono text-[11px] tracking-[0.2em] uppercase mt-[3px]">System Online</span>
         </div>
     </nav>
 
-    <!-- ========================================== -->
-    <!-- PAGE 00: COVER                             -->
-    <!-- ========================================== -->
-    <section class="page-break w-full h-screen min-h-[800px] flex flex-col items-center justify-center relative p-8 md:p-20 overflow-hidden bg-[#030303]">
-        <!-- Ethereal Spotlight -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_rgba(147,114,42,0.08)_0%,_transparent_70%)] pointer-events-none"></div>
+    <!-- PAGE 00: COVER -->
+    <!-- Mobile adjustment: Swapped fixed h-screen for min-h-[100dvh] flex growth -->
+    <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex flex-col items-center justify-center relative p-6 py-20 md:p-20 overflow-hidden bg-[#030303]">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square bg-[radial-gradient(circle,_rgba(147,114,42,0.08)_0%,_transparent_70%)] pointer-events-none"></div>
         <div class="absolute inset-0 border-[1px] border-white/[0.03] m-4 md:m-8 rounded-sm pointer-events-none"></div>
         
         <div class="text-center z-10 flex flex-col items-center max-w-4xl reveal-on-scroll">
-            <div class="w-16 h-16 rounded-full border border-gold-600/30 flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(147,114,42,0.2)] bg-gradient-to-b from-[#111] to-[#000] relative">
+            <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-full border border-gold-600/30 flex items-center justify-center mb-6 lg:mb-8 shadow-[0_0_40px_rgba(147,114,42,0.2)] bg-gradient-to-b from-[#111] to-[#000] relative">
                 <div class="absolute inset-0 rounded-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]"></div>
-                <i data-lucide="triangle" class="w-6 h-6 text-gold-500 fill-current opacity-90 relative z-10"></i>
+                <i data-lucide="triangle" class="w-5 h-5 lg:w-6 lg:h-6 text-gold-500 fill-current opacity-90 relative z-10"></i>
             </div>
 
-            <p class="font-mono text-[11px] tracking-[0.4em] text-gold-500 font-bold uppercase mb-6">A Vyrtūositi Asset</p>
+            <p class="font-mono text-[10px] lg:text-[11px] tracking-[0.3em] lg:tracking-[0.4em] text-gold-500 font-bold uppercase mb-6">A Vyrtūositi Asset</p>
             
-            <h1 class="text-6xl md:text-8xl lg:text-[7rem] font-extrabold tracking-tighter leading-[0.9] text-white uppercase mb-6 drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
+            <h1 class="text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] font-extrabold tracking-tighter leading-[0.95] lg:leading-[0.9] text-white uppercase mb-6 drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
                 THE M.E.D.<br>
                 <span class="text-metallic font-serif italic font-light tracking-normal lowercase drop-shadow-[0_0_30px_rgba(147,114,42,0.3)]">Dossier</span>
             </h1>
             
-            <div class="w-24 h-[1px] bg-gradient-to-r from-transparent via-gold-600 to-transparent my-8 opacity-70"></div>
+            <div class="w-20 lg:w-24 h-[1px] bg-gradient-to-r from-transparent via-gold-600 to-transparent my-6 lg:my-8 opacity-70"></div>
             
-            <p class="text-gray-400 text-lg md:text-[20px] font-light tracking-[0.2em] uppercase">Foundational Protocols for the <span class="text-white font-medium">Executive Athlete</span></p>
+            <p class="text-gray-400 text-base md:text-lg lg:text-[20px] font-light tracking-[0.15em] lg:tracking-[0.2em] uppercase max-w-[280px] sm:max-w-full">Foundational Protocols for the <br class="sm:hidden"><span class="text-white font-medium">Executive Athlete</span></p>
         </div>
 
-        <div class="absolute bottom-12 left-0 w-full text-center reveal-on-scroll delay-200">
-            <p class="font-mono text-[9px] tracking-[0.3em] text-gray-600 uppercase pl-[0.3em]">Prepared by Marcus Lefton</p>
+        <div class="absolute bottom-8 lg:bottom-12 left-0 w-full text-center reveal-on-scroll delay-200">
+            <p class="font-mono text-[8px] lg:text-[9px] tracking-[0.3em] text-gray-600 uppercase pl-[0.3em]">Prepared by Marcus Lefton</p>
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- PAGE 01: THE PARADIGM SHIFT                -->
-    <!-- ========================================== -->
-    <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[#050505] overflow-hidden">
-        <!-- Cinematic Watermark -->
-        <div class="absolute -right-10 top-1/4 text-[13rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Audit</div>
+    <!-- PAGE 01: THE PARADIGM SHIFT -->
+    <!-- Mobile adjustment: Switched gap-12 to gap-10 for tighter mobile view, py-20 for vertical clearance -->
+    <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex items-center relative p-6 py-24 md:p-20 border-t border-white/[0.03] bg-[#050505] overflow-hidden">
+        <div class="absolute -right-10 top-1/4 text-[8rem] lg:text-[13rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Audit</div>
 
-        <!-- Page Marginalia -->
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 01 — The Paradigm Shift
         </div>
-        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold">01</div>
+        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold hidden sm:block">01</div>
 
-        <div class="max-w-[1200px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10">
+        <div class="max-w-[1200px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-center relative z-10">
             
-            <div class="lg:col-span-5 border border-white/[0.04] rounded-xl p-8 lg:p-12 machined-edge relative reveal-on-scroll group">
+            <div class="lg:col-span-5 border border-white/[0.04] rounded-xl p-6 sm:p-8 lg:p-12 machined-edge relative reveal-on-scroll group mt-6 lg:mt-0">
                 <div class="absolute -top-3 -left-3 bg-gold-600 text-black font-mono text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1 shadow-[0_4px_20px_rgba(147,114,42,0.4)]">The Operator's Audit</div>
                 
-                <p class="text-gray-400 text-[12px] font-mono uppercase tracking-widest mb-8 border-b border-white/[0.05] pb-4">Answer with absolute honesty:</p>
+                <p class="text-gray-400 text-[11px] lg:text-[12px] font-mono uppercase tracking-widest mb-6 lg:mb-8 border-b border-white/[0.05] pb-4">Answer with absolute honesty:</p>
                 
-                <div class="space-y-8">
+                <div class="space-y-6 lg:space-y-8">
                     <div class="flex gap-4 items-start">
-                        <span class="text-gold-600 font-serif italic text-[28px] leading-none mt-0.5">01.</span>
-                        <p class="text-white/90 text-lg md:text-[19px] font-light leading-snug">Does your daily progress come from ruthless, uninterrupted focus, or are you bleeding cognitive capital on 8 hours of reactive context-switching?</p>
+                        <span class="text-gold-600 font-serif italic text-[24px] lg:text-[28px] leading-none mt-0.5">01.</span>
+                        <p class="text-white/90 text-[16px] md:text-[19px] font-light leading-snug">Does your daily progress come from ruthless, uninterrupted focus, or are you bleeding cognitive capital on 8 hours of reactive context-switching?</p>
                     </div>
                     <div class="flex gap-4 items-start">
-                        <span class="text-gold-600 font-serif italic text-[28px] leading-none mt-0.5">02.</span>
-                        <p class="text-white/90 text-lg md:text-[19px] font-light leading-snug">Are you oscillating between intense execution and deep rest like a lion, or are you operating in a state of perpetual, low-grade exhaustion like a grazing cow?</p>
+                        <span class="text-gold-600 font-serif italic text-[24px] lg:text-[28px] leading-none mt-0.5">02.</span>
+                        <p class="text-white/90 text-[16px] md:text-[19px] font-light leading-snug">Are you oscillating between intense execution and deep rest like a lion, or are you operating in a state of perpetual, low-grade exhaustion like a grazing cow?</p>
                     </div>
                     <div class="flex gap-4 items-start">
-                        <span class="text-gold-600 font-serif italic text-[28px] leading-none mt-0.5">03.</span>
-                        <p class="text-white/90 text-lg md:text-[19px] font-light leading-snug">When you walk through the door, can you actively down-regulate your nervous system, or does your family get the vibrating, exhausted remnants of the CEO?</p>
+                        <span class="text-gold-600 font-serif italic text-[24px] lg:text-[28px] leading-none mt-0.5">03.</span>
+                        <p class="text-white/90 text-[16px] md:text-[19px] font-light leading-snug">When you walk through the door, can you actively down-regulate your nervous system, or does your family get the vibrating, exhausted remnants of the CEO?</p>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-7 flex flex-col reveal-on-scroll delay-200">
-                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tighter mb-6 uppercase text-white/95 leading-[1.05]">
+                <h2 class="text-[28px] sm:text-3xl md:text-5xl font-extrabold tracking-tighter mb-5 lg:mb-6 uppercase text-white/95 leading-[1.05]">
                     Your stress isn't the problem.<br>
                     <span class="text-metallic font-serif italic font-light lowercase drop-shadow-[0_0_20px_rgba(147,114,42,0.2)]">Your friction management is.</span>
                 </h2>
                 
-                <div class="space-y-5 text-gray-300 text-[16px] font-light leading-[1.7]">
+                <div class="space-y-4 lg:space-y-5 text-gray-300 text-[15px] lg:text-[16px] font-light leading-[1.7]">
                     <p>You do not have a time management problem; you have a <strong class="text-white font-medium">Dopamine Capital</strong> problem. Every time you doom-scroll before a board meeting or check Slack during deep work, you are <em>spending</em> neurochemical currency. You are bankrupting your brain before 10 AM.</p>
                 </div>
 
-                <!-- Upgraded Data Visual -->
-                <div class="mt-8 mb-6 p-7 bg-[#050505] border border-white/[0.04] rounded-lg shadow-[inset_0_2px_20px_rgba(0,0,0,0.5)]">
-                    <div class="flex justify-between items-end mb-4">
-                        <span class="font-mono text-[10px] text-gold-500 uppercase tracking-widest font-bold">FIG 1.0 // Dopamine Capital Depletion</span>
+                <div class="mt-8 mb-6 p-5 lg:p-7 bg-[#050505] border border-white/[0.04] rounded-lg shadow-[inset_0_2px_20px_rgba(0,0,0,0.5)] overflow-x-hidden">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-4 gap-3 sm:gap-0">
+                        <span class="font-mono text-[9px] lg:text-[10px] text-gold-500 uppercase tracking-widest font-bold">FIG 1.0 // Dopamine Capital Depletion</span>
                         <div class="flex gap-5">
-                            <span class="font-mono text-[9px] text-gray-500 flex items-center gap-2"><div class="w-3 h-0.5 bg-[#444]"></div> Reactive</span>
-                            <span class="font-mono text-[9px] text-gold-500 flex items-center gap-2"><div class="w-3 h-0.5 bg-gold-500 shadow-[0_0_5px_rgba(224,195,121,0.8)]"></div> Protected</span>
+                            <span class="font-mono text-[8px] lg:text-[9px] text-gray-500 flex items-center gap-2"><div class="w-3 h-0.5 bg-[#444]"></div> Reactive</span>
+                            <span class="font-mono text-[8px] lg:text-[9px] text-gold-500 flex items-center gap-2"><div class="w-3 h-0.5 bg-gold-500 shadow-[0_0_5px_rgba(224,195,121,0.8)]"></div> Protected</span>
                         </div>
                     </div>
-                    <svg class="w-full h-24" viewBox="0 0 300 80" preserveAspectRatio="none">
+                    <svg class="w-full h-20 lg:h-24" viewBox="0 0 300 80" preserveAspectRatio="none">
                         <line x1="0" y1="20" x2="300" y2="20" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>
                         <line x1="0" y1="40" x2="300" y2="40" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>
                         <line x1="0" y1="60" x2="300" y2="60" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>
@@ -371,13 +322,12 @@
                         <path d="M 0 10 Q 50 15, 80 40 T 150 70 T 300 75" fill="none" stroke="#444" stroke-width="1.5" stroke-dasharray="4 2"/>
                         
                         <path d="M 0 10 Q 100 10, 150 15 T 250 25 T 300 20" fill="none" stroke="#E0C379" stroke-width="2.5" class="drop-shadow-[0_0_6px_rgba(224,195,121,0.6)] svg-animate-draw"/>
-                        <!-- Node Points on Gold Line -->
                         <circle cx="150" cy="15" r="2.5" fill="#030303" stroke="#E0C379" stroke-width="1.5" class="drop-shadow-[0_0_4px_rgba(224,195,121,0.8)]"/>
                         <circle cx="250" cy="25" r="2.5" fill="#030303" stroke="#E0C379" stroke-width="1.5" class="drop-shadow-[0_0_4px_rgba(224,195,121,0.8)]"/>
                         
-                        <path d="M 0 10 Q 100 10, 150 15 T 250 25 T 300 20 L 300 80 L 0 80 Z" fill="url(#goldGradient)" opacity="0.2"/>
+                        <path d="M 0 10 Q 100 10, 150 15 T 250 25 T 300 20 L 300 80 L 0 80 Z" fill="url(#goldGradient1)" opacity="0.2"/>
                         <defs>
-                            <linearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
+                            <linearGradient id="goldGradient1" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="0%" stop-color="#E0C379"/>
                                 <stop offset="100%" stop-color="transparent"/>
                             </linearGradient>
@@ -388,7 +338,7 @@
                     </svg>
                 </div>
 
-                <div class="space-y-6 text-gray-300 text-[16px] font-light leading-[1.7]">
+                <div class="space-y-6 text-gray-300 text-[15px] lg:text-[16px] font-light leading-[1.7]">
                     <p>The following biological and operational frameworks are the exact Minimum Effective Dose (M.E.D.) required to reclaim 15+ hours of cognitive energy this week. Zero fluff. Just pure ROI.</p>
                 </div>
             </div>
@@ -396,51 +346,49 @@
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- PAGE 02: TEMPORAL LEVERAGE                 -->
-    <!-- ========================================== -->
-    <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[radial-gradient(ellipse_at_top,_rgba(147,114,42,0.03)_0%,_#020202_80%)] overflow-hidden">
-        <div class="absolute -left-10 top-1/3 text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Time</div>
+    <!-- PAGE 02: TEMPORAL LEVERAGE -->
+    <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex items-center relative p-6 py-24 md:p-20 border-t border-white/[0.03] bg-[radial-gradient(ellipse_at_top,_rgba(147,114,42,0.03)_0%,_#020202_80%)] overflow-hidden">
+        <div class="absolute -left-10 top-1/3 text-[8rem] lg:text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Time</div>
 
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 02 — Temporal Leverage
         </div>
-        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold">02</div>
+        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold hidden sm:block">02</div>
 
         <div class="max-w-[1200px] mx-auto w-full flex flex-col h-full justify-center relative z-10">
             
-            <header class="mb-12 border-b border-white/[0.05] pb-6 reveal-on-scroll">
-                <h2 class="text-metallic font-mono tracking-[0.3em] text-[11px] uppercase font-bold mb-3">Foundation I</h2>
-                <h3 class="text-4xl md:text-5xl font-extrabold uppercase tracking-tighter">Temporal Leverage</h3>
+            <header class="mb-10 lg:mb-12 border-b border-white/[0.05] pb-5 lg:pb-6 reveal-on-scroll">
+                <h2 class="text-metallic font-mono tracking-[0.3em] text-[10px] lg:text-[11px] uppercase font-bold mb-2 lg:mb-3">Foundation I</h2>
+                <h3 class="text-[32px] md:text-4xl lg:text-5xl font-extrabold uppercase tracking-tighter">Temporal Leverage</h3>
             </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-20">
                 
                 <div class="relative reveal-on-scroll delay-100">
-                    <div class="text-[8rem] leading-none font-serif italic absolute -top-16 -left-8 text-white/[0.015] pointer-events-none select-none">01</div>
+                    <div class="text-[6rem] lg:text-[8rem] leading-none font-serif italic absolute -top-12 lg:-top-16 -left-4 lg:-left-8 text-white/[0.015] pointer-events-none select-none">01</div>
                     <div class="relative z-10">
-                        <div class="flex items-center gap-3 mb-6">
+                        <div class="flex items-center gap-3 mb-5 lg:mb-6">
                             <div class="w-8 h-8 rounded-full bg-black border border-gold-600/30 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_0_15px_rgba(147,114,42,0.15)]">
                                 <i data-lucide="scissors" class="w-4 h-4 text-gold-500"></i>
                             </div>
-                            <h4 class="text-2xl font-bold tracking-tight uppercase">Addition By Subtraction</h4>
+                            <h4 class="text-[20px] lg:text-2xl font-bold tracking-tight uppercase">Addition By Subtraction</h4>
                         </div>
                         
-                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[15px]">You cannot optimize a broken system. Before deploying advanced biological protocols, you must ruthlessly eliminate the bloated habits wasting your morning. Time bending starts with surgical subtraction.</p>
+                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[14px] lg:text-[15px]">You cannot optimize a broken system. Before deploying advanced biological protocols, you must ruthlessly eliminate the bloated habits wasting your morning. Time bending starts with surgical subtraction.</p>
                         
-                        <div class="border border-white/[0.04] rounded-lg p-7 space-y-5 machined-edge">
-                            <h5 class="font-mono text-[10px] text-gold-500 uppercase tracking-widest border-b border-white/[0.05] pb-2 mb-4">The Execution</h5>
+                        <div class="border border-white/[0.04] rounded-lg p-6 lg:p-7 space-y-5 machined-edge">
+                            <h5 class="font-mono text-[9px] lg:text-[10px] text-gold-500 uppercase tracking-widest border-b border-white/[0.05] pb-2 mb-4">The Execution</h5>
                             <div class="flex items-start gap-3.5">
                                 <i data-lucide="check" class="w-4 h-4 text-gold-600 shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-white text-sm block mb-1 tracking-wide">The Friction Audit</strong>
+                                    <strong class="text-white text-[13px] lg:text-sm block mb-1 tracking-wide">The Friction Audit</strong>
                                     <p class="text-gray-500 text-[13px] leading-[1.6]">List every action you take before 9:00 AM. If a habit does not directly compound your executive output or family presence, kill it instantly. No exceptions.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3.5">
                                 <i data-lucide="check" class="w-4 h-4 text-gold-600 shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-white text-sm block mb-1 tracking-wide">Information Fasting</strong>
+                                    <strong class="text-white text-[13px] lg:text-sm block mb-1 tracking-wide">Information Fasting</strong>
                                     <p class="text-gray-500 text-[13px] leading-[1.6]">Eliminate all reactive inputs (email, slack, news) during your initial waking hours. <span class="text-white/80 font-medium">Input dictates state. You must control the input.</span></p>
                                 </div>
                             </div>
@@ -449,40 +397,40 @@
                 </div>
 
                 <div class="relative reveal-on-scroll delay-200">
-                    <div class="text-[8rem] leading-none font-serif italic absolute -top-16 -left-8 text-white/[0.015] pointer-events-none select-none">02</div>
+                    <div class="text-[6rem] lg:text-[8rem] leading-none font-serif italic absolute -top-12 lg:-top-16 -left-4 lg:-left-8 text-white/[0.015] pointer-events-none select-none">02</div>
                     <div class="relative z-10">
-                        <div class="flex items-center gap-3 mb-6">
+                        <div class="flex items-center gap-3 mb-5 lg:mb-6">
                             <div class="w-8 h-8 rounded-full bg-black border border-gold-600/30 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_0_15px_rgba(147,114,42,0.15)]">
                                 <i data-lucide="calendar-clock" class="w-4 h-4 text-gold-500"></i>
                             </div>
-                            <h4 class="text-2xl font-bold tracking-tight uppercase">Defensive Architecture</h4>
+                            <h4 class="text-[20px] lg:text-2xl font-bold tracking-tight uppercase">Defensive Architecture</h4>
                         </div>
                         
-                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[15px]">Amateurs let their inbox dictate their calendar. Masters dictate their calendar to the world. Time bending isn't about working faster; it is the mathematical result of eliminating context-switching.</p>
+                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[14px] lg:text-[15px]">Amateurs let their inbox dictate their calendar. Masters dictate their calendar to the world. Time bending isn't about working faster; it is the mathematical result of eliminating context-switching.</p>
                         
-                        <div class="border border-white/[0.04] rounded-lg p-7 space-y-5 machined-edge">
+                        <div class="border border-white/[0.04] rounded-lg p-6 lg:p-7 space-y-4 machined-edge">
                             <div class="w-full mb-4 p-4 bg-[#050505] rounded shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] border border-white/[0.02]">
-                                <div class="flex items-center justify-between gap-6">
-                                    <div class="w-1/2 flex flex-col gap-2">
-                                        <span class="font-mono text-[8px] text-gray-500 uppercase tracking-widest">Fragmented</span>
-                                        <div class="w-full h-3.5 flex gap-1">
+                                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+                                    <div class="w-full sm:w-1/2 flex flex-col gap-2">
+                                        <span class="font-mono text-[7px] lg:text-[8px] text-gray-500 uppercase tracking-widest">Fragmented</span>
+                                        <div class="w-full h-3 lg:h-3.5 flex gap-1">
                                             <div class="h-full w-1/4 bg-[#222] rounded-[2px]"></div>
                                             <div class="h-full w-1/6 bg-transparent"></div>
                                             <div class="h-full w-1/3 bg-[#222] rounded-[2px]"></div>
                                             <div class="h-full w-1/4 bg-[#222] rounded-[2px]"></div>
                                         </div>
                                     </div>
-                                    <div class="w-1/2 flex flex-col gap-2">
-                                        <span class="font-mono text-[8px] text-gold-500 uppercase tracking-widest font-bold">Density Block</span>
-                                        <div class="w-full h-3.5 bg-gradient-to-r from-gold-600 to-gold-400 rounded-[2px] shadow-[0_0_10px_rgba(147,114,42,0.4)]"></div>
+                                    <div class="w-full sm:w-1/2 flex flex-col gap-2">
+                                        <span class="font-mono text-[7px] lg:text-[8px] text-gold-500 uppercase tracking-widest font-bold">Density Block</span>
+                                        <div class="w-full h-3 lg:h-3.5 bg-gradient-to-r from-gold-600 to-gold-400 rounded-[2px] shadow-[0_0_10px_rgba(147,114,42,0.4)]"></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-3.5">
+                            <div class="flex items-start gap-3.5 mt-2">
                                 <i data-lucide="check" class="w-4 h-4 text-gold-600 shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-white text-sm block mb-1 tracking-wide">Focus Density Over Duration</strong>
+                                    <strong class="text-white text-[13px] lg:text-sm block mb-1 tracking-wide">Focus Density Over Duration</strong>
                                     <p class="text-gray-500 text-[13px] leading-[1.6]">1 hour of deeply gated, zero-distraction execution yields the output of 4 hours of shallow, fractured work. Architect a default calendar. Anchor deep work first.</p>
                                 </div>
                             </div>
@@ -494,51 +442,49 @@
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- PAGE 03: THE RECOVERY BASELINE             -->
-    <!-- ========================================== -->
-    <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[#050505] overflow-hidden">
-        <div class="absolute -left-10 top-1/3 text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Recovery</div>
+    <!-- PAGE 03: THE RECOVERY BASELINE -->
+    <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex items-center relative p-6 py-24 md:p-20 border-t border-white/[0.03] bg-[#050505] overflow-hidden">
+        <div class="absolute -left-10 top-1/3 text-[8rem] lg:text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Recovery</div>
 
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 03 — Recovery & Restoration
         </div>
-        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold">03</div>
+        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold hidden sm:block">03</div>
 
         <div class="max-w-[1200px] mx-auto w-full flex flex-col h-full justify-center relative z-10">
             
-            <header class="mb-12 border-b border-white/[0.05] pb-6 reveal-on-scroll">
-                <h2 class="text-metallic font-mono tracking-[0.3em] text-[11px] uppercase font-bold mb-3">Foundation II</h2>
-                <h3 class="text-4xl md:text-5xl font-extrabold uppercase tracking-tighter">Recovery & Restoration</h3>
+            <header class="mb-10 lg:mb-12 border-b border-white/[0.05] pb-5 lg:pb-6 reveal-on-scroll">
+                <h2 class="text-metallic font-mono tracking-[0.3em] text-[10px] lg:text-[11px] uppercase font-bold mb-2 lg:mb-3">Foundation II</h2>
+                <h3 class="text-[32px] md:text-4xl lg:text-5xl font-extrabold uppercase tracking-tighter">Recovery & Restoration</h3>
             </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-20">
                 
                 <div class="relative reveal-on-scroll delay-100">
-                    <div class="text-[8rem] leading-none font-serif italic absolute -top-16 -left-8 text-white/[0.015] pointer-events-none select-none">01</div>
+                    <div class="text-[6rem] lg:text-[8rem] leading-none font-serif italic absolute -top-12 lg:-top-16 -left-4 lg:-left-8 text-white/[0.015] pointer-events-none select-none">01</div>
                     <div class="relative z-10">
-                        <div class="flex items-center gap-3 mb-6">
+                        <div class="flex items-center gap-3 mb-5 lg:mb-6">
                             <div class="w-8 h-8 rounded-full bg-black border border-gold-600/30 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_0_15px_rgba(147,114,42,0.15)]">
                                 <i data-lucide="activity-square" class="w-4 h-4 text-gold-500"></i>
                             </div>
-                            <h4 class="text-2xl font-bold tracking-tight uppercase">Active Down-Regulation</h4>
+                            <h4 class="text-[20px] lg:text-2xl font-bold tracking-tight uppercase">Active Down-Regulation</h4>
                         </div>
                         
-                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[15px]">Recovery is not passively collapsing on a couch. True recovery is the deliberate engagement of the parasympathetic nervous system. It is a learned, proactive skill.</p>
+                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[14px] lg:text-[15px]">Recovery is not passively collapsing on a couch. True recovery is the deliberate engagement of the parasympathetic nervous system. It is a learned, proactive skill.</p>
                         
-                        <div class="border border-white/[0.04] rounded-lg p-7 space-y-5 machined-edge">
-                            <h5 class="font-mono text-[10px] text-gold-500 uppercase tracking-widest border-b border-white/[0.05] pb-2 mb-4">The Execution</h5>
+                        <div class="border border-white/[0.04] rounded-lg p-6 lg:p-7 space-y-5 machined-edge">
+                            <h5 class="font-mono text-[9px] lg:text-[10px] text-gold-500 uppercase tracking-widest border-b border-white/[0.05] pb-2 mb-4">The Execution</h5>
                             <div class="flex items-start gap-3.5">
                                 <i data-lucide="check" class="w-4 h-4 text-gold-600 shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-white text-sm block mb-1 tracking-wide">The "Off" State Benchmark</strong>
+                                    <strong class="text-white text-[13px] lg:text-sm block mb-1 tracking-wide">The "Off" State Benchmark</strong>
                                     <p class="text-gray-500 text-[13px] leading-[1.6]">You are not recovering until you feel the physiological shift: The room brightens. Your voice deepens. Vision shifts to panoramic. Heart rate plummets.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3.5">
                                 <i data-lucide="check" class="w-4 h-4 text-gold-600 shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-white text-sm block mb-1 tracking-wide">The CO2 Tolerance Baseline</strong>
+                                    <strong class="text-white text-[13px] lg:text-sm block mb-1 tracking-wide">The CO2 Tolerance Baseline</strong>
                                     <p class="text-gray-500 text-[13px] leading-[1.6]">Take 3 normal breaths, 1 deep inhale, and time your slowest possible exhale. <span class="text-white/80 font-medium">Do not fixate on the exact seconds initially.</span> Test frequently, learn your personal metric, and systematically expand it to expand your biological stress capacity.</p>
                                 </div>
                             </div>
@@ -547,23 +493,23 @@
                 </div>
 
                 <div class="relative reveal-on-scroll delay-200">
-                    <div class="text-[8rem] leading-none font-serif italic absolute -top-16 -left-8 text-white/[0.015] pointer-events-none select-none">02</div>
+                    <div class="text-[6rem] lg:text-[8rem] leading-none font-serif italic absolute -top-12 lg:-top-16 -left-4 lg:-left-8 text-white/[0.015] pointer-events-none select-none">02</div>
                     <div class="relative z-10">
-                        <div class="flex items-center gap-3 mb-6">
+                        <div class="flex items-center gap-3 mb-5 lg:mb-6">
                             <div class="w-8 h-8 rounded-full bg-black border border-gold-600/30 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_0_15px_rgba(147,114,42,0.15)]">
                                 <i data-lucide="clock" class="w-4 h-4 text-gold-500"></i>
                             </div>
-                            <h4 class="text-2xl font-bold tracking-tight uppercase">The Circadian Anchor</h4>
+                            <h4 class="text-[20px] lg:text-2xl font-bold tracking-tight uppercase">The Circadian Anchor</h4>
                         </div>
                         
-                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[15px]">Sleep optimization does not begin at night; it begins the moment you wake up. You must deliberately set the 16-hour chemical timer for your autonomic nervous system.</p>
+                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[14px] lg:text-[15px]">Sleep optimization does not begin at night; it begins the moment you wake up. You must deliberately set the 16-hour chemical timer for your autonomic nervous system.</p>
                         
-                        <div class="border border-white/[0.04] rounded-lg p-7 space-y-4 machined-edge">
-                            <div class="w-full mb-4 p-5 bg-[#050505] rounded border border-white/[0.02]">
+                        <div class="border border-white/[0.04] rounded-lg p-6 lg:p-7 space-y-4 machined-edge">
+                            <div class="w-full mb-4 p-4 lg:p-5 bg-[#050505] rounded border border-white/[0.02]">
                                 <div class="flex justify-between items-end mb-3">
-                                    <span class="font-mono text-[9px] text-gray-500 uppercase tracking-widest font-bold">FIG 2.0 // The Circadian Architecture</span>
+                                    <span class="font-mono text-[8px] lg:text-[9px] text-gray-500 uppercase tracking-widest font-bold">FIG 2.0 // The Circadian Architecture</span>
                                 </div>
-                                <svg class="w-full h-16" viewBox="0 0 300 50" preserveAspectRatio="none">
+                                <svg class="w-full h-14 lg:h-16" viewBox="0 0 300 50" preserveAspectRatio="none">
                                     <line x1="0" y1="40" x2="300" y2="40" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
                                     <path d="M 0 40 Q 30 5, 60 10 T 150 38 T 300 40" fill="none" stroke="#E0C379" stroke-width="2" class="drop-shadow-[0_0_5px_rgba(224,195,121,0.6)] svg-animate-draw"/>
                                     <path d="M 0 35 Q 50 38, 150 38 T 250 5 T 300 10" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="2 2" class="svg-animate-draw"/>
@@ -580,7 +526,7 @@
                             <div class="flex items-start gap-3.5 mt-2">
                                 <i data-lucide="check" class="w-4 h-4 text-gold-600 shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-white text-sm block mb-1 tracking-wide">Hydration & Morning Light</strong>
+                                    <strong class="text-white text-[13px] lg:text-sm block mb-1 tracking-wide">Hydration & Morning Light</strong>
                                     <p class="text-gray-500 text-[13px] leading-[1.6]">Consume 30oz water + electrolytes while viewing 10 mins of natural sunlight within 30 mins of waking. <strong class="text-white/80 font-medium">Delay caffeine for 90 minutes to prevent the afternoon adenosine crash.</strong></p>
                                 </div>
                             </div>
@@ -592,45 +538,43 @@
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- PAGE 04: OSCILLATION & BIOCHEMISTRY        -->
-    <!-- ========================================== -->
-    <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[radial-gradient(ellipse_at_bottom,_rgba(147,114,42,0.03)_0%,_#020202_80%)] overflow-hidden">
-        <div class="absolute right-0 bottom-10 text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Rhythm</div>
+    <!-- PAGE 04: OSCILLATION & BIOCHEMISTRY -->
+    <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex items-center relative p-6 py-24 md:p-20 border-t border-white/[0.03] bg-[radial-gradient(ellipse_at_bottom,_rgba(147,114,42,0.03)_0%,_#020202_80%)] overflow-hidden">
+        <div class="absolute right-0 bottom-10 text-[8rem] lg:text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Rhythm</div>
 
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 04 — Oscillation & Fuel
         </div>
-        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold">04</div>
+        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold hidden sm:block">04</div>
 
         <div class="max-w-[1200px] mx-auto w-full flex flex-col h-full justify-center relative z-10">
             
-            <header class="mb-12 border-b border-white/[0.05] pb-6 reveal-on-scroll">
-                <h2 class="text-metallic font-mono tracking-[0.3em] text-[11px] uppercase font-bold mb-3">Foundation III</h2>
-                <h3 class="text-4xl md:text-5xl font-extrabold uppercase tracking-tighter">Oscillation & Biochemistry</h3>
+            <header class="mb-10 lg:mb-12 border-b border-white/[0.05] pb-5 lg:pb-6 reveal-on-scroll">
+                <h2 class="text-metallic font-mono tracking-[0.3em] text-[10px] lg:text-[11px] uppercase font-bold mb-2 lg:mb-3">Foundation III</h2>
+                <h3 class="text-[32px] md:text-4xl lg:text-5xl font-extrabold uppercase tracking-tighter">Oscillation & Biochemistry</h3>
             </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-20">
                 
                 <div class="relative reveal-on-scroll delay-100">
-                    <div class="text-[8rem] leading-none font-serif italic absolute -top-16 -left-8 text-white/[0.015] pointer-events-none select-none">03</div>
+                    <div class="text-[6rem] lg:text-[8rem] leading-none font-serif italic absolute -top-12 lg:-top-16 -left-4 lg:-left-8 text-white/[0.015] pointer-events-none select-none">03</div>
                     <div class="relative z-10">
-                        <div class="flex items-center gap-3 mb-6">
+                        <div class="flex items-center gap-3 mb-5 lg:mb-6">
                             <div class="w-8 h-8 rounded-full bg-black border border-gold-600/30 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_0_15px_rgba(147,114,42,0.15)]">
                                 <i data-lucide="waves" class="w-4 h-4 text-gold-500"></i>
                             </div>
-                            <h4 class="text-2xl font-bold tracking-tight uppercase">Oscillation Mastery</h4>
+                            <h4 class="text-[20px] lg:text-2xl font-bold tracking-tight uppercase">Oscillation Mastery</h4>
                         </div>
                         
-                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[15px]">Operators work like lions, not grazing cows. Amateurs try to hold a moderate "peak state" for 14 hours and inevitably burn out. Masters violently oscillate between intense sprints and absolute rest.</p>
+                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[14px] lg:text-[15px]">Operators work like lions, not grazing cows. Amateurs try to hold a moderate "peak state" for 14 hours and inevitably burn out. Masters violently oscillate between intense sprints and absolute rest.</p>
                         
-                        <div class="border border-white/[0.04] rounded-lg p-7 space-y-5 machined-edge">
+                        <div class="border border-white/[0.04] rounded-lg p-6 lg:p-7 space-y-5 machined-edge">
                             
-                            <div class="w-full relative mb-4 p-5 bg-[#050505] rounded border border-white/[0.02]">
+                            <div class="w-full relative mb-4 p-4 lg:p-5 bg-[#050505] rounded border border-white/[0.02]">
                                 <div class="flex justify-between items-end mb-3">
-                                    <span class="font-mono text-[9px] text-gray-500 uppercase tracking-widest font-bold">FIG 3.0 // The Ultradian Rhythm</span>
+                                    <span class="font-mono text-[8px] lg:text-[9px] text-gray-500 uppercase tracking-widest font-bold">FIG 3.0 // The Ultradian Rhythm</span>
                                 </div>
-                                <svg class="w-full h-16 opacity-90" viewBox="0 0 200 40" preserveAspectRatio="none">
+                                <svg class="w-full h-14 lg:h-16 opacity-90" viewBox="0 0 200 40" preserveAspectRatio="none">
                                     <defs>
                                         <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
                                             <stop offset="0%" stop-color="#E0C379" stop-opacity="1"/>
@@ -653,7 +597,7 @@
                             <div class="flex items-start gap-3.5">
                                 <i data-lucide="check" class="w-4 h-4 text-gold-600 shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-white text-sm block mb-1 tracking-wide">Clean Transitions</strong>
+                                    <strong class="text-white text-[13px] lg:text-sm block mb-1 tracking-wide">Clean Transitions</strong>
                                     <p class="text-gray-500 text-[13px] leading-[1.6]">Never blend tasks. Deliberately clear the psychological and physiological residue of the previous task before starting the next.</p>
                                 </div>
                             </div>
@@ -662,30 +606,30 @@
                 </div>
 
                 <div class="relative reveal-on-scroll delay-200">
-                    <div class="text-[8rem] leading-none font-serif italic absolute -top-16 -left-8 text-white/[0.015] pointer-events-none select-none">04</div>
+                    <div class="text-[6rem] lg:text-[8rem] leading-none font-serif italic absolute -top-12 lg:-top-16 -left-4 lg:-left-8 text-white/[0.015] pointer-events-none select-none">04</div>
                     <div class="relative z-10">
-                        <div class="flex items-center gap-3 mb-6">
+                        <div class="flex items-center gap-3 mb-5 lg:mb-6">
                             <div class="w-8 h-8 rounded-full bg-black border border-gold-600/30 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_0_15px_rgba(147,114,42,0.15)]">
                                 <i data-lucide="droplets" class="w-4 h-4 text-gold-500"></i>
                             </div>
-                            <h4 class="text-2xl font-bold tracking-tight uppercase">M.E.D. Biochemistry</h4>
+                            <h4 class="text-[20px] lg:text-2xl font-bold tracking-tight uppercase">M.E.D. Biochemistry</h4>
                         </div>
                         
-                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[15px]">There is no free lunch in biology. Executive output requires specific chemical substrates. You cannot demand elite performance from a chassis running on deficient fuel.</p>
+                        <p class="text-gray-400 font-light leading-relaxed mb-6 text-[14px] lg:text-[15px]">There is no free lunch in biology. Executive output requires specific chemical substrates. You cannot demand elite performance from a chassis running on deficient fuel.</p>
                         
-                        <div class="border border-white/[0.04] rounded-lg p-7 space-y-5 machined-edge">
-                            <h5 class="font-mono text-[10px] text-gold-500 uppercase tracking-widest border-b border-white/[0.05] pb-2 mb-4">The Execution</h5>
+                        <div class="border border-white/[0.04] rounded-lg p-6 lg:p-7 space-y-5 machined-edge">
+                            <h5 class="font-mono text-[9px] lg:text-[10px] text-gold-500 uppercase tracking-widest border-b border-white/[0.05] pb-2 mb-4">The Execution</h5>
                             <div class="flex items-start gap-3.5">
                                 <i data-lucide="check" class="w-4 h-4 text-gold-600 shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-white text-sm block mb-1 tracking-wide">Controlled Entry</strong>
+                                    <strong class="text-white text-[13px] lg:text-sm block mb-1 tracking-wide">Controlled Entry</strong>
                                     <p class="text-gray-500 text-[13px] leading-[1.6]">You do not need to be strictly fasted, but you must control physiological entry into deep work. Engineer dopamine and epinephrine in your favor to secure a biological sympathetic (hunting) state.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3.5">
                                 <i data-lucide="check" class="w-4 h-4 text-gold-600 shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-white text-sm block mb-1 tracking-wide">Neurotransmitter Sequencing</strong>
+                                    <strong class="text-white text-[13px] lg:text-sm block mb-1 tracking-wide">Neurotransmitter Sequencing</strong>
                                     <p class="text-gray-500 text-[13px] leading-[1.6]">Align your macros with your required autonomic state. <strong class="text-white/80 font-medium">Tyrosine (proteins) drives Dopamine for AM execution. Tryptophan (carbs/fats) drives Serotonin/Melatonin for PM down-regulation.</strong></p>
                                 </div>
                             </div>
@@ -697,34 +641,32 @@
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- PAGE 05: THE LEVERAGE MATRIX               -->
-    <!-- ========================================== -->
-    <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[radial-gradient(ellipse_at_top_right,_rgba(147,114,42,0.06)_0%,_#050505_70%)] overflow-hidden">
-        <div class="absolute left-0 bottom-20 text-[13rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Leverage</div>
+    <!-- PAGE 05: THE LEVERAGE MATRIX -->
+    <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex items-center relative p-6 py-24 md:p-20 border-t border-white/[0.03] bg-[radial-gradient(ellipse_at_top_right,_rgba(147,114,42,0.06)_0%,_#050505_70%)] overflow-hidden">
+        <div class="absolute left-0 bottom-20 text-[8rem] lg:text-[13rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none print:hidden">Leverage</div>
 
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 05 — The Leverage Matrix
         </div>
-        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold">05</div>
+        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold hidden sm:block">05</div>
 
-        <div class="max-w-[1200px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10">
+        <div class="max-w-[1200px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-center relative z-10">
             
             <div class="lg:col-span-5 flex flex-col reveal-on-scroll">
-                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tighter mb-6 uppercase text-white/95 leading-[1.05]">
+                <h2 class="text-[32px] sm:text-3xl md:text-5xl font-extrabold tracking-tighter mb-5 lg:mb-6 uppercase text-white/95 leading-[1.05]">
                     The Leverage<br>
                     <span class="text-metallic font-serif italic font-light lowercase drop-shadow-[0_0_20px_rgba(147,114,42,0.2)]">Matrix</span>
                 </h2>
                 
-                <div class="space-y-5 text-gray-300 text-[16px] font-light leading-[1.7] mb-8">
+                <div class="space-y-4 lg:space-y-5 text-gray-300 text-[15px] lg:text-[16px] font-light leading-[1.7] mb-8">
                     <p>Protocols 01 through 04 just armed your biological and cognitive capital. But energy without direction is chaos.</p>
                     <p>True leverage operates on a <strong>J-Curve</strong>. In an Exploration phase, cognitive input is massive but operational output is low. In an Exploitation phase, systems take over and output goes exponential.</p>
                     <p class="text-gold-500 font-medium">Executive Athletes burn out because they demand the exponential results of an Exploit season while their brain is paying the massive friction tax of an Explore season.</p>
                 </div>
 
-                <div class="w-full bg-[#050505] border border-white/[0.04] rounded-lg p-7 shadow-[inset_0_2px_20px_rgba(0,0,0,0.5)]">
-                    <span class="font-mono text-[10px] text-gold-500 uppercase tracking-widest block mb-6 font-bold">FIG 4.0 // The Cognitive J-Curve</span>
-                    <svg class="w-full h-36" viewBox="0 0 200 100">
+                <div class="w-full bg-[#050505] border border-white/[0.04] rounded-lg p-5 lg:p-7 shadow-[inset_0_2px_20px_rgba(0,0,0,0.5)] overflow-x-hidden">
+                    <span class="font-mono text-[9px] lg:text-[10px] text-gold-500 uppercase tracking-widest block mb-4 lg:mb-6 font-bold">FIG 4.0 // The Cognitive J-Curve</span>
+                    <svg class="w-full h-32 lg:h-36" viewBox="0 0 200 100">
                         <line x1="100" y1="10" x2="100" y2="90" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="2 2" />
                         <text x="50" y="15" fill="#555" font-size="5" font-family="monospace" text-anchor="middle" letter-spacing="0.1em" font-weight="bold">PHASE 1: EXPLORE</text>
                         <text x="150" y="15" fill="#555" font-size="5" font-family="monospace" text-anchor="middle" letter-spacing="0.1em" font-weight="bold">PHASE 2: EXPLOIT</text>
@@ -754,124 +696,120 @@
             </div>
 
             <div class="lg:col-span-7 space-y-6">
-                <div class="border border-white/[0.04] rounded-xl p-8 relative overflow-hidden group machined-edge reveal-on-scroll delay-100">
+                <div class="border border-white/[0.04] rounded-xl p-6 lg:p-8 relative overflow-hidden group machined-edge reveal-on-scroll delay-100">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-gray-800 group-hover:bg-gradient-to-b group-hover:from-gold-400 group-hover:to-gold-600 transition-all duration-500"></div>
                     <div class="flex items-center gap-3 mb-4">
                         <i data-lucide="compass" class="w-5 h-5 text-gold-500"></i>
-                        <h4 class="text-[20px] font-bold tracking-tight uppercase text-white/95">Exploration Phase</h4>
-                        <span class="ml-auto font-mono text-[9px] text-gray-500 uppercase tracking-widest border border-white/[0.1] px-2 py-1 rounded bg-[#111]">The Launch Cycle</span>
+                        <h4 class="text-[18px] lg:text-[20px] font-bold tracking-tight uppercase text-white/95">Exploration Phase</h4>
+                        <span class="ml-auto font-mono text-[8px] lg:text-[9px] text-gray-500 uppercase tracking-widest border border-white/[0.1] px-2 py-1 rounded bg-[#111]">The Launch Cycle</span>
                     </div>
-                    <p class="text-gray-400 text-[14px] leading-[1.7] font-light">You are finding product-market fit or pivoting. This requires high sympathetic drive, high risk tolerance, and immense cognitive flexibility. Your inputs must be geared toward neuroplasticity. <span class="text-white/80 block mt-2 font-medium">Diagnostic: Are you actively trying to break things to find what works?</span></p>
+                    <p class="text-gray-400 text-[13px] lg:text-[14px] leading-[1.7] font-light">You are finding product-market fit or pivoting. This requires high sympathetic drive, high risk tolerance, and immense cognitive flexibility. Your inputs must be geared toward neuroplasticity. <span class="text-white/80 block mt-2 font-medium">Diagnostic: Are you actively trying to break things to find what works?</span></p>
                 </div>
 
-                <div class="border border-white/[0.04] rounded-xl p-8 relative overflow-hidden group machined-edge reveal-on-scroll delay-200">
+                <div class="border border-white/[0.04] rounded-xl p-6 lg:p-8 relative overflow-hidden group machined-edge reveal-on-scroll delay-200">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-gray-800 group-hover:bg-gradient-to-b group-hover:from-gold-400 group-hover:to-gold-600 transition-all duration-500"></div>
                     <div class="flex items-center gap-3 mb-4">
                         <i data-lucide="layers" class="w-5 h-5 text-gold-500"></i>
-                        <h4 class="text-[20px] font-bold tracking-tight uppercase text-white/95">Exploitation Phase</h4>
-                        <span class="ml-auto font-mono text-[9px] text-gray-500 uppercase tracking-widest border border-white/[0.1] px-2 py-1 rounded bg-[#111]">The Scale Cycle</span>
+                        <h4 class="text-[18px] lg:text-[20px] font-bold tracking-tight uppercase text-white/95">Exploitation Phase</h4>
+                        <span class="ml-auto font-mono text-[8px] lg:text-[9px] text-gray-500 uppercase tracking-widest border border-white/[0.1] px-2 py-1 rounded bg-[#111]">The Scale Cycle</span>
                     </div>
-                    <p class="text-gray-400 text-[14px] leading-[1.7] font-light">You are scaling existing systems. This requires ruthless focus, deep routine, and systematic execution. Your inputs must be geared toward absolute stamina and eliminating variables. <span class="text-white/80 block mt-2 font-medium">Diagnostic: Are you standardizing what works so it never breaks?</span></p>
+                    <p class="text-gray-400 text-[13px] lg:text-[14px] leading-[1.7] font-light">You are scaling existing systems. This requires ruthless focus, deep routine, and systematic execution. Your inputs must be geared toward absolute stamina and eliminating variables. <span class="text-white/80 block mt-2 font-medium">Diagnostic: Are you standardizing what works so it never breaks?</span></p>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- PAGE 06: THE MOAT (CTA)                    -->
-    <!-- ========================================== -->
-    <section class="page-break w-full h-screen min-h-[800px] flex flex-col items-center justify-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[#000000]">
-        <!-- Full Page Ambient Glow -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(147,114,42,0.1)_0%,_transparent_60%)] pointer-events-none transform-gpu blur-[60px] print:hidden"></div>
+    <!-- PAGE 06: THE MOAT (CTA) -->
+    <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex flex-col items-center justify-center relative p-6 py-24 md:p-20 border-t border-white/[0.03] bg-[#000000]">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[600px] aspect-square bg-[radial-gradient(circle,_rgba(147,114,42,0.1)_0%,_transparent_60%)] pointer-events-none transform-gpu blur-[60px] print:hidden"></div>
 
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Part 06 — The Moat
         </div>
-        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold">06</div>
+        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold hidden sm:block">06</div>
 
         <div class="max-w-[800px] mx-auto text-center relative z-10 reveal-on-scroll">
             
-            <div class="w-20 h-20 mx-auto mb-8 relative flex items-center justify-center">
+            <div class="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 lg:mb-8 relative flex items-center justify-center">
                 <div class="absolute inset-0 bg-gold-600/20 rounded-full blur-[20px] print:hidden"></div>
-                <i data-lucide="shield" class="w-10 h-10 text-gold-500 relative z-10 drop-shadow-[0_0_10px_rgba(224,195,121,0.5)]"></i>
+                <i data-lucide="shield" class="w-8 h-8 lg:w-10 lg:h-10 text-gold-500 relative z-10 drop-shadow-[0_0_10px_rgba(224,195,121,0.5)]"></i>
             </div>
             
-            <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-8 uppercase text-white/95 leading-[1.05]">
+            <h2 class="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tighter mb-6 lg:mb-8 uppercase text-white/95 leading-[1.05]">
                 Information is cheap.<br>
                 <span class="text-metallic font-serif italic font-light lowercase drop-shadow-[0_0_20px_rgba(147,114,42,0.2)]">Implementation is the moat.</span>
             </h2>
             
-            <div class="space-y-6 text-gray-400 text-base md:text-[17px] font-light leading-[1.7] mb-14 max-w-2xl mx-auto">
+            <div class="space-y-5 lg:space-y-6 text-gray-400 text-[15px] md:text-[17px] font-light leading-[1.7] mb-10 lg:mb-14 max-w-2xl mx-auto">
                 <p>Knowing the Minimum Effective Dose is Stage One. You now have the foundational biological and operational frameworks.</p>
                 
                 <p>Stage Two is deployment. The landscape changes, your business scales, and your friction points evolve. True mastery requires a physical anchor to return to.</p>
                 
-                <p class="text-white/95 font-medium border-l-[2px] border-gold-600 pl-5 py-1 text-left italic bg-gradient-to-r from-gold-600/5 to-transparent">Download the secure PDF of this dossier and print the 1-Page O.S. on the next page. Keep it on your desk.</p>
+                <p class="text-white/95 font-medium border-l-[2px] border-gold-600 pl-4 lg:pl-5 py-1 text-left italic bg-gradient-to-r from-gold-600/5 to-transparent">Download the secure PDF of this dossier and print the 1-Page O.S. on the next page. Keep it on your desk.</p>
             </div>
 
-            <div class="border border-white/[0.04] p-8 md:p-12 rounded-2xl machined-edge reveal-on-scroll delay-200">
-                <p class="font-mono text-[10px] text-gold-500 uppercase tracking-[0.3em] mb-7 font-bold drop-shadow-[0_0_5px_rgba(224,195,121,0.5)] print:hidden">Deploy The System</p>
+            <div class="border border-white/[0.04] p-6 sm:p-8 md:p-12 rounded-2xl machined-edge reveal-on-scroll delay-200">
+                <p class="font-mono text-[9px] lg:text-[10px] text-gold-500 uppercase tracking-[0.3em] mb-5 lg:mb-7 font-bold drop-shadow-[0_0_5px_rgba(224,195,121,0.5)] print:hidden">Deploy The System</p>
                 
-                <button onclick="window.print()" class="print:hidden inline-flex w-full sm:w-auto bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 text-[#110D05] font-bold tracking-[0.2em] text-[13px] uppercase py-5 px-12 rounded-md hover:brightness-110 transition-all duration-300 justify-center items-center gap-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_10px_30px_rgba(147,114,42,0.3)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),_0_15px_40px_rgba(147,114,42,0.4)] active:scale-[0.98] group relative overflow-hidden bg-[length:200%_auto] hover:bg-right">
+                <button onclick="window.print()" class="print:hidden w-full sm:w-auto inline-flex bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 text-[#110D05] font-bold tracking-[0.2em] text-[13px] uppercase py-4 lg:py-5 px-8 lg:px-12 rounded-md hover:brightness-110 transition-all duration-300 justify-center items-center gap-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_10px_30px_rgba(147,114,42,0.3)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),_0_15px_40px_rgba(147,114,42,0.4)] active:scale-[0.98] group relative overflow-hidden bg-[length:200%_auto] hover:bg-right">
                     <span class="relative z-10 drop-shadow-[0_1px_1px_rgba(255,255,255,0.3)]">DOWNLOAD & DEPLOY</span>
                     <i data-lucide="download" class="w-4 h-4 relative z-10 transition-transform duration-500 group-hover:translate-y-0.5"></i>
                     <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] group-hover:animate-shimmer pointer-events-none"></div>
                 </button>
                 
-                <p class="print:hidden text-gray-600 text-[10px] font-mono tracking-[0.2em] uppercase mt-7 hover:text-gold-500 transition-colors cursor-pointer">MarcusLefton.com</p>
+                <p class="print:hidden text-gray-600 text-[9px] lg:text-[10px] font-mono tracking-[0.2em] uppercase mt-5 lg:mt-7 hover:text-gold-500 transition-colors cursor-pointer">MarcusLefton.com</p>
             </div>
 
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- PAGE 07: THE CHEAT SHEET (APPENDIX)        -->
-    <!-- ========================================== -->
-    <section class="page-break w-full h-screen min-h-[800px] flex items-center relative p-8 md:p-20 border-t border-white/[0.03] bg-[#020202]">
+    <!-- PAGE 07: THE CHEAT SHEET (APPENDIX) -->
+    <!-- Mobile: Kept grid-cols-1 which flows perfectly on phones. -->
+    <section class="page-break w-full min-h-[100dvh] lg:h-screen lg:min-h-[800px] flex items-center relative p-6 py-20 md:p-20 border-t border-white/[0.03] bg-[#020202]">
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-gray-700 uppercase hidden lg:block">
             Appendix — The 1-Page O.S.
         </div>
-        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold">07</div>
+        <div class="absolute right-8 bottom-8 font-mono text-[10px] tracking-widest text-gold-600 font-bold hidden sm:block">07</div>
 
-        <div class="max-w-[1200px] mx-auto w-full flex flex-col h-full justify-center relative z-10">
+        <div class="max-w-[1200px] mx-auto w-full flex flex-col h-full justify-center relative z-10 mt-6 lg:mt-0">
             
-            <header class="mb-10 border-b border-white/[0.05] pb-6 flex flex-col md:flex-row md:justify-between md:items-end gap-4 reveal-on-scroll">
+            <header class="mb-8 lg:mb-10 border-b border-white/[0.05] pb-5 lg:pb-6 flex flex-col md:flex-row md:justify-between md:items-end gap-4 reveal-on-scroll">
                 <div>
-                    <h2 class="text-metallic font-mono tracking-[0.3em] text-[11px] uppercase font-bold mb-3">Tear-Sheet / Quick Reference</h2>
-                    <h3 class="text-3xl md:text-4xl font-extrabold uppercase tracking-tighter drop-shadow-md">The 1-Page M.E.D. Operating System</h3>
+                    <h2 class="text-metallic font-mono tracking-[0.3em] text-[10px] lg:text-[11px] uppercase font-bold mb-2 lg:mb-3">Tear-Sheet / Quick Reference</h2>
+                    <h3 class="text-[28px] sm:text-3xl md:text-4xl font-extrabold uppercase tracking-tighter drop-shadow-md">The 1-Page M.E.D. Operating System</h3>
                 </div>
-                <div class="print:hidden text-left md:text-right border border-white/[0.08] bg-[#0A0A0A] px-4 py-2.5 rounded shadow-inner cursor-pointer hover:bg-[#111] transition-colors group" onclick="window.print()">
-                    <p class="font-mono text-[9px] text-gold-500 uppercase tracking-[0.2em] font-bold flex items-center gap-2 group-hover:text-gold-400 transition-colors"><i data-lucide="printer" class="w-3 h-3"></i> Print & Deploy</p>
+                <div class="print:hidden text-left md:text-right border border-white/[0.08] bg-[#0A0A0A] px-4 py-2.5 rounded shadow-inner cursor-pointer hover:bg-[#111] transition-colors group inline-block" onclick="window.print()">
+                    <p class="font-mono text-[9px] text-gold-500 uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 group-hover:text-gold-400 transition-colors"><i data-lucide="printer" class="w-3 h-3"></i> Print & Deploy</p>
                 </div>
             </header>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
                 
                 <div class="border border-white/[0.04] rounded-xl p-6 md:p-8 machined-edge reveal-on-scroll delay-100 relative group/card">
-                    <h4 class="text-gold-500 font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-5 border-b border-white/[0.05] pb-3 flex items-center justify-between">
+                    <h4 class="text-gold-500 font-mono text-[10px] lg:text-[11px] tracking-[0.2em] uppercase font-bold mb-4 lg:mb-5 border-b border-white/[0.05] pb-3 flex items-center justify-between">
                         01 / The AM Block
                         <i data-lucide="sun" class="w-4 h-4 opacity-70"></i>
                     </h4>
-                    <ul class="space-y-6 relative z-10">
+                    <ul class="space-y-5 lg:space-y-6 relative z-10">
                         <li class="flex gap-3.5 items-start group cursor-crosshair">
                             <div class="w-4 h-4 rounded-[3px] border border-white/20 mt-[2px] shrink-0 transition-all duration-300 group-hover:border-gold-500 group-hover:shadow-[0_0_8px_rgba(147,114,42,0.4)] flex items-center justify-center bg-black"></div>
                             <div>
-                                <p class="text-white/90 text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">Tolerance Baseline</p>
+                                <p class="text-white/90 text-[12px] lg:text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">Tolerance Baseline</p>
                                 <p class="text-gray-500 text-[12px] mt-1.5 leading-[1.6] font-light">Perform the CO2 Tolerance Test immediately upon waking to gauge and expand your biological stress capacity.</p>
                             </div>
                         </li>
                         <li class="flex gap-3.5 items-start group cursor-crosshair">
                             <div class="w-4 h-4 rounded-[3px] border border-white/20 mt-[2px] shrink-0 transition-all duration-300 group-hover:border-gold-500 group-hover:shadow-[0_0_8px_rgba(147,114,42,0.4)] flex items-center justify-center bg-black"></div>
                             <div>
-                                <p class="text-white/90 text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">Hydration & Morning Light</p>
+                                <p class="text-white/90 text-[12px] lg:text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">Hydration & Morning Light</p>
                                 <p class="text-gray-500 text-[12px] mt-1.5 leading-[1.6] font-light">Consume 30oz water + electrolytes and view 10m sunlight. <strong class="text-white/70 font-medium">Zero caffeine for 90 mins.</strong></p>
                             </div>
                         </li>
                         <li class="flex gap-3.5 items-start group cursor-crosshair">
                             <div class="w-4 h-4 rounded-[3px] border border-white/20 mt-[2px] shrink-0 transition-all duration-300 group-hover:border-gold-500 group-hover:shadow-[0_0_8px_rgba(147,114,42,0.4)] flex items-center justify-center bg-black"></div>
                             <div>
-                                <p class="text-white/90 text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">Ultradian Sprint 01</p>
+                                <p class="text-white/90 text-[12px] lg:text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">Ultradian Sprint 01</p>
                                 <p class="text-gray-500 text-[12px] mt-1.5 leading-[1.6] font-light">Enter 90-min "Lion" phase. Control entry to engineer dopamine. Invest focus strictly into high-leverage execution.</p>
                             </div>
                         </li>
@@ -879,29 +817,29 @@
                 </div>
 
                 <div class="border border-white/[0.04] rounded-xl p-6 md:p-8 machined-edge reveal-on-scroll delay-200 relative group/card">
-                    <h4 class="text-gold-500 font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-5 border-b border-white/[0.05] pb-3 flex items-center justify-between">
+                    <h4 class="text-gold-500 font-mono text-[10px] lg:text-[11px] tracking-[0.2em] uppercase font-bold mb-4 lg:mb-5 border-b border-white/[0.05] pb-3 flex items-center justify-between">
                         02 / The PM Block
                         <i data-lucide="moon" class="w-4 h-4 opacity-70"></i>
                     </h4>
-                    <ul class="space-y-6 relative z-10">
+                    <ul class="space-y-5 lg:space-y-6 relative z-10">
                         <li class="flex gap-3.5 items-start group cursor-crosshair">
                             <div class="w-4 h-4 rounded-[3px] border border-white/20 mt-[2px] shrink-0 transition-all duration-300 group-hover:border-gold-500 group-hover:shadow-[0_0_8px_rgba(147,114,42,0.4)] flex items-center justify-center bg-black"></div>
                             <div>
-                                <p class="text-white/90 text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">The Driveway Transition</p>
+                                <p class="text-white/90 text-[12px] lg:text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">The Driveway Transition</p>
                                 <p class="text-gray-500 text-[12px] mt-1.5 leading-[1.6] font-light">10-min active down-regulation (NSDR/Box Breathing) in the car. Deliberately sever the CEO identity.</p>
                             </div>
                         </li>
                         <li class="flex gap-3.5 items-start group cursor-crosshair">
                             <div class="w-4 h-4 rounded-[3px] border border-white/20 mt-[2px] shrink-0 transition-all duration-300 group-hover:border-gold-500 group-hover:shadow-[0_0_8px_rgba(147,114,42,0.4)] flex items-center justify-center bg-black"></div>
                             <div>
-                                <p class="text-white/90 text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">The Autonomic Shift</p>
+                                <p class="text-white/90 text-[12px] lg:text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">The Autonomic Shift</p>
                                 <p class="text-gray-500 text-[12px] mt-1.5 leading-[1.6] font-light">Transition entirely into parasympathetic "off mode". Restock Tryptophan to drive Serotonin and prepare for sleep.</p>
                             </div>
                         </li>
                         <li class="flex gap-3.5 items-start group cursor-crosshair">
                             <div class="w-4 h-4 rounded-[3px] border border-white/20 mt-[2px] shrink-0 transition-all duration-300 group-hover:border-gold-500 group-hover:shadow-[0_0_8px_rgba(147,114,42,0.4)] flex items-center justify-center bg-black"></div>
                             <div>
-                                <p class="text-white/90 text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">The 3-2-1 Shutdown</p>
+                                <p class="text-white/90 text-[12px] lg:text-[13px] font-bold uppercase tracking-wide group-hover:text-white transition-colors">The 3-2-1 Shutdown</p>
                                 <p class="text-gray-500 text-[12px] mt-1.5 leading-[1.6] font-light">3h: No food. 2h: No business. 1h: No screens. <br><span class="text-white/70 font-medium">Zero alcohol tolerance.</span></p>
                             </div>
                         </li>
@@ -910,29 +848,29 @@
 
                 <div class="border border-gold-600/30 rounded-xl p-6 md:p-8 relative overflow-hidden shadow-[0_30px_60px_rgba(147,114,42,0.08),_inset_0_1px_1px_rgba(255,255,255,0.08)] reveal-on-scroll delay-300 bg-gradient-to-b from-[#0F0F0F] to-[#050505]">
                     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(147,114,42,0.15)_0%,_transparent_80%)] pointer-events-none"></div>
-                    <h4 class="text-gold-500 font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-5 border-b border-gold-600/20 pb-3 relative z-10 flex items-center justify-between">
+                    <h4 class="text-gold-500 font-mono text-[10px] lg:text-[11px] tracking-[0.2em] uppercase font-bold mb-4 lg:mb-5 border-b border-gold-600/20 pb-3 relative z-10 flex items-center justify-between">
                         03 / The Rules
                         <i data-lucide="terminal" class="w-4 h-4 opacity-70"></i>
                     </h4>
                     
-                    <div class="space-y-6 relative z-10">
+                    <div class="space-y-5 lg:space-y-6 relative z-10">
                         <div class="group">
-                            <p class="text-white/95 text-[13px] font-bold uppercase tracking-wide mb-1.5 flex items-center gap-2"><i data-lucide="scissors" class="w-3 h-3 text-gold-500"></i> Addition by Subtraction</p>
+                            <p class="text-white/95 text-[12px] lg:text-[13px] font-bold uppercase tracking-wide mb-1.5 flex items-center gap-2"><i data-lucide="scissors" class="w-3 h-3 text-gold-500"></i> Addition by Subtraction</p>
                             <p class="text-gray-400 text-[12px] leading-[1.6] font-light">Eliminate bloated habits before adding new ones. Time bending begins with ruthless subtraction.</p>
                         </div>
                         
                         <div class="group">
-                            <p class="text-white/95 text-[13px] font-bold uppercase tracking-wide mb-1.5 flex items-center gap-2"><i data-lucide="flask-conical" class="w-3 h-3 text-gold-500"></i> Neuro-Sequencing</p>
+                            <p class="text-white/95 text-[12px] lg:text-[13px] font-bold uppercase tracking-wide mb-1.5 flex items-center gap-2"><i data-lucide="flask-conical" class="w-3 h-3 text-gold-500"></i> Neuro-Sequencing</p>
                             <p class="text-gray-400 text-[12px] leading-[1.6] font-light">Tyrosine drives Dopamine in the AM. Tryptophan drives Melatonin in the PM. Sequence your fuel to your required state.</p>
                         </div>
 
                         <div class="group">
-                            <p class="text-white/95 text-[13px] font-bold uppercase tracking-wide mb-1.5 flex items-center gap-2"><i data-lucide="zap" class="w-3 h-3 text-gold-500"></i> Dopamine Capital</p>
+                            <p class="text-white/95 text-[12px] lg:text-[13px] font-bold uppercase tracking-wide mb-1.5 flex items-center gap-2"><i data-lucide="zap" class="w-3 h-3 text-gold-500"></i> Dopamine Capital</p>
                             <p class="text-gray-400 text-[12px] leading-[1.6] font-light">Treat focus like currency. Do not spend it on low-friction distractions before high-leverage sprints.</p>
                         </div>
                         
-                        <div class="mt-6 pt-5 border-t border-gold-600/20 text-center">
-                            <p class="text-gold-400 font-serif italic text-[14px] font-light tracking-wide drop-shadow-[0_0_5px_rgba(224,195,121,0.4)]">"Protect your friction.<br>Optimize your leverage."</p>
+                        <div class="mt-5 lg:mt-6 pt-4 lg:pt-5 border-t border-gold-600/20 text-center">
+                            <p class="text-gold-400 font-serif italic text-[13px] lg:text-[14px] font-light tracking-wide drop-shadow-[0_0_5px_rgba(224,195,121,0.4)]">"Protect your friction.<br>Optimize your leverage."</p>
                         </div>
                     </div>
                 </div>
