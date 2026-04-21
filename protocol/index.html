@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>The Minimum Effective Dose | Foundational Protocols</title>
-    <meta name="description" content="My foundational protocols for engineering Dopamine Capital, mastering Temporal Leverage, and sustaining elite cognitive output (as I scale operations and lead a growing family).">
+    <meta name="description" content="My foundational protocols for sustaining elite physical and cognitive output (as I get older, navigate entrepreneurial stress, and lead a growing family).">
     
     <!-- Preconnect to critical domains for faster DNS resolution -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,6 +63,22 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
+        }
+
+        /* Custom Gold Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+            border-left: 1px solid rgba(255,255,255,0.03);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #93722A;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C9A653;
         }
 
         /* Micro-Texture: Anodized Titanium Grain Overlay */
@@ -173,7 +189,7 @@
         }
     </style>
 </head>
-<body class="bg-[#020202] text-white/95 antialiased min-h-screen flex flex-col selection:bg-[#93722A] selection:text-black relative overflow-x-hidden">
+<body class="bg-[#020202] text-white/95 antialiased min-h-[100dvh] flex flex-col selection:bg-[#93722A] selection:text-black relative overflow-x-hidden">
 
     <!-- Global Noise Texture -->
     <div class="bg-noise"></div>
@@ -199,17 +215,14 @@
     <!-- ========================================== -->
     <!-- MAIN HERO SECTION (Split Layout)           -->
     <!-- ========================================== -->
-    <!-- FIX: Removed 'flex items-center' from the section wrapper to allow top-alignment -->
-    <section class="w-full pt-36 pb-16 lg:pt-44 lg:pb-20 px-6 md:px-12 relative z-10">
-        <!-- FIX: Changed from 'items-center' to 'lg:items-start' to pin both columns to the top -->
-        <div class="max-w-[1300px] mx-auto w-full flex flex-col lg:flex-row gap-14 lg:gap-10 lg:items-start justify-between">
+    <section class="w-full pt-32 pb-16 lg:pt-44 lg:pb-20 px-5 sm:px-6 md:px-12 relative z-10">
+        <div class="max-w-[1300px] mx-auto w-full flex flex-col lg:flex-row gap-10 lg:gap-10 lg:items-start justify-between">
             
             <!-- LEFT COLUMN: Visuals & Quote -->
-            <!-- FIX: Added 'lg:pt-2' so the physical top of the mockup aligns optically with the top of the trust stars -->
             <div class="w-full lg:w-[45%] flex flex-col items-center lg:items-start relative z-10 group lg:pt-2">
                 
-                <!-- High-End Mockup Composite -->
-                <div class="relative w-full max-w-[500px] aspect-[1/1.1] mb-10 lg:mb-0 mx-auto lg:mx-0 cursor-default">
+                <!-- High-End Mockup Composite (Mobile Scaled) -->
+                <div class="relative w-full max-w-[500px] aspect-[1/1.1] mb-6 lg:mb-0 mx-auto lg:mx-0 cursor-default scale-[0.85] sm:scale-100 origin-top">
                     
                     <!-- Global Diffuse Backlight -->
                     <div class="absolute top-[40%] left-[45%] transform -translate-x-1/2 -translate-y-1/2 w-[65%] aspect-square bg-[#93722A]/10 rounded-full blur-[70px] pointer-events-none z-0 transition-opacity duration-1000 group-hover:opacity-70 opacity-30 mix-blend-plus-lighter"></div>
@@ -273,70 +286,70 @@
                             
                             <div class="flex justify-between items-end mt-4 mb-4 border-b border-white/[0.05] pb-2 z-10">
                                 <div>
-                                    <h3 class="text-white/95 font-semibold text-[12px] tracking-widest uppercase font-sans">DAILY ESSENTIALS</h3>
-                                    <p class="text-[#666] text-[6px] font-mono tracking-[0.2em] uppercase mt-0.5">Max Leverage Routine</p>
+                                    <h3 class="text-white/95 font-semibold text-[12px] tracking-widest uppercase font-sans">THE IDEAL DAY</h3>
+                                    <p class="text-[#666] text-[6px] font-mono tracking-[0.2em] uppercase mt-0.5">Executive Timeline O.S.</p>
                                 </div>
                                 <div class="text-right">
-                                    <span class="text-[#93722A] font-bold text-xl leading-none tracking-tight">45<span class="text-[9px] text-[#93722A]/60 font-mono tracking-widest ml-0.5">MIN</span></span>
+                                    <span class="text-[#93722A] font-bold text-xl leading-none tracking-tight">24<span class="text-[9px] text-[#93722A]/60 font-mono tracking-widest ml-0.5">HR</span></span>
                                 </div>
                             </div>
                             
                             <!-- Clean Checklist UI -->
                             <div class="w-full flex flex-col gap-2 z-10">
-                                <!-- Item 1: Friction Audit -->
+                                <!-- Item 1: WAKE+0 -->
                                 <div class="w-full bg-[#080808] border border-white/[0.04] rounded-md p-2.5 flex items-center justify-between group/item hover:border-[#93722A]/40 hover:bg-[#0A0A0A] transition-all duration-300">
                                     <div class="flex items-center gap-2.5">
                                         <div class="w-6 h-6 rounded bg-[#111] flex items-center justify-center border border-white/[0.05] group-hover/item:border-[#93722A]/30 transition-colors shadow-inner">
-                                            <i data-lucide="scissors" class="w-3 h-3 text-[#93722A] opacity-90"></i>
+                                            <i data-lucide="sun" class="w-3 h-3 text-[#93722A] opacity-90"></i>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="text-white/90 text-[8.5px] font-bold tracking-wider uppercase">The Friction Audit</span>
-                                            <span class="text-[#555] text-[6px] font-mono tracking-[0.1em] mt-0.5">Surgical elimination of bloated morning habits.</span>
+                                            <span class="text-white/90 text-[8.5px] font-bold tracking-wider uppercase">AM Ignition & Fuel</span>
+                                            <span class="text-[#555] text-[6px] font-mono tracking-[0.1em] mt-0.5">Driving peak cortisol and sympathetic state.</span>
                                         </div>
                                     </div>
-                                    <span class="text-[#93722A] font-mono text-[8.5px] font-bold tracking-wider">0</span>
+                                    <span class="text-[#93722A] font-mono text-[8.5px] font-bold tracking-wider">W+0</span>
                                 </div>
 
-                                <!-- Item 2: Ultradian Sprints -->
+                                <!-- Item 2: WAKE+2 -->
                                 <div class="w-full bg-[#080808] border border-white/[0.04] rounded-md p-2.5 flex items-center justify-between group/item hover:border-[#93722A]/40 hover:bg-[#0A0A0A] transition-all duration-300">
                                     <div class="flex items-center gap-2.5">
                                         <div class="w-6 h-6 rounded bg-[#111] flex items-center justify-center border border-white/[0.05] group-hover/item:border-[#93722A]/30 transition-colors shadow-inner">
                                             <i data-lucide="waves" class="w-3 h-3 text-[#93722A] opacity-90"></i>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="text-white/90 text-[8.5px] font-bold tracking-wider uppercase">Ultradian Sprints</span>
-                                            <span class="text-[#555] text-[6px] font-mono tracking-[0.1em] mt-0.5">Protecting dopamine capital for lion-like execution.</span>
+                                            <span class="text-white/90 text-[8.5px] font-bold tracking-wider uppercase">The Execution Loop</span>
+                                            <span class="text-[#555] text-[6px] font-mono tracking-[0.1em] mt-0.5">90/20 sprint cycles for pure, isolated output.</span>
                                         </div>
                                     </div>
-                                    <span class="text-[#93722A] font-mono text-[8.5px] font-bold tracking-wider">90M</span>
+                                    <span class="text-[#93722A] font-mono text-[8.5px] font-bold tracking-wider">W+2</span>
                                 </div>
 
-                                <!-- Item 3: Driveway Transition -->
+                                <!-- Item 3: WAKE+6 -->
                                 <div class="w-full bg-[#080808] border border-white/[0.04] rounded-md p-2.5 flex items-center justify-between group/item hover:border-[#93722A]/40 hover:bg-[#0A0A0A] transition-all duration-300">
                                     <div class="flex items-center gap-2.5">
                                         <div class="w-6 h-6 rounded bg-[#111] flex items-center justify-center border border-white/[0.05] group-hover/item:border-[#93722A]/30 transition-colors shadow-inner">
-                                            <i data-lucide="car" class="w-3 h-3 text-[#93722A] opacity-90"></i>
+                                            <i data-lucide="compass" class="w-3 h-3 text-[#93722A] opacity-90"></i>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="text-white/90 text-[8.5px] font-bold tracking-wider uppercase">Driveway Transition</span>
-                                            <span class="text-[#555] text-[6px] font-mono tracking-[0.1em] mt-0.5">Severing the CEO identity before turning the doorknob.</span>
+                                            <span class="text-white/90 text-[8.5px] font-bold tracking-wider uppercase">Strategy & Shift</span>
+                                            <span class="text-[#555] text-[6px] font-mono tracking-[0.1em] mt-0.5">Directing dopamine and parasympathetic shift.</span>
                                         </div>
                                     </div>
-                                    <span class="text-[#93722A] font-mono text-[8.5px] font-bold tracking-wider">10M</span>
+                                    <span class="text-[#93722A] font-mono text-[8.5px] font-bold tracking-wider">W+6</span>
                                 </div>
 
-                                <!-- Item 4: Shutdown Sequence -->
+                                <!-- Item 4: WAKE+12 -->
                                 <div class="w-full bg-[#080808] border border-white/[0.04] rounded-md p-2.5 flex items-center justify-between group/item hover:border-[#93722A]/40 hover:bg-[#0A0A0A] transition-all duration-300">
                                     <div class="flex items-center gap-2.5">
                                         <div class="w-6 h-6 rounded bg-[#111] flex items-center justify-center border border-white/[0.05] group-hover/item:border-[#93722A]/30 transition-colors shadow-inner">
-                                            <i data-lucide="power-off" class="w-3 h-3 text-[#93722A] opacity-90"></i>
+                                            <i data-lucide="moon" class="w-3 h-3 text-[#93722A] opacity-90"></i>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="text-white/90 text-[8.5px] font-bold tracking-wider uppercase">Shutdown Sequence</span>
-                                            <span class="text-[#555] text-[6px] font-mono tracking-[0.1em] mt-0.5">Forcing the autonomic shift into parasympathetic recovery.</span>
+                                            <span class="text-white/90 text-[8.5px] font-bold tracking-wider uppercase">System Shutdown</span>
+                                            <span class="text-[#555] text-[6px] font-mono tracking-[0.1em] mt-0.5">Severing identity and forcing the melatonin spike.</span>
                                         </div>
                                     </div>
-                                    <span class="text-[#93722A] font-mono text-[8.5px] font-bold tracking-wider">3-2-1</span>
+                                    <span class="text-[#93722A] font-mono text-[8.5px] font-bold tracking-wider">W+12</span>
                                 </div>
                             </div>
                         </div>
@@ -409,9 +422,9 @@
                 </div>
 
                 <!-- Architectural Pull Quote -->
-                <div class="text-center lg:text-left max-w-[420px] px-4 lg:px-0 mt-8 lg:mt-12 group">
-                    <p class="text-[20px] md:text-[22px] font-serif text-gray-300/90 leading-[1.5] mb-6 italic tracking-wide transition-colors duration-700 group-hover:text-white font-light">
-                        "You don't need a 3-hour morning routine. You need <span class="circled-word font-normal text-white">Focus Density</span>. By eliminating context-switching and engineering your state, 1 hour of gated execution yields the output of 4 hours of fractured work."
+                <div class="text-center lg:text-left max-w-[440px] px-4 lg:px-0 mt-8 lg:mt-12 group">
+                    <p class="text-[19px] md:text-[21px] font-serif text-gray-300/90 leading-[1.6] mb-6 italic tracking-wide transition-colors duration-700 group-hover:text-white font-light">
+                        "You don't need a 3-hour morning routine; you need <span class="circled-word font-normal text-white">leverage</span>. By isolating the minimum effective dose of multidisciplinary performance, you align the exact biological and operational inputs required to generate massive results toward your ideal outcomes."
                     </p>
                     <div class="flex items-center justify-center lg:justify-start gap-4 opacity-80 hover:opacity-100 transition-opacity duration-500">
                         <div class="h-px w-8 bg-gradient-to-r from-transparent to-[#93722A]"></div>
@@ -469,23 +482,23 @@
                     <div class="absolute -inset-2 bg-gradient-to-r from-[#93722A]/15 to-transparent blur-xl rounded-full opacity-60 pointer-events-none"></div>
                     <div class="relative z-10 text-center lg:text-left">
                         <!-- Forced explicit blocks for absolute perfect marker aesthetics -->
-                        <div class="flex flex-col items-center lg:items-start gap-[10px] mb-4">
-                            <span class="highlight-text text-[17px] md:text-[21px] tracking-tight inline-block shadow-[0_4px_15px_rgba(147,114,42,0.15)]">
+                        <div class="flex flex-col items-center lg:items-start gap-[6px] mb-4">
+                            <span class="highlight-text text-[15.5px] md:text-[20px] tracking-tight inline-block shadow-[0_4px_15px_rgba(147,114,42,0.15)]">
                                 My foundational protocols for sustaining
                             </span>
-                            <span class="highlight-text text-[17px] md:text-[21px] tracking-tight inline-block shadow-[0_4px_15px_rgba(147,114,42,0.15)]">
+                            <span class="highlight-text text-[15.5px] md:text-[20px] tracking-tight inline-block shadow-[0_4px_15px_rgba(147,114,42,0.15)]">
                                 elite physical and cognitive output
                             </span>
                         </div>
                         <!-- Completely separate plain text block for pure alignment -->
-                        <p class="text-[16px] md:text-[19.5px] text-[#D1D5DB] font-light leading-[1.6] mt-2 pl-1">
-                            (as I get older, navigate entrepreneurial stress, lead a growing family).
+                        <p class="text-[16px] md:text-[19.5px] text-[#D1D5DB] font-light leading-[1.6] mt-2 lg:pl-1 text-center lg:text-left">
+                            (as I get older, navigate entrepreneurial stress, and lead a growing family).
                         </p>
                     </div>
                 </div>
 
                 <!-- Premium Form Box (Elevated, Glowing Gradient) -->
-                <div class="w-full max-w-[580px] bg-gradient-to-b from-[#0A0A0A] to-[#030303] border border-[#93722A]/20 rounded-2xl p-7 md:p-9 shadow-[0_0_40px_rgba(147,114,42,0.08),_0_40px_80px_-15px_rgba(0,0,0,1)] relative h-full flex flex-col justify-center backdrop-blur-md group/formbox transition-all duration-700 hover:border-[#93722A]/40 hover:shadow-[0_0_60px_rgba(147,114,42,0.12),_0_40px_80px_-15px_rgba(0,0,0,1)] z-20">
+                <div class="w-full max-w-[580px] bg-gradient-to-b from-[#0A0A0A] to-[#030303] border border-[#93722A]/20 rounded-2xl p-6 sm:p-7 md:p-9 shadow-[0_0_40px_rgba(147,114,42,0.08),_0_40px_80px_-15px_rgba(0,0,0,1)] relative h-full flex flex-col justify-center backdrop-blur-md group/formbox transition-all duration-700 hover:border-[#93722A]/40 hover:shadow-[0_0_60px_rgba(147,114,42,0.12),_0_40px_80px_-15px_rgba(0,0,0,1)] z-20">
                     <!-- Subtle inner glow -->
                     <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/[0.02] pointer-events-none"></div>
                     
@@ -495,7 +508,7 @@
                         <!-- Tangible Deliverable -->
                         <div class="inline-block bg-gradient-to-r from-[#93722A]/10 to-transparent border border-[#93722A]/20 px-3.5 py-1.5 rounded-sm mb-5 shadow-sm">
                             <p class="text-[#E0C379] text-[9.5px] font-mono uppercase tracking-[0.2em] font-bold drop-shadow-[0_0_5px_rgba(147,114,42,0.2)]">
-                                Includes The Master Performance Blueprint
+                                Includes the 1-Page Ideal Executive Day O.S.
                             </p>
                         </div>
                         
@@ -518,24 +531,24 @@
 
                     <!-- Low Friction Form -->
                     <form id="optin-form" class="space-y-5 relative" onsubmit="handleFormSubmit(event)">
-                        <div class="grid grid-cols-1 gap-5">
+                        <div class="grid grid-cols-1 gap-4 sm:gap-5">
                             <div class="relative group/input z-10">
                                 <label for="name" class="block font-mono text-[9px] text-[#777] uppercase tracking-[0.2em] font-semibold mb-2 ml-1 transition-colors duration-500 group-focus-within/input:text-[#93722A]">First Name</label>
-                                <!-- Lighter, embossed input field -->
-                                <input type="text" id="name" required class="w-full bg-[#0F0F0F] border border-white/[0.08] rounded-md px-5 py-4 text-white text-[15px] placeholder:text-[#444] outline-none input-premium active:scale-[0.99] placeholder:font-light shadow-[inset_0_2px_5px_rgba(0,0,0,0.5)] focus:bg-[#050505] focus:border-[#93722A]/50 transition-all duration-300" placeholder="Enter first name">
+                                <!-- Lighter, embossed input field (Fixed for iOS zoom) -->
+                                <input type="text" id="name" required class="w-full bg-[#0F0F0F] border border-white/[0.08] rounded-md px-5 py-4 text-white text-base sm:text-[15px] placeholder:text-[#444] outline-none input-premium active:scale-[0.99] placeholder:font-light shadow-[inset_0_2px_5px_rgba(0,0,0,0.5)] focus:bg-[#050505] focus:border-[#93722A]/50 transition-all duration-300" placeholder="Enter first name">
                             </div>
                             
                             <div class="relative group/input z-10">
                                 <label for="email" class="block font-mono text-[9px] text-[#777] uppercase tracking-[0.2em] font-semibold mb-2 ml-1 transition-colors duration-500 group-focus-within/input:text-[#93722A]">Best Email</label>
-                                <!-- Lighter, embossed input field -->
-                                <input type="email" id="email" required class="w-full bg-[#0F0F0F] border border-white/[0.08] rounded-md px-5 py-4 text-white text-[15px] placeholder:text-[#444] outline-none input-premium active:scale-[0.99] placeholder:font-light shadow-[inset_0_2px_5px_rgba(0,0,0,0.5)] focus:bg-[#050505] focus:border-[#93722A]/50 transition-all duration-300" placeholder="Enter email address">
+                                <!-- Lighter, embossed input field (Fixed for iOS zoom) -->
+                                <input type="email" id="email" required class="w-full bg-[#0F0F0F] border border-white/[0.08] rounded-md px-5 py-4 text-white text-base sm:text-[15px] placeholder:text-[#444] outline-none input-premium active:scale-[0.99] placeholder:font-light shadow-[inset_0_2px_5px_rgba(0,0,0,0.5)] focus:bg-[#050505] focus:border-[#93722A]/50 transition-all duration-300" placeholder="Enter email address">
                             </div>
                         </div>
 
-                        <div class="pt-4 relative z-10">
+                        <div class="pt-2 sm:pt-4 relative z-10">
                             <!-- Premium Solid Button -->
                             <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-[#93722A] via-[#C9A653] to-[#93722A] text-[#110D05] font-bold tracking-[0.2em] text-[13px] uppercase py-5 rounded-md hover:brightness-110 transition-all duration-300 flex justify-center items-center gap-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),_0_5px_20px_rgba(147,114,42,0.2)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_8px_30px_rgba(147,114,42,0.3)] active:scale-[0.98] group relative overflow-hidden bg-[length:200%_auto] hover:bg-right">
-                                <span class="relative z-10 drop-shadow-[0_1px_1px_rgba(255,255,255,0.2)]">SEND ME THE BLUEPRINT</span>
+                                <span class="relative z-10 drop-shadow-[0_1px_1px_rgba(255,255,255,0.2)]">SEND ME THE DOSSIER</span>
                                 <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 transition-transform duration-500 group-hover:translate-x-1.5"></i>
                                 <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-25deg] group-hover:animate-shimmer pointer-events-none"></div>
                             </button>
@@ -570,12 +583,12 @@
     <!-- ========================================== -->
     <!-- SECTION 2: THE PROBLEM                     -->
     <!-- ========================================== -->
-    <section class="w-full py-20 md:py-24 px-6 md:px-12 bg-[#020202] border-t border-white/[0.02] relative z-10">
+    <section class="w-full py-16 md:py-24 px-5 sm:px-6 md:px-12 bg-[#020202] border-t border-white/[0.02] relative z-10">
         <div class="max-w-[1200px] mx-auto">
-            <div class="text-center mb-14 md:mb-16">
-                <span class="text-[#93722A] font-mono tracking-[0.3em] text-[10px] uppercase font-bold mb-6 block opacity-90">The Problem With Modern Performance</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-white/95 mb-6 tracking-tighter leading-[1.05]">Stop adopting 3-hour routines.<br>Start focusing on <span class="text-metallic font-serif italic pr-2 font-light">leverage.</span></h2>
-                <p class="text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed font-light">
+            <div class="text-center mb-12 md:mb-16">
+                <span class="text-[#93722A] font-mono tracking-[0.3em] text-[10px] uppercase font-bold mb-5 md:mb-6 block opacity-90">The Problem With Modern Performance</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white/95 mb-5 md:mb-6 tracking-tighter leading-[1.05]">Stop adopting 3-hour routines.<br class="hidden sm:block">Start focusing on <span class="text-metallic font-serif italic pr-2 font-light">leverage.</span></h2>
+                <p class="text-gray-400 max-w-3xl mx-auto text-[16px] md:text-lg leading-relaxed font-light">
                     You are a high-performing operator. But the mainstream optimization advice is fundamentally broken for your reality. It’s built for single, 20-something athletes, not professionals managing complex lives and competing priorities.
                 </p>
             </div>
@@ -636,7 +649,7 @@
     <!-- ========================================== -->
     <!-- SECTION 3: THE SOLUTION & INTRIGUE         -->
     <!-- ========================================== -->
-    <section class="w-full py-20 md:py-24 px-6 md:px-12 bg-black border-t border-white/[0.02] relative z-10 overflow-hidden">
+    <section class="w-full py-16 md:py-24 px-5 sm:px-6 md:px-12 bg-black border-t border-white/[0.02] relative z-10 overflow-hidden">
         <!-- Background Accents -->
         <div class="absolute right-[-10%] top-[20%] w-[50vw] aspect-square border border-[#93722A]/5 rounded-full pointer-events-none mix-blend-screen"></div>
         <div class="absolute right-[-5%] top-[25%] w-[40vw] aspect-square border border-[#93722A]/5 rounded-full pointer-events-none mix-blend-screen"></div>
@@ -668,14 +681,14 @@
                     </div>
                     
                     <!-- Mid-Page Auto-Scroll CTA -->
-                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'}); setTimeout(() => document.getElementById('name').focus(), 800);" class="bg-transparent border border-[#93722A]/50 text-[#E0C379] font-bold tracking-[0.2em] text-[11px] uppercase py-4 px-8 rounded-sm hover:bg-[#93722A]/10 transition-all duration-500 flex items-center gap-3 group mb-10 lg:mb-0 hover:border-[#93722A] shadow-[0_0_0_rgba(147,114,42,0)] hover:shadow-[0_0_20px_rgba(147,114,42,0.15)]">
-                        <span>GET THE MASTER BLUEPRINT</span>
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'}); setTimeout(() => document.getElementById('name').focus(), 800);" class="w-full sm:w-auto bg-transparent border border-[#93722A]/50 text-[#E0C379] font-bold tracking-[0.2em] text-[11px] uppercase py-4 px-8 rounded-sm hover:bg-[#93722A]/10 transition-all duration-500 flex justify-center sm:justify-start items-center gap-3 group mb-12 lg:mb-0 hover:border-[#93722A] shadow-[0_0_0_rgba(147,114,42,0)] hover:shadow-[0_0_20px_rgba(147,114,42,0.15)]">
+                        <span>GET THE M.E.D. DOSSIER & O.S.</span>
                         <i data-lucide="arrow-up" class="w-3.5 h-3.5 transition-transform duration-500 group-hover:-translate-y-1"></i>
                     </button>
 
                 </div>
                 
-                <div class="w-full lg:w-1/2 flex justify-center group cursor-default">
+                <div class="w-full lg:w-1/2 flex justify-center group cursor-default scale-[0.85] sm:scale-100">
                     <div class="relative w-full max-w-[400px] lg:max-w-[420px] aspect-square rounded-full border border-white/[0.03] flex items-center justify-center p-8 bg-[radial-gradient(circle_at_center,_rgba(147,114,42,0.05)_0%,_transparent_70%)] transition-transform duration-1000 group-hover:scale-105">
                         <!-- Precise Rotating Rings -->
                         <svg class="absolute inset-0 w-full h-full animate-[spin_40s_linear_infinite] opacity-70" viewBox="0 0 100 100">
@@ -702,12 +715,12 @@
     <!-- ========================================== -->
     <!-- SECTION 4: AUTHORITY / EXPERIENCE          -->
     <!-- ========================================== -->
-    <section class="w-full py-20 md:py-24 px-6 md:px-12 bg-[#020202] border-t border-white/[0.02] relative z-10 overflow-hidden">
+    <section class="w-full py-16 md:py-24 px-5 sm:px-6 md:px-12 bg-[#020202] border-t border-white/[0.02] relative z-10 overflow-hidden">
         <!-- Architectural Lines -->
         <div class="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#93722A]/20 to-transparent pointer-events-none"></div>
         <div class="absolute top-0 left-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-[#93722A]/20 to-transparent pointer-events-none"></div>
 
-        <div class="max-w-[1100px] mx-auto relative z-10 bg-[#050505]/90 backdrop-blur-2xl border border-white/[0.04] p-8 md:p-12 lg:p-14 rounded-2xl shadow-[0_40px_100px_rgba(0,0,0,1)] transition-all duration-700 hover:border-white/[0.08] hover:shadow-[0_40px_100px_rgba(147,114,42,0.05)]">
+        <div class="max-w-[1100px] mx-auto relative z-10 bg-[#050505]/90 backdrop-blur-2xl border border-white/[0.04] p-6 sm:p-8 md:p-12 lg:p-14 rounded-2xl shadow-[0_40px_100px_rgba(0,0,0,1)] transition-all duration-700 hover:border-white/[0.08] hover:shadow-[0_40px_100px_rgba(147,114,42,0.05)]">
             
             <div class="flex flex-col md:flex-row items-center gap-10 lg:gap-14">
                 
@@ -732,9 +745,9 @@
                         <i data-lucide="shield" class="w-5 h-5 text-[#93722A] opacity-80"></i>
                     </div>
                     
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white/95 mb-6 tracking-tighter leading-[1.05]">THE EXPERIENCE<br>IS THE MOAT.</h2>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white/95 mb-5 md:mb-6 tracking-tighter leading-[1.05]">THE EXPERIENCE<br>IS THE MOAT.</h2>
                     
-                    <p class="text-xl md:text-2xl text-[#E5E7EB] leading-[1.6] font-serif italic mb-6 border-l-[2px] border-[#93722A]/50 pl-6 font-light">
+                    <p class="text-lg md:text-2xl text-[#E5E7EB] leading-[1.6] font-serif italic mb-6 border-l-[2px] border-[#93722A]/50 pl-5 md:pl-6 font-light">
                         "Anybody can be perfectly optimized living in a cave. True mastery is maintaining elite performance while navigating high-stakes decisions, scaling operations, and absolute chaos."
                     </p>
                     
@@ -753,12 +766,12 @@
     <!-- ========================================== -->
     <!-- SECTION 5: BOTTOM CTA                      -->
     <!-- ========================================== -->
-    <section class="w-full py-20 md:py-24 px-6 bg-black text-center relative z-10 border-t border-white/[0.02]">
+    <section class="w-full py-16 md:py-24 px-5 sm:px-6 bg-black text-center relative z-10 border-t border-white/[0.02]">
         <div class="max-w-[600px] mx-auto">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-white/95 mb-8 tracking-tighter">READY TO STRIP AWAY THE NOISE?</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white/95 mb-6 md:mb-8 tracking-tighter leading-tight">READY TO STRIP AWAY THE NOISE?</h2>
             
             <button onclick="window.scrollTo({top: 0, behavior: 'smooth'}); setTimeout(() => document.getElementById('name').focus(), 800);" class="w-full sm:w-auto bg-gradient-to-r from-[#93722A] via-[#C9A653] to-[#93722A] bg-[length:200%_auto] text-[#110D05] font-bold tracking-[0.2em] text-[13px] uppercase py-5 px-10 rounded-sm hover:bg-right transition-all duration-500 flex justify-center items-center gap-3 mx-auto shadow-[inset_0_1px_0_rgba(255,255,255,0.4),_0_0_30px_rgba(147,114,42,0.15)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_0_50px_rgba(147,114,42,0.3)] active:scale-[0.98] group overflow-hidden relative">
-                <span class="relative z-10 drop-shadow-[0_1px_1px_rgba(255,255,255,0.2)]">SEND ME THE BLUEPRINT</span>
+                <span class="relative z-10 drop-shadow-[0_1px_1px_rgba(255,255,255,0.2)]">SEND ME THE DOSSIER</span>
                 <i data-lucide="arrow-up" class="w-4 h-4 relative z-10 transition-transform duration-500 group-hover:-translate-y-1"></i>
                 <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-25deg] group-hover:animate-shimmer pointer-events-none"></div>
             </button>
