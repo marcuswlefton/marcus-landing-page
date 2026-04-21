@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FRAME-BUSTER: KILLS LINKEDIN'S IFRAME TRAP  -->
+    <!-- ═══════════════════════════════════════════ -->
     <script>
-        if (window.top !== window.self) {
-            window.top.location = window.self.location.href;
+        try {
+            if (window.top !== window.self) {
+                window.top.location.href = window.self.location.href;
+            }
+        } catch (e) {
+            // Gracefully catch cross-origin DOMExceptions in strict preview environments
+            console.warn("Frame-buster active: Cross-origin frame detected.");
         }
     </script>
-    
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- MOBILE LOCKDOWN VIEWPORT -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
     <meta name="theme-color" content="#000000">
     
     <!-- Open Graph & SEO Tags for Social/Slack Sharing -->
@@ -24,14 +32,11 @@
     
     <title>Mastery in Motion | VYRTŪOSITI</title>
 
-    <!-- Pre-connect to Google Fonts to prevent Flash of Unstyled Text (FOUT) on slow networks -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Apple-level Typography: Inter for UI/Lab Data, Playfair for Editorial/Luxury, JetBrains for Terminal/Clinical -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS Compiler -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
@@ -86,12 +91,21 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* ══════════════════════════════════════════════════════ */
+        /* MOBILE LOCKDOWN: Kills horizontal scroll and bounce    */
+        /* ══════════════════════════════════════════════════════ */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            overscroll-behavior-x: none; 
+        }
+
         body {
             background-color: var(--void);
             color: var(--textMain);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
             overscroll-behavior-y: none; 
         }
 
@@ -214,9 +228,6 @@
 
     <div class="bg-noise"></div>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SUPERHUMAN HERO SECTION -->
-    <!-- ═══════════════════════════════════════════ -->
     <main class="pt-24 md:pt-48 pb-12 md:pb-24 relative z-10 flex flex-col items-center text-center overflow-hidden min-h-[90vh] md:min-h-0 justify-center">
         <div class="ambient-glow-1"></div>
 
@@ -309,9 +320,6 @@
         </div>
     </main>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- IDENTITY & PROOF -->
-    <!-- ═══════════════════════════════════════════ -->
     <section class="py-16 md:py-32 relative z-10 border-t border-glassBorder">
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-20 md:mb-24 reveal">
@@ -391,7 +399,7 @@
                                 You have done the work and you are still leaving performance on the table. Not because you lack discipline. Because nobody has mapped your biology to your ambition at the depth it requires.
                             </p>
                             <p class="text-[15px] leading-[1.7] text-textSub font-light mb-4">
-                                <strong class="text-white font-medium">Most stop at the symptom. I go to the system.</strong> Fifteen years across Major League Baseball, the U.S. Air Force, the world's leading flow research labs, Fortune 500 boardrooms, and the founders rewriting entire industries.
+                                <strong class="text-white font-medium">Most stop at the symptom. I go to the system.</strong> Fifteen years across Major League Baseball, high-stakes arenas, the world's top performance labs, Fortune 500 boardrooms, and the founders rewriting entire industries.
                             </p>
                             <p class="text-[15px] leading-[1.7] text-textSub font-light mb-6">
                                 The ceiling was never effort. It was knowing exactly what your system needs to perform fully, in every dimension, without burning the life down to do it. Know thyself. Know the science. Find your minimum effective dose.
@@ -426,9 +434,6 @@
         </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- THE VELVET ROPE (Active Disqualification) -->
-    <!-- ═══════════════════════════════════════════ -->
     <section class="py-12 md:py-16 relative z-10 w-full max-w-[800px] mx-auto px-4 sm:px-6 reveal delay-200">
         <div class="border border-brandGold/20 bg-brandGold/[0.02] p-5 sm:p-6 md:p-10 rounded-2xl relative overflow-hidden group hover:border-brandGold/40 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),0_0_30px_rgba(194,163,89,0.05)] transition-all duration-500 cursor-pointer">
             <div class="absolute top-0 right-0 w-16 h-16 overflow-hidden">
@@ -452,9 +457,6 @@
         </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- FINAL CTA (The Silent Checkout) -->
-    <!-- ═══════════════════════════════════════════ -->
     <section class="py-16 md:py-32 border-t border-glassBorder relative z-10 text-center mt-10">
         <div class="ambient-glow-2"></div>
         <div class="max-w-[700px] mx-auto px-4 sm:px-6 reveal relative z-20">
@@ -547,9 +549,6 @@
         </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- UPGRADED COMPLIANCE MICRO-FOOTER            -->
-    <!-- ═══════════════════════════════════════════ -->
     <footer class="py-10 border-t border-glassBorder/40 bg-void/80 backdrop-blur-md relative z-20 mt-12">
         <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="font-mono text-[10px] text-textMuted uppercase tracking-widest opacity-60 text-center md:text-left">
@@ -568,9 +567,6 @@
         </div>
     </footer>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- INTERACTION LOGIC & EFFECTS -->
-    <!-- ═══════════════════════════════════════════ -->
     <script>
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
