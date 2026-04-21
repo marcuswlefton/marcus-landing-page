@@ -94,19 +94,15 @@
         /* ══════════════════════════════════════════════════════ */
         /* MOBILE LOCKDOWN: Kills horizontal scroll and bounce    */
         /* ══════════════════════════════════════════════════════ */
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-            position: relative;
-            overscroll-behavior-x: none; 
-        }
-
         body {
             background-color: var(--void);
             color: var(--textMain);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
             overscroll-behavior-y: none; 
+            overscroll-behavior-x: none;
         }
 
         ::-webkit-scrollbar { width: 8px; }
