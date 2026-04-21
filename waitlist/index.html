@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>VYRTŪOSITI | Advisory Application</title>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -119,11 +117,9 @@
 </head>
 <body class="relative h-[100dvh] w-full overflow-hidden flex flex-col selection:bg-gold-600 selection:text-black">
 
-    <!-- Secure Terminal Background -->
     <div class="bg-noise"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_rgba(147,114,42,0.05)_0%,_transparent_70%)] pointer-events-none z-0"></div>
 
-    <!-- Minimalist Branding Header -->
     <header class="absolute top-0 left-0 w-full p-5 md:p-10 z-20 flex justify-between items-center pointer-events-none">
         <div class="flex items-center gap-2 md:gap-3 pointer-events-auto">
             <div class="relative flex items-center justify-center">
@@ -138,19 +134,15 @@
         </div>
     </header>
 
-    <!-- Main Dynamic Content Area (Allows safe-area scrolling on tiny screens) -->
     <main class="flex-grow flex items-center justify-center relative z-10 w-full px-5 md:px-6 py-24 overflow-y-auto">
         <div id="step-wrapper" class="w-full max-w-3xl step-hidden my-auto">
-            <!-- Content injected via JS -->
-        </div>
+            </div>
     </main>
 
-    <!-- Footer Progress & Controls -->
     <footer class="absolute bottom-0 left-0 w-full z-20 bg-gradient-to-t from-[#030303] to-transparent">
         <div class="w-full px-5 md:px-10 pb-5 md:pb-6 flex justify-between items-end">
             <div class="flex items-center gap-4">
                 <button id="prev-btn" onclick="prevStep()" class="hidden w-8 h-8 rounded border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all hover:-translate-x-1">
-                    <!-- Changed to Chevron-Left for intuitive back navigation -->
                     <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 </button>
             </div>
@@ -159,13 +151,11 @@
             </div>
         </div>
         
-        <!-- Progress Bar -->
         <div class="w-full h-1 md:h-1.5 bg-[#111] relative">
             <div id="progress-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-gold-600 to-gold-400 w-0 transition-all duration-700 ease-out shadow-[0_0_10px_rgba(147,114,42,0.8)]"></div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         // Form State & Data
@@ -527,14 +517,40 @@
                 wrapper.classList.remove('step-hidden');
                 wrapper.classList.add('step-visible');
 
-                // Simulate API Call delay (Here is where you'd actually POST to Webhook/Zapier)
-                console.log("Submitting Data:", formData);
-                
-                setTimeout(() => {
-                    // Route to success screen
-                    currentStepIndex = steps.findIndex(s => s.id === 'success');
-                    renderStep();
-                }, 1800);
+                const KIT_FORM_ID = '9353109'; 
+                const KIT_API_KEY = 'mVsfQaUVGPNONWAJPZeA_Q'; // <-- ADD YOUR KEY HERE
+
+                fetch(`https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                    },
+                    body: JSON.stringify({
+                        api_key: KIT_API_KEY,
+                        email: formData.email,
+                        first_name: formData.firstName,
+                        fields: {
+                            linkedin_url: formData.linkedin,
+                            revenue: formData.revenue,
+                            friction: formData.friction,
+                            urgency: formData.urgency,
+                            financial_status: formData.financial
+                        }
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        setTimeout(() => {
+                            currentStepIndex = steps.findIndex(s => s.id === 'success');
+                            renderStep();
+                        }, 800); // Slight delay to let the "Encrypting" animation play out
+                    } else {
+                        console.error("Kit API Error", response);
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch Error:', error);
+                });
             }, 500);
         }
     </script>
