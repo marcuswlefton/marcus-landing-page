@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>VYRTŪOSITI | Advisory Application</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        gold: {
+                            400: '#E0C379',
+                            500: '#C9A653',
+                            600: '#93722A',
+                            700: '#664E1C'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #030303;
+            color: #FFFFFF;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Micro-Texture Noise */
+        .bg-noise {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* Input field resets and premium styling */
+        input, textarea {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 0;
+            outline: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+        input:focus, textarea:focus {
+            border-bottom-color: #C9A653;
+            box-shadow: 0 1px 0 0 #C9A653;
+        }
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Option Button Styling */
+        .option-btn {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .option-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(201, 166, 83, 0.5);
+            transform: translateX(4px);
+        }
+        .option-btn.selected {
+            background-color: rgba(147, 114, 42, 0.1);
+            border-color: #C9A653;
+        }
+
+        /* Smooth Step Transitions */
+        #step-wrapper {
+            transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .step-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+        .step-visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Hide scrollbar for textareas */
+        textarea::-webkit-scrollbar {
+            display: none;
+        }
+        textarea {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Brushed Bronze Metallic Text Effect */
+        .text-metallic {
+            background: linear-gradient(to right, #E0C379 0%, #93722A 40%, #C9A653 70%, #664E1C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="relative h-[100dvh] w-full overflow-hidden flex flex-col selection:bg-gold-600 selection:text-black">
+
+    <!-- Secure Terminal Background -->
+    <div class="bg-noise"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_rgba(147,114,42,0.05)_0%,_transparent_70%)] pointer-events-none z-0"></div>
+
+    <!-- Minimalist Branding Header -->
+    <header class="absolute top-0 left-0 w-full p-6 md:p-10 z-20 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="relative flex items-center justify-center">
+                <div class="absolute w-3 h-3 rounded-full bg-gold-600 blur-[6px] opacity-50"></div>
+                <div class="w-2 h-2 rounded-full bg-[#93722A] relative z-10"></div>
+            </div>
+            <span class="text-white font-bold tracking-[0.3em] text-[10px] md:text-[11px] uppercase">VYRTŪOSITI</span>
+        </div>
+        <div class="flex items-center gap-2 opacity-60">
+            <i data-lucide="lock" class="w-3 h-3 text-gold-500"></i>
+            <span class="font-mono text-[9px] tracking-[0.2em] uppercase">Encrypted</span>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Content Area -->
+    <main class="flex-grow flex items-center justify-center relative z-10 w-full px-6">
+        <div id="step-wrapper" class="w-full max-w-3xl step-hidden">
+            <!-- Content injected via JS -->
+        </div>
+    </main>
+
+    <!-- Footer Progress & Controls -->
+    <footer class="absolute bottom-0 left-0 w-full z-20">
+        <div class="w-full px-6 md:px-10 pb-6 flex justify-between items-end">
+            <div class="flex items-center gap-4">
+                <button id="prev-btn" onclick="prevStep()" class="hidden w-8 h-8 rounded border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all hover:-translate-x-1">
+                    <i data-lucide="chevron-up" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div id="keyboard-hint" class="font-mono text-[9px] text-white/40 tracking-widest hidden md:block">
+                Press <kbd class="border border-white/20 px-1.5 py-0.5 rounded mx-1">Enter ↵</kbd> to advance
+            </div>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="w-full h-1.5 bg-[#111] relative">
+            <div id="progress-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-gold-600 to-gold-400 w-0 transition-all duration-700 ease-out shadow-[0_0_10px_rgba(147,114,42,0.8)]"></div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Form State & Data
+        let currentStepIndex = 0;
+        let formData = {};
+
+        const steps = [
+            {
+                id: 'intro',
+                type: 'intro',
+                tag: 'VYRTŪOSITI // System Initialized',
+                question: 'VYRTŪOSITI<br><span class="text-metallic font-serif italic font-light drop-shadow-[0_0_20px_rgba(147,114,42,0.2)] tracking-normal block mt-1 normal-case leading-tight pb-2 pr-2">Private Advisory</span>',
+                description: 'The M.E.D. Dossier was just the baseline. This is a secure application for root-level installation of the complete VYRTŪOSITI architectural framework. Due to strict advisory capacity, this protocol acts as a ruthless operational filter. Answer with absolute honesty.',
+                action: 'APPLY FOR ACCESS'
+            },
+            {
+                id: 'identity',
+                type: 'inputs',
+                tag: '01 / Identity Verification',
+                question: 'Enter your credentials.',
+                fields: [
+                    { id: 'firstName', type: 'text', placeholder: 'First & Last Name' },
+                    { id: 'email', type: 'email', placeholder: 'Best Email Address' },
+                    { id: 'linkedin', type: 'url', placeholder: 'LinkedIn Profile URL' }
+                ]
+            },
+            {
+                id: 'revenue',
+                type: 'options',
+                tag: '02 / Operational Scope',
+                question: "To ensure operational alignment, what is your company's trailing 12-month revenue?",
+                options: [
+                    { key: 'A', value: 'Under $1M' },
+                    { key: 'B', value: '$1M - $5M' },
+                    { key: 'C', value: '$5M - $10M' },
+                    { key: 'D', value: '$10M+' }
+                ]
+            },
+            {
+                id: 'friction',
+                type: 'textarea',
+                tag: '03 / Friction Diagnosis',
+                question: 'What is the primary biological or operational bottleneck breaking your momentum right now?',
+                placeholder: 'Be specific. Where are you bleeding cognitive capital?'
+            },
+            {
+                id: 'urgency',
+                type: 'textarea',
+                tag: '04 / Urgency Test',
+                question: 'Why must this be solved this quarter instead of next year?',
+                placeholder: 'Type your answer here...'
+            },
+            {
+                id: 'financial',
+                type: 'options',
+                tag: '05 / Financial Anchor',
+                question: 'Installing the complete VYRTŪOSITI Operating System requires a 5-figure investment and a strict 90-day commitment. Are you prepared to allocate resources if accepted?',
+                options: [
+                    { key: 'A', value: 'Yes, I am prepared to execute.' },
+                    { key: 'B', value: 'No, not at this time.' }
+                ]
+            },
+            {
+                id: 'success',
+                type: 'success'
+            }
+        ];
+
+        const wrapper = document.getElementById('step-wrapper');
+        const progressBar = document.getElementById('progress-bar');
+        const prevBtn = document.getElementById('prev-btn');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderStep();
+
+            // Global Keyboard Listener for 'Typeform' feel
+            document.addEventListener('keydown', handleKeyPress);
+        });
+
+        function renderStep() {
+            // Fade out current content
+            wrapper.classList.remove('step-visible');
+            wrapper.classList.add('step-hidden');
+
+            setTimeout(() => {
+                const step = steps[currentStepIndex];
+                let html = '';
+
+                // Calculate Endowed Progress
+                const totalFormSteps = 5; // 5 Actual form questions
+                let progressPercent = 0;
+                
+                if (currentStepIndex > 0 && currentStepIndex <= totalFormSteps) {
+                    // Instantly jumps to 20% on Step 1, scales to 100% on Step 5
+                    progressPercent = 20 + ((currentStepIndex - 1) / (totalFormSteps - 1)) * 80;
+                } else if (currentStepIndex > totalFormSteps) {
+                    progressPercent = 100;
+                }
+                progressBar.style.width = `${progressPercent}%`;
+
+                // Toggle Back Button (hidden on intro, success, rejected)
+                if (currentStepIndex > 0 && currentStepIndex <= totalFormSteps) {
+                    prevBtn.classList.remove('hidden');
+                } else {
+                    prevBtn.classList.add('hidden');
+                }
+
+                // Generate HTML based on step type
+                if (step.type === 'intro') {
+                    html = `
+                        <div class="mb-6 flex items-center gap-3">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#4ADE80] animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]"></div>
+                            <span class="text-gold-500 font-mono text-[10px] tracking-[0.3em] uppercase">${step.tag}</span>
+                        </div>
+                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-white/95 mb-6 uppercase leading-[0.95]">${step.question}</h1>
+                        <div class="w-16 h-[1px] bg-gradient-to-r from-gold-600 to-transparent mb-8"></div>
+                        <p class="text-gray-400 text-[16px] md:text-[18px] font-light leading-[1.7] mb-12 max-w-2xl">${step.description}</p>
+                        
+                        <button onclick="nextStep()" class="inline-flex items-center gap-3 bg-gradient-to-r from-[#93722A] via-[#C9A653] to-[#93722A] bg-[length:200%_auto] text-[#110D05] font-bold tracking-[0.2em] text-[13px] uppercase py-4 px-10 rounded-sm hover:bg-right transition-all duration-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),_0_10px_30px_rgba(147,114,42,0.3)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_15px_40px_rgba(147,114,42,0.4)] active:scale-[0.98] group relative overflow-hidden">
+                            <span class="relative z-10 drop-shadow-[0_1px_1px_rgba(255,255,255,0.2)]">${step.action}</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 transition-transform duration-500 group-hover:translate-x-1.5"></i>
+                        </button>
+                    `;
+                } 
+                else if (step.type === 'success') {
+                    html = `
+                        <div class="text-center max-w-2xl mx-auto">
+                            <div class="w-20 h-20 mx-auto mb-8 rounded-full bg-gold-600/10 border border-gold-600/30 flex items-center justify-center shadow-[0_0_30px_rgba(147,114,42,0.2)]">
+                                <i data-lucide="shield-check" class="w-10 h-10 text-gold-500"></i>
+                            </div>
+                            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tighter text-white/95 mb-6 uppercase">Application Secured.</h2>
+                            <div class="h-px w-16 bg-gold-600/50 mx-auto mb-6"></div>
+                            <p class="text-gray-400 text-[16px] md:text-lg leading-[1.7] font-light italic">
+                                Marcus's team reviews all applications on Thursdays. If your operational friction aligns with our current advisory capacities, we will reach out within 48 hours to schedule a private discovery protocol.
+                            </p>
+                            <a href="https://marcuslefton.com" class="inline-block mt-10 font-mono text-[10px] text-gray-500 uppercase tracking-widest hover:text-gold-500 transition-colors">Return to Headquarters</a>
+                        </div>
+                    `;
+                    document.getElementById('keyboard-hint').classList.add('hidden');
+                }
+                else {
+                    html += `
+                        <div class="mb-6">
+                            <span class="text-gold-500 font-mono text-[10px] tracking-[0.3em] uppercase">${step.tag}</span>
+                        </div>
+                        <h2 class="text-3xl md:text-[40px] font-light text-white/95 mb-10 leading-[1.2]">${step.question}</h2>
+                    `;
+
+                    if (step.type === 'inputs') {
+                        html += `<div class="space-y-8">`;
+                        step.fields.forEach((field, index) => {
+                            html += `
+                                <div class="relative">
+                                    <input type="${field.type}" id="${field.id}" placeholder="${field.placeholder}" value="${formData[field.id] || ''}" class="w-full text-xl md:text-2xl text-white py-3" ${index === 0 ? 'autofocus' : ''}>
+                                    <div id="error-${field.id}" class="hidden absolute -bottom-5 left-0 text-red-500/80 font-mono text-[9px] uppercase tracking-widest">Required Field</div>
+                                </div>
+                            `;
+                        });
+                        html += `</div>`;
+                        html += `
+                            <div class="mt-10">
+                                <button onclick="nextStep()" class="flex items-center gap-3 text-gold-500 font-bold uppercase tracking-widest text-sm hover:text-gold-400 transition-colors group">
+                                    <span class="bg-white/10 px-3 py-2 rounded text-white/90 group-hover:bg-white/20 transition-colors">OK</span>
+                                    <i data-lucide="check" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        `;
+                    } 
+                    else if (step.type === 'options') {
+                        html += `<div class="space-y-4">`;
+                        step.options.forEach(opt => {
+                            const isSelected = formData[step.id] === opt.value;
+                            html += `
+                                <button onclick="selectOption('${step.id}', '${opt.value}')" class="option-btn w-full text-left p-5 md:p-6 border border-white/10 rounded bg-white/[0.02] text-lg md:text-xl flex items-center gap-6 ${isSelected ? 'selected' : ''}">
+                                    <span class="font-mono text-gold-500 text-sm border border-gold-500/30 px-2 py-0.5 rounded bg-gold-500/10">${opt.key}</span> 
+                                    <span class="text-white/90 font-light">${opt.value}</span>
+                                </button>
+                            `;
+                        });
+                        html += `</div>`;
+                    }
+                    else if (step.type === 'textarea') {
+                        html += `
+                            <div class="relative">
+                                <textarea id="${step.id}" rows="4" placeholder="${step.placeholder}" class="w-full text-xl md:text-2xl text-white py-3 resize-none leading-relaxed autofocus">${formData[step.id] || ''}</textarea>
+                                <div id="error-${step.id}" class="hidden absolute -bottom-5 left-0 text-red-500/80 font-mono text-[9px] uppercase tracking-widest">Input Required to Advance</div>
+                            </div>
+                            <div class="mt-8 flex items-center gap-4">
+                                <button onclick="nextStep()" class="flex items-center gap-3 text-gold-500 font-bold uppercase tracking-widest text-sm hover:text-gold-400 transition-colors group">
+                                    <span class="bg-white/10 px-3 py-2 rounded text-white/90 group-hover:bg-white/20 transition-colors">OK</span>
+                                    <i data-lucide="check" class="w-5 h-5"></i>
+                                </button>
+                                <span class="font-mono text-[10px] text-gray-600 hidden md:block">Press Cmd/Ctrl + Enter ↵</span>
+                            </div>
+                        `;
+                    }
+                }
+
+                wrapper.innerHTML = html;
+                lucide.createIcons();
+
+                // Fade back in
+                wrapper.classList.remove('step-hidden');
+                wrapper.classList.add('step-visible');
+
+                // Auto-focus inputs dynamically after transition
+                setTimeout(() => {
+                    const firstInput = wrapper.querySelector('input, textarea');
+                    if (firstInput) firstInput.focus();
+                }, 100);
+
+            }, 500); // Wait for fade out
+        }
+
+        function validateCurrentStep() {
+            const step = steps[currentStepIndex];
+            
+            if (step.type === 'inputs') {
+                let valid = true;
+                step.fields.forEach(f => {
+                    const el = document.getElementById(f.id);
+                    const errorEl = document.getElementById(`error-${f.id}`);
+                    if (!el.value.trim()) {
+                        el.classList.add('!border-red-500');
+                        errorEl.classList.remove('hidden');
+                        valid = false;
+                    } else {
+                        el.classList.remove('!border-red-500');
+                        errorEl.classList.add('hidden');
+                        formData[f.id] = el.value.trim();
+                    }
+                });
+                return valid;
+            } 
+            else if (step.type === 'textarea') {
+                const el = document.getElementById(step.id);
+                const errorEl = document.getElementById(`error-${step.id}`);
+                if (!el.value.trim()) {
+                    el.classList.add('!border-red-500');
+                    errorEl.classList.remove('hidden');
+                    return false;
+                }
+                el.classList.remove('!border-red-500');
+                errorEl.classList.add('hidden');
+                formData[step.id] = el.value.trim();
+                return true;
+            }
+            else if (step.type === 'options') {
+                // Must have clicked an option
+                return !!formData[step.id];
+            }
+            return true; // Intro passes automatically
+        }
+
+        function selectOption(stepId, value) {
+            formData[stepId] = value;
+            // Visually highlight immediately
+            renderStep(); 
+            
+            // Auto-advance after short delay for "Typeform" feel
+            setTimeout(() => {
+                nextStep();
+            }, 350);
+        }
+
+        function nextStep() {
+            // Already at success screen
+            if (currentStepIndex >= steps.findIndex(s => s.id === 'success')) return; 
+            
+            if (!validateCurrentStep()) {
+                return;
+            }
+
+            // Check if we are on the final financial step to evaluate qualification
+            if (currentStepIndex === steps.findIndex(s => s.id === 'financial')) {
+                submitFormToBackend();
+            } else {
+                currentStepIndex++;
+                renderStep();
+            }
+        }
+
+        function prevStep() {
+            if (currentStepIndex > 0) {
+                // Save current data before going back without triggering visual errors
+                const step = steps[currentStepIndex];
+                if (step.type === 'inputs') {
+                    step.fields.forEach(f => {
+                        const el = document.getElementById(f.id);
+                        if (el && el.value.trim()) formData[f.id] = el.value.trim();
+                    });
+                } else if (step.type === 'textarea') {
+                    const el = document.getElementById(step.id);
+                    if (el && el.value.trim()) formData[step.id] = el.value.trim();
+                }
+                
+                currentStepIndex--;
+                renderStep();
+            }
+        }
+
+        function handleKeyPress(e) {
+            const step = steps[currentStepIndex];
+            
+            if (e.key === 'Enter') {
+                if (step.type === 'textarea') {
+                    // Prevent normal Enter from submitting textareas unless Cmd/Ctrl is held
+                    if (e.metaKey || e.ctrlKey) {
+                        nextStep();
+                    }
+                    return; 
+                }
+
+                if (step.type === 'inputs') {
+                    // Smooth advancing between inputs (prevents the UX trap)
+                    const activeElement = document.activeElement;
+                    const inputs = Array.from(wrapper.querySelectorAll('input'));
+                    const currentIndex = inputs.indexOf(activeElement);
+                    
+                    if (currentIndex > -1 && currentIndex < inputs.length - 1) {
+                        e.preventDefault();
+                        inputs[currentIndex + 1].focus();
+                        return; // Stop here, don't submit the step yet
+                    }
+                }
+                
+                e.preventDefault();
+                nextStep();
+            }
+
+            // Keyboard shortcuts for Options (A, B, C, D)
+            if (step.type === 'options') {
+                const keyMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+                const pressedKey = e.key.toLowerCase();
+                
+                if (keyMap[pressedKey] !== undefined && step.options[keyMap[pressedKey]]) {
+                    selectOption(step.id, step.options[keyMap[pressedKey]].value);
+                }
+            }
+        }
+
+        function submitFormToBackend() {
+            // Show loading state
+            wrapper.classList.remove('step-visible');
+            wrapper.classList.add('step-hidden');
+            
+            setTimeout(() => {
+                wrapper.innerHTML = `
+                    <div class="text-center flex flex-col items-center">
+                        <i data-lucide="loader-2" class="w-12 h-12 text-gold-500 animate-spin mb-6"></i>
+                        <h2 class="text-2xl font-mono tracking-widest text-white/50 uppercase">Encrypting Application...</h2>
+                    </div>
+                `;
+                lucide.createIcons();
+                wrapper.classList.remove('step-hidden');
+                wrapper.classList.add('step-visible');
+
+                // Simulate API Call delay (Here is where you'd actually POST to Webhook/Zapier)
+                console.log("Submitting Data:", formData);
+                
+                setTimeout(() => {
+                    // Route to success screen
+                    currentStepIndex = steps.findIndex(s => s.id === 'success');
+                    renderStep();
+                }, 1800);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
