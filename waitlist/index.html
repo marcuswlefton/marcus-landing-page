@@ -183,39 +183,58 @@
                 ]
             },
             {
-                id: 'revenue',
+                id: 'role',
                 type: 'options',
-                tag: '02 / Operational Scope',
-                question: "To ensure operational alignment, what is your company's trailing 12-month revenue?",
+                tag: '02 / Operational Structure',
+                question: 'To properly contextualize your friction, what is your current operational role?',
                 options: [
-                    { key: 'A', value: 'Under $1M' },
-                    { key: 'B', value: '$1M - $5M' },
-                    { key: 'C', value: '$5M - $10M' },
-                    { key: 'D', value: '$10M+' }
+                    { key: 'A', value: 'Solo Operator / Founder' },
+                    { key: 'B', value: 'Founder with a small team (< 10)' },
+                    { key: 'C', value: 'Executive / CEO (10-50+ employees)' },
+                    { key: 'D', value: 'Investor / Board Member' }
+                ]
+            },
+            {
+                id: 'income',
+                type: 'options',
+                tag: '03 / Financial Capacity',
+                question: "What is your approximate annual personal income?",
+                options: [
+                    { key: 'A', value: 'Under $250k' },
+                    { key: 'B', value: '$250k - $500k' },
+                    { key: 'C', value: '$500k - $1M' },
+                    { key: 'D', value: '$1M+' }
                 ]
             },
             {
                 id: 'friction',
                 type: 'textarea',
-                tag: '03 / Friction Diagnosis',
+                tag: '04 / Friction Diagnosis',
                 question: 'What is the primary biological or operational bottleneck breaking your momentum right now?',
                 placeholder: 'Be specific. Where are you bleeding performance capital?'
             },
             {
+                id: 'coi',
+                type: 'textarea',
+                tag: '05 / Cost of Inaction',
+                question: 'If you do not solve this friction, what will it cost your business (or your health) over the next 12 months?',
+                placeholder: 'Quantify the bleed. Type your answer here...'
+            },
+            {
                 id: 'urgency',
                 type: 'textarea',
-                tag: '04 / Urgency Test',
+                tag: '06 / Urgency Test',
                 question: 'Why must this be solved this quarter instead of next year?',
                 placeholder: 'Type your answer here...'
             },
             {
                 id: 'financial',
                 type: 'options',
-                tag: '05 / Financial Anchor',
+                tag: '07 / Financial Anchor',
                 question: 'Installing the complete VYRTŪOSITI Operating System requires a 5-figure investment and a strict 90-day commitment. Are you prepared to allocate resources if accepted?',
                 options: [
                     { key: 'A', value: 'Yes, I am prepared to execute.' },
-                    { key: 'B', value: 'No, not at this time.' }
+                    { key: 'B', value: 'I have the capital, but need to understand the exact ROI first.' }
                 ]
             },
             {
@@ -247,12 +266,12 @@
                 let html = '';
 
                 // Calculate Endowed Progress
-                const totalFormSteps = 5; // 5 Actual form questions
+                const totalFormSteps = 7; // 7 Actual form questions
                 let progressPercent = 0;
                 
                 if (currentStepIndex > 0 && currentStepIndex <= totalFormSteps) {
-                    // Instantly jumps to 20% on Step 1, scales to 100% on Step 5
-                    progressPercent = 20 + ((currentStepIndex - 1) / (totalFormSteps - 1)) * 80;
+                    // Instantly jumps to a starting percentage, scales to 100%
+                    progressPercent = (currentStepIndex / totalFormSteps) * 100;
                 } else if (currentStepIndex > totalFormSteps) {
                     progressPercent = 100;
                 }
@@ -531,8 +550,10 @@
                         first_name: formData.firstName,
                         fields: {
                             linkedin_url: formData.linkedin,
-                            revenue: formData.revenue,
+                            role: formData.role,
+                            income: formData.income,
                             friction: formData.friction,
+                            cost_of_inaction: formData.coi,
                             urgency: formData.urgency,
                             financial_status: formData.financial
                         }
