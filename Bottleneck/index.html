@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>VYRTUOSITI | The Operator Bottleneck Diagnostic</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#000000',
+                        glass: 'rgba(20, 20, 20, 0.6)',
+                        glassBorder: 'rgba(255, 255, 255, 0.08)',
+                        brandGold: '#C2A359',
+                        brandGoldHover: '#D4B66A',
+                        textMain: '#FAFAFA',
+                        textSub: 'rgba(255, 255, 255, 0.65)',
+                        textMuted: 'rgba(255, 255, 255, 0.4)'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    letterSpacing: {
+                        tightest: '-0.04em',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 30px rgba(194, 163, 89, 0.1)',
+                        'glowStrong': '0 0 40px rgba(194, 163, 89, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --void: #000000;
+            --brandGold: #C2A359;
+            --textMain: #FAFAFA; 
+        }
+
+        * { -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--void);
+            color: var(--textMain);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #000000; border-left: 1px solid rgba(255,255,255,0.05); }
+        ::-webkit-scrollbar-thumb { background: rgba(194, 163, 89, 0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(194, 163, 89, 0.6); }
+
+        /* Optimized Ambient Glows (Removed will-change for memory efficiency) */
+        .ambient-glow-1 {
+            position: absolute; top: -10%; right: -5%; width: 600px; height: 600px;
+            background: radial-gradient(circle at center, rgba(194, 163, 89, 0.12) 0%, rgba(194, 163, 89, 0.04) 40%, rgba(0,0,0,0) 70%);
+            border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 0;
+            transform: translateZ(0);
+        }
+        
+        .ambient-glow-2 {
+            position: absolute; bottom: 0%; left: 50%;
+            transform: translateX(-50%) translateZ(0); width: 800px; height: 400px;
+            background: radial-gradient(circle at center, rgba(194, 163, 89, 0.08) 0%, rgba(194, 163, 89, 0.02) 50%, rgba(0,0,0,0) 70%);
+            border-radius: 50%; filter: blur(50px); pointer-events: none; z-index: 0;
+        }
+
+        .bg-noise {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
+            z-index: 9999; opacity: 0.035;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            transform: translateZ(0);
+        }
+
+        @media (max-width: 768px) {
+            .bg-noise { opacity: 0.025; } /* Less battery strain on mobile processing SVG filters */
+            .ambient-glow-1 { width: 400px; height: 400px; }
+        }
+
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(20,20,20,0.6) 0%, rgba(10,10,10,0.8) 100%);
+            border: 1px solid rgba(255,255,255,0.03); border-radius: 20px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 32px rgba(0,0,0,0.4);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        @media (hover: hover) and (pointer: fine) {
+            .glass-panel:hover {
+                background: linear-gradient(145deg, rgba(25,25,25,0.7) 0%, rgba(15,15,15,0.9) 100%);
+                border-color: rgba(194, 163, 89, 0.2);
+                transform: translateY(-4px); 
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 20px 40px -10px rgba(0,0,0,0.8), 0 0 30px rgba(194, 163, 89, 0.08);
+            }
+            .leaks-grid:hover > div:not(:hover) {
+                opacity: 0.35;
+                transform: scale(0.98);
+                filter: blur(1.5px);
+            }
+        }
+        .leaks-grid > div {
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Optimized Scroll Reveal */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .fade-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .cmd-btn {
+            background: linear-gradient(180deg, #C2A359 0%, #AD8E45 100%); 
+            color: #000000; border-radius: 100px;
+            font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; padding: 16px 40px; white-space: nowrap;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); display: inline-flex; align-items: center; justify-content: center;
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 4px 15px rgba(194, 163, 89, 0.15);
+            border: 1px solid transparent; cursor: pointer;
+        }
+        .cmd-btn:hover {
+            background: linear-gradient(180deg, #D4B66A 0%, #C2A359 100%); 
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.6), 0 6px 20px rgba(194, 163, 89, 0.3);
+            transform: translateY(-1px);
+        }
+        .cmd-btn:active { transform: scale(0.98); box-shadow: inset 0 2px 5px rgba(0,0,0,0.6); }
+
+        /* Mobile specific horizontal gradient indicator for scrollable tables */
+        .scroll-hint::after {
+            content: '';
+            position: absolute; top: 0; right: 0; bottom: 0; width: 40px;
+            background: linear-gradient(to right, transparent, rgba(15,15,15,0.9));
+            pointer-events: none; opacity: 1; transition: opacity 0.3s;
+        }
+        @media (min-width: 768px) { .scroll-hint::after { display: none; } }
+    </style>
+</head>
+<body class="bg-void text-textMain antialiased selection:bg-brandGold selection:text-black">
+
+    <div class="bg-noise"></div>
+    <div class="ambient-glow-1"></div>
+
+    <header class="max-w-5xl mx-auto px-6 pt-24 md:pt-32 pb-20 md:pb-32 min-h-[85vh] md:min-h-[90vh] flex flex-col justify-center items-center text-center relative z-10">
+        <div class="font-mono tracking-[0.3em] text-[9px] md:text-[10px] text-brandGold uppercase mb-6 md:mb-8 opacity-80 border border-brandGold/20 rounded-full px-4 md:px-5 py-2 inline-block bg-brandGold/5 shadow-glow">
+            Private Performance Architecture
+        </div>
+        <h1 class="text-[34px] sm:text-[42px] md:text-[64px] font-serif font-normal leading-[1.1] tracking-tightest mb-6 md:mb-8 text-textMain drop-shadow-lg">
+            You're not lacking capacity.<br>
+            <span class="italic text-brandGold font-light block mt-2">You're leaking it.</span>
+        </h1>
+        <p class="text-[15px] md:text-[18px] text-textSub max-w-3xl mx-auto leading-[1.6] font-light mb-10 md:mb-12 px-2">
+            A private performance architecture diagnostic for high-stakes operators whose calendar, body, decisions, and business have become too expensive to keep managing through <strong class="text-white font-medium">heroic effort</strong>.
+        </p>
+        <a href="#waitlist" class="cmd-btn w-full sm:w-auto">
+            [ REQUEST WAITLIST POSITION ]
+        </a>
+    </header>
+
+    <section class="py-16 md:py-24 border-y border-glassBorder relative z-10">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-mono text-[9px] md:text-[10px] text-textMuted tracking-[0.3em] uppercase mb-5 md:mb-6 font-medium">The Core Problem</h2>
+            <p class="text-[20px] md:text-[28px] font-serif leading-[1.6] mb-8 md:mb-10 text-textMain font-light">
+                Most high performers do not fail because they lack ambition, intelligence, or work ethic. <br class="hidden md:block"><br class="hidden md:block">
+                They fail because their current system starts <span class="font-normal italic text-brandGold">leaking capacity</span>.
+            </p>
+            <ul class="text-textSub text-[15px] md:text-[16px] space-y-3 max-w-2xl mx-auto font-light text-left md:text-center px-4">
+                <li>Through a calendar that gives everyone access.</li>
+                <li>A body that no longer trusts the pace.</li>
+                <li>A role that keeps collapsing into firefighter.</li>
+                <li>A business model that depends on force.</li>
+                <li>A nervous system that treats every request like an emergency.</li>
+                <li>A strategy that looks clear until the week starts.</li>
+            </ul>
+            <p class="mt-10 md:mt-12 text-[18px] md:text-[20px] font-medium text-textMain">
+                That is the Operator Bottleneck. <br>
+                <span class="text-textMuted text-[14px] md:text-[15px] mt-2 block font-light">Not laziness. Not weakness. Not lack of discipline. <br><span class="text-brandGold font-medium mt-1 block">A system leak.</span></span>
+            </p>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 border-b border-glassBorder relative z-10 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.03),transparent_70%)]">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="font-mono text-[9px] md:text-[10px] text-brandGold tracking-[0.3em] uppercase mb-4 font-medium">System Diagnostics</h2>
+                <h3 class="text-[28px] md:text-[40px] font-serif text-textMain font-normal">Field Evidence & Installed Solutions</h3>
+                <p class="text-textSub mt-3 md:mt-4 font-light max-w-2xl mx-auto text-[14px] md:text-[16px]">Anonymized proof assets from active diagnostic engagements.</p>
+            </div>
+            
+            <div class="space-y-6 max-w-5xl mx-auto">
+                <div class="glass-panel p-6 sm:p-8 md:p-10 border-l-4 border-l-brandGold/60">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                        <div class="md:col-span-1 border-b md:border-b-0 md:border-r border-glassBorder pb-5 md:pb-0 md:pr-6">
+                            <h4 class="text-[18px] md:text-[20px] font-serif text-brandGold mb-2 md:mb-3">01. The Smartest Person Bottleneck</h4>
+                            <p class="text-[13px] md:text-[14px] text-textSub font-light italic leading-relaxed">"The business moved, but only because they absorbed the complexity personally."</p>
+                        </div>
+                        <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 text-[13px] md:text-[14px]">
+                            <div>
+                                <span class="block font-mono text-[9px] md:text-[10px] uppercase tracking-widest text-textMuted mb-2 font-bold">The Diagnosis</span>
+                                <p class="text-textMain font-light leading-relaxed">Role collapse and access leakage. They became the pressure valve for the entire system.</p>
+                            </div>
+                            <div>
+                                <span class="block font-mono text-[9px] md:text-[10px] uppercase tracking-widest text-brandGold mb-2 font-bold">The Shift</span>
+                                <p class="text-textSub font-light leading-relaxed">Installed escalation criteria and protected blocks. The system routed fewer problems through them by default.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 sm:p-8 md:p-10 border-l-4 border-l-brandGold/40">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                        <div class="md:col-span-1 border-b md:border-b-0 md:border-r border-glassBorder pb-5 md:pb-0 md:pr-6">
+                            <h4 class="text-[18px] md:text-[20px] font-serif text-brandGold mb-2 md:mb-3">02. The Demand-Translation Gap</h4>
+                            <p class="text-[13px] md:text-[14px] text-textSub font-light italic leading-relaxed">"Warm demand lost speed. The value was obvious live, but not in a repeatable system."</p>
+                        </div>
+                        <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 text-[13px] md:text-[14px]">
+                            <div>
+                                <span class="block font-mono text-[9px] md:text-[10px] uppercase tracking-widest text-textMuted mb-2 font-bold">The Diagnosis</span>
+                                <p class="text-textMain font-light leading-relaxed">Conversion architecture constraint. High trust in conversation, low structure after.</p>
+                            </div>
+                            <div>
+                                <span class="block font-mono text-[9px] md:text-[10px] uppercase tracking-widest text-brandGold mb-2 font-bold">The Shift</span>
+                                <p class="text-textSub font-light leading-relaxed">Built modular proposal blocks and follow-up cadences. The path from interest to decision became repeatable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 sm:p-8 md:p-10 border-l-4 border-l-brandGold/20">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                        <div class="md:col-span-1 border-b md:border-b-0 md:border-r border-glassBorder pb-5 md:pb-0 md:pr-6">
+                            <h4 class="text-[18px] md:text-[20px] font-serif text-brandGold mb-2 md:mb-3">03. The High-Potential Scatter</h4>
+                            <p class="text-[13px] md:text-[14px] text-textSub font-light italic leading-relaxed">"Progress happened in bursts, not compounding loops. Too many unfinished things."</p>
+                        </div>
+                        <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 text-[13px] md:text-[14px]">
+                            <div>
+                                <span class="block font-mono text-[9px] md:text-[10px] uppercase tracking-widest text-textMuted mb-2 font-bold">The Diagnosis</span>
+                                <p class="text-textMain font-light leading-relaxed">Opportunity overload. They did not need more options, they needed containment.</p>
+                            </div>
+                            <div>
+                                <span class="block font-mono text-[9px] md:text-[10px] uppercase tracking-widest text-brandGold mb-2 font-bold">The Shift</span>
+                                <p class="text-textSub font-light leading-relaxed">Installed weekly artifact cadences and sleep-protection rules. Visible momentum returned.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 border-b border-glassBorder relative z-10 bg-void">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-10 md:mb-14 justify-center md:justify-start">
+                <div class="h-[1px] w-8 bg-brandGold/50"></div>
+                <div class="font-mono text-[9px] md:text-[10px] text-brandGold tracking-[0.3em] uppercase font-medium">The Authority</div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 items-center">
+                <div class="md:col-span-5 relative group hidden md:block">
+                    <div class="absolute -inset-3 border border-white/5 rounded-2xl bg-white/[0.02] transition-all duration-700 md:group-hover:border-brandGold/20 md:group-hover:bg-brandGold/[0.02]"></div>
+                    <div class="relative w-full aspect-[4/5] overflow-hidden rounded-xl border border-white/10 bg-void z-10 shadow-2xl transition-all duration-700 md:group-hover:border-brandGold/40 md:group-hover:shadow-[0_0_30px_rgba(194,163,89,0.15)] flex items-center justify-center">
+                        <img src="https://i.imgur.com/SJLnvwa.png" alt="The Architect" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover saturate-50 contrast-125 brightness-75 transition-all duration-700 md:group-hover:saturate-100 md:group-hover:brightness-105 md:group-hover:scale-105">
+                    </div>
+                </div>
+                
+                <div class="md:col-span-7">
+                    <h3 class="font-serif text-[28px] md:text-[44px] text-textMain leading-[1.1] mb-6 md:mb-8 text-center md:text-left">
+                        We do not coach.<br>
+                        <span class="text-brandGold italic font-light block mt-2">We architect performance systems.</span>
+                    </h3>
+                    <p class="text-[15px] md:text-[16px] leading-[1.7] text-textSub font-light mb-5 md:mb-6 text-center md:text-left">
+                        You have done the work and you are still leaving performance on the table. Not because you lack discipline. Because nobody has mapped your biology to your ambition at the depth it requires.
+                    </p>
+                    <p class="text-[15px] md:text-[16px] leading-[1.7] text-textSub font-light mb-8 md:mb-10 text-center md:text-left">
+                        <strong class="text-white font-medium">Most stop at the symptom. We go to the system.</strong> With over fifteen years across Major League Baseball, high-stakes arenas, the world's top performance labs, Fortune 500 boardrooms, and the founders rewriting entire industries, we know exactly what breaks at the highest levels of human output.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 md:gap-8 border-t border-glassBorder pt-8 md:pt-10">
+                        <div class="text-center md:text-left">
+                            <div class="font-mono text-[20px] md:text-[24px] text-white mb-2 flex items-center justify-center md:justify-start gap-2 md:gap-3">
+                                <span class="w-1.5 h-1.5 bg-brandGold rounded-full shadow-glowStrong"></span> 15+ Years
+                            </div>
+                            <div class="font-mono text-[9px] md:text-[10px] text-textMuted tracking-[0.2em] uppercase leading-relaxed">High-Consequence<br>Environments</div>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <div class="font-mono text-[20px] md:text-[24px] text-white mb-2 flex items-center justify-center md:justify-start gap-2 md:gap-3">
+                                <span class="w-1.5 h-1.5 bg-brandGold rounded-full shadow-glowStrong"></span> 1,000+
+                            </div>
+                            <div class="font-mono text-[9px] md:text-[10px] text-textMuted tracking-[0.2em] uppercase leading-relaxed">Pro & Executive<br>Operators</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 max-w-7xl mx-auto px-6 relative z-10">
+        <div class="text-center mb-12 md:mb-16">
+            <h2 class="font-mono text-[9px] md:text-[10px] text-brandGold tracking-[0.3em] uppercase mb-3 md:mb-4 font-medium">Identify The Leak</h2>
+            <h3 class="text-[28px] md:text-[44px] font-serif text-textMain font-normal">The 8 Bottleneck Patterns</h3>
+            <p class="text-textSub mt-4 md:mt-6 max-w-2xl mx-auto font-light text-[15px] md:text-[16px]">High performers rarely have one isolated problem. They have recurring system leaks. Find your pattern below.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5 md:gap-8 leaks-grid">
+            <div class="glass-panel p-6 sm:p-8 md:p-10 flex flex-col relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)] pointer-events-none"></div>
+                <h4 class="text-[20px] md:text-[22px] text-textMain font-serif mb-3 md:mb-4 relative z-10"><span class="text-brandGold opacity-70 font-sans text-lg mr-2 font-light">01.</span> Role Collapse</h4>
+                <p class="text-[14px] md:text-[15px] text-textSub mb-6 md:mb-8 font-light relative z-10 flex-grow">You are supposed to be the leader/strategist. But you keep collapsing into firefighter, technician, therapist, or admin.</p>
+                <div class="grid grid-cols-2 gap-4 text-[12px] md:text-[13px] pt-5 md:pt-6 border-t border-glassBorder relative z-10">
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-textMuted uppercase block mb-2 md:mb-3 font-bold">The Cost</span>
+                        <ul class="text-textSub space-y-1.5 md:space-y-2 font-light">
+                            <li>• Strategic capacity</li>
+                            <li>• Decision quality</li>
+                            <li>• Leadership clarity</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-brandGold uppercase block mb-2 md:mb-3 font-bold">We Install</span>
+                        <ul class="text-textMain space-y-1.5 md:space-y-2 font-light">
+                            <li>• Role integrity map</li>
+                            <li>• Escalation criteria</li>
+                            <li>• Protected blocks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-8 md:p-10 flex flex-col relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)] pointer-events-none"></div>
+                <h4 class="text-[20px] md:text-[22px] text-textMain font-serif mb-3 md:mb-4 relative z-10"><span class="text-brandGold opacity-70 font-sans text-lg mr-2 font-light">02.</span> Heroic Effort Dependency</h4>
+                <p class="text-[14px] md:text-[15px] text-textSub mb-6 md:mb-8 font-light relative z-10 flex-grow">The system works, but only when you personally force it forward. Growth creates more pressure instead of more leverage.</p>
+                <div class="grid grid-cols-2 gap-4 text-[12px] md:text-[13px] pt-5 md:pt-6 border-t border-glassBorder relative z-10">
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-textMuted uppercase block mb-2 md:mb-3 font-bold">The Cost</span>
+                        <ul class="text-textSub space-y-1.5 md:space-y-2 font-light">
+                            <li>• Recovery & Trust</li>
+                            <li>• Scalability</li>
+                            <li>• Long-term performance</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-brandGold uppercase block mb-2 md:mb-3 font-bold">We Install</span>
+                        <ul class="text-textMain space-y-1.5 md:space-y-2 font-light">
+                            <li>• Operating rhythms</li>
+                            <li>• Delegation rules</li>
+                            <li>• Repeatable workflows</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-8 md:p-10 flex flex-col relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)] pointer-events-none"></div>
+                <h4 class="text-[20px] md:text-[22px] text-textMain font-serif mb-3 md:mb-4 relative z-10"><span class="text-brandGold opacity-70 font-sans text-lg mr-2 font-light">03.</span> Recovery Debt</h4>
+                <p class="text-[14px] md:text-[15px] text-textSub mb-6 md:mb-8 font-light relative z-10 flex-grow">You can still perform, but the cost is rising. Sleep gets lighter. Energy gets inconsistent. Recovery becomes optional.</p>
+                <div class="grid grid-cols-2 gap-4 text-[12px] md:text-[13px] pt-5 md:pt-6 border-t border-glassBorder relative z-10">
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-textMuted uppercase block mb-2 md:mb-3 font-bold">The Cost</span>
+                        <ul class="text-textSub space-y-1.5 md:space-y-2 font-light">
+                            <li>• Emotional regulation</li>
+                            <li>• Cognitive clarity</li>
+                            <li>• Baseline health</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-brandGold uppercase block mb-2 md:mb-3 font-bold">We Install</span>
+                        <ul class="text-textMain space-y-1.5 md:space-y-2 font-light">
+                            <li>• Nervous system reset</li>
+                            <li>• Recovery cadence</li>
+                            <li>• Downshift protocols</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-8 md:p-10 flex flex-col relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)] pointer-events-none"></div>
+                <h4 class="text-[20px] md:text-[22px] text-textMain font-serif mb-3 md:mb-4 relative z-10"><span class="text-brandGold opacity-70 font-sans text-lg mr-2 font-light">04.</span> Decision Recursion</h4>
+                <p class="text-[14px] md:text-[15px] text-textSub mb-6 md:mb-8 font-light relative z-10 flex-grow">The same decisions keep coming back. Priorities, schedule, pricing, hiring, boundaries. Nothing stays decided.</p>
+                <div class="grid grid-cols-2 gap-4 text-[12px] md:text-[13px] pt-5 md:pt-6 border-t border-glassBorder relative z-10">
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-textMuted uppercase block mb-2 md:mb-3 font-bold">The Cost</span>
+                        <ul class="text-textSub space-y-1.5 md:space-y-2 font-light">
+                            <li>• Mental bandwidth</li>
+                            <li>• Execution speed</li>
+                            <li>• Operational confidence</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-brandGold uppercase block mb-2 md:mb-3 font-bold">We Install</span>
+                        <ul class="text-textMain space-y-1.5 md:space-y-2 font-light">
+                            <li>• Decision trees</li>
+                            <li>• Anti-recursion protocols</li>
+                            <li>• Weekly decision review</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-8 md:p-10 flex flex-col relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)] pointer-events-none"></div>
+                <h4 class="text-[20px] md:text-[22px] text-textMain font-serif mb-3 md:mb-4 relative z-10"><span class="text-brandGold opacity-70 font-sans text-lg mr-2 font-light">05.</span> Opportunity Overload</h4>
+                <p class="text-[14px] md:text-[15px] text-textSub mb-6 md:mb-8 font-light relative z-10 flex-grow">You have real upside, but too many active paths. The problem is not lack of opportunity. The problem is metabolizing it.</p>
+                <div class="grid grid-cols-2 gap-4 text-[12px] md:text-[13px] pt-5 md:pt-6 border-t border-glassBorder relative z-10">
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-textMuted uppercase block mb-2 md:mb-3 font-bold">The Cost</span>
+                        <ul class="text-textSub space-y-1.5 md:space-y-2 font-light">
+                            <li>• Focus & Momentum</li>
+                            <li>• Follow-through</li>
+                            <li>• Compounding growth</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-brandGold uppercase block mb-2 md:mb-3 font-bold">We Install</span>
+                        <ul class="text-textMain space-y-1.5 md:space-y-2 font-light">
+                            <li>• Opportunity filter</li>
+                            <li>• Sequencing map</li>
+                            <li>• Capacity constraints</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-8 md:p-10 flex flex-col relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)] pointer-events-none"></div>
+                <h4 class="text-[20px] md:text-[22px] text-textMain font-serif mb-3 md:mb-4 relative z-10"><span class="text-brandGold opacity-70 font-sans text-lg mr-2 font-light">06.</span> Access Leakage</h4>
+                <p class="text-[14px] md:text-[15px] text-textSub mb-6 md:mb-8 font-light relative z-10 flex-grow">Too many people can reach you, interrupt you, escalate to you, or emotionally offload onto you.</p>
+                <div class="grid grid-cols-2 gap-4 text-[12px] md:text-[13px] pt-5 md:pt-6 border-t border-glassBorder relative z-10">
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-textMuted uppercase block mb-2 md:mb-3 font-bold">The Cost</span>
+                        <ul class="text-textSub space-y-1.5 md:space-y-2 font-light">
+                            <li>• Deep work</li>
+                            <li>• Pure presence</li>
+                            <li>• Strategic thought</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-brandGold uppercase block mb-2 md:mb-3 font-bold">We Install</span>
+                        <ul class="text-textMain space-y-1.5 md:space-y-2 font-light">
+                            <li>• Communication rules</li>
+                            <li>• Escalation criteria</li>
+                            <li>• Boundary scripts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-8 md:p-10 flex flex-col relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)] pointer-events-none"></div>
+                <h4 class="text-[20px] md:text-[22px] text-textMain font-serif mb-3 md:mb-4 relative z-10"><span class="text-brandGold opacity-70 font-sans text-lg mr-2 font-light">07.</span> Calendar Fragmentation</h4>
+                <p class="text-[14px] md:text-[15px] text-textSub mb-6 md:mb-8 font-light relative z-10 flex-grow">Your calendar is full, but not aligned. The day gets chopped up. Best energy goes to low-leverage work.</p>
+                <div class="grid grid-cols-2 gap-4 text-[12px] md:text-[13px] pt-5 md:pt-6 border-t border-glassBorder relative z-10">
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-textMuted uppercase block mb-2 md:mb-3 font-bold">The Cost</span>
+                        <ul class="text-textSub space-y-1.5 md:space-y-2 font-light">
+                            <li>• Cognitive clarity</li>
+                            <li>• Creative output</li>
+                            <li>• Nervous system regulation</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-brandGold uppercase block mb-2 md:mb-3 font-bold">We Install</span>
+                        <ul class="text-textMain space-y-1.5 md:space-y-2 font-light">
+                            <li>• Calendar architecture</li>
+                            <li>• Protected deep work</li>
+                            <li>• Energy-based scheduling</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-8 md:p-10 flex flex-col relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)] pointer-events-none"></div>
+                <h4 class="text-[20px] md:text-[22px] text-textMain font-serif mb-3 md:mb-4 relative z-10"><span class="text-brandGold opacity-70 font-sans text-lg mr-2 font-light">08.</span> Success Without Aliveness</h4>
+                <p class="text-[14px] md:text-[15px] text-textSub mb-6 md:mb-8 font-light relative z-10 flex-grow">Externally, things are working. Internally, the work feels less alive. You are achieving, but not becoming more yourself.</p>
+                <div class="grid grid-cols-2 gap-4 text-[12px] md:text-[13px] pt-5 md:pt-6 border-t border-glassBorder relative z-10">
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-textMuted uppercase block mb-2 md:mb-3 font-bold">The Cost</span>
+                        <ul class="text-textSub space-y-1.5 md:space-y-2 font-light">
+                            <li>• Meaning & Presence</li>
+                            <li>• Natural Energy</li>
+                            <li>• Long-term motivation</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-brandGold uppercase block mb-2 md:mb-3 font-bold">We Install</span>
+                        <ul class="text-textMain space-y-1.5 md:space-y-2 font-light">
+                            <li>• Identity transition map</li>
+                            <li>• Aliveness inventory</li>
+                            <li>• Strategic pruning</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 border-y border-glassBorder relative z-10 bg-[radial-gradient(ellipse_at_top,rgba(194,163,89,0.02),transparent_60%)] overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6 relative">
+            <h2 class="text-center text-[26px] md:text-[36px] font-serif mb-10 md:mb-16 text-textMain">From Capacity Leakage to Compounding Performance</h2>
+            <div class="relative scroll-hint">
+                <div class="overflow-x-auto glass-panel p-4 md:p-10 hide-scrollbar" style="-webkit-overflow-scrolling: touch;">
+                    <table class="w-full text-left border-collapse min-w-[600px]">
+                        <thead>
+                            <tr class="font-mono text-[10px] uppercase tracking-widest text-textMuted border-b border-glassBorder">
+                                <th class="pb-5 md:pb-6 px-4 font-semibold w-1/3 text-textSub">Before (The Leak)</th>
+                                <th class="pb-5 md:pb-6 px-4 font-semibold w-1/3 text-brandGold">Installed (The System)</th>
+                                <th class="pb-5 md:pb-6 px-4 font-semibold w-1/3 text-white">After (The Result)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-[14px] md:text-[15px] font-light text-textSub">
+                            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                                <td class="py-4 md:py-5 px-4">Reactive calendar</td>
+                                <td class="py-4 md:py-5 px-4 font-medium text-brandGold">Calendar architecture</td>
+                                <td class="py-4 md:py-5 px-4 text-textMain">Protected strategic capacity</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                                <td class="py-4 md:py-5 px-4">Repeated decisions</td>
+                                <td class="py-4 md:py-5 px-4 font-medium text-brandGold">Decision trees</td>
+                                <td class="py-4 md:py-5 px-4 text-textMain">Faster, permanent decisions</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                                <td class="py-4 md:py-5 px-4">Role collapse</td>
+                                <td class="py-4 md:py-5 px-4 font-medium text-brandGold">Rules of engagement</td>
+                                <td class="py-4 md:py-5 px-4 text-textMain">Cleaner leadership</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                                <td class="py-4 md:py-5 px-4">Heroic effort</td>
+                                <td class="py-4 md:py-5 px-4 font-medium text-brandGold">Operating rhythm</td>
+                                <td class="py-4 md:py-5 px-4 text-textMain">Less personal force required</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                                <td class="py-4 md:py-5 px-4">Delayed opportunities</td>
+                                <td class="py-4 md:py-5 px-4 font-medium text-brandGold">Opportunity filter</td>
+                                <td class="py-4 md:py-5 px-4 text-textMain">Better, ruthless sequencing</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                                <td class="py-4 md:py-5 px-4">Overstimulation</td>
+                                <td class="py-4 md:py-5 px-4 font-medium text-brandGold">Nervous system reset</td>
+                                <td class="py-4 md:py-5 px-4 text-textMain">Regulated, stable energy</td>
+                            </tr>
+                            <tr>
+                                <td class="py-5 md:py-6 px-4 text-textMuted italic">Success feels expensive</td>
+                                <td class="py-5 md:py-6 px-4 font-bold tracking-[0.2em] font-mono text-[10px] md:text-[11px] text-brandGold">The Operator OS</td>
+                                <td class="py-5 md:py-6 px-4 font-medium text-white shadow-glow inline-block mt-2 md:mt-3">Performance compounds</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="text-center text-textMuted text-[13px] md:text-[14px] mt-8 md:mt-10 italic font-serif">
+                The goal is not more effort. The goal is to install the structures that stop wasting your best capacity.
+            </p>
+        </div>
+    </section>
+
+    <section id="diagnostic" class="py-16 md:py-24 max-w-5xl mx-auto px-6 relative z-10">
+        <div class="text-center mb-12 md:mb-16">
+            <h2 class="font-mono text-[9px] md:text-[10px] tracking-[0.3em] text-brandGold uppercase mb-3 md:mb-4 font-medium">The Solution</h2>
+            <h3 class="text-[28px] md:text-[44px] font-serif text-textMain">The Operator Bottleneck Diagnostic</h3>
+            <p class="text-textSub mt-4 md:mt-6 max-w-2xl mx-auto text-[15px] md:text-[16px] font-light">
+                A private diagnostic designed to map exactly where your system is leaking, what it is costing you, and what needs to change first.
+            </p>
+        </div>
+
+        <div class="glass-panel p-6 sm:p-8 md:p-14">
+            
+            <h4 class="text-[24px] md:text-[28px] font-serif mb-8 md:mb-10 text-center text-textMain">What You Leave With</h4>
+            
+            <div class="bg-brandGold/[0.04] border border-brandGold/20 rounded-xl p-5 md:p-6 mb-10 md:mb-12 flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6">
+                <div class="font-mono text-brandGold text-[9px] md:text-[10px] uppercase tracking-widest md:border-r border-brandGold/20 md:pr-6 text-center md:text-left mt-1 whitespace-nowrap">Your Time<br>Investment</div>
+                <p class="text-[13px] md:text-[14px] text-textSub font-light text-center md:text-left"><strong class="text-white font-medium">90 minutes total.</strong> A 30-minute async intake, and a 60-minute private debrief. We do the heavy lifting in the background.</p>
+            </div>
+
+            <div class="space-y-8 md:space-y-10 border-t border-glassBorder pt-8 md:pt-10">
+                <div class="flex flex-col md:flex-row gap-3 md:gap-8 items-start">
+                    <div class="text-textMuted text-[28px] md:text-[32px] font-serif font-light opacity-50 leading-none mt-1">01</div>
+                    <div>
+                        <h5 class="text-[18px] md:text-[20px] font-medium mb-2 md:mb-3 text-textMain font-serif">Operator Bottleneck Report</h5>
+                        <p class="text-textSub font-light text-[14px] md:text-[15px] leading-relaxed">A written report mapping the real constraint behind your current drag. We identify what is obviously slowing you down, and the hidden constraint driving the pattern underneath.</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row gap-3 md:gap-8 items-start">
+                    <div class="text-textMuted text-[28px] md:text-[32px] font-serif font-light opacity-50 leading-none mt-1">02</div>
+                    <div>
+                        <h5 class="text-[18px] md:text-[20px] font-medium mb-2 md:mb-3 text-textMain font-serif">Six-Layer Performance Architecture Score</h5>
+                        <p class="text-textSub font-light text-[14px] md:text-[15px] leading-relaxed">A clear assessment across: Biological Trust, Calendar Integrity, Cognitive Load, Role Integrity, Execution Velocity, and Opportunity Leverage.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-3 md:gap-8 items-start">
+                    <div class="text-textMuted text-[28px] md:text-[32px] font-serif font-light opacity-50 leading-none mt-1">03</div>
+                    <div>
+                        <h5 class="text-[18px] md:text-[20px] font-medium mb-2 md:mb-3 text-textMain font-serif">Cost of Current Pattern Analysis</h5>
+                        <p class="text-textSub font-light text-[14px] md:text-[15px] leading-relaxed">A hard look at where this is already costing you time, energy, money, health, relationships, confidence, and speed.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-3 md:gap-8 items-start">
+                    <div class="text-textMuted text-[28px] md:text-[32px] font-serif font-light opacity-50 leading-none mt-1">04</div>
+                    <div>
+                        <h5 class="text-[18px] md:text-[20px] font-medium mb-2 md:mb-3 text-textMain font-serif">30-Day Stabilization Plan</h5>
+                        <p class="text-textSub font-light text-[14px] md:text-[15px] leading-relaxed">The first 1–3 immediate moves to reduce drag, stop the bleeding, and regain operating clarity.</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row gap-3 md:gap-8 items-start">
+                    <div class="text-textMuted text-[28px] md:text-[32px] font-serif font-light opacity-50 leading-none mt-1">05</div>
+                    <div>
+                        <h5 class="text-[18px] md:text-[20px] font-medium mb-2 md:mb-3 text-textMain font-serif">90-Day Operator OS Recommendation</h5>
+                        <p class="text-textSub font-light text-[14px] md:text-[15px] leading-relaxed">Clear direction on what needs to be installed if you want the pattern changed permanently at the system level.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 border-t border-glassBorder relative z-10 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.04),transparent_60%)]">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-mono text-[9px] md:text-[10px] text-brandGold tracking-[0.3em] uppercase mb-4 md:mb-6 font-bold">The Cost of Capacity Leakage</h2>
+            <h3 class="text-[28px] md:text-[40px] font-serif text-textMain leading-[1.2] mb-8 md:mb-10">
+                Functioning is not the same as compounding.
+            </h3>
+            <p class="text-textSub font-light text-[15px] md:text-[16px] mb-12 md:mb-16 max-w-2xl mx-auto leading-relaxed">
+                Most high performers underestimate the cost of the leak because they are still functioning. Before considering an investment, answer honestly:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 text-left max-w-3xl mx-auto mb-16 md:mb-20">
+                <div class="border-l-2 border-brandGold/40 pl-5 md:pl-6 py-1">
+                    <span class="block font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-white mb-2 md:mb-3">Time & Energy</span>
+                    <p class="text-[14px] md:text-[15px] text-textSub font-light italic leading-relaxed">Where are you losing hours to reactivity, repeated decisions, and avoidable urgency? Where is your best energy going to work that does not deserve it?</p>
+                </div>
+                <div class="border-l-2 border-brandGold/40 pl-5 md:pl-6 py-1">
+                    <span class="block font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-white mb-2 md:mb-3">Money & Leverage</span>
+                    <p class="text-[14px] md:text-[15px] text-textSub font-light italic leading-relaxed">What opportunities are being delayed, underpriced, poorly followed up, or inconsistently converted due to bandwidth constraints?</p>
+                </div>
+                <div class="border-l-2 border-brandGold/40 pl-5 md:pl-6 py-1">
+                    <span class="block font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-white mb-2 md:mb-3">Health & Presence</span>
+                    <p class="text-[14px] md:text-[15px] text-textSub font-light italic leading-relaxed">What is this pattern costing your sleep, recovery, mood, and presence with the people who matter most?</p>
+                </div>
+                <div class="border-l-2 border-brandGold/40 pl-5 md:pl-6 py-1">
+                    <span class="block font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-white mb-2 md:mb-3">Leadership & Identity</span>
+                    <p class="text-[14px] md:text-[15px] text-textSub font-light italic leading-relaxed">Where is your current state lowering the quality of your decisions? Where are you becoming someone you do not want to become?</p>
+                </div>
+            </div>
+
+            <div class="inline-block border border-brandGold/30 bg-brandGold/[0.03] rounded-2xl p-6 sm:p-8 md:p-10 shadow-glow max-w-2xl mx-auto w-full">
+                <p class="font-serif text-[20px] sm:text-[24px] md:text-[28px] text-textMain leading-snug">
+                    If nothing changes, what does this cost over the next <span class="text-brandGold italic font-light">90 days?</span>
+                </p>
+                <span class="block text-[11px] md:text-[13px] font-sans text-textMuted tracking-wide mt-3 md:mt-4 uppercase font-medium">System leaks do not fix themselves. They compound.</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="waitlist" class="py-16 md:py-24 border-t border-glassBorder relative z-10">
+        <div class="ambient-glow-2"></div>
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-20">
+            
+            <div>
+                <h3 class="text-[26px] md:text-[32px] font-serif mb-5 md:mb-6 text-textMain">Who This Is For</h3>
+                <p class="text-textSub font-light mb-6 md:mb-8 text-[15px] md:text-[16px]">For founders, executives, athletes, advisors, and high-stakes operators who are:</p>
+                <ul class="space-y-3 md:space-y-4 text-[14px] md:text-[15px] text-white font-light mb-10 md:mb-14">
+                    <li class="flex items-start"><span class="text-brandGold mr-3 font-serif italic text-lg leading-none">✓</span> Successful but increasingly expensive to maintain.</li>
+                    <li class="flex items-start"><span class="text-brandGold mr-3 font-serif italic text-lg leading-none">✓</span> Carrying more complexity than their system can metabolize.</li>
+                    <li class="flex items-start"><span class="text-brandGold mr-3 font-serif italic text-lg leading-none">✓</span> Tired of relying on heroic effort.</li>
+                    <li class="flex items-start"><span class="text-brandGold mr-3 font-serif italic text-lg leading-none">✓</span> Losing energy to repeated decisions.</li>
+                    <li class="flex items-start"><span class="text-brandGold mr-3 font-serif italic text-lg leading-none">✓</span> Succeeding externally while feeling less clear internally.</li>
+                </ul>
+
+                <h3 class="text-[20px] md:text-[22px] font-serif mb-4 md:mb-5 text-textMuted">Who This Is Not For</h3>
+                <ul class="space-y-3 text-[13px] md:text-[14px] text-textSub font-light">
+                    <li><span class="text-textMuted mr-2 font-mono">✕</span> Someone looking for generic productivity advice or motivation.</li>
+                    <li><span class="text-textMuted mr-2 font-mono">✕</span> People wanting a habit tracker or surface-level wellness tips.</li>
+                    <li><span class="text-textMuted mr-2 font-mono">✕</span> Those seeking passive insight with no behavioral change.</li>
+                </ul>
+                <p class="mt-6 md:mt-8 text-brandGold text-[14px] md:text-[15px] italic font-serif">This is for people ready to see the system clearly.</p>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-8 md:p-12 border-brandGold/30 relative">
+                <div class="absolute -top-3 left-6 md:left-10 bg-brandGold text-void text-[9px] md:text-[10px] font-mono font-bold px-3 md:px-4 py-1.5 uppercase tracking-[0.2em] rounded shadow-glow">
+                    Private Engagement
+                </div>
+                
+                <h3 class="text-2xl md:text-3xl font-serif mb-2 md:mb-3 text-textMain mt-3 md:mt-2">The Investment</h3>
+                <div class="text-[36px] md:text-[48px] font-light text-brandGold mb-6 md:mb-8">$3,500</div>
+                
+                <ul class="space-y-3 md:space-y-4 text-[14px] md:text-[15px] text-textSub font-light mb-8 pb-8 border-b border-glassBorder">
+                    <li class="flex items-center gap-3"><span class="w-1 h-1 bg-textMuted rounded-full"></span> Application review</li>
+                    <li class="flex items-center gap-3"><span class="w-1 h-1 bg-textMuted rounded-full"></span> Private diagnostic intake</li>
+                    <li class="flex items-center gap-3"><span class="w-1 h-1 bg-textMuted rounded-full"></span> Calendar / screen time / sleep review</li>
+                    <li class="flex items-center gap-3"><span class="w-1 h-1 bg-textMuted rounded-full"></span> Written Operator Bottleneck Report</li>
+                    <li class="flex items-center gap-3"><span class="w-1 h-1 bg-textMuted rounded-full"></span> Private 1:1 debrief call</li>
+                    <li class="flex items-center gap-3"><span class="w-1 h-1 bg-textMuted rounded-full"></span> 30-day stabilization plan</li>
+                </ul>
+
+                <div class="mb-8 border-l-2 border-brandGold/50 pl-4 md:pl-5">
+                    <p class="text-[13px] md:text-[14px] text-textMain font-serif italic leading-relaxed">The Diagnostic is a complete, closed-loop engagement. You will leave with exactly what you need to fix the system yourself, whether we ever work together again or not.</p>
+                </div>
+
+                <div class="bg-void/50 p-5 md:p-6 border border-glassBorder rounded-xl mb-8 md:mb-10 text-[12px] md:text-[13px] text-textSub leading-relaxed">
+                    <span class="text-brandGold font-mono tracking-widest uppercase text-[9px] md:text-[10px] mb-2 block font-bold">The Credit</span> 
+                    If you enroll in the 90-Day Operator OS within 7 days of the debrief, your $3,500 diagnostic investment is credited in full toward the $25K system build.
+                </div>
+
+                <div class="text-center mb-6">
+                    <span class="inline-block bg-void/80 border border-brandGold/30 text-brandGold font-mono text-[8px] md:text-[9px] uppercase tracking-[0.1em] md:tracking-[0.2em] px-3 md:px-4 py-2 rounded shadow-glow">Currently at capacity. Strictly limited to 4 per month.</span>
+                </div>
+
+                <a href="YOUR_APPLICATION_LINK_HERE" class="cmd-btn w-full text-center flex justify-center mb-5 px-4 sm:px-8" target="_blank">
+                    [ REQUEST WAITLIST POSITION ]
+                </a>
+                
+                <div class="text-center text-[11px] md:text-[12px] text-textSub font-light flex flex-col justify-center items-center gap-3 mt-4">
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4 w-full">
+                        <span><strong class="text-white font-medium">Step 1:</strong> Submit waitlist application.</span>
+                        <span class="text-glassBorder hidden md:inline">|</span>
+                        <span><strong class="text-white font-medium">Step 2:</strong> Notified when a block opens.</span>
+                    </div>
+                    <div class="bg-brandGold/10 border border-brandGold/20 px-3 md:px-4 py-2 rounded mt-2 w-full max-w-sm">
+                        <span class="italic text-[10px] md:text-[11px] text-brandGold/90 leading-tight block">Note: Waitlist admission is prioritized by current operational drag and application fit, not strictly first-come, first-served.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 border-t border-glassBorder/40 bg-void/80 backdrop-blur-md relative z-20 mt-12">
+        <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="font-mono text-[10px] text-textMuted uppercase tracking-widest opacity-60 text-center md:text-left">
+                &copy; 2026 VYRTŪOSITI <span class="hidden md:inline mx-2 text-glassBorder">|</span> <span class="block md:inline mt-2 md:mt-0">ALL RIGHTS RESERVED.</span>
+            </div>
+            <div class="flex items-center gap-6 md:gap-8 font-mono text-[9px] text-textMuted uppercase tracking-widest font-medium">
+                <a href="https://marcuslefton.com/privacy" target="_blank" rel="noopener noreferrer" class="hover:text-brandGold transition-colors duration-300 relative group">
+                    Privacy Policy
+                    <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandGold transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="https://marcuslefton.com/terms-of-service" target="_blank" rel="noopener noreferrer" class="hover:text-brandGold transition-colors duration-300 relative group">
+                    Terms of Service
+                    <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandGold transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scroll Controller (Optimized Memory Usage) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const animateTargets = document.querySelectorAll('section > div.max-w-4xl, section > div.max-w-5xl, section > div.max-w-6xl, section > div.max-w-7xl, .glass-panel, header > *');
+            
+            animateTargets.forEach((el, i) => {
+                el.classList.add('fade-up');
+                if (el.classList.contains('glass-panel')) {
+                    el.style.transitionDelay = `${(i % 3) * 75}ms`;
+                }
+            });
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                        
+                        // Clean up transition rules after animation finishes to save memory on mobile devices
+                        setTimeout(() => {
+                            entry.target.classList.remove('fade-up');
+                        }, 1000); // 800ms duration + slight buffer
+                    }
+                });
+            }, observerOptions);
+
+            animateTargets.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
