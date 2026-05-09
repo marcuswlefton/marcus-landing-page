@@ -128,21 +128,61 @@
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
 
-        /* Highly Optimized Form Button */
+        /* ══════════════════════════════════════════════════════ */
+        /* TOP 1% LUXURY FORM & BUTTON AESTHETICS                 */
+        /* ══════════════════════════════════════════════════════ */
+        .form-container {
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .form-container:hover {
+            border-color: rgba(255,255,255,0.15);
+            background: rgba(10,10,10,0.8);
+        }
+        .form-container:focus-within {
+            border-color: rgba(194, 163, 89, 0.4) !important; 
+            box-shadow: 0 0 0 1px rgba(194, 163, 89, 0.1), 0 15px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(194, 163, 89, 0.05) !important;
+            background: rgba(15,15,15,0.95) !important;
+        }
+
         .cmd-btn {
-            background: linear-gradient(180deg, #C2A359 0%, #AD8E45 100%); 
-            color: #000000; border-radius: 100px;
-            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.12em;
-            text-transform: uppercase; white-space: nowrap;
-            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center;
-            gap: 10px; box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 4px 15px rgba(194, 163, 89, 0.15);
-            touch-action: manipulation; border: 1px solid transparent;
+            background: linear-gradient(180deg, #D4B66A 0%, #C2A359 40%, #A88A44 100%);
+            color: #111111; 
+            border-radius: 9999px;
+            font-family: 'Inter', sans-serif; 
+            font-size: 12px; 
+            font-weight: 700; 
+            letter-spacing: 0.15em;
+            text-transform: uppercase; 
+            white-space: nowrap;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: 8px; 
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.6), 0 4px 15px rgba(194, 163, 89, 0.2);
+            touch-action: manipulation; 
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Artificial top bevel highlight to simulate physical metal */
+        .cmd-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+            border-radius: 9999px 9999px 0 0;
+            pointer-events: none;
         }
         .cmd-btn:hover:not(:disabled) {
-            background: linear-gradient(180deg, #D4B66A 0%, #C2A359 100%); 
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.6), 0 6px 20px rgba(194, 163, 89, 0.25);
+            background: linear-gradient(180deg, #E2C782 0%, #D4B66A 40%, #C2A359 100%); 
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.7), 0 6px 20px rgba(194, 163, 89, 0.35);
+            transform: translateY(-1px);
         }
-        .cmd-btn:active:not(:disabled) { transform: scale(0.97); box-shadow: inset 0 2px 5px rgba(0,0,0,0.6); }
+        .cmd-btn:active:not(:disabled) { 
+            transform: translateY(1px); 
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); 
+        }
         .cmd-btn:disabled { opacity: 0.8; cursor: not-allowed; }
 
         .bg-noise {
@@ -183,12 +223,6 @@
         @keyframes terminalBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
         .animate-terminal { animation: terminalBlink 1s infinite; }
         
-        /* Form Focus Aesthetics */
-        .form-container:focus-within {
-            border-color: rgba(194, 163, 89, 0.5) !important; 
-            box-shadow: 0 0 0 1px rgba(194, 163, 89, 0.2), 0 10px 40px rgba(0,0,0,0.8), inset 0 2px 10px rgba(0,0,0,0.8) !important;
-            background: rgba(5,5,5,0.9) !important;
-        }
         .error-state { border-color: rgba(239, 68, 68, 0.5) !important; }
     </style>
 </head>
@@ -218,34 +252,35 @@
                 <strong class="text-white font-medium italic">Mastery in Motion</strong> is the weekly dispatch on building the system. Read by 1,400+ founders, executives, and pro athletes. Built by the architect behind personal records across MLB, Fortune 500, and the world's top performance labs.
             </p>
 
-            <div class="max-w-[780px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
+            <div class="max-w-[820px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
                     
                     <!-- ═══════════════════════════════════════════ -->
-                    <!-- OPTIMIZED COMMAND BAR (MOBILE & DESKTOP)    -->
+                    <!-- TOP 1% ARCHITECT COMMAND BAR                -->
                     <!-- ═══════════════════════════════════════════ -->
-                    <form id="newsletter-form" name="hero_signup" class="form-container flex flex-col sm:flex-row items-center bg-[#0a0a0a]/80 border border-white/10 p-2 sm:p-1.5 rounded-[20px] sm:rounded-full backdrop-blur-xl relative overflow-hidden transition-all duration-300 shadow-[0_10px_40px_rgba(0,0,0,0.5)] w-full" onsubmit="return handleEntry(event, this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                    <form id="newsletter-form" name="hero_signup" class="form-container flex flex-col sm:flex-row items-center bg-[#050505]/60 border border-white/[0.08] p-2 sm:p-1.5 rounded-[24px] sm:rounded-full backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.05)] w-full relative group" onsubmit="return handleEntry(event, this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <div class="auth-progress absolute bottom-0 left-0 h-[2px] bg-brandGold w-0 transition-[width] duration-1000 ease-out opacity-0 z-10"></div>
                         
-                        <!-- Name Block (Half/Half on Mobile, Fixed Widths on Desktop) -->
+                        <!-- Name Block -->
                         <div class="flex items-center w-full sm:w-auto shrink-0 relative z-20">
-                            <input name="first_name" type="text" autocomplete="given-name" class="w-1/2 sm:w-24 md:w-28 bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-2 sm:px-4 text-center focus:outline-none placeholder-white/30 truncate min-w-0 font-sans font-light" placeholder="First" required>
+                            <input name="first_name" type="text" autocomplete="given-name" class="w-1/2 sm:w-[110px] md:w-[130px] bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-3 sm:px-5 text-center focus:outline-none placeholder-white/40 focus:placeholder-white/20 font-sans font-medium tracking-wide transition-colors" placeholder="First Name" required>
                             
-                            <div class="w-[1px] h-6 bg-white/10 shrink-0"></div>
+                            <!-- Elegant Divider -->
+                            <div class="w-[1px] h-5 bg-gradient-to-b from-transparent via-white/15 to-transparent shrink-0"></div>
                             
-                            <input name="last_name" type="text" autocomplete="family-name" class="w-1/2 sm:w-24 md:w-28 bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-2 sm:px-4 text-center focus:outline-none placeholder-white/30 truncate min-w-0 font-sans font-light" placeholder="Last" required>
+                            <input name="last_name" type="text" autocomplete="family-name" class="w-1/2 sm:w-[110px] md:w-[130px] bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-3 sm:px-5 text-center focus:outline-none placeholder-white/40 focus:placeholder-white/20 font-sans font-medium tracking-wide transition-colors" placeholder="Last Name" required>
                         </div>
                         
-                        <!-- Mobile Horizontal Line / Desktop Vertical Line -->
-                        <div class="w-full h-[1px] sm:w-[1px] sm:h-8 bg-white/10 shrink-0 my-1 sm:my-0 sm:mx-2 relative z-20"></div>
+                        <!-- Main Divider -->
+                        <div class="w-full h-[1px] sm:w-[1px] sm:h-7 bg-gradient-to-r sm:bg-gradient-to-b from-transparent via-white/15 to-transparent shrink-0 my-1 sm:my-0 sm:mx-1 relative z-20"></div>
 
-                        <!-- Email Block (Expands to fill remaining space) -->
-                        <input id="secure_email_1" name="email" type="email" autocomplete="email" class="w-full sm:flex-grow bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-4 text-center sm:text-left focus:outline-none placeholder-white/30 caret-brandGold min-w-0 relative z-20 font-sans font-light" placeholder="Operator Email (Free dispatch)" required>
+                        <!-- Email Block -->
+                        <input id="secure_email_1" name="email" type="email" autocomplete="email" class="w-full sm:flex-1 bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-4 text-center sm:text-left focus:outline-none placeholder-white/40 focus:placeholder-white/20 caret-brandGold font-sans font-medium tracking-wide transition-colors relative z-20" placeholder="Operator Email (Free dispatch)" required>
                         
                         <!-- Button Block -->
-                        <button type="submit" class="cmd-btn group shrink-0 w-full sm:w-auto py-[16px] sm:py-[12px] px-6 mt-2 sm:mt-0 relative z-20">
-                            <span class="btn-text flex items-center gap-2">JOIN THE DISPATCH</span>
-                            <span class="font-mono text-[11px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity">↵</span>
+                        <button type="submit" class="cmd-btn shrink-0 w-full sm:w-auto py-[16px] sm:py-[12px] px-8 mt-2 sm:mt-0 relative z-20">
+                            <span class="btn-text relative z-10 flex items-center gap-2 drop-shadow-sm">JOIN THE DISPATCH</span>
+                            <span class="relative z-10 font-mono text-[10px] ml-1.5 hidden sm:flex items-center justify-center bg-black/15 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity text-black/80 font-bold">↵</span>
                         </button>
                     </form>
                     
@@ -489,7 +524,7 @@
                 </div>
             </div>
 
-            <div class="max-w-[780px] mx-auto relative min-h-[240px] flex flex-col justify-center">
+            <div class="max-w-[820px] mx-auto relative min-h-[240px] flex flex-col justify-center">
                 <div id="footer-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center pt-2">
                     <div class="text-center mb-6">
                         <div class="inline-flex items-center justify-center gap-2 border border-brandGold/20 bg-brandGold/5 rounded-full px-4 py-1.5 mb-4 shadow-glow">
@@ -501,22 +536,24 @@
                         </p>
                     </div>
                     
-                    <form name="dispatch_signup" class="form-container flex flex-col sm:flex-row items-center bg-[#0a0a0a]/80 border border-white/10 p-2 sm:p-1.5 rounded-[20px] sm:rounded-full backdrop-blur-xl relative overflow-hidden transition-all duration-300 shadow-[0_10px_40px_rgba(0,0,0,0.5)] w-full" onsubmit="return handleEntry(event, this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                    <form name="dispatch_signup" class="form-container flex flex-col sm:flex-row items-center bg-[#050505]/60 border border-white/[0.08] p-2 sm:p-1.5 rounded-[24px] sm:rounded-full backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.05)] w-full relative group" onsubmit="return handleEntry(event, this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
                         <div class="auth-progress absolute bottom-0 left-0 h-[2px] bg-brandGold w-0 transition-[width] duration-1000 ease-out opacity-0 z-10"></div>
                         
                         <div class="flex items-center w-full sm:w-auto shrink-0 relative z-20">
-                            <input name="first_name" type="text" autocomplete="given-name" class="w-1/2 sm:w-24 md:w-28 bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-2 sm:px-4 text-center focus:outline-none placeholder-white/30 truncate min-w-0 font-sans font-light" placeholder="First" required>
-                            <div class="w-[1px] h-6 bg-white/10 shrink-0"></div>
-                            <input name="last_name" type="text" autocomplete="family-name" class="w-1/2 sm:w-24 md:w-28 bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-2 sm:px-4 text-center focus:outline-none placeholder-white/30 truncate min-w-0 font-sans font-light" placeholder="Last" required>
+                            <input name="first_name" type="text" autocomplete="given-name" class="w-1/2 sm:w-[110px] md:w-[130px] bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-3 sm:px-5 text-center focus:outline-none placeholder-white/40 focus:placeholder-white/20 font-sans font-medium tracking-wide transition-colors" placeholder="First Name" required>
+                            
+                            <div class="w-[1px] h-5 bg-gradient-to-b from-transparent via-white/15 to-transparent shrink-0"></div>
+                            
+                            <input name="last_name" type="text" autocomplete="family-name" class="w-1/2 sm:w-[110px] md:w-[130px] bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-3 sm:px-5 text-center focus:outline-none placeholder-white/40 focus:placeholder-white/20 font-sans font-medium tracking-wide transition-colors" placeholder="Last Name" required>
                         </div>
                         
-                        <div class="w-full h-[1px] sm:w-[1px] sm:h-8 bg-white/10 shrink-0 my-1 sm:my-0 sm:mx-2 relative z-20"></div>
+                        <div class="w-full h-[1px] sm:w-[1px] sm:h-7 bg-gradient-to-r sm:bg-gradient-to-b from-transparent via-white/15 to-transparent shrink-0 my-1 sm:my-0 sm:mx-1 relative z-20"></div>
 
-                        <input id="secure_email_2" name="email" type="email" autocomplete="email" class="w-full sm:flex-grow bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-4 text-center sm:text-left focus:outline-none placeholder-white/30 caret-brandGold min-w-0 relative z-20 font-sans font-light" placeholder="Operator Email (Free dispatch)" required>
+                        <input id="secure_email_2" name="email" type="email" autocomplete="email" class="w-full sm:flex-1 bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-4 text-center sm:text-left focus:outline-none placeholder-white/40 focus:placeholder-white/20 caret-brandGold font-sans font-medium tracking-wide transition-colors relative z-20" placeholder="Operator Email (Free dispatch)" required>
                         
-                        <button type="submit" class="cmd-btn group shrink-0 w-full sm:w-auto py-[16px] sm:py-[12px] px-6 mt-2 sm:mt-0 relative z-20">
-                            <span class="btn-text flex items-center gap-2">GET THE DISPATCH</span>
-                            <span class="font-mono text-[10px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity">↵</span>
+                        <button type="submit" class="cmd-btn shrink-0 w-full sm:w-auto py-[16px] sm:py-[12px] px-8 mt-2 sm:mt-0 relative z-20">
+                            <span class="btn-text relative z-10 flex items-center gap-2 drop-shadow-sm">GET THE DISPATCH</span>
+                            <span class="relative z-10 font-mono text-[10px] ml-1.5 hidden sm:flex items-center justify-center bg-black/15 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity text-black/80 font-bold">↵</span>
                         </button>
                     </form>
                     
