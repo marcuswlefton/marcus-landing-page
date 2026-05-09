@@ -10,17 +10,15 @@
                 window.top.location.href = window.self.location.href;
             }
         } catch (e) {
-            // Gracefully catch cross-origin DOMExceptions in strict preview environments
             console.warn("Frame-buster active: Cross-origin frame detected.");
         }
     </script>
 
     <meta charset="UTF-8">
-    <!-- MOBILE LOCKDOWN VIEWPORT -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
     <meta name="theme-color" content="#000000">
     
-    <!-- Open Graph & SEO Tags for Social/Slack Sharing -->
+    <!-- Open Graph & SEO -->
     <meta name="description" content="The free, weekly email dispatch detailing the exact biological protocols to recalibrate your executive system.">
     <meta property="og:title" content="Mastery in Motion | VYRTŪOSITI">
     <meta property="og:description" content="You are solving the wrong problem. Discover the biological constraints destroying your decision velocity.">
@@ -32,10 +30,17 @@
     
     <title>Mastery in Motion | VYRTŪOSITI</title>
 
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PERFORMANCE PRELOADING                        -->
+    <!-- ═══════════════════════════════════════════ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Preload heavy visual assets to prevent layout shifts/delays -->
+    <link rel="preload" href="https://i.imgur.com/SJLnvwa.png" as="image">
+    <link rel="preload" href="seal.gif" as="image">
 
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -59,15 +64,9 @@
                         sans: ['"Inter"', 'system-ui', 'sans-serif'],
                         mono: ['"JetBrains Mono"', 'monospace'],
                     },
-                    letterSpacing: {
-                        tightest: '-0.04em',
-                    },
-                    boxShadow: {
-                        'glow': '0 0 30px rgba(194, 163, 89, 0.1)',
-                    },
-                    animation: {
-                        'marquee': 'marquee 40s linear infinite',
-                    },
+                    letterSpacing: { tightest: '-0.04em' },
+                    boxShadow: { 'glow': '0 0 30px rgba(194, 163, 89, 0.1)' },
+                    animation: { 'marquee': 'marquee 40s linear infinite' },
                     keyframes: {
                         marquee: {
                             '0%': { transform: 'translateX(0%)' },
@@ -87,13 +86,8 @@
             --textMain: #FAFAFA; 
         }
 
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { -webkit-tap-highlight-color: transparent; }
 
-        /* ══════════════════════════════════════════════════════ */
-        /* MOBILE LOCKDOWN: Kills horizontal scroll and bounce    */
-        /* ══════════════════════════════════════════════════════ */
         body {
             background-color: var(--void);
             color: var(--textMain);
@@ -134,39 +128,15 @@
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
 
-        .cmd-bar {
-            display: flex; background: rgba(10,10,10,0.8); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 100px; padding: 6px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.5); position: relative; overflow: hidden;
-        }
-        
-        .cmd-bar:focus-within {
-            border-color: rgba(194, 163, 89, 0.5); 
-            box-shadow: 0 0 0 1px rgba(194, 163, 89, 0.2), 0 10px 40px rgba(0,0,0,0.8), inset 0 2px 10px rgba(0,0,0,0.8);
-            background: rgba(5,5,5,0.9);
-        }
-        
-        .auth-progress {
-            position: absolute; bottom: 0; left: 0; height: 2px; background-color: var(--brandGold);
-            width: 0%; transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); opacity: 0;
-        }
-
-        .cmd-input {
-            flex-grow: 1; background: transparent; border: none; color: #fff; padding: 0 24px;
-            outline: none; font-family: 'Inter', sans-serif; text-overflow: ellipsis;
-        }
-        .cmd-input::placeholder { color: rgba(255,255,255,0.3); font-weight: 300; }
-        .cmd-input:read-only { opacity: 0.5; }
-        
+        /* Highly Optimized Form Button */
         .cmd-btn {
             background: linear-gradient(180deg, #C2A359 0%, #AD8E45 100%); 
             color: #000000; border-radius: 100px;
             font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.12em;
-            text-transform: uppercase; padding: 14px 36px; white-space: nowrap;
+            text-transform: uppercase; white-space: nowrap;
             transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center;
             gap: 10px; box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 4px 15px rgba(194, 163, 89, 0.15);
-            touch-action: manipulation; min-width: 220px; 
-            border: 1px solid transparent;
+            touch-action: manipulation; border: 1px solid transparent;
         }
         .cmd-btn:hover:not(:disabled) {
             background: linear-gradient(180deg, #D4B66A 0%, #C2A359 100%); 
@@ -174,12 +144,6 @@
         }
         .cmd-btn:active:not(:disabled) { transform: scale(0.97); box-shadow: inset 0 2px 5px rgba(0,0,0,0.6); }
         .cmd-btn:disabled { opacity: 0.8; cursor: not-allowed; }
-
-        @media (max-width: 640px) {
-            .cmd-bar { flex-direction: column; border-radius: 20px; padding: 8px; gap: 8px; }
-            .cmd-input { padding: 16px 20px; text-align: center; }
-            .cmd-btn { width: 100%; padding: 16px 20px; min-width: 0; }
-        }
 
         .bg-noise {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
@@ -214,10 +178,18 @@
             60% { transform: translateX(-6px); }
             80% { transform: translateX(6px); }
         }
-        .animate-error-shake { animation: errorShake 0.4s cubic-bezier(.36,.07,.19,.97) both; border-color: rgba(239, 68, 68, 0.5) !important; }
+        .animate-error-shake { animation: errorShake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
 
         @keyframes terminalBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
         .animate-terminal { animation: terminalBlink 1s infinite; }
+        
+        /* Form Focus Aesthetics */
+        .form-container:focus-within {
+            border-color: rgba(194, 163, 89, 0.5) !important; 
+            box-shadow: 0 0 0 1px rgba(194, 163, 89, 0.2), 0 10px 40px rgba(0,0,0,0.8), inset 0 2px 10px rgba(0,0,0,0.8) !important;
+            background: rgba(5,5,5,0.9) !important;
+        }
+        .error-state { border-color: rgba(239, 68, 68, 0.5) !important; }
     </style>
 </head>
 <body class="bg-void text-textMain antialiased selection:bg-brandGold selection:text-black" ontouchstart="">
@@ -246,12 +218,32 @@
                 <strong class="text-white font-medium italic">Mastery in Motion</strong> is the weekly dispatch on building the system. Read by 1,400+ founders, executives, and pro athletes. Built by the architect behind personal records across MLB, Fortune 500, and the world's top performance labs.
             </p>
 
-            <div class="max-w-[540px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
+            <div class="max-w-[780px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
                 <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
-                    <form id="newsletter-form" name="hero_signup" class="cmd-bar" onsubmit="return handleEntry(event, this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
-                        <div class="auth-progress"></div>
-                        <input id="secure_email_1" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] focus:ring-0 focus:outline-none" placeholder="Secure email (Free dispatch)" required>
-                        <button type="submit" class="cmd-btn group transition-all duration-300">
+                    
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!-- OPTIMIZED COMMAND BAR (MOBILE & DESKTOP)    -->
+                    <!-- ═══════════════════════════════════════════ -->
+                    <form id="newsletter-form" name="hero_signup" class="form-container flex flex-col sm:flex-row items-center bg-[#0a0a0a]/80 border border-white/10 p-2 sm:p-1.5 rounded-[20px] sm:rounded-full backdrop-blur-xl relative overflow-hidden transition-all duration-300 shadow-[0_10px_40px_rgba(0,0,0,0.5)] w-full" onsubmit="return handleEntry(event, this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                        <div class="auth-progress absolute bottom-0 left-0 h-[2px] bg-brandGold w-0 transition-[width] duration-1000 ease-out opacity-0 z-10"></div>
+                        
+                        <!-- Name Block (Half/Half on Mobile, Fixed Widths on Desktop) -->
+                        <div class="flex items-center w-full sm:w-auto shrink-0 relative z-20">
+                            <input name="first_name" type="text" autocomplete="given-name" class="w-1/2 sm:w-24 md:w-28 bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-2 sm:px-4 text-center focus:outline-none placeholder-white/30 truncate min-w-0 font-sans font-light" placeholder="First" required>
+                            
+                            <div class="w-[1px] h-6 bg-white/10 shrink-0"></div>
+                            
+                            <input name="last_name" type="text" autocomplete="family-name" class="w-1/2 sm:w-24 md:w-28 bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-2 sm:px-4 text-center focus:outline-none placeholder-white/30 truncate min-w-0 font-sans font-light" placeholder="Last" required>
+                        </div>
+                        
+                        <!-- Mobile Horizontal Line / Desktop Vertical Line -->
+                        <div class="w-full h-[1px] sm:w-[1px] sm:h-8 bg-white/10 shrink-0 my-1 sm:my-0 sm:mx-2 relative z-20"></div>
+
+                        <!-- Email Block (Expands to fill remaining space) -->
+                        <input id="secure_email_1" name="email" type="email" autocomplete="email" class="w-full sm:flex-grow bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-4 text-center sm:text-left focus:outline-none placeholder-white/30 caret-brandGold min-w-0 relative z-20 font-sans font-light" placeholder="Operator Email (Free dispatch)" required>
+                        
+                        <!-- Button Block -->
+                        <button type="submit" class="cmd-btn group shrink-0 w-full sm:w-auto py-[16px] sm:py-[12px] px-6 mt-2 sm:mt-0 relative z-20">
                             <span class="btn-text flex items-center gap-2">JOIN THE DISPATCH</span>
                             <span class="font-mono text-[11px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity">↵</span>
                         </button>
@@ -497,7 +489,7 @@
                 </div>
             </div>
 
-            <div class="max-w-[500px] mx-auto relative min-h-[240px] flex flex-col justify-center">
+            <div class="max-w-[780px] mx-auto relative min-h-[240px] flex flex-col justify-center">
                 <div id="footer-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center pt-2">
                     <div class="text-center mb-6">
                         <div class="inline-flex items-center justify-center gap-2 border border-brandGold/20 bg-brandGold/5 rounded-full px-4 py-1.5 mb-4 shadow-glow">
@@ -508,14 +500,26 @@
                             Next dispatch drops this week. <span class="text-textSub italic">Free protocol access.</span>
                         </p>
                     </div>
-                    <form name="dispatch_signup" class="cmd-bar" onsubmit="return handleEntry(event, this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
-                        <div class="auth-progress"></div>
-                        <input id="secure_email_2" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="cmd-input caret-brandGold text-[16px] sm:text-[15px] text-center sm:text-left focus:ring-0 focus:outline-none" placeholder="Secure email (Free dispatch)" required>
-                        <button type="submit" class="cmd-btn group transition-all duration-300">
+                    
+                    <form name="dispatch_signup" class="form-container flex flex-col sm:flex-row items-center bg-[#0a0a0a]/80 border border-white/10 p-2 sm:p-1.5 rounded-[20px] sm:rounded-full backdrop-blur-xl relative overflow-hidden transition-all duration-300 shadow-[0_10px_40px_rgba(0,0,0,0.5)] w-full" onsubmit="return handleEntry(event, this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
+                        <div class="auth-progress absolute bottom-0 left-0 h-[2px] bg-brandGold w-0 transition-[width] duration-1000 ease-out opacity-0 z-10"></div>
+                        
+                        <div class="flex items-center w-full sm:w-auto shrink-0 relative z-20">
+                            <input name="first_name" type="text" autocomplete="given-name" class="w-1/2 sm:w-24 md:w-28 bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-2 sm:px-4 text-center focus:outline-none placeholder-white/30 truncate min-w-0 font-sans font-light" placeholder="First" required>
+                            <div class="w-[1px] h-6 bg-white/10 shrink-0"></div>
+                            <input name="last_name" type="text" autocomplete="family-name" class="w-1/2 sm:w-24 md:w-28 bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-2 sm:px-4 text-center focus:outline-none placeholder-white/30 truncate min-w-0 font-sans font-light" placeholder="Last" required>
+                        </div>
+                        
+                        <div class="w-full h-[1px] sm:w-[1px] sm:h-8 bg-white/10 shrink-0 my-1 sm:my-0 sm:mx-2 relative z-20"></div>
+
+                        <input id="secure_email_2" name="email" type="email" autocomplete="email" class="w-full sm:flex-grow bg-transparent text-white text-[16px] sm:text-[15px] py-3 sm:py-2 px-4 text-center sm:text-left focus:outline-none placeholder-white/30 caret-brandGold min-w-0 relative z-20 font-sans font-light" placeholder="Operator Email (Free dispatch)" required>
+                        
+                        <button type="submit" class="cmd-btn group shrink-0 w-full sm:w-auto py-[16px] sm:py-[12px] px-6 mt-2 sm:mt-0 relative z-20">
                             <span class="btn-text flex items-center gap-2">GET THE DISPATCH</span>
                             <span class="font-mono text-[10px] opacity-80 ml-1 hidden sm:flex items-center justify-center bg-black/10 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity">↵</span>
                         </button>
                     </form>
+                    
                     <div class="flex flex-col items-center gap-4 mt-6">
                         <div class="flex items-center justify-center gap-2 opacity-60 font-sans text-[10px] font-medium tracking-wide text-white uppercase text-center flex-wrap px-4">
                             <span class="flex items-center gap-1.5"><svg class="w-3 h-3 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> JOIN 1,400+ OPERATORS</span>
@@ -526,6 +530,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div id="footer-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
                     <div class="w-32 h-32 md:w-40 md:h-40 shrink-0 flex items-center justify-center mb-2 md:mb-3 relative">
                         <img src="seal.gif" alt="Vyrtuositi Seal" class="w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_20px_rgba(194,163,89,0.2)]" onerror="this.style.display='none';">
@@ -576,7 +581,7 @@
         function handleEntry(event, formElement, inputId, formWrapperId, successStateId, buttonElement, progressElement) {
             if (event) event.preventDefault();
 
-            const input = document.getElementById(inputId);
+            const emailInput = document.getElementById(inputId);
             const formWrapper = document.getElementById(formWrapperId);
             const successState = document.getElementById(successStateId);
             const btn = buttonElement;
@@ -584,9 +589,16 @@
             const btnText = btn.querySelector('.btn-text');
             const btnIcon = btn.querySelector('.btn-icon');
             
-            if (input.value && input.value.includes('@')) {
+            if (emailInput.value && emailInput.value.includes('@')) {
                 btn.disabled = true;
-                input.readOnly = true;
+                
+                // Secure and disable all inputs gracefully
+                const allInputs = formElement.querySelectorAll('input');
+                allInputs.forEach(el => {
+                    el.readOnly = true;
+                    el.style.opacity = '0.5';
+                });
+                
                 if(btnIcon) btnIcon.style.opacity = '0';
                 btn.style.background = '#000000';
                 btn.style.color = '#C2A359';
@@ -599,11 +611,15 @@
                     setTimeout(() => { progressLine.style.width = '100%'; }, 50);
                 }
 
-                // SUBMISSION ROUTE: Sends email to Netlify serverless function
+                // Compile all form data dynamically
+                const formData = new FormData(formElement);
+                const payload = Object.fromEntries(formData.entries());
+
+                // SUBMISSION ROUTE: Sends data payload to Netlify serverless function
                 fetch('/.netlify/functions/subscribe', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: input.value })
+                    body: JSON.stringify(payload)
                 }).then(res => {
                     if (res.ok) console.log('Dispatch secured.');
                     else console.error('Subscription failed:', res.status);
@@ -627,11 +643,10 @@
                 }, 1200);
 
             } else {
-                const bar = input.closest('.cmd-bar');
-                bar.classList.remove('animate-error-shake');
-                void bar.offsetWidth; 
-                bar.classList.add('animate-error-shake');
-                input.focus();
+                formElement.classList.remove('animate-error-shake', 'error-state');
+                void formElement.offsetWidth; 
+                formElement.classList.add('animate-error-shake', 'error-state');
+                emailInput.focus();
             }
             return false;
         }
