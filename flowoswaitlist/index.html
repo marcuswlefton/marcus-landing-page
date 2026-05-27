@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>FLOW PRONE OS | Waitlist Application</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        accent: {
+                            400: '#22d3ee', // Cyan 400
+                            500: '#06b6d4', // Cyan 500
+                            600: '#0891b2', // Cyan 600
+                            700: '#0e7490'  // Cyan 700
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #030406;
+            color: #FFFFFF;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .bg-noise {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.035;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        input, textarea {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 0;
+            outline: none;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+        input:focus, textarea:focus {
+            border-bottom-color: #06b6d4;
+            box-shadow: 0 1px 0 0 #06b6d4;
+        }
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .option-btn {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .option-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(6, 182, 212, 0.5);
+            transform: translateX(4px);
+        }
+        .option-btn.selected {
+            background-color: rgba(8, 145, 178, 0.15);
+            border-color: #06b6d4;
+        }
+
+        #step-wrapper {
+            transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .step-hidden { opacity: 0; transform: translateY(20px); pointer-events: none; }
+        .step-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+        .text-metallic {
+            background: linear-gradient(to right, #22d3ee 0%, #0891b2 40%, #06b6d4 70%, #0e7490 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="relative h-[100dvh] w-full overflow-hidden flex flex-col selection:bg-accent-600 selection:text-white">
+
+    <div class="bg-noise"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_rgba(6,182,212,0.06)_0%,_transparent_70%)] pointer-events-none z-0"></div>
+
+    <header class="absolute top-0 left-0 w-full p-5 md:p-10 z-20 flex justify-between items-center pointer-events-none">
+        <div class="flex items-center gap-2 md:gap-3 pointer-events-auto">
+            <div class="relative flex items-center justify-center">
+                <div class="absolute w-3 h-3 rounded-full bg-accent-600 blur-[6px] opacity-70"></div>
+                <div class="w-2 h-2 rounded-full bg-[#0891b2] relative z-10"></div>
+            </div>
+            <span class="text-white font-extrabold tracking-[0.25em] text-[10px] md:text-[11px] uppercase">FLOW PRONE OS</span>
+        </div>
+        <div class="flex items-center gap-1.5 md:gap-2 opacity-60">
+            <i data-lucide="activity" class="w-3 h-3 text-accent-500"></i>
+            <span class="font-mono text-[8px] md:text-[9px] tracking-[0.2em] uppercase hidden sm:block">Status: Active</span>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center relative z-10 w-full px-5 md:px-6 py-24 overflow-y-auto">
+        <div id="step-wrapper" class="w-full max-w-3xl step-hidden my-auto"></div>
+    </main>
+
+    <footer class="absolute bottom-0 left-0 w-full z-20 bg-gradient-to-t from-[#030406] to-transparent">
+        <div class="w-full px-5 md:px-10 pb-5 md:pb-6 flex justify-between items-end">
+            <div class="flex items-center gap-4">
+                <button id="prev-btn" onclick="prevStep()" class="hidden w-8 h-8 rounded border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all hover:-translate-x-1">
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div id="keyboard-hint" class="font-mono text-[9px] text-white/40 tracking-widest hidden md:block">
+                Press <kbd class="border border-white/20 px-1.5 py-0.5 rounded mx-1">Enter ↵</kbd> to advance
+            </div>
+        </div>
+        
+        <div class="w-full h-1 md:h-1.5 bg-[#111] relative">
+            <div id="progress-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent-600 to-accent-400 w-0 transition-all duration-700 ease-out shadow-[0_0_12px_rgba(6,182,212,0.6)]"></div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        let currentStepIndex = 0;
+        let formData = {};
+
+        const steps = [
+            {
+                id: 'intro', type: 'intro',
+                tag: 'SYSTEM // V 1.0.0 INITIALIZED',
+                question: 'FLOW PRONE OS<br><span class="text-metallic font-mono tracking-widest block mt-1 uppercase text-xl md:text-2xl pb-2 pr-2">Official Waitlist</span>',
+                description: 'Transition from forced grind to effortless scale. FLOW PRONE OS is the definitive architecture for the executive athlete. We rewire your cognitive baseline to eliminate friction, reverse burnout, and permanently lock you into a state of deep flow. Submit your application for review.',
+                action: 'APPLY FOR ACCESS'
+            },
+            {
+                id: 'identity', type: 'inputs', tag: '01 / Verification',
+                question: 'Enter your credentials.',
+                fields: [
+                    { id: 'firstName', type: 'text', placeholder: 'First Name' },
+                    { id: 'lastName', type: 'text', placeholder: 'Last Name' },
+                    { id: 'email', type: 'email', placeholder: 'Secure Email Address' }
+                ]
+            },
+            {
+                id: 'domain', type: 'options', tag: '02 / Archetype',
+                question: 'Select your primary operating domain.',
+                options: [
+                    { key: 'A', value: 'Founder / Entrepreneur' },
+                    { key: 'B', value: 'Executive / Operator' },
+                    { key: 'C', value: 'Creator / Visionary' },
+                    { key: 'D', value: 'Elite Athlete / Specialist' }
+                ]
+            },
+            {
+                id: 'revenue', type: 'options', tag: '03 / Velocity',
+                question: 'What is your current annual revenue trajectory?',
+                options: [
+                    { key: 'A', value: 'Under $500k' },
+                    { key: 'B', value: '$500k - $2M' },
+                    { key: 'C', value: '$2M - $10M' },
+                    { key: 'D', value: '$10M+' }
+                ]
+            },
+            {
+                id: 'friction', type: 'textarea', tag: '04 / Limiting Factor',
+                question: 'What is the primary bottleneck fragmenting your focus and capping your scale?',
+                placeholder: 'Detail the exact pain point...'
+            },
+            {
+                id: 'investment', type: 'options', tag: '05 / The Toll',
+                question: 'Upgrading your operating system requires a premium financial investment and ruthless execution. Are you positioned to deploy capital to solve this within the next 30 days?',
+                options: [
+                    { key: 'A', value: 'Yes. I deploy capital to buy back time and scale.' },
+                    { key: 'B', value: 'No. I am just looking for free information right now.' }
+                ]
+            },
+            {
+                id: 'flow', type: 'inputs', tag: '06 / Target State',
+                question: 'Describe your ideal state of flow in exactly three words.',
+                fields: [
+                    { id: 'flowWords', type: 'text', placeholder: 'E.g., Effortless, Clear, Limitless...' }
+                ]
+            },
+            {
+                id: 'stimulant', type: 'options', tag: '07 / System Calibration',
+                question: 'Final variable. What is your primary cognitive stimulant?',
+                options: [
+                    { key: 'A', value: 'Heavy Caffeine / Nootropics' },
+                    { key: 'B', value: 'The Fear of Being Average' },
+                    { key: 'C', value: 'Pure, Unadulterated Chaos' },
+                    { key: 'D', value: 'Quiet, Intrinsic Obsession' }
+                ]
+            },
+            { id: 'success', type: 'success' }
+        ];
+
+        const wrapper = document.getElementById('step-wrapper');
+        const progressBar = document.getElementById('progress-bar');
+        const prevBtn = document.getElementById('prev-btn');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderStep();
+            document.addEventListener('keydown', handleKeyPress);
+        });
+
+        function renderStep() {
+            wrapper.classList.remove('step-visible');
+            wrapper.classList.add('step-hidden');
+
+            setTimeout(() => {
+                const step = steps[currentStepIndex];
+                let html = '';
+
+                // Progress calculation based on 7 data-collection steps
+                const totalFormSteps = 7;
+                let progressPercent = (currentStepIndex / totalFormSteps) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+
+                if (currentStepIndex > 0 && currentStepIndex <= totalFormSteps) prevBtn.classList.remove('hidden');
+                else prevBtn.classList.add('hidden');
+
+                if (step.type === 'intro') {
+                    html = `
+                        <div class="mb-6 flex items-center justify-center md:justify-start gap-3">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#22d3ee] animate-pulse"></div>
+                            <span class="text-accent-500 font-mono text-xs tracking-[0.3em] uppercase">${step.tag}</span>
+                        </div>
+                        <h1 class="text-4xl md:text-7xl font-extrabold tracking-tighter text-white mb-6 uppercase leading-[0.95]">${step.question}</h1>
+                        <p class="text-gray-400 text-lg mb-12 max-w-xl">${step.description}</p>
+                        <button onclick="nextStep()" class="bg-gradient-to-r from-[#0891b2] via-[#06b6d4] to-[#0891b2] py-4 px-10 font-bold uppercase tracking-widest">${step.action}</button>
+                    `;
+                } else if (step.type === 'success') {
+                    html = `
+                        <div class="text-center max-w-2xl mx-auto">
+                            <h2 class="text-5xl font-extrabold text-white mb-6 uppercase">Waitlist Secured.</h2>
+                            <p class="text-gray-400 text-lg leading-relaxed">System protocol logged. If your diagnostics align with our current capacity, you will receive an encrypted transmission within 48 hours. Keep your environment primed.</p>
+                        </div>
+                    `;
+                } else {
+                    html += `<div class="mb-6 text-accent-500 font-mono text-xs tracking-widest uppercase">${step.tag}</div>
+                             <h2 class="text-3xl md:text-5xl font-light text-white mb-10">${step.question}</h2>`;
+                    
+                    if (step.type === 'inputs') {
+                        step.fields.forEach(f => html += `<input type="${f.type}" id="${f.id}" placeholder="${f.placeholder}" value="${formData[f.id] || ''}" class="w-full text-2xl py-4 mb-6">`);
+                        html += `<button onclick="nextStep()" class="text-accent-500 font-bold">OK ↵</button>`;
+                    } else if (step.type === 'options') {
+                        step.options.forEach(opt => html += `<button onclick="selectOption('${step.id}', '${opt.value}', this)" class="option-btn w-full text-left p-6 mb-4 border border-white/10 text-xl">${opt.value}</button>`);
+                    } else if (step.type === 'textarea') {
+                        html += `<textarea id="${step.id}" rows="3" placeholder="${step.placeholder}" class="w-full text-2xl py-4 mb-6">${formData[step.id] || ''}</textarea>
+                                 <button onclick="nextStep()" class="text-accent-500 font-bold">OK ↵</button>`;
+                    }
+                }
+
+                wrapper.innerHTML = html;
+                lucide.createIcons();
+                wrapper.classList.remove('step-hidden');
+                wrapper.classList.add('step-visible');
+            }, 500);
+        }
+
+        function selectOption(id, val, el) { formData[id] = val; nextStep(); }
+        function nextStep() { if (currentStepIndex < steps.length - 1) { currentStepIndex++; renderStep(); } }
+        function prevStep() { if (currentStepIndex > 0) { currentStepIndex--; renderStep(); } }
+        function handleKeyPress(e) { if (e.key === 'Enter') nextStep(); }
+
+    </script>
+</body>
+</html>
