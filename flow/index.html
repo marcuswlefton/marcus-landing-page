@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#020617">
+    <meta name="description" content="The Flow Fundamentals: Multidimensional Performance Mastery for the Executive Athlete.">
     <title>FLOW PRONE | The Flow Fundamentals</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,29 +78,28 @@
         .machined-edge {
             background: linear-gradient(180deg, rgba(15,23,42,1) 0%, rgba(6,11,25,1) 100%);
             box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 1px 0px rgba(255,255,255,0.08), inset 0 0 20px rgba(255,255,255,0.02);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .machined-edge:hover {
             box-shadow: 0 50px 100px rgba(0,0,0,0.9), inset 0 1px 0px rgba(56,189,248,0.15), inset 0 0 25px rgba(56,189,248,0.03);
             border-color: rgba(255,255,255,0.08);
         }
 
+        /* Optimized Reveal Animation */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            filter: blur(8px);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform, filter;
+            transform: translateY(20px);
+            transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: opacity, transform;
         }
         .reveal-on-scroll.is-revealed {
             opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
+            transform: translateY(0);
         }
         
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
+        .delay-100 { transition-delay: 75ms; }
+        .delay-200 { transition-delay: 150ms; }
+        .delay-300 { transition-delay: 225ms; }
 
         .vertical-text {
             writing-mode: vertical-rl;
@@ -112,8 +113,12 @@
         .svg-animate-draw {
             stroke-dasharray: 1000;
             stroke-dashoffset: 1000;
-            animation: drawLine 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: drawLine 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
+        
+        /* Utility class to hide scrollbar but allow scrolling inside tabs */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="relative overflow-x-hidden selection:bg-floworange-500 selection:text-white min-h-[100dvh]">
@@ -121,7 +126,7 @@
     <div class="bg-noise print:hidden"></div>
 
     <div id="scroll-progress-container" class="fixed top-0 left-0 w-full h-[1.5px] bg-white/[0.03] z-50 print:hidden">
-        <div id="scroll-progress" class="h-full bg-gradient-to-r from-flowblue-700 via-flowblue-400 to-floworange-400 w-0 transition-all duration-75 ease-out shadow-[0_0_12px_rgba(56,189,248,0.9)]"></div>
+        <div id="scroll-progress" class="h-full bg-gradient-to-r from-flowblue-700 via-flowblue-400 to-floworange-400 w-0 shadow-[0_0_12px_rgba(56,189,248,0.9)] will-change-[width]"></div>
     </div>
 
     <nav class="absolute top-0 left-0 w-full px-6 lg:px-8 py-5 lg:py-7 flex justify-between items-center z-40 print:hidden pointer-events-none mix-blend-difference">
@@ -141,9 +146,10 @@
         </div>
     </nav>
 
-    <!-- COVER -->
+    <main>
+    <!-- PAGE 00: COVER -->
     <section class="page-break w-full min-h-[100dvh] flex flex-col items-center justify-center relative p-6 py-20 md:p-20 overflow-hidden bg-[#020617]">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square bg-[radial-gradient(circle,_rgba(2,132,199,0.08)_0%,_transparent_70%)] pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square bg-[radial-gradient(circle,_rgba(2,132,199,0.08)_0%,_transparent_70%)] pointer-events-none transform-gpu"></div>
         <div class="absolute inset-0 border-[1px] border-white/[0.03] m-4 md:m-8 rounded-sm pointer-events-none"></div>
         
         <div class="text-center z-10 flex flex-col items-center max-w-4xl reveal-on-scroll my-auto">
@@ -192,7 +198,7 @@
                 
                 <div class="mt-4 p-5 lg:p-7 bg-[#060B19] border border-white/[0.04] rounded-lg shadow-[inset_0_2px_20px_rgba(0,0,0,0.5)] w-full group hover:border-floworange-500/20 transition-all duration-500">
                     <span class="font-mono text-[9px] text-flowblue-500 uppercase tracking-widest font-bold block mb-6">FIG 1.0 // The Execution Bridge</span>
-                    <svg class="w-full h-24" viewBox="0 0 300 80" preserveAspectRatio="none">
+                    <svg class="w-full h-24 lg:h-32" viewBox="0 0 300 80" preserveAspectRatio="xMidYMid meet">
                         <line x1="50" y1="40" x2="250" y2="40" stroke="rgba(255,255,255,0.05)" stroke-width="2" stroke-dasharray="4 4" />
                         <circle cx="50" cy="40" r="4" fill="#0EA5E9" class="drop-shadow-[0_0_8px_rgba(14,165,233,0.8)]" />
                         <circle cx="250" cy="40" r="4" fill="#F97316" class="drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]" />
@@ -217,7 +223,7 @@
                 <p class="text-gray-300 text-[15px] font-light leading-[1.7] mb-6">In the moment of execution, human biology defaults to the path of least resistance. To counteract this, you must define your <strong class="text-white">Activity Values</strong>—what you actually value *doing*, not just what sounds good on a poster.</p>
                 <div class="bg-[#0F172A] border border-white/[0.04] p-5 rounded-lg border-l-[3px] border-l-flowblue-500">
                     <p class="font-mono text-[10px] text-flowblue-400 uppercase tracking-widest font-bold mb-2">The Algorithmic Audit</p>
-                    <p class="text-white/80 text-[13px] leading-relaxed">A true value operates as an automated, ruthless decision tree. When an opportunity presents itself, your Activity Values dictate the "Yes" or "No" instantly. If an action does not align with your core three activities, it is an automatic rejection. This eliminates decision fatigue.</p>
+                    <p class="text-white/80 text-[13px] leading-relaxed">A true value operates as an automated, ruthless decision tree. When an opportunity presents itself, your Activity Values dictate the "Yes" or "No" instantly. If an action does not align with your core activities, it is an automatic rejection. This kills decision fatigue.</p>
                 </div>
             </div>
             
@@ -244,7 +250,7 @@
         </div>
     </section>
 
-    <!-- PAGE 03: MOLECULE OF MORE -->
+    <!-- PAGE 03: DOPAMINE ECONOMY -->
     <section class="page-break w-full min-h-[100dvh] flex flex-col relative p-6 pt-32 pb-24 md:pt-40 md:pb-32 lg:px-20 border-t border-white/[0.03] bg-[#060B19] overflow-hidden">
         <div class="absolute right-0 bottom-10 text-[8rem] lg:text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none">Drive</div>
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-slate-600 uppercase hidden lg:block">Part 03 — The Dopamine Economy</div>
@@ -256,20 +262,20 @@
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                <div class="bg-[#0F172A] border border-white/[0.04] p-6 rounded-xl machined-edge reveal-on-scroll delay-100">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="text-flowblue-500 font-mono text-[11px] uppercase font-bold tracking-widest">Phase A: The Sprint</h4>
-                        <i data-lucide="flame" class="w-4 h-4 text-floworange-500"></i>
+                <div class="bg-[#0F172A] border border-white/[0.04] p-6 lg:p-8 rounded-xl machined-edge reveal-on-scroll delay-100">
+                    <div class="flex justify-between items-center mb-5">
+                        <h4 class="text-flowblue-500 font-mono text-[11px] lg:text-[12px] uppercase font-bold tracking-widest">Phase A: The Sprint</h4>
+                        <i data-lucide="flame" class="w-5 h-5 text-floworange-500"></i>
                     </div>
-                    <p class="text-white/90 text-[14px] leading-relaxed mb-4">Execution requires massive neurochemical output. Box out 90 minutes. Zero Slack. Zero context-switching. The secret to endless leverage is learning to <strong class="text-white">attach dopamine to the friction of the effort itself</strong>, allocating this precious resource only to your Most Important Task.</p>
+                    <p class="text-white/90 text-[14px] lg:text-[15px] leading-relaxed mb-4 font-light">Execution requires massive neurochemical output. Box out 90 minutes. Zero Slack. Zero context-switching. The secret to endless leverage is learning to <strong class="text-white font-medium">attach dopamine to the friction of the effort itself</strong>, allocating this precious resource only to your Most Important Task.</p>
                 </div>
                 
-                <div class="bg-[#0F172A] border border-white/[0.04] p-6 rounded-xl machined-edge reveal-on-scroll delay-200">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="text-flowblue-500 font-mono text-[11px] uppercase font-bold tracking-widest">Phase B: The Boring Break</h4>
-                        <i data-lucide="battery-charging" class="w-4 h-4 text-[#4ADE80]"></i>
+                <div class="bg-[#0F172A] border border-white/[0.04] p-6 lg:p-8 rounded-xl machined-edge reveal-on-scroll delay-200">
+                    <div class="flex justify-between items-center mb-5">
+                        <h4 class="text-flowblue-500 font-mono text-[11px] lg:text-[12px] uppercase font-bold tracking-widest">Phase B: The Boring Break</h4>
+                        <i data-lucide="battery-charging" class="w-5 h-5 text-[#4ADE80]"></i>
                     </div>
-                    <p class="text-white/90 text-[14px] leading-relaxed mb-4">When the sprint ends, novelty must end. If you check social media during a break, you are still spending dopamine. <strong class="text-white">To reset the baseline, rest must be profoundly boring.</strong> Stare at a wall. Walk without a podcast. Allow the neurochemical pool to refill.</p>
+                    <p class="text-white/90 text-[14px] lg:text-[15px] leading-relaxed mb-4 font-light">When the sprint ends, novelty must end. If you check social media during a break, you are still spending dopamine. <strong class="text-white font-medium">To reset the baseline, rest must be profoundly boring.</strong> Stare at a wall. Walk without a podcast. Allow the neurochemical pool to refill.</p>
                 </div>
             </div>
         </div>
@@ -293,7 +299,7 @@
                     </div>
                     <div>
                         <h4 class="text-white text-[14px] font-bold uppercase tracking-wide">The Physiological Sigh</h4>
-                        <p class="text-gray-500 text-[12px] leading-relaxed">Two rapid nasal inhales followed by one extended mouth exhale. The double-inhale reinflates collapsed alveoli in the lungs, allowing the long exhale to instantly offload massive amounts of CO2, immediately slowing the heart rate and killing the stress response.</p>
+                        <p class="text-gray-400 text-[13px] leading-relaxed font-light">Two rapid nasal inhales followed by one extended mouth exhale. The double-inhale reinflates collapsed alveoli in the lungs, allowing the long exhale to instantly offload massive amounts of CO2, immediately slowing the heart rate and killing the stress response.</p>
                     </div>
                 </div>
                 <div class="border border-white/[0.04] p-5 rounded-lg flex items-center gap-4 bg-[#060B19] group hover:border-floworange-500/30 transition-all">
@@ -302,7 +308,7 @@
                     </div>
                     <div>
                         <h4 class="text-white text-[14px] font-bold uppercase tracking-wide">CO2 Tolerance Testing</h4>
-                        <p class="text-gray-500 text-[12px] leading-relaxed">Measure the Max Exhale. Take three normal breaths, one deep inhale, and exhale as slowly as possible. Under 40s = depleted nervous system. 60s+ = elite autonomic control. Track this baseline.</p>
+                        <p class="text-gray-400 text-[13px] leading-relaxed font-light">Measure the Max Exhale. Take three normal breaths, one deep inhale, and exhale as slowly as possible. Under 40s = depleted nervous system. 60s+ = elite autonomic control. Track this baseline.</p>
                     </div>
                 </div>
             </div>
@@ -315,36 +321,33 @@
         <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-slate-600 uppercase hidden lg:block">Part 05 — Optimal Arousal</div>
         
         <div class="max-w-[1000px] mx-auto w-full flex flex-col relative z-10 my-auto reveal-on-scroll">
-            <div class="text-center mb-10">
+            <div class="text-center mb-8 lg:mb-10">
                 <h2 class="text-[32px] md:text-5xl font-extrabold uppercase tracking-tighter mb-4">Finding The <span class="text-metallic">Zone</span></h2>
-                <p class="text-gray-300 text-[15px] font-light max-w-2xl mx-auto">Flow requires mapping your internal biological state to the external demand. You must proactively up-regulate when under-stimulated and down-regulate when over-stimulated.</p>
+                <p class="text-gray-300 text-[14px] lg:text-[15px] font-light max-w-2xl mx-auto">Flow requires mapping your internal biological state to the external demand. You must proactively up-regulate when under-stimulated and down-regulate when over-stimulated.</p>
             </div>
             
             <div class="w-full bg-[#020617] border border-white/[0.05] rounded-2xl shadow-[0_0_60px_rgba(2,132,199,0.05),_inset_0_1px_0_rgba(255,255,255,0.05)] relative overflow-hidden flex flex-col">
-                
                 <!-- Refined Tech Grid Background -->
                 <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-40"></div>
                 
                 <!-- Dashboard Header -->
-                <div class="px-6 lg:px-10 py-5 border-b border-white/5 flex flex-col sm:flex-row justify-between items-start sm:items-center relative z-20 bg-[#0F172A]/50 backdrop-blur-md gap-4">
+                <div class="px-6 lg:px-10 py-5 border-b border-white/5 flex flex-col sm:flex-row justify-between items-start sm:items-center relative z-20 bg-[#0F172A]/80 backdrop-blur-md gap-4">
                     <span class="font-mono text-[10px] text-flowblue-500 uppercase tracking-[0.2em] font-bold flex items-center gap-2">
                         <i data-lucide="activity" class="w-3.5 h-3.5"></i> FIG 2.0 // Autonomic State Mapping
                     </span>
                     
-                    <!-- Segmented Control UI (The elegant interaction) -->
-                    <div class="flex bg-[#020617] p-1 rounded-lg border border-white/10 w-full sm:w-auto">
-                        <button onclick="setFlowState('anxiety')" id="btn-anxiety" class="flex-1 sm:w-24 py-1.5 text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 text-gray-500 hover:text-white">Anxiety</button>
-                        <button onclick="setFlowState('flow')" id="btn-flow" class="flex-1 sm:w-24 py-1.5 text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 bg-floworange-500/20 text-floworange-400 border border-floworange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.15)]">Flow</button>
-                        <button onclick="setFlowState('boredom')" id="btn-boredom" class="flex-1 sm:w-24 py-1.5 text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 text-gray-500 hover:text-white">Boredom</button>
+                    <!-- Responsive Grid Segmented Control UI -->
+                    <div class="grid grid-cols-3 bg-[#020617] p-1 rounded-lg border border-white/10 w-full sm:w-auto min-w-[280px]">
+                        <button onclick="setFlowState('anxiety')" id="btn-anxiety" aria-label="View Anxiety State" class="py-2 px-2 text-[9px] md:text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 text-gray-500 hover:text-white">Anxiety</button>
+                        <button onclick="setFlowState('flow')" id="btn-flow" aria-label="View Flow State" class="py-2 px-2 text-[9px] md:text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 bg-floworange-500/20 text-floworange-400 border border-floworange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.15)]">Flow</button>
+                        <button onclick="setFlowState('boredom')" id="btn-boredom" aria-label="View Boredom State" class="py-2 px-2 text-[9px] md:text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 text-gray-500 hover:text-white">Boredom</button>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 relative z-10">
-                    
-                    <!-- LEFT: Clean, Unobstructed Data Visualization -->
+                    <!-- LEFT: Data Visualization -->
                     <div class="lg:col-span-7 p-6 lg:p-10 border-b lg:border-b-0 lg:border-r border-white/5 flex items-center justify-center relative bg-[radial-gradient(circle_at_center,_transparent_20%,_#020617_100%)]">
-                        <svg class="w-full h-64 lg:h-[320px] overflow-visible" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid meet">
-                            <!-- Axes -->
+                        <svg class="w-full h-56 lg:h-[320px] overflow-visible" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid meet">
                             <defs>
                                 <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
                                     <polygon points="0 0, 6 3, 0 6" fill="#64748B" />
@@ -359,82 +362,76 @@
                             <line x1="40" y1="200" x2="380" y2="200" stroke="#334155" stroke-width="1.5" marker-end="url(#arrowhead)"/>
                             <line x1="40" y1="200" x2="40" y2="20" stroke="#334155" stroke-width="1.5" marker-end="url(#arrowhead)"/>
                             
-                            <!-- Axis Labels -->
                             <text x="210" y="225" fill="#64748B" font-size="9" font-family="monospace" text-anchor="middle" font-weight="600" letter-spacing="0.2em">SKILL LEVEL</text>
                             <text x="20" y="110" fill="#64748B" font-size="9" font-family="monospace" text-anchor="middle" transform="rotate(-90 20 110)" font-weight="600" letter-spacing="0.2em">CHALLENGE</text>
 
-                            <!-- SHAPE 1: ANXIETY (Top Left) -->
-                            <g id="svg-anxiety" class="transition-opacity duration-700 opacity-20">
+                            <!-- SHAPES -->
+                            <g id="svg-anxiety" class="transition-all duration-500 opacity-20 scale-[0.98] transform-origin-center">
                                 <polygon points="40,195 40,20 250,20" fill="#EF4444" fill-opacity="0.05" stroke="#EF4444" stroke-opacity="0.3" stroke-width="1" />
                                 <text x="75" y="75" fill="#EF4444" font-size="10" font-family="monospace" font-weight="bold" opacity="0.6" tracking-[0.2em]">ANXIETY</text>
                             </g>
 
-                            <!-- SHAPE 2: BOREDOM (Bottom Right) -->
-                            <g id="svg-boredom" class="transition-opacity duration-700 opacity-20">
+                            <g id="svg-boredom" class="transition-all duration-500 opacity-20 scale-[0.98] transform-origin-center">
                                 <polygon points="170,195 380,20 380,195" fill="#94A3B8" fill-opacity="0.05" stroke="#94A3B8" stroke-opacity="0.3" stroke-width="1" />
                                 <text x="290" y="160" fill="#94A3B8" font-size="10" font-family="monospace" font-weight="bold" opacity="0.6" tracking-[0.2em]">BOREDOM</text>
                             </g>
 
-                            <!-- SHAPE 3: FLOW CHANNEL (Center) -->
-                            <g id="svg-flow" class="transition-all duration-700 opacity-100 scale-100 transform-origin-center">
+                            <g id="svg-flow" class="transition-all duration-500 opacity-100 scale-100 transform-origin-center">
                                 <polygon points="40,195 250,20 380,20 170,195" fill="url(#flowChanGrad)" stroke="#38BDF8" stroke-opacity="0.4" stroke-width="1" stroke-dasharray="4 4" />
-                                
-                                <!-- Core Trajectory Line -->
                                 <path d="M 105 195 L 315 20" stroke="#F97316" stroke-width="2" class="drop-shadow-[0_0_8px_rgba(249,115,22,0.8)] svg-animate-draw" />
-                                
                                 <text x="210" y="100" fill="#F97316" font-size="12" font-family="monospace" font-weight="bold" text-anchor="middle" transform="rotate(-38 210 100)" tracking-[0.2em]" class="drop-shadow-[0_0_10px_rgba(249,115,22,0.4)]">THE FLOW CHANNEL</text>
                             </g>
                         </svg>
                     </div>
 
-                    <!-- RIGHT: The Information Panel (Dynamic) -->
-                    <div class="lg:col-span-5 p-6 lg:p-10 flex flex-col justify-center bg-[#0F172A]/30">
+                    <!-- RIGHT: Information Panels (Dynamic) -->
+                    <div class="lg:col-span-5 p-6 lg:p-10 flex flex-col justify-center bg-[#0F172A]/30 min-h-[300px]">
                         
                         <!-- Panel: ANXIETY -->
-                        <div id="panel-anxiety" class="hidden opacity-0 transition-opacity duration-500 h-full flex-col justify-center">
+                        <div id="panel-anxiety" class="hidden opacity-0 transition-opacity duration-300 h-full flex-col justify-center">
                             <div class="flex items-center gap-3 mb-4 border-b border-[#EF4444]/20 pb-3">
                                 <div class="w-2 h-2 rounded-full bg-[#EF4444] shadow-[0_0_10px_#EF4444] animate-pulse"></div>
-                                <h3 class="text-white text-[16px] uppercase tracking-wide font-bold">State: Anxiety</h3>
-                                <span class="ml-auto text-[#EF4444] font-mono text-[10px] font-bold bg-[#EF4444]/10 px-2 py-0.5 rounded">Challenge > Skill</span>
+                                <h3 class="text-white text-[15px] lg:text-[16px] uppercase tracking-wide font-bold">State: Anxiety</h3>
+                                <span class="ml-auto text-[#EF4444] font-mono text-[9px] lg:text-[10px] font-bold bg-[#EF4444]/10 px-2 py-0.5 rounded">Challenge > Skill</span>
                             </div>
                             <p class="text-gray-400 text-[13px] leading-[1.6] mb-5 font-light">
-                                <strong class="text-white/90">Biology:</strong> Cortisol and epinephrine dominance. The amygdala initiates a threat response, causing the prefrontal cortex to narrow focus and severely reduce working memory. You are surviving, not executing.
+                                <strong class="text-white/90 font-medium">Biology:</strong> Cortisol and epinephrine dominance. The amygdala initiates a threat response, causing the prefrontal cortex to narrow focus and severely reduce working memory. You are surviving, not executing.
                             </p>
                             <div class="bg-[#EF4444]/5 border-l-2 border-[#EF4444] rounded-r p-4">
-                                <span class="text-[#EF4444] font-mono text-[10px] uppercase tracking-widest block mb-2 font-bold">Protocol (Down-Regulate)</span>
-                                <p class="text-white/90 text-[12.5px] leading-relaxed font-light">Deploy the Physiological Sigh to offload CO2. Shrink the goal parameters immediately to establish micro-wins, re-engaging dopamine to offset cortisol.</p>
+                                <span class="text-[#EF4444] font-mono text-[9px] lg:text-[10px] uppercase tracking-widest block mb-2 font-bold">Protocol (Down-Regulate)</span>
+                                <p class="text-white/90 text-[12px] lg:text-[12.5px] leading-relaxed font-light">Deploy the Physiological Sigh to offload CO2. Shrink the goal parameters immediately to establish micro-wins, re-engaging dopamine to offset cortisol.</p>
                             </div>
                         </div>
 
                         <!-- Panel: FLOW -->
-                        <div id="panel-flow" class="flex opacity-100 transition-opacity duration-500 h-full flex-col justify-center">
+                        <div id="panel-flow" class="flex opacity-100 transition-opacity duration-300 h-full flex-col justify-center">
                             <div class="flex items-center gap-3 mb-4 border-b border-floworange-500/20 pb-3">
                                 <div class="w-2 h-2 rounded-full bg-floworange-500 shadow-[0_0_10px_#F97316] animate-pulse"></div>
-                                <h3 class="text-white text-[16px] uppercase tracking-wide font-bold">State: Flow</h3>
-                                <span class="ml-auto text-floworange-400 font-mono text-[10px] font-bold bg-floworange-500/10 px-2 py-0.5 rounded">Challenge = Skill</span>
+                                <h3 class="text-white text-[15px] lg:text-[16px] uppercase tracking-wide font-bold">State: Flow</h3>
+                                <span class="ml-auto text-floworange-400 font-mono text-[9px] lg:text-[10px] font-bold bg-floworange-500/10 px-2 py-0.5 rounded">Challenge = Skill</span>
                             </div>
                             <p class="text-gray-400 text-[13px] leading-[1.6] mb-5 font-light">
-                                <strong class="text-white/90">Biology:</strong> Transient Hypofrontality. The inner critic shuts down. A potent neurochemical cascade (Dopamine, Norepinephrine, Anandamide) locks intense present-moment focus and lateral pattern recognition.
+                                <strong class="text-white/90 font-medium">Biology:</strong> Transient Hypofrontality. The inner critic shuts down. A potent neurochemical cascade (Dopamine, Norepinephrine, Anandamide) locks intense present-moment focus and lateral pattern recognition.
                             </p>
                             <div class="bg-gradient-to-r from-floworange-500/10 to-transparent border-l-2 border-floworange-500 rounded-r p-4">
-                                <span class="text-floworange-400 font-mono text-[10px] uppercase tracking-widest block mb-2 font-bold">Protocol (Protect)</span>
-                                <p class="text-white/90 text-[12.5px] leading-relaxed font-light">Deploy a 90-minute isolated sprint. Block all external novelty triggers (phones, slack) to protect the delicate neurochemical state. Push just 4% beyond your current baseline.</p>
+                                <span class="text-floworange-400 font-mono text-[9px] lg:text-[10px] uppercase tracking-widest block mb-2 font-bold">Protocol (Protect)</span>
+                                <p class="text-white/90 text-[12px] lg:text-[12.5px] leading-relaxed font-light">Deploy a 90-minute isolated sprint. Block all external novelty triggers (phones, slack) to protect the delicate neurochemical state. Push just 4% beyond your current baseline.</p>
                             </div>
                         </div>
 
                         <!-- Panel: BOREDOM -->
-                        <div id="panel-boredom" class="hidden opacity-0 transition-opacity duration-500 h-full flex-col justify-center">
+                        <div id="panel-boredom" class="hidden opacity-0 transition-opacity duration-300 h-full flex-col justify-center">
                             <div class="flex items-center gap-3 mb-4 border-b border-[#94A3B8]/20 pb-3">
                                 <div class="w-2 h-2 rounded-full bg-[#94A3B8] shadow-[0_0_10px_#94A3B8]"></div>
-                                <h3 class="text-white text-[16px] uppercase tracking-wide font-bold">State: Boredom</h3>
-                                <span class="ml-auto text-[#94A3B8] font-mono text-[10px] font-bold bg-[#94A3B8]/10 px-2 py-0.5 rounded">Skill > Challenge</span>
+                                <h3 class="text-white text-[15px] lg:text-[16px] uppercase tracking-wide font-bold">State: Boredom</h3>
+                                <span class="ml-auto text-[#94A3B8] font-mono text-[9px] lg:text-[10px] font-bold bg-[#94A3B8]/10 px-2 py-0.5 rounded">Skill > Challenge</span>
                             </div>
                             <p class="text-gray-400 text-[13px] leading-[1.6] mb-5 font-light">
-                                <strong class="text-white/90">Biology:</strong> Dopamine deficit. The autonomic nervous system is under-aroused. The brain defaults to the Default Mode Network (DMN), causing attention to wander to preserve energy.
+                                <strong class="text-white/90 font-medium">Biology:</strong> Dopamine deficit. The autonomic nervous system is under-aroused. The brain defaults to the Default Mode Network (DMN), causing attention to wander to preserve energy.
                             </p>
                             <div class="bg-[#94A3B8]/5 border-l-2 border-[#94A3B8] rounded-r p-4">
-                                <span class="text-[#94A3B8] font-mono text-[10px] uppercase tracking-widest block mb-2 font-bold">Protocol (Up-Regulate)</span>
-                                <p class="text-white/90 text-[12.5px] leading-relaxed font-light">Inject artificial constraints. Shrink the deadline by 50% or raise the quality standard. You must manufacture friction to force a dopamine release.</p>
+                                <span class="text-[#94A3B8] font-mono text-[9px] lg:text-[10px] uppercase tracking-widest block mb-2 font-bold">Protocol (Up-Regulate)</span>
+                                <p class="text-white/90 text-[12px] lg:text-[12.5px] leading-relaxed font-light">Inject artificial constraints. Shrink the deadline by 50% or raise the quality standard. You must manufacture friction to force a dopamine release.</p>
                             </div>
                         </div>
 
@@ -459,21 +456,21 @@
                     <i data-lucide="target" class="w-5 h-5 text-floworange-500 mt-1 shrink-0"></i>
                     <div>
                         <h4 class="text-white text-[14px] font-bold uppercase tracking-wide mb-1">Clear Goals (Cognitive Offload)</h4>
-                        <p class="text-gray-500 text-[12px] leading-relaxed">Ambiguity drains working memory and prevents *transient hypofrontality* (prefrontal cortex deactivation required for Flow). You must define exactly what success looks like for the next 90 minutes before you begin.</p>
+                        <p class="text-gray-400 text-[12.5px] leading-relaxed font-light">Ambiguity drains working memory and prevents *transient hypofrontality* (prefrontal cortex deactivation required for Flow). You must define exactly what success looks like for the next 90 minutes before you begin.</p>
                     </div>
                 </div>
                 <div class="bg-[#0F172A] border border-white/[0.04] p-5 rounded-lg flex items-start gap-4">
                     <i data-lucide="activity" class="w-5 h-5 text-floworange-500 mt-1 shrink-0"></i>
                     <div>
                         <h4 class="text-white text-[14px] font-bold uppercase tracking-wide mb-1">Immediate Feedback</h4>
-                        <p class="text-gray-500 text-[12px] leading-relaxed">The brain needs to know it is closing the gap to trigger a dopamine release, which drives sustained focus. Build systems that tell you in real-time if you are winning or losing.</p>
+                        <p class="text-gray-400 text-[12.5px] leading-relaxed font-light">The brain needs to know it is closing the gap to trigger a dopamine release, which drives sustained focus. Build systems that tell you in real-time if you are winning or losing.</p>
                     </div>
                 </div>
                 <div class="bg-[#0F172A] border border-white/[0.04] p-5 rounded-lg flex items-start gap-4">
                     <i data-lucide="zap" class="w-5 h-5 text-floworange-500 mt-1 shrink-0"></i>
                     <div>
                         <h4 class="text-white text-[14px] font-bold uppercase tracking-wide mb-1">High Consequences</h4>
-                        <p class="text-gray-500 text-[12px] leading-relaxed">Physical, emotional, or intellectual risk forces the nervous system to pay attention. If there is no consequence for failure, the brain will default to distraction.</p>
+                        <p class="text-gray-400 text-[12.5px] leading-relaxed font-light">Physical, emotional, or intellectual risk forces the nervous system to pay attention. If there is no consequence for failure, the brain will default to distraction.</p>
                     </div>
                 </div>
             </div>
@@ -488,26 +485,26 @@
             <h2 class="text-[32px] md:text-5xl font-extrabold uppercase tracking-tighter mb-4">The Collective <span class="text-metallic">Genius</span></h2>
             <p class="text-gray-300 text-[15px] font-light mb-10 max-w-2xl mx-auto">High-stakes environments demand more than individual mastery. Group flow scales output exponentially by synchronizing multiple nervous systems. It requires specialized interpersonal triggers.</p>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
-                <div class="border border-white/[0.04] p-5 rounded bg-[#0F172A] hover:border-flowblue-500/40 transition-colors">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-left">
+                <div class="border border-white/[0.04] p-5 rounded-lg bg-[#0F172A] hover:border-flowblue-500/40 transition-colors">
                     <p class="text-flowblue-400 font-mono text-[10px] uppercase mb-2 font-bold">Trigger 01</p>
                     <p class="text-white font-bold text-[13px] mb-1">Shared Risk</p>
-                    <p class="text-gray-500 text-[11px] leading-relaxed">Skin in the game aligns the collective nervous system. Without mutual stakes, synchronization fails.</p>
+                    <p class="text-gray-400 text-[12px] leading-relaxed font-light">Skin in the game aligns the collective nervous system. Without mutual stakes, synchronization fails.</p>
                 </div>
-                <div class="border border-white/[0.04] p-5 rounded bg-[#0F172A] hover:border-flowblue-500/40 transition-colors">
+                <div class="border border-white/[0.04] p-5 rounded-lg bg-[#0F172A] hover:border-flowblue-500/40 transition-colors">
                     <p class="text-flowblue-400 font-mono text-[10px] uppercase mb-2 font-bold">Trigger 02</p>
                     <p class="text-white font-bold text-[13px] mb-1">Equal Participation</p>
-                    <p class="text-gray-500 text-[11px] leading-relaxed">Ego dissolves. Dominating voices block group synchronization. No passengers allowed on the bridge.</p>
+                    <p class="text-gray-400 text-[12px] leading-relaxed font-light">Ego dissolves. Dominating voices block group synchronization. No passengers allowed on the bridge.</p>
                 </div>
-                <div class="border border-white/[0.04] p-5 rounded bg-[#0F172A] hover:border-flowblue-500/40 transition-colors">
+                <div class="border border-white/[0.04] p-5 rounded-lg bg-[#0F172A] hover:border-flowblue-500/40 transition-colors">
                     <p class="text-flowblue-400 font-mono text-[10px] uppercase mb-2 font-bold">Trigger 03</p>
                     <p class="text-white font-bold text-[13px] mb-1">Close Listening</p>
-                    <p class="text-gray-500 text-[11px] leading-relaxed">Listening to respond is amateur. Listen to adapt, build, and maintain the collective rhythm.</p>
+                    <p class="text-gray-400 text-[12px] leading-relaxed font-light">Listening to respond is amateur. Listen to adapt, build, and maintain the collective rhythm.</p>
                 </div>
-                <div class="border border-white/[0.04] p-5 rounded bg-[#0F172A] hover:border-flowblue-500/40 transition-colors">
+                <div class="border border-white/[0.04] p-5 rounded-lg bg-[#0F172A] hover:border-flowblue-500/40 transition-colors">
                     <p class="text-flowblue-400 font-mono text-[10px] uppercase mb-2 font-bold">Trigger 04</p>
                     <p class="text-white font-bold text-[13px] mb-1">Total Isolation</p>
-                    <p class="text-gray-500 text-[11px] leading-relaxed">The team becomes a unified entity. External interruptions instantly burst the collective bubble.</p>
+                    <p class="text-gray-400 text-[12px] leading-relaxed font-light">The team becomes a unified entity. External interruptions instantly burst the collective bubble.</p>
                 </div>
             </div>
         </div>
@@ -524,98 +521,240 @@
                 <div class="space-y-4">
                     <div class="pl-4 border-l-2 border-flowblue-500">
                         <strong class="text-white text-[14px]">The Explore Phase:</strong>
-                        <p class="text-gray-400 text-[13px] mt-1">High cognitive friction. Low operational output. Required for finding product-market fit. Needs divergent thinking and high novelty.</p>
+                        <p class="text-gray-400 text-[13px] mt-1 leading-relaxed font-light">High cognitive friction. Low operational output. Required for finding product-market fit. Needs divergent thinking and high novelty.</p>
                     </div>
-    <!-- Use defer to stop render-blocking -->
+                    <div class="pl-4 border-l-2 border-floworange-500">
+                        <strong class="text-white text-[14px]">The Exploit Phase:</strong>
+                        <p class="text-gray-400 text-[13px] mt-1 leading-relaxed font-light">Systems take over. Output goes exponential. Requires convergent focus and industrial, "boring" routine. Zero novelty.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-6 w-full bg-[#060B19] border border-white/[0.04] rounded-lg p-5 lg:p-7 shadow-[inset_0_2px_20px_rgba(0,0,0,0.5)] reveal-on-scroll delay-200">
+                <span class="font-mono text-[9px] lg:text-[10px] text-flowblue-500 uppercase tracking-widest block mb-4 lg:mb-6 font-bold">FIG 3.0 // The J-Curve of Leverage</span>
+                <svg class="w-full h-40 lg:h-48" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid meet">
+                    <line x1="100" y1="10" x2="100" y2="90" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="2 2" />
+                    <text x="50" y="15" fill="#555" font-size="5" font-family="monospace" text-anchor="middle" font-weight="bold">EXPLORE</text>
+                    <text x="150" y="15" fill="#555" font-size="5" font-family="monospace" text-anchor="middle" font-weight="bold">EXPLOIT</text>
+                    
+                    <line x1="10" y1="45" x2="190" y2="45" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="1 3" />
+                    
+                    <path d="M 10 45 C 30 75, 50 85, 70 85 C 90 85, 100 70, 110 45 C 130 5, 160 15, 190 15" fill="none" stroke="#38BDF8" stroke-width="2" class="svg-animate-draw"/>
+                    
+                    <circle cx="70" cy="85" r="2.5" fill="#0F172A" stroke="#F97316" stroke-width="1.5" />
+                    <text x="70" y="95" fill="#F97316" font-size="4" font-family="monospace" text-anchor="middle">Friction Tax</text>
+                    
+                    <circle cx="190" cy="15" r="2.5" fill="#0F172A" stroke="#4ADE80" stroke-width="1.5" />
+                    <text x="190" y="25" fill="#4ADE80" font-size="4" font-family="monospace" text-anchor="end">Exponential Scale</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 09: THE ITERATION ENGINE -->
+    <section class="page-break w-full min-h-[100dvh] flex flex-col relative p-6 pt-32 pb-24 md:pt-40 md:pb-32 lg:px-20 border-t border-white/[0.03] bg-[#060B19] overflow-hidden">
+        <div class="absolute -left-10 top-1/4 text-[8rem] lg:text-[11rem] font-serif italic text-white/[0.012] pointer-events-none select-none leading-none">Iterate</div>
+        <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-slate-600 uppercase hidden lg:block">Part 09 — The Iteration Engine</div>
+        
+        <div class="max-w-[1200px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-center relative z-10 my-auto">
+            <div class="lg:col-span-5 reveal-on-scroll">
+                <h2 class="text-[32px] md:text-5xl font-extrabold uppercase tracking-tighter mb-4 leading-tight">Build the <br><span class="text-flowblue-500">Micro-Lab.</span></h2>
+                <p class="text-gray-300 text-[15px] font-light leading-[1.7] mb-6">Planning is guessing. Execution is data collection. To scale your output, you must replace the fear of failure with the speed of iteration. You must become a scientist of your own biology.</p>
+                <div class="bg-[#0F172A] border border-white/[0.04] p-5 rounded-lg border-l-[3px] border-l-floworange-500">
+                    <p class="font-mono text-[10px] text-floworange-400 uppercase tracking-widest font-bold mb-2">The Feedback Loop</p>
+                    <p class="text-white/80 text-[13px] leading-relaxed">Action without review is just spinning your wheels. The brain learns through rapid, objective feedback loops, not theoretical, long-term planning.</p>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-7 flex flex-col gap-4 reveal-on-scroll delay-100">
+                <div class="border border-white/[0.04] p-5 rounded-lg flex items-start gap-4 bg-[#060B19] group hover:border-flowblue-500/30 transition-all">
+                    <div class="w-10 h-10 rounded bg-flowblue-600/10 flex items-center justify-center border border-flowblue-600/30 shrink-0">
+                        <i data-lucide="flask-conical" class="w-4 h-4 text-flowblue-500"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white text-[14px] font-bold uppercase tracking-wide mb-1">01 / The Minimum Viable Protocol (MVP)</h4>
+                        <p class="text-gray-400 text-[13px] leading-relaxed font-light">Shrink the behavioral change to its smallest testable unit. Do not overhaul your entire morning routine; change exactly one variable (e.g., light exposure) for exactly 3 days.</p>
+                    </div>
+                </div>
+
+                <div class="border border-white/[0.04] p-5 rounded-lg flex items-start gap-4 bg-[#060B19] group hover:border-flowblue-500/30 transition-all">
+                    <div class="w-10 h-10 rounded bg-flowblue-600/10 flex items-center justify-center border border-flowblue-600/30 shrink-0">
+                        <i data-lucide="zap" class="w-4 h-4 text-flowblue-500"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white text-[14px] font-bold uppercase tracking-wide mb-1">02 / Objective Execution</h4>
+                        <p class="text-gray-400 text-[13px] leading-relaxed font-light">Run the protocol with zero emotional attachment. You are not trying to "succeed"; you are a scientist collecting biological and operational data during the test window.</p>
+                    </div>
+                </div>
+
+                <div class="border border-white/[0.04] p-5 rounded-lg flex items-start gap-4 bg-[#060B19] group hover:border-floworange-500/30 transition-all">
+                    <div class="w-10 h-10 rounded bg-floworange-500/10 flex items-center justify-center border border-floworange-500/30 shrink-0">
+                        <i data-lucide="refresh-cw" class="w-4 h-4 text-floworange-500"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white text-[14px] font-bold uppercase tracking-wide mb-1">03 / The Ruthless Debrief</h4>
+                        <p class="text-gray-400 text-[13px] leading-relaxed font-light">After the test window, measure the friction. Did output increase? Did dopamine capital deplete? <strong class="text-white/80 font-medium">If it works, scale it. If it fails, kill it immediately.</strong></p>
+                    </div>
+                </div>
+
+                <!-- NEW: Flow Lab Community Button -->
+                <div class="mt-2 pt-6 border-t border-white/[0.05]">
+                    <a href="https://clientportal.flowprone.com/communities/groups/flowlab/home?invite=6a1776ae3adbfe3388de7173" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-[#0F172A] border border-flowblue-600/30 text-white font-mono text-[11px] lg:text-[12px] uppercase tracking-widest px-6 py-4 rounded hover:bg-flowblue-600/10 hover:border-flowblue-500 transition-all duration-300 group shadow-[0_0_20px_rgba(2,132,199,0.1)] hover:shadow-[0_0_25px_rgba(249,115,22,0.15)]">
+                        <i data-lucide="network" class="w-4 h-4 text-flowblue-500 group-hover:text-floworange-500 transition-colors"></i>
+                        <span>Join Our Free Flow Lab Community</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 text-gray-500 group-hover:translate-x-1 group-hover:text-floworange-500 transition-all"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 10: COLLECTIVE MEANING & CTA -->
+    <section class="page-break w-full min-h-[100dvh] flex flex-col relative p-6 pt-32 pb-24 md:pt-40 md:pb-32 lg:px-20 border-t border-white/[0.03] bg-[#01040A] overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[600px] aspect-square bg-[radial-gradient(circle,_rgba(249,115,22,0.08)_0%,_transparent_60%)] pointer-events-none transform-gpu blur-[60px]"></div>
+        <div class="absolute left-8 top-1/2 -translate-y-1/2 vertical-text font-mono text-[9px] tracking-[0.3em] text-slate-600 uppercase hidden lg:block">Part 10 — The Moat</div>
+        
+        <div class="max-w-[800px] mx-auto text-center relative z-10 reveal-on-scroll my-auto">
+            <h2 class="text-3xl sm:text-4xl md:text-6xl lg:text-[5rem] font-extrabold tracking-tighter mb-6 lg:mb-8 uppercase text-white/95 leading-[1.05]">
+                Remove the Ego.<br>
+                <span class="text-metallic font-serif italic font-light tracking-normal lowercase drop-shadow-[0_0_20px_rgba(2,132,199,0.2)]">Find the North Star.</span>
+            </h2>
+            
+            <div class="space-y-5 lg:space-y-6 text-gray-400 text-[14px] md:text-[16px] font-light leading-[1.7] mb-10 max-w-2xl mx-auto">
+                <p>Limiting beliefs are anchored in the self. When you strive solely for your own gain, your biological capacity caps out early. The final fundamental is thinking outside yourself.</p>
+                <p>Like the Avengers assembling for a singular mission, your team must be united under a collective meaning. When the objective is greater than the individual, limiting beliefs disintegrate. <strong class="text-white font-medium">That is your ultimate competitive moat.</strong></p>
+                
+                <p class="text-white/95 font-medium border-l-[2px] border-floworange-500 pl-4 lg:pl-5 py-2 text-left italic bg-gradient-to-r from-floworange-500/10 to-transparent">Execution > Information. The closed beta for Flow OS created exponential shifts in baseline output for founders and operators. Apply below for the next deployment.</p>
+            </div>
+
+            <div class="border border-white/[0.04] p-6 sm:p-8 md:p-12 rounded-2xl machined-edge reveal-on-scroll delay-200 bg-[#060B19]/50 backdrop-blur-sm">
+                <p class="font-mono text-[9px] lg:text-[10px] text-floworange-500 uppercase tracking-[0.3em] mb-5 lg:mb-7 font-bold drop-shadow-[0_0_5px_rgba(249,115,22,0.5)]">Install Flow OS</p>
+                
+                <a href="https://flowprone.com/flowfundamentals" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex bg-gradient-to-r from-flowblue-600 via-flowblue-500 to-flowblue-600 text-[#01040A] font-bold tracking-[0.2em] text-[12px] lg:text-[13px] uppercase py-4 lg:py-5 px-6 lg:px-12 rounded-md hover:brightness-110 transition-all duration-300 justify-center items-center gap-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_10px_30px_rgba(2,132,199,0.3)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),_0_15px_40px_rgba(249,115,22,0.4)] active:scale-[0.98] group relative overflow-hidden bg-[length:200%_auto] hover:bg-right">
+                    <span class="relative z-10 drop-shadow-[0_1px_1px_rgba(255,255,255,0.3)]">ACCESS THE FUNDAMENTALS</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 transition-transform duration-500 group-hover:translate-x-1.5 group-hover:text-floworange-500"></i>
+                </a>
+                
+                <a href="https://flowprone.com" target="_blank" class="block text-gray-600 text-[9px] lg:text-[10px] font-mono tracking-[0.2em] uppercase mt-5 lg:mt-7 hover:text-floworange-500 transition-colors cursor-pointer duration-300">FlowProne.com</a>
+            </div>
+        </div>
+    </section>
+    </main>
+
     <script src="https://unpkg.com/lucide@latest" defer></script>
     <script>
-        function setFlowState(state) {
-            // UI Element References
-            const states = ['anxiety', 'flow', 'boredom'];
-            
-            states.forEach(s => {
-                // 1. Manage Button Styles
-                const btn = document.getElementById(`btn-${s}`);
-                if (s === state) {
-                    // Active Styles
-                    if (s === 'flow') {
-                        btn.className = "flex-1 sm:w-24 py-1.5 text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 bg-floworange-500/20 text-floworange-400 border border-floworange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.15)]";
-                    } else if (s === 'anxiety') {
-                        btn.className = "flex-1 sm:w-24 py-1.5 text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 bg-[#EF4444]/20 text-[#EF4444] border border-[#EF4444]/30 shadow-[0_0_15px_rgba(239,68,68,0.15)]";
+        // Use an IIFE to protect global scope
+        (() => {
+            // Tabbed UI Logic for Flow Channel
+            window.setFlowState = function(state) {
+                const states = ['anxiety', 'flow', 'boredom'];
+                
+                // Cache DOM elements for performance
+                const panels = {};
+                const buttons = {};
+                const svgs = {};
+
+                states.forEach(s => {
+                    panels[s] = document.getElementById(`panel-${s}`);
+                    buttons[s] = document.getElementById(`btn-${s}`);
+                    svgs[s] = document.getElementById(`svg-${s}`);
+                });
+
+                states.forEach(s => {
+                    const btn = buttons[s];
+                    const svgGroup = svgs[s];
+                    const panel = panels[s];
+
+                    if (!btn || !svgGroup || !panel) return;
+
+                    // 1. Manage Button Styles
+                    if (s === state) {
+                        if (s === 'flow') {
+                            btn.className = "py-2 px-2 text-[9px] md:text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 bg-floworange-500/20 text-floworange-400 border border-floworange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.15)]";
+                        } else if (s === 'anxiety') {
+                            btn.className = "py-2 px-2 text-[9px] md:text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 bg-[#EF4444]/20 text-[#EF4444] border border-[#EF4444]/30 shadow-[0_0_15px_rgba(239,68,68,0.15)]";
+                        } else {
+                            btn.className = "py-2 px-2 text-[9px] md:text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 bg-[#94A3B8]/20 text-[#94A3B8] border border-[#94A3B8]/30";
+                        }
                     } else {
-                        btn.className = "flex-1 sm:w-24 py-1.5 text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 bg-[#94A3B8]/20 text-[#94A3B8] border border-[#94A3B8]/30";
+                        btn.className = "py-2 px-2 text-[9px] md:text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 text-gray-500 hover:text-white border border-transparent";
                     }
-                } else {
-                    // Inactive Styles
-                    btn.className = "flex-1 sm:w-24 py-1.5 text-[10px] font-mono tracking-widest uppercase font-bold rounded transition-all duration-300 text-gray-500 hover:text-white border border-transparent";
-                }
 
-                // 2. Manage SVG Opacities (Focus mode)
-                const svgGroup = document.getElementById(`svg-${s}`);
-                if (s === state) {
-                    svgGroup.classList.remove('opacity-20', 'scale-[0.98]');
-                    svgGroup.classList.add('opacity-100', 'scale-100');
-                    // Add extra glow for flow
-                    if(s === 'flow') svgGroup.querySelector('path').classList.add('drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]');
-                } else {
-                    svgGroup.classList.remove('opacity-100', 'scale-100');
-                    svgGroup.classList.add('opacity-20', 'scale-[0.98]');
-                    // Remove glow for inactive flow
-                    if(s === 'flow') svgGroup.querySelector('path').classList.remove('drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]');
-                }
+                    // 2. Manage SVG Opacities
+                    if (s === state) {
+                        svgGroup.classList.remove('opacity-20', 'scale-[0.98]');
+                        svgGroup.classList.add('opacity-100', 'scale-100');
+                        if(s === 'flow') svgGroup.querySelector('path:nth-child(2)').classList.add('drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]');
+                    } else {
+                        svgGroup.classList.remove('opacity-100', 'scale-100');
+                        svgGroup.classList.add('opacity-20', 'scale-[0.98]');
+                        if(s === 'flow') svgGroup.querySelector('path:nth-child(2)').classList.remove('drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]');
+                    }
 
-                // 3. Manage Content Panels (Crossfade logic)
-                const panel = document.getElementById(`panel-${s}`);
-                if (s === state) {
-                    panel.classList.remove('hidden');
-                    panel.classList.add('flex');
-                    // Slight delay to allow display:flex to apply before opacity transition
-                    setTimeout(() => {
-                        panel.classList.remove('opacity-0');
-                        panel.classList.add('opacity-100');
-                    }, 50);
-                } else {
-                    panel.classList.remove('opacity-100');
-                    panel.classList.add('opacity-0');
-                    setTimeout(() => {
-                        panel.classList.remove('flex');
-                        panel.classList.add('hidden');
-                    }, 500); // match transition duration
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-revealed');
-                        observer.unobserve(entry.target);
+                    // 3. Manage Content Panels (Crossfade logic)
+                    if (s === state) {
+                        panel.classList.remove('hidden');
+                        panel.classList.add('flex');
+                        // Micro-delay to allow display flex to paint before opacity transition
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                panel.classList.remove('opacity-0');
+                                panel.classList.add('opacity-100');
+                            });
+                        });
+                    } else {
+                        panel.classList.remove('opacity-100');
+                        panel.classList.add('opacity-0');
+                        // Ensure we hide after transition completes (matching 300ms duration)
+                        setTimeout(() => {
+                            // double check state hasn't changed during timeout
+                            if(panel.classList.contains('opacity-0')){
+                                panel.classList.remove('flex');
+                                panel.classList.add('hidden');
+                            }
+                        }, 300); 
                     }
                 });
-            }, observerOptions);
+            };
 
-            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-
-            let isScrolling = false;
-            const progressBar = document.getElementById('scroll-progress');
-            
-            window.addEventListener('scroll', () => {
-                if (!isScrolling) {
-                    window.requestAnimationFrame(() => {
-                        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                        const scrolled = (winScroll / height) * 100;
-                        progressBar.style.width = scrolled + "%";
-                        isScrolling = false;
-                    });
-                    isScrolling = true;
+            // Initialize Icons and Observers on DOM Load
+            document.addEventListener('DOMContentLoaded', () => {
+                // Safely initialize icons if library loaded
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
                 }
-            }, { passive: true });
-        });
+
+                // Cinematic Scroll Reveal Logic - Optimized
+                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-revealed');
+                            observer.unobserve(entry.target); // Stop observing once revealed
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+                // Scroll Progress Bar Logic - Optimized with RAF
+                let isScrolling = false;
+                const progressBar = document.getElementById('scroll-progress');
+                
+                window.addEventListener('scroll', () => {
+                    if (!isScrolling && progressBar) {
+                        window.requestAnimationFrame(() => {
+                            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                            const scrolled = (winScroll / height) * 100;
+                            progressBar.style.width = scrolled + "%";
+                            isScrolling = false;
+                        });
+                        isScrolling = true;
+                    }
+                }, { passive: true });
+            });
+        })();
     </script>
 </body>
 </html>
