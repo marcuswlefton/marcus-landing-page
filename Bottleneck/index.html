@@ -410,12 +410,10 @@
       <div class="wrap">
         <div class="brief-panel">
           <div><div class="eyebrow">Not Ready To Apply?</div><h3>Get the Bottleneck Brief: 7 signs you may be solving the wrong problem.</h3><p class="brief-copy">A short diagnostic checklist for high-stakes operators who want sharper diagnosis before adding more tactics, intensity, or support.</p></div>
-          <form class="brief-form kit-form" data-kit-form="9586700" action="/api/kit-submit" method="post">
-            <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
-            <input type="hidden" name="form_type" value="bottleneck_brief">
-            <input type="hidden" name="source" value="vyrtuositi_bottleneck_page">
-            <input type="hidden" name="kit_form_id" value="9586700">
-            <button class="button" type="submit">Send The Brief</button><p class="form-status" aria-live="polite"></p><p class="form-disclaimer">Quiet, useful, and diagnostic. No spam. Powered by KIT when deployed.</p>
+          <form class="brief-form kit-form" data-kit-form="brief" action="https://app.convertkit.com/forms/9586700/subscriptions" method="post" target="kit_hidden_iframe">
+            <input type="email" name="email_address" placeholder="Email address" autocomplete="email" required>
+            <input type="hidden" name="fields[bottleneck_source]" value="vyrtuositi_bottleneck_page">
+            <button class="button" type="submit">Send The Brief</button><p class="form-status" aria-live="polite"></p><p class="form-disclaimer">Quiet, useful, and diagnostic. No spam. Powered by Kit.</p>
           </form>
         </div>
       </div>
@@ -485,23 +483,20 @@
             <div><div class="eyebrow">Apply</div><h2>Find the constraint before it becomes the ceiling.</h2><p class="apply-copy">If you are successful on paper but leaking energy, clarity, recovery, execution, or decision quality, the answer is probably not more generic advice. Find the bottleneck. Fix the right thing first. Stop paying more than you need to for your performance. The scan is not a sales call; it is a fit assessment.</p><div class="hero-actions"><a class="button" href="#scan-application">Start The Application</a></div><p class="microcopy">No payment required to apply. I read every application personally. If it is not the right fit, I will tell you directly.</p></div>
             <aside class="application-card">
               <p class="form-note">Apply for the 15-minute Bottleneck Scan.</p><p class="form-time">Takes 3–5 minutes. Short answers are fine.</p>
-              <form id="scan-application" class="scan-form kit-form" data-kit-form="9586922" action="/api/kit-submit" method="post">
-                <input type="hidden" name="form_type" value="bottleneck_scan_application">
-                <input type="hidden" name="bottleneck_source" value="vyrtuositi_bottleneck_page">
-                <input type="hidden" name="source" value="vyrtuositi_bottleneck_page">
-                <input type="hidden" name="kit_form_id" value="9586922">
-                <label>Name<input type="text" name="name" placeholder="Your name" autocomplete="name" required></label>
-                <label>Email<input type="email" name="email" placeholder="you@email.com" autocomplete="email" required></label>
-                <label>Role / Company<input type="text" name="bottleneck_role_company" placeholder="Founder, executive, athlete, operator…" required></label>
-                <label>LinkedIn / Website<input type="url" name="bottleneck_linkedin_website" placeholder="https://linkedin.com/in/…"></label>
-                <label>What feels harder than it should right now?<textarea name="bottleneck_current_issue" placeholder="A few sentences is enough." required></textarea></label>
-                <label>What have you already tried?<textarea name="bottleneck_already_tried" placeholder="Coaching, therapy, training, routines, delegation, systems, rest, more intensity…" required></textarea></label>
-                <label>What has this already cost you?<textarea name="bottleneck_cost" placeholder="Money, energy, execution, recovery, leadership, quality of life…" required></textarea></label>
-                <label>Why now?<textarea name="bottleneck_why_now" placeholder="What makes this worth solving now?" required></textarea></label>
-                <label>Open to a private diagnostic starting at $5,000 if there is clear fit?<select name="bottleneck_audit_readiness" required><option value="" selected disabled>Select one</option><option>Yes</option><option>Maybe, depends on fit</option><option>No, not at this time</option></select></label>
+              <form id="scan-application" class="scan-form kit-form" data-kit-form="application" action="https://app.convertkit.com/forms/9586922/subscriptions" method="post" target="kit_hidden_iframe">
+                <input type="hidden" name="fields[bottleneck_source]" value="vyrtuositi_bottleneck_page">
+                <label>Name<input type="text" name="fields[first_name]" placeholder="Your name" autocomplete="name" required></label>
+                <label>Email<input type="email" name="email_address" placeholder="you@email.com" autocomplete="email" required></label>
+                <label>Role / Company<input type="text" name="fields[bottleneck_role_company]" placeholder="Founder, executive, athlete, operator…" required></label>
+                <label>LinkedIn / Website<input type="url" name="fields[bottleneck_linkedin_website]" placeholder="https://linkedin.com/in/…"></label>
+                <label>What feels harder than it should right now?<textarea name="fields[bottleneck_current_issue]" placeholder="A few sentences is enough." required></textarea></label>
+                <label>What have you already tried?<textarea name="fields[bottleneck_already_tried]" placeholder="Coaching, therapy, training, routines, delegation, systems, rest, more intensity…" required></textarea></label>
+                <label>What has this already cost you?<textarea name="fields[bottleneck_cost]" placeholder="Money, energy, execution, recovery, leadership, quality of life…" required></textarea></label>
+                <label>Why now?<textarea name="fields[bottleneck_why_now]" placeholder="What makes this worth solving now?" required></textarea></label>
+                <label>Open to a private diagnostic starting at $5,000 if there is clear fit?<select name="fields[bottleneck_audit_readiness]" required><option value="" selected disabled>Select one</option><option>Yes</option><option>Maybe, depends on fit</option><option>No, not at this time</option></select></label>
                 <button class="button" type="submit">Submit Application</button><p class="form-status" aria-live="polite"></p>
               </form>
-              <hr><p class="form-disclaimer">Submissions are routed through the KIT integration endpoint when deployed. If you prefer a fuller application workflow later, connect this form to Fillout, Tally, Typeform, or your CRM.</p>
+              <hr><p class="form-disclaimer">Submissions go directly to Kit. I personally review each application and will reach out if there is clear fit.</p>
             </aside>
           </div>
         </div>
@@ -549,24 +544,22 @@
       }
 
       document.querySelectorAll('.kit-form').forEach(form => {
-        form.addEventListener('submit', async event => {
-          event.preventDefault();
+        form.addEventListener('submit', () => {
           const status = form.querySelector('.form-status');
           const button = form.querySelector('button[type="submit"]');
-          const payload = Object.fromEntries(new FormData(form).entries());
-          payload.kit_form = form.dataset.kitForm || payload.form_type || 'unknown';
+          const kind = form.dataset.kitForm || 'form';
           if (status) { status.className = 'form-status'; status.textContent = 'Sending…'; }
           if (button) button.disabled = true;
-          try {
-            const response = await fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            if (!response.ok) throw new Error('Submission failed');
+          window.setTimeout(() => {
             form.reset();
-            if (status) { status.classList.add('success'); status.textContent = payload.form_type === 'bottleneck_brief' ? 'Brief requested. Check your inbox shortly.' : 'Application received. If there is fit, Marcus will reach out with next steps.'; }
-          } catch (error) {
-            if (status) { status.classList.add('error'); status.textContent = 'This form is integration-ready. Add the KIT environment variables on the deployed endpoint to activate live submissions.'; }
-          } finally {
+            if (status) {
+              status.classList.add('success');
+              status.textContent = kind === 'brief'
+                ? 'Brief requested. Check your inbox shortly.'
+                : 'Application received. If there is fit, Marcus will reach out with next steps.';
+            }
             if (button) button.disabled = false;
-          }
+          }, 950);
         });
       });
     })();
