@@ -484,14 +484,16 @@
             <aside class="application-card">
               <p class="form-note">Apply for the 15-minute Bottleneck Scan.</p><p class="form-time">Takes 3–5 minutes. Short answers are fine.</p>
               <form id="scan-application" class="scan-form kit-form" data-kit-form="application" action="/api/kit-submit" method="post">
-                <input type="hidden" name="form_type" value="bottleneck_scan_application"><input type="hidden" name="source" value="vyrtuositi_bottleneck_page">
+                <input type="hidden" name="form_type" value="bottleneck_scan_application"><input type="hidden" name="bottleneck_source" value="vyrtuositi_bottleneck_page"><input type="hidden" name="source" value="vyrtuositi_bottleneck_page">
                 <label>Name<input type="text" name="name" placeholder="Your name" autocomplete="name" required></label>
                 <label>Email<input type="email" name="email" placeholder="you@email.com" autocomplete="email" required></label>
-                <label>Role / Company<input type="text" name="role_company" placeholder="Founder, executive, athlete, operator…"></label>
-                <label>What feels harder than it should?<textarea name="current_constraint" placeholder="A few sentences is enough." required></textarea></label>
-                <label>What has this already cost you?<textarea name="cost" placeholder="Money, energy, execution, recovery, leadership, quality of life…"></textarea></label>
-                <label>Why now?<textarea name="why_now" placeholder="What makes this worth solving now?"></textarea></label>
-                <label>Open to a private audit starting at $5,000 if there is clear fit?<select name="investment_readiness" required><option value="" selected disabled>Select one</option><option>Yes</option><option>Maybe, depends on fit</option><option>No, not at this time</option></select></label>
+                <label>Role / Company<input type="text" name="bottleneck_role_company" placeholder="Founder, executive, athlete, operator…" required></label>
+                <label>LinkedIn / Website<input type="url" name="bottleneck_linkedin_website" placeholder="https://linkedin.com/in/…"></label>
+                <label>What feels harder than it should right now?<textarea name="bottleneck_current_issue" placeholder="A few sentences is enough." required></textarea></label>
+                <label>What have you already tried?<textarea name="bottleneck_already_tried" placeholder="Coaching, therapy, training, routines, delegation, systems, rest, more intensity…" required></textarea></label>
+                <label>What has this already cost you?<textarea name="bottleneck_cost" placeholder="Money, energy, execution, recovery, leadership, quality of life…" required></textarea></label>
+                <label>Why now?<textarea name="bottleneck_why_now" placeholder="What makes this worth solving now?" required></textarea></label>
+                <label>Open to a private diagnostic starting at $5,000 if there is clear fit?<select name="bottleneck_audit_readiness" required><option value="" selected disabled>Select one</option><option>Yes</option><option>Maybe, depends on fit</option><option>No, not at this time</option></select></label>
                 <button class="button" type="submit">Submit Application</button><p class="form-status" aria-live="polite"></p>
               </form>
               <hr><p class="form-disclaimer">Submissions are routed through the KIT integration endpoint when deployed. If you prefer a fuller application workflow later, connect this form to Fillout, Tally, Typeform, or your CRM.</p>
