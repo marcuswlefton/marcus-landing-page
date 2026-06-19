@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're In | VYRTŪOSITI</title>
+  <meta name="description" content="Your next step is on its way. A branded VYRTŪOSITI thank-you page." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: rgba(16, 16, 14, 0.78);
+      --panel-strong: rgba(22, 21, 18, 0.92);
+      --gold: #c7a55a;
+      --gold-soft: rgba(199, 165, 90, 0.18);
+      --gold-line: rgba(199, 165, 90, 0.34);
+      --text: #f4f1ea;
+      --muted: #b9b2a4;
+      --faint: #7b756a;
+      --line: rgba(255, 255, 255, 0.09);
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-height: 100%;
+      background: var(--bg);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% 18%, rgba(199, 165, 90, 0.13), transparent 28rem),
+        radial-gradient(circle at 12% 84%, rgba(199, 165, 90, 0.08), transparent 22rem),
+        linear-gradient(180deg, #070706 0%, #030303 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at center, black, transparent 72%);
+      opacity: 0.55;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+      position: relative;
+    }
+
+    .shell {
+      width: min(760px, 100%);
+      position: relative;
+      animation: rise 720ms ease both;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      color: var(--gold);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .brand::before,
+    .brand::after {
+      content: "";
+      display: block;
+      width: 38px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-line));
+    }
+
+    .brand::after {
+      background: linear-gradient(90deg, var(--gold-line), transparent);
+    }
+
+    .card {
+      position: relative;
+      border: 1px solid var(--gold-line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.045), transparent 30%),
+        var(--panel);
+      box-shadow: var(--shadow);
+      border-radius: 26px;
+      padding: clamp(34px, 6vw, 64px);
+      text-align: center;
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(199, 165, 90, 0.16), transparent 36%);
+      pointer-events: none;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 auto 22px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 0 rgba(199, 165, 90, 0.58);
+      animation: pulse 2.2s ease-out infinite;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(44px, 9vw, 76px);
+      line-height: 0.96;
+      letter-spacing: -0.045em;
+    }
+
+    .subhead {
+      max-width: 520px;
+      margin: 22px auto 0;
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 18px);
+      line-height: 1.7;
+    }
+
+    .subhead strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      margin: 34px 0;
+      background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
+    }
+
+    .question {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .question-label {
+      margin: 0 0 12px;
+      color: var(--faint);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .question h2 {
+      margin: 0;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 600;
+      line-height: 1.16;
+      letter-spacing: -0.025em;
+    }
+
+    .truth {
+      margin: 22px auto 0;
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .cta-wrap {
+      margin-top: 34px;
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+    }
+
+    .cta-note {
+      margin: 0;
+      color: var(--faint);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(199, 165, 90, 0.7);
+      background: linear-gradient(180deg, #d4b875, #ad8741);
+      color: #0a0805;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+      box-shadow: 0 18px 42px rgba(199, 165, 90, 0.16);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.04);
+      box-shadow: 0 22px 54px rgba(199, 165, 90, 0.22);
+    }
+
+    .btn span {
+      transition: transform 180ms ease;
+    }
+
+    .btn:hover span {
+      transform: translateX(2px);
+    }
+
+    .support {
+      margin: 30px auto 0;
+      max-width: 520px;
+      padding: 18px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      color: var(--faint);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      color: var(--faint);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      line-height: 1.8;
+    }
+
+    .footer strong {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(199, 165, 90, 0.55); }
+      70% { box-shadow: 0 0 0 10px rgba(199, 165, 90, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(199, 165, 90, 0); }
+    }
+
+    @media (max-width: 560px) {
+      .page { padding: 24px 14px; }
+      .brand { letter-spacing: 0.18em; font-size: 11px; }
+      .brand::before, .brand::after { width: 22px; }
+      .card { border-radius: 22px; padding: 32px 20px; }
+      .subhead { line-height: 1.62; }
+      .divider { margin: 28px 0; }
+      .btn { width: 100%; max-width: 320px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" aria-label="Thank you page">
+    <section class="shell">
+      <div class="brand">VYRTŪOSITI</div>
+
+      <article class="card">
+        <div class="kicker"><span class="pulse" aria-hidden="true"></span> Request Received</div>
+
+        <h1>You’re In.</h1>
+
+        <p class="subhead">
+          The next step is on its way to your inbox. Look for an email from <strong>Marcus Lefton</strong>.
+        </p>
+
+        <div class="divider" aria-hidden="true"></div>
+
+        <div class="question">
+          <p class="question-label">While you wait</p>
+          <h2>What am I treating as the problem that may only be a symptom?</h2>
+          <p class="truth">
+            The answer is often not more effort. It is a cleaner diagnosis. Look for the signal.
+          </p>
+        </div>
+
+        <div class="cta-wrap">
+          <p class="cta-note">If this already feels relevant, you can request a Bottleneck Scan.</p>
+          <a class="btn" href="/bottleneck#apply" aria-label="Request a Bottleneck Scan">
+            Request A Bottleneck Scan <span aria-hidden="true">→</span>
+          </a>
+          <p class="cta-note">The scan is a 15-minute fit assessment, not a sales call.</p>
+        </div>
+
+        <p class="support">
+          If the email does not show up in the next few minutes, check Promotions or Spam.
+        </p>
+      </article>
+
+      <footer class="footer">
+        <strong>VYRTŪOSITI</strong><br />
+        Mastery in Motion
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
