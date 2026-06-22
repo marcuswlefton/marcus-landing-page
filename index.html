@@ -1,699 +1,1682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- FRAME-BUSTER: KILLS LINKEDIN'S IFRAME TRAP  -->
-    <!-- ═══════════════════════════════════════════ -->
-    <script>
-        try {
-            if (window.top !== window.self) {
-                window.top.location.href = window.self.location.href;
-            }
-        } catch (e) {
-            console.warn("Frame-buster active: Cross-origin frame detected.");
-        }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:title" content="Mastery in Motion | VYRTŪOSITI" />
+  <meta property="og:description" content="A Sunday brief on the hidden patterns behind why your best shows up sometimes — and how to make it more repeatable when it matters." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://i.imgur.com/SJLnvwa.png" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%23C2A359' font-family='serif'%3EV%3C/text%3E%3C/svg%3E" />
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
-    <meta name="theme-color" content="#000000">
-    
-    <!-- Open Graph & SEO -->
-    <meta name="description" content="The free, weekly email dispatch detailing the exact biological protocols to recalibrate your executive system.">
-    <meta property="og:title" content="Mastery in Motion | VYRTŪOSITI">
-    <meta property="og:description" content="You are solving the wrong problem. Discover the biological constraints destroying your decision velocity.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://i.imgur.com/SJLnvwa.png"> 
+  <title>Mastery in Motion | VYRTŪOSITI</title>
+  <meta name="description" content="Mastery in Motion is Marcus Lefton’s Sunday brief on the hidden patterns behind why your best shows up sometimes — and how to make it more repeatable when it matters." />
 
-    <!-- Minimalist SVG Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23C2A359' font-family='serif'>V</text></svg>">
-    
-    <title>Mastery in Motion | VYRTŪOSITI</title>
+  <!-- Brand typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- PERFORMANCE PRELOADING                        -->
-    <!-- ═══════════════════════════════════════════ -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
-    
-    <!-- Preload heavy visual assets to prevent layout shifts/delays -->
-    <link rel="preload" href="https://i.imgur.com/SJLnvwa.png" as="image">
-    <link rel="preload" href="seal.gif" as="image">
+  <style>
+    :root {
+      --bg: #070707;
+      --bg-2: #0d0c0a;
+      --panel: rgba(255,255,255,0.045);
+      --panel-2: rgba(255,255,255,0.07);
+      --line: rgba(207, 171, 105, 0.28);
+      --line-soft: rgba(255,255,255,0.10);
+      --gold: #cdaa6a;
+      --gold-bright: #e6c982;
+      --cream: #f4efe5;
+      --muted: rgba(244,239,229,0.72);
+      --muted-2: rgba(244,239,229,0.55);
+      --shadow: 0 34px 120px rgba(0,0,0,0.55);
+      --shadow-soft: 0 18px 70px rgba(0,0,0,0.32);
+      --radius: 26px;
+      --max: 1160px;
+    }
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        void: '#000000',
-                        glass: 'rgba(20, 20, 20, 0.6)',
-                        glassHover: 'rgba(30, 30, 30, 0.8)',
-                        glassBorder: 'rgba(255, 255, 255, 0.08)',
-                        brandGold: '#C2A359',
-                        brandGoldHover: '#D4B66A',
-                        textMain: '#FFFFFF',
-                        textSub: 'rgba(255, 255, 255, 0.65)',
-                        textMuted: 'rgba(255, 255, 255, 0.4)'
-                    },
-                    fontFamily: {
-                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
-                        sans: ['"Inter"', 'system-ui', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    letterSpacing: { tightest: '-0.04em' },
-                    boxShadow: { 'glow': '0 0 30px rgba(194, 163, 89, 0.1)' },
-                    animation: { 'marquee': 'marquee 40s linear infinite' },
-                    keyframes: {
-                        marquee: {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-100%)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    * { box-sizing: border-box; }
 
-    <style>
-        :root {
-            --void: #000000;
-            --brandGold: #C2A359;
-            --brandGoldHover: #D4B66A;
-            --textMain: #FAFAFA; 
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        * { -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(205,170,106,0.17), transparent 35%),
+        radial-gradient(circle at 90% 12%, rgba(255,255,255,0.06), transparent 30%),
+        linear-gradient(180deg, #050505 0%, #0b0a08 46%, #050505 100%);
+      color: var(--cream);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
 
-        body {
-            background-color: var(--void);
-            color: var(--textMain);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-            width: 100%;
-            overscroll-behavior-y: none; 
-            overscroll-behavior-x: none;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at center, black, transparent 76%);
+      opacity: 0.55;
+      z-index: -2;
+    }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000000; border-left: 1px solid rgba(255,255,255,0.05); }
-        ::-webkit-scrollbar-thumb { background: rgba(194, 163, 89, 0.3); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(194, 163, 89, 0.6); }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity: 0.18;
+      z-index: -1;
+    }
 
-        .ambient-glow-1 {
-            position: absolute; top: -10%; right: -5%; width: 600px; height: 600px;
-            background: radial-gradient(circle at center, rgba(194, 163, 89, 0.12) 0%, rgba(194, 163, 89, 0.04) 40%, rgba(0,0,0,0) 70%);
-            border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 0;
-            transform: translateZ(0); will-change: transform;
-        }
-        
-        .ambient-glow-2 {
-            position: absolute; bottom: 0%; left: 50%;
-            transform: translateX(-50%) translateZ(0); width: 800px; height: 400px;
-            background: radial-gradient(circle at center, rgba(194, 163, 89, 0.08) 0%, rgba(194, 163, 89, 0.02) 50%, rgba(0,0,0,0) 70%);
-            border-radius: 50%; filter: blur(50px); pointer-events: none; z-index: 0;
-            will-change: transform;
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        .reveal {
-            opacity: 0; transform: translateY(30px); filter: blur(8px);
-            transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
-            will-change: opacity, transform, filter;
-        }
-        .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid rgba(230,201,130,0.72);
+      outline-offset: 4px;
+    }
 
-        /* ══════════════════════════════════════════════════════ */
-        /* TOP 1% LUXURY FORM & BUTTON AESTHETICS                 */
-        /* ══════════════════════════════════════════════════════ */
-        .form-container {
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .form-container:hover {
-            border-color: rgba(255,255,255,0.15);
-            background: rgba(10,10,10,0.8);
-        }
-        .form-container:focus-within {
-            border-color: rgba(194, 163, 89, 0.4) !important; 
-            box-shadow: 0 0 0 1px rgba(194, 163, 89, 0.1), 0 15px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(194, 163, 89, 0.05) !important;
-            background: rgba(15,15,15,0.95) !important;
-        }
 
-        .cmd-btn {
-            background: linear-gradient(180deg, #D4B66A 0%, #C2A359 40%, #A88A44 100%);
-            color: #111111; 
-            border-radius: 9999px;
-            font-family: 'Inter', sans-serif; 
-            font-size: 12px; 
-            font-weight: 700; 
-            letter-spacing: 0.15em;
-            text-transform: uppercase; 
-            white-space: nowrap;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            gap: 8px; 
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.6), 0 4px 15px rgba(194, 163, 89, 0.2);
-            touch-action: manipulation; 
-            border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        /* Artificial top bevel highlight to simulate physical metal */
-        .cmd-btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 50%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
-            border-radius: 9999px 9999px 0 0;
-            pointer-events: none;
-        }
-        .cmd-btn:hover:not(:disabled) {
-            background: linear-gradient(180deg, #E2C782 0%, #D4B66A 40%, #C2A359 100%); 
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.7), 0 6px 20px rgba(194, 163, 89, 0.35);
-            transform: translateY(-1px);
-        }
-        .cmd-btn:active:not(:disabled) { 
-            transform: translateY(1px); 
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); 
-        }
-        .cmd-btn:disabled { opacity: 0.8; cursor: not-allowed; }
+    .form-status {
+      min-height: 18px;
+      margin: 10px 0 0;
+      color: rgba(244,239,229,0.58);
+      font-size: 12px;
+      line-height: 1.45;
+    }
 
-        .bg-noise {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
-            z-index: 9999; opacity: 0.035;
-            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-            transform: translateZ(0); will-change: transform;
-        }
+    .form-success {
+      color: rgba(230,201,130,0.92);
+    }
 
-        .glass-panel {
-            background: linear-gradient(145deg, rgba(20,20,20,0.6) 0%, rgba(10,10,10,0.8) 100%);
-            border: 1px solid rgba(255,255,255,0.03); border-radius: 24px;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 32px rgba(0,0,0,0.4);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        
-        .glass-panel:hover {
-            background: linear-gradient(145deg, rgba(25,25,25,0.7) 0%, rgba(15,15,15,0.9) 100%);
-            border-color: rgba(194, 163, 89, 0.2);
-            transform: translateY(-4px); 
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 20px 40px -10px rgba(0,0,0,0.8), 0 0 30px rgba(194, 163, 89, 0.08);
-        }
+    .form-error {
+      color: rgba(255,172,145,0.92);
+    }
 
-        .mask-edges { 
-            -webkit-mask-image: linear-gradient(to right, transparent, black 25%, black 75%, transparent); 
-            mask-image: linear-gradient(to right, transparent, black 25%, black 75%, transparent); 
-        }
+    form[data-loading="true"] {
+      opacity: 0.88;
+    }
 
-        @keyframes errorShake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-6px); }
-            40% { transform: translateX(6px); }
-            60% { transform: translateX(-6px); }
-            80% { transform: translateX(6px); }
-        }
-        .animate-error-shake { animation: errorShake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+    form[data-netlify-subscribe] button[disabled] {
+      cursor: not-allowed;
+      opacity: 0.72;
+    }
 
-        @keyframes terminalBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
-        .animate-terminal { animation: terminalBlink 1s infinite; }
-        
-        .error-state { border-color: rgba(239, 68, 68, 0.5) !important; }
-    </style>
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    .page {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0 18px;
+      color: var(--cream);
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .brand small {
+      letter-spacing: 0.09em;
+      text-transform: none;
+      color: var(--muted-2);
+      font-weight: 500;
+      font-size: 11px;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--cream);
+      background: rgba(255,255,255,0.03);
+      font-size: 13px;
+      font-weight: 600;
+      transition: all .22s ease;
+    }
+
+    .nav-cta:hover {
+      border-color: rgba(230,201,130,0.65);
+      background: rgba(205,170,106,0.10);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.72fr);
+      gap: 40px;
+      align-items: center;
+      min-height: calc(100vh - 92px);
+      padding: 56px 0 96px;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 49%;
+      top: 11%;
+      width: 1px;
+      height: 78%;
+      background: linear-gradient(180deg, transparent, rgba(205,170,106,0.26), transparent);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(205,170,106,0.07);
+      color: var(--gold-bright);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--gold-bright);
+      box-shadow: 0 0 24px rgba(230,201,130,0.85);
+    }
+
+    h1, h2, h3 {
+      font-family: "Playfair Display", Georgia, serif;
+      line-height: 0.98;
+      margin: 0;
+      letter-spacing: -0.045em;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: clamp(54px, 8.2vw, 104px);
+      max-width: 850px;
+      text-wrap: balance;
+    }
+
+    h2 {
+      font-size: clamp(36px, 5vw, 68px);
+      max-width: 820px;
+      text-wrap: balance;
+    }
+
+    h3 {
+      font-size: 27px;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-copy {
+      margin-top: 26px;
+      max-width: 680px;
+    }
+
+    .hero-copy p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
+    .hero-copy .lead-strong {
+      color: var(--cream);
+      font-weight: 600;
+    }
+
+    .thesis {
+      margin-top: 24px;
+      padding: 20px 22px;
+      border-left: 1px solid var(--gold);
+      background: linear-gradient(90deg, rgba(205,170,106,0.11), rgba(255,255,255,0.025));
+      color: rgba(244,239,229,0.88);
+      font-size: 18px;
+      line-height: 1.55;
+      max-width: 730px;
+    }
+
+    .thesis strong {
+      color: var(--cream);
+      font-weight: 700;
+    }
+
+    .sample-strip {
+      max-width: 680px;
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid rgba(205,170,106,0.20);
+      background: rgba(255,255,255,0.026);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .sample-item {
+      padding: 13px 14px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .sample-item:last-child {
+      border-right: none;
+    }
+
+    .sample-item span {
+      display: block;
+      color: var(--gold-bright);
+      font-size: 9.5px;
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .sample-item p {
+      margin: 0;
+      color: rgba(244,239,229,0.76);
+      font-size: 12.5px;
+      line-height: 1.35;
+    }
+
+    .access-line {
+      max-width: 680px;
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: rgba(244,239,229,0.48);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .access-line span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .access-line span:not(:last-child)::after {
+      content: "";
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(205,170,106,0.55);
+      margin-left: 2px;
+    }
+
+    .form-shell {
+      margin-top: 28px;
+      display: flex;
+      gap: 9px;
+      max-width: 620px;
+      padding: 7px;
+      border: 1px solid rgba(205,170,106,0.34);
+      border-radius: 999px;
+      background: rgba(0,0,0,0.32);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(14px);
+    }
+
+    .form-shell input {
+      flex: 1;
+      min-width: 0;
+      height: 52px;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--cream);
+      padding: 0 16px;
+      font: 500 16px/1 Inter, sans-serif;
+    }
+
+    .form-shell input::placeholder {
+      color: rgba(244,239,229,0.43);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 24px;
+      border: 1px solid rgba(230,201,130,0.42);
+      border-radius: 999px;
+      background:
+        linear-gradient(180deg, #d6b873 0%, #bd9654 100%);
+      color: #0d0b08;
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.25);
+      transition: all .22s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.035);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.28);
+    }
+
+    .micro {
+      margin-top: 14px;
+      color: var(--muted-2);
+      font-size: 13px;
+    }
+
+    .micro strong {
+      color: var(--cream);
+      font-weight: 700;
+    }
+
+    .hero-art {
+      position: relative;
+      min-height: 590px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: -18px;
+    }
+
+    .orb {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(205,170,106,0.19), rgba(205,170,106,0.03) 48%, transparent 70%);
+      filter: blur(2px);
+    }
+
+    .dossier {
+      position: relative;
+      width: min(100%, 420px);
+      border: 1px solid rgba(205,170,106,0.38);
+      border-radius: 30px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.105), rgba(255,255,255,0.035)),
+        linear-gradient(180deg, rgba(205,170,106,0.08), transparent 35%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(22px);
+      transform: translateX(-8px) translateY(-10px) rotate(0.7deg);
+    }
+
+    .dossier::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.13) 38%, transparent 54%);
+      transform: translateX(-120%);
+      animation: sheen 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sheen {
+      0%, 42% { transform: translateX(-120%); }
+      58%, 100% { transform: translateX(120%); }
+    }
+
+    .dossier-top {
+      padding: 25px 25px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dossier-title {
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-bright);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .issue {
+      color: var(--muted-2);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .dossier-body {
+      padding: 26px;
+    }
+
+    .dossier-body h3 {
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
+
+    .dossier-body p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .brief-card {
+      margin-top: 22px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 19px;
+      background: rgba(0,0,0,0.22);
+    }
+
+    .brief-card + .brief-card { margin-top: 12px; }
+
+    .brief-label {
+      color: var(--gold-bright);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .brief-card p {
+      color: rgba(244,239,229,0.82);
+      line-height: 1.55;
+    }
+
+    .seal {
+      position: absolute;
+      left: -28px;
+      bottom: 58px;
+      width: 118px;
+      height: 118px;
+      border-radius: 50%;
+      border: 1px solid rgba(230,201,130,0.55);
+      background: rgba(7,7,7,0.72);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 18px 55px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.05);
+      backdrop-filter: blur(16px);
+    }
+
+    .seal span {
+      width: 84px;
+      color: var(--gold-bright);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .proof-strip {
+      margin-top: -18px;
+      border-top: 1px solid rgba(205,170,106,0.24);
+      border-bottom: 1px solid rgba(205,170,106,0.18);
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.026), transparent);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      overflow: hidden;
+      box-shadow: none;
+    }
+
+    .proof-item {
+      padding: 23px 26px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .proof-item:last-child {
+      border-right: none;
+    }
+
+    .proof-item .num {
+      display: block;
+      color: var(--gold-bright);
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 12px;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 850;
+      margin-bottom: 9px;
+    }
+
+    .proof-item .txt {
+      color: rgba(244,239,229,0.70);
+      font-size: 13.5px;
+      line-height: 1.48;
+    }
+
+    .section {
+      position: relative;
+      padding: 104px 0;
+    }
+
+    .section + .section::before,
+    .final::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: min(100%, 1080px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(205,170,106,0.16), transparent);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, 0.78fr) minmax(320px, 0.55fr);
+      gap: 50px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker {
+      color: var(--gold-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .architecture {
+      padding-top: 84px;
+      padding-bottom: 84px;
+    }
+
+    .architecture-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.72fr);
+      gap: 44px;
+      align-items: center;
+      padding: clamp(28px, 5.6vw, 58px);
+      border: 1px solid rgba(205,170,106,0.26);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 12% 5%, rgba(205,170,106,0.13), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,0.054), rgba(255,255,255,0.022));
+      box-shadow: var(--shadow-soft, 0 18px 70px rgba(0,0,0,0.32));
+    }
+
+    .architecture-copy {
+      border-left: 1px solid rgba(205,170,106,0.34);
+      padding-left: 24px;
+    }
+
+    .architecture-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.68;
+    }
+
+    .architecture-copy p + p {
+      margin-top: 16px;
+    }
+
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      padding: 26px;
+      border: 1px solid rgba(205,170,106,0.22);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.026));
+      min-height: 235px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
+    }
+
+    .card-number {
+      color: var(--gold-bright);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 31px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .issues {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 30px;
+      counter-reset: issue;
+    }
+
+    .issue-card {
+      position: relative;
+      min-height: 218px;
+      padding: 22px 20px 20px;
+      border-top: 1px solid rgba(205,170,106,0.25);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-left: 1px solid rgba(255,255,255,0.055);
+      border-right: 1px solid rgba(255,255,255,0.055);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.038), rgba(255,255,255,0.018));
+      transition: all .22s ease;
+      counter-increment: issue;
+    }
+
+    .issue-card::before {
+      content: "ISSUE 0" counter(issue);
+      display: block;
+      margin-bottom: 14px;
+      color: rgba(244,239,229,0.42);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .issue-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(205,170,106,0.36);
+      background: rgba(205,170,106,0.045);
+    }
+
+    .issue-card .tag {
+      display: inline-flex;
+      margin-bottom: 18px;
+      color: var(--gold-bright);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .issue-card h3 {
+      font-size: 23px;
+      line-height: 1.06;
+      margin-bottom: 12px;
+      text-wrap: balance;
+    }
+
+    .issue-card p {
+      margin: 0;
+      color: var(--muted-2);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+
+    .proof-section {
+      padding-top: 78px;
+      padding-bottom: 82px;
+    }
+
+    .proof-panel {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.54fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: stretch;
+      padding: clamp(22px, 4vw, 40px);
+      border: 1px solid rgba(205,170,106,0.24);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 4% 0%, rgba(205,170,106,0.12), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.020));
+      box-shadow: var(--shadow-soft, 0 18px 70px rgba(0,0,0,0.32));
+    }
+
+    .proof-intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+      padding-right: 8px;
+    }
+
+    .proof-intro h2 {
+      font-size: clamp(34px, 4.1vw, 56px);
+      max-width: 430px;
+    }
+
+    .proof-intro p {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 16.5px;
+      line-height: 1.62;
+      max-width: 410px;
+    }
+
+    .proof-ledger {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.92fr) minmax(280px, 1fr);
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .proof-feature,
+    .proof-line {
+      margin: 0;
+      border: 1px solid rgba(205,170,106,0.22);
+      background: rgba(0,0,0,0.20);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
+    }
+
+    .proof-feature {
+      min-height: 100%;
+      padding: 28px;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(205,170,106,0.16), transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,0.062), rgba(255,255,255,0.024));
+      border-color: rgba(205,170,106,0.36);
+    }
+
+    .proof-feature p {
+      margin: 0;
+      color: var(--cream);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(25px, 2.45vw, 35px);
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+      text-wrap: balance;
+    }
+
+    .proof-feature footer,
+    .proof-line footer {
+      margin-top: 24px;
+      color: var(--muted-2);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .proof-feature footer strong,
+    .proof-line footer strong {
+      display: block;
+      color: var(--cream);
+      font-size: 13.5px;
+      margin-bottom: 2px;
+    }
+
+    .proof-support {
+      display: grid;
+      gap: 9px;
+      align-content: stretch;
+    }
+
+    .proof-line {
+      padding: 16px 18px;
+      border-radius: 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-content: space-between;
+      min-height: 0;
+      background:
+        linear-gradient(90deg, rgba(205,170,106,0.055), rgba(255,255,255,0.018));
+    }
+
+    .proof-line p {
+      margin: 0;
+      color: rgba(244,239,229,0.84);
+      font-size: 14.5px;
+      line-height: 1.48;
+      letter-spacing: -0.012em;
+    }
+
+
+    .final {
+      position: relative;
+      padding: 105px 0 92px;
+    }
+
+    .final-box {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(205,170,106,0.34);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(205,170,106,0.16), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.028));
+      padding: clamp(32px, 7vw, 72px);
+      box-shadow: 0 30px 110px rgba(0,0,0,0.32);
+    }
+
+    .final-box::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      top: -170px;
+      width: 360px;
+      height: 360px;
+      border: 1px solid rgba(205,170,106,0.18);
+      border-radius: 50%;
+    }
+
+    .final-box h2 {
+      max-width: 760px;
+      margin-bottom: 18px;
+    }
+
+    .final-box p {
+      max-width: 720px;
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .final-signal {
+      width: fit-content;
+      margin: -10px 0 24px;
+      padding: 9px 12px;
+      border: 1px solid rgba(205,170,106,0.20);
+      border-radius: 999px;
+      color: rgba(244,239,229,0.58);
+      background: rgba(0,0,0,0.20);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 34px 0 44px;
+      color: rgba(244,239,229,0.46);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .footer-inner {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer-copy span {
+      color: rgba(244,239,229,0.22);
+      margin: 0 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer a {
+      color: rgba(244,239,229,0.52);
+      position: relative;
+      transition: color .22s ease;
+    }
+
+    .footer a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background: var(--gold-bright);
+      transition: width .22s ease;
+    }
+
+    .footer a:hover {
+      color: var(--gold-bright);
+    }
+
+    .footer a:hover::after {
+      width: 100%;
+    }
+
+    .desktop-break { display: inline; }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 40px;
+        gap: 36px;
+      }
+
+      .hero::after {
+        display: none;
+      }
+
+      .hero-art {
+        margin-left: 0;
+        min-height: 520px;
+      }
+
+      .proof-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .proof-item:nth-child(2) {
+        border-right: none;
+      }
+
+      .proof-item:nth-child(1),
+      .proof-item:nth-child(2) {
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .section-header {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .architecture-panel {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .proof-panel {
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+
+      .proof-intro {
+        min-height: auto;
+      }
+
+      .proof-ledger {
+        grid-template-columns: 1fr;
+      }
+
+      .architecture-copy {
+        border-left: none;
+        border-top: 1px solid rgba(205,170,106,0.26);
+        padding-left: 0;
+        padding-top: 24px;
+      }
+
+      .cards-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+.issues {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+
+    @media (max-width: 820px) {
+      .cards-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 22px, var(--max));
+      }
+
+      .nav {
+        padding-top: 20px;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .brand {
+        font-size: 11px;
+      }
+
+      .hero {
+        padding: 30px 0 58px;
+        gap: 30px;
+      }
+
+      .hero::after {
+        display: none;
+      }
+
+      .sample-strip {
+        grid-template-columns: 1fr;
+        margin-top: 18px;
+      }
+
+      .sample-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+
+      .sample-item:last-child {
+        border-bottom: none;
+      }
+
+      .access-line {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+        margin-top: 12px;
+      }
+
+      .access-line span:not(:last-child)::after {
+        display: none;
+      }
+
+      h1 {
+        font-size: clamp(46px, 15.4vw, 64px);
+        letter-spacing: -0.055em;
+      }
+
+      h2 {
+        font-size: clamp(34px, 11vw, 50px);
+        letter-spacing: -0.05em;
+      }
+
+      h3 {
+        line-height: 1.04;
+      }
+
+      .hero-copy p {
+        font-size: 18px;
+      }
+
+      .thesis {
+        font-size: 16px;
+        padding: 17px 18px;
+      }
+
+      .form-shell {
+        display: grid;
+        border-radius: 23px;
+        padding: 8px;
+        gap: 8px;
+      }
+
+      .form-shell input {
+        height: 50px;
+        padding: 0 13px;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .hero-art {
+        min-height: auto;
+        padding: 8px 0 22px;
+      }
+
+      .dossier {
+        width: 100%;
+        transform: none;
+      }
+
+      .seal {
+        display: none;
+      }
+
+      .proof-strip {
+        margin-top: 10px;
+        grid-template-columns: 1fr;
+      }
+
+      .proof-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        padding: 21px 22px;
+      }
+
+      .proof-item:last-child {
+        border-bottom: none;
+      }
+
+      .section {
+        padding: 68px 0;
+      }
+
+      .proof-section {
+        padding-top: 64px;
+        padding-bottom: 66px;
+      }
+
+      .proof-panel {
+        padding: 20px;
+        border-radius: 24px;
+      }
+
+      .proof-feature {
+        padding: 23px;
+        border-radius: 20px;
+      }
+
+      .proof-feature p {
+        font-size: clamp(24px, 8vw, 30px);
+      }
+
+      .proof-line {
+        padding: 16px;
+      }
+
+      .section-header {
+        margin-bottom: 26px;
+      }
+
+      .cards-3 {
+        gap: 12px;
+      }
+
+      .card {
+        min-height: auto;
+        padding: 22px;
+      }
+
+      .issues {
+        grid-template-columns: 1fr;
+      }
+
+      .issue-card {
+        min-height: auto;
+      }
+.final {
+        padding: 78px 0 72px;
+      }
+
+      .final-box {
+        border-radius: 26px;
+      }
+
+      .final-signal {
+        width: 100%;
+        border-radius: 16px;
+        line-height: 1.45;
+      }
+
+      .footer-inner {
+        width: min(100% - 22px, var(--max));
+        display: grid;
+        justify-items: start;
+        gap: 14px;
+      }
+
+      .footer-copy span {
+        display: none;
+      }
+
+      .footer-links {
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .desktop-break { display: none; }
+    }
+  </style>
 </head>
-<body class="bg-void text-textMain antialiased selection:bg-brandGold selection:text-black" ontouchstart="">
 
-    <div class="bg-noise"></div>
+<body>
+  <main class="page">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#" aria-label="VYRTUOSITI home">
+        VYRTŪOSITI
+        <small>Mastery in Motion</small>
+      </a>
+      <a class="nav-cta" href="#join">Join Mastery in Motion</a>
+    </nav>
 
-    <main class="pt-16 md:pt-28 lg:pt-36 pb-12 md:pb-24 relative z-10 flex flex-col items-center text-center overflow-hidden min-h-[100dvh] md:min-h-[90vh] justify-center">
-        <div class="ambient-glow-1"></div>
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <div class="eyebrow">Sunday Performance Brief</div>
 
-        <div class="max-w-[800px] mx-auto px-4 sm:px-6 w-full reveal">
-            
-            <div class="font-mono tracking-[0.3em] text-[10px] text-brandGold uppercase mb-5 md:mb-8 opacity-80 border border-brandGold/20 rounded-full px-5 py-2 inline-block bg-brandGold/5 shadow-glow">
-                Subject: Mastery in Motion
-            </div>
+        <h1 id="hero-title">Make Your Best More Repeatable.</h1>
 
-            <h1 class="font-serif text-[38px] sm:text-[48px] md:text-[64px] lg:text-[72px] text-textMain font-normal leading-[1.05] tracking-tightest mb-3 md:mb-5 drop-shadow-lg">
-                Make Your Best<br>
-                <span class="italic text-brandGold block font-light mt-1">More Repeatable.</span>
-            </h1>
+        <div class="hero-copy">
+          <p class="lead-strong">You’re not missing another tactic.</p>
+          <p class="lead-strong">Your system is carrying too much friction.</p>
 
-            <!-- The Problem -->
-            <p class="text-[14px] sm:text-[15px] md:text-[18px] text-textSub font-light leading-[1.6] max-w-[640px] mx-auto mb-3 md:mb-4 text-balance">
-                <span class="text-white font-medium">The bottleneck you’re certain of is almost never the one limiting you.</span> Most high performers optimize habits, tactics, routines, and tools while the whole system still feels harder than it should.
-            </p>
-            
-            <!-- The Solution -->
-            <p class="text-[14px] sm:text-[15px] md:text-[18px] text-textSub font-light leading-[1.6] max-w-[680px] mx-auto mb-6 md:mb-8 text-balance">
-                <strong class="text-white font-medium italic">Mastery in Motion</strong> is the Sunday dispatch on performance architecture across brain, body, and business. Each week, I share the frameworks, field notes, and protocols behind clearer thinking, greater capacity, and more consistent execution under pressure.
-            </p>
-
-            <div class="max-w-[820px] mx-auto relative z-20 min-h-[210px] flex flex-col justify-center">
-                <div id="hero-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center">
-                    
-                    <!-- ═══════════════════════════════════════════ -->
-                    <!-- TOP 1% ARCHITECT COMMAND BAR                -->
-                    <!-- ═══════════════════════════════════════════ -->
-                    <form id="newsletter-form" name="hero_signup" class="form-container flex flex-col sm:flex-row items-center bg-[#050505]/60 border border-white/[0.08] p-2 sm:p-1.5 rounded-[24px] sm:rounded-full backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.05)] w-full relative group" onsubmit="return handleEntry(event, this, 'secure_email_1', 'hero-form-wrapper', 'hero-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
-                        <div class="auth-progress absolute bottom-0 left-0 h-[2px] bg-brandGold w-0 transition-[width] duration-1000 ease-out opacity-0 z-10"></div>
-                        
-                        <!-- Name Block -->
-                        <div class="flex items-center w-full sm:w-auto shrink-0 relative z-20">
-                            <input name="first_name" type="text" autocomplete="given-name" class="w-1/2 sm:w-[110px] md:w-[130px] bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-3 sm:px-5 text-center focus:outline-none placeholder-white/40 focus:placeholder-white/20 font-sans font-medium tracking-wide transition-colors" placeholder="First Name" required>
-                            
-                            <!-- Elegant Divider -->
-                            <div class="w-[1px] h-5 bg-gradient-to-b from-transparent via-white/15 to-transparent shrink-0"></div>
-                            
-                            <input name="last_name" type="text" autocomplete="family-name" class="w-1/2 sm:w-[110px] md:w-[130px] bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-3 sm:px-5 text-center focus:outline-none placeholder-white/40 focus:placeholder-white/20 font-sans font-medium tracking-wide transition-colors" placeholder="Last Name" required>
-                        </div>
-                        
-                        <!-- Main Divider -->
-                        <div class="w-full h-[1px] sm:w-[1px] sm:h-7 bg-gradient-to-r sm:bg-gradient-to-b from-transparent via-white/15 to-transparent shrink-0 my-1 sm:my-0 sm:mx-1 relative z-20"></div>
-
-                        <!-- Email Block -->
-                        <input id="secure_email_1" name="email" type="email" autocomplete="email" class="w-full sm:flex-1 bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-4 text-center sm:text-left focus:outline-none placeholder-white/40 focus:placeholder-white/20 caret-brandGold font-sans font-medium tracking-wide transition-colors relative z-20" placeholder="Operator Email (Free dispatch)" required>
-                        
-                        <!-- Button Block -->
-                        <button type="submit" class="cmd-btn shrink-0 w-full sm:w-auto py-[16px] sm:py-[12px] px-8 mt-2 sm:mt-0 relative z-20">
-                            <span class="btn-text relative z-10 flex items-center gap-2 drop-shadow-sm">SECURE DISPATCH</span>
-                            <span class="relative z-10 font-mono text-[10px] ml-1.5 hidden sm:flex items-center justify-center bg-black/15 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity text-black/80 font-bold">↵</span>
-                        </button>
-                    </form>
-                    
-                    <!-- Trust & Proof (Moved beneath CTA for Above-the-Fold UX) -->
-                    <div class="relative mt-6 md:mt-8 pt-6 max-w-[600px] mx-auto flex flex-col items-center gap-3">
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[1px] bg-gradient-to-r from-transparent via-brandGold/40 to-transparent"></div>
-                        <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 opacity-80 font-sans text-[9px] md:text-[10px] font-bold tracking-widest text-brandGold uppercase">
-                            <span>Free Weekly Dispatch</span>
-                            <span class="w-1 h-1 rounded-full bg-brandGold/50 hidden sm:block"></span>
-                            <span>Zero Fluff</span>
-                        </div>
-                        <p class="text-[12px] md:text-[13px] text-textMuted font-light leading-[1.6] text-balance tracking-wide">
-                            Built from a decade inside MLB, Fortune 500 environments, and thousands of hours advising athletes, executives, and founders. Read by 1,400+ high performers across sport, business, and leadership.
-                        </p>
-                    </div>
-                </div>
-
-                <div id="hero-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
-                    <div class="w-32 h-32 md:w-40 md:h-40 shrink-0 flex items-center justify-center mb-2 md:mb-3 relative">
-                        <img src="seal.gif" alt="Vyrtuositi Seal" class="w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_20px_rgba(194,163,89,0.2)]" onerror="this.style.display='none';">
-                    </div>
-                    <h4 class="font-serif text-[24px] md:text-[28px] text-textMain leading-tight mb-2">Protocol Unlocked.</h4>
-                    <p class="text-[14px] md:text-[15px] text-textSub font-sans font-light mb-5 text-center px-4">The first dispatch is en route to your secure inbox.</p>
-                    <div class="bg-brandGold/5 border border-brandGold/20 rounded-lg px-4 py-3 max-w-[360px] mx-auto w-full backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-                        <p class="text-[11px] md:text-[11px] text-brandGold/90 font-mono uppercase tracking-[0.08em] md:tracking-[0.1em] text-center leading-relaxed">
-                            <span class="font-bold text-brandGold flex items-center justify-center gap-1.5 mb-1.5"><span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span> ACTION REQUIRED</span> 
-                            Check your inbox now. Move the dispatch to your primary folder to secure the feed.
-                        </p>
-                    </div>
-                </div>
-            </div>
+          <p>Most high performers try to fix the symptom in front of them.</p>
+          <p>More discipline. More focus. More recovery. A better routine. A cleaner calendar.</p>
+          <p>But under pressure, those are rarely separate problems.</p>
         </div>
 
-        <div class="mt-16 md:mt-32 w-full max-w-[1400px] mx-auto px-4 sm:px-6 reveal delay-100">
-            <p class="text-textMuted font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase mb-8 text-center font-medium">
-                Operators inside our network span across
-            </p>
-            <div class="flex overflow-hidden w-full mask-edges pb-4" style="will-change: transform; transform: translateZ(0);">
-                <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
-                    <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">TESLA</span>
-                    <svg viewBox="0 0 100 50" class="shrink-0 h-6 md:h-7 w-auto fill-none stroke-white stroke-[2]">
-                        <circle cx="20" cy="18" r="14" /><circle cx="50" cy="18" r="14" /><circle cx="80" cy="18" r="14" />
-                        <circle cx="35" cy="32" r="14" /><circle cx="65" cy="32" r="14" />
-                    </svg>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Major_League_Baseball_logo.svg" alt="MLB" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto grayscale opacity-90 contrast-125" onerror="this.style.display='none';">
-                    <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">ŌURA</span>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/US_Air_Force_Logo_Solid_Colour.svg" alt="Air Force" loading="lazy" decoding="async" class="shrink-0 h-7 md:h-8 w-auto brightness-0 invert opacity-90" onerror="this.style.display='none';">
-                    <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
-                </div>
-                <div class="flex items-center shrink-0 animate-marquee gap-12 md:gap-24 pr-12 md:pr-24 opacity-40" aria-hidden="true" tabindex="-1">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto brightness-0 invert opacity-90 mt-1" onerror="this.style.display='none';">
-                    <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">TESLA</span>
-                    <svg viewBox="0 0 100 50" class="shrink-0 h-6 md:h-7 w-auto fill-none stroke-white stroke-[2]">
-                        <circle cx="20" cy="18" r="14" /><circle cx="50" cy="18" r="14" /><circle cx="80" cy="18" r="14" />
-                        <circle cx="35" cy="32" r="14" /><circle cx="65" cy="32" r="14" />
-                    </svg>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Major_League_Baseball_logo.svg" alt="MLB" loading="lazy" decoding="async" class="shrink-0 h-6 md:h-7 w-auto grayscale opacity-90 contrast-125" onerror="this.style.display='none';">
-                    <span class="shrink-0 font-sans font-bold text-xl md:text-2xl tracking-[0.2em] text-white">ŌURA</span>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/US_Air_Force_Logo_Solid_Colour.svg" alt="Air Force" loading="lazy" decoding="async" class="shrink-0 h-7 md:h-8 w-auto brightness-0 invert opacity-90" onerror="this.style.display='none';">
-                    <span class="shrink-0 font-sans font-medium text-base md:text-xl tracking-[0.1em] text-white">FORTUNE 500</span>
-                </div>
-            </div>
+        <div class="thesis">
+          <strong>Mastery in Motion</strong> is my Sunday brief on the hidden patterns behind why your best shows up sometimes — and how to make it more repeatable when it matters.
         </div>
-    </main>
 
-    <section class="py-16 md:py-32 relative z-10 border-t border-glassBorder">
-        <div class="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-20 md:mb-24 reveal">
-                <div class="glass-panel p-5 sm:p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">"</div>
-                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)]"></div>
-                    <div class="mb-8 relative z-10 pt-2">
-                        <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
-                            The strongest testimonial I can give you is the <span class="text-brandGold font-normal">five digit sum</span> I pay to have six months of calls with Marcus. He helps me get the most out of every minute—to perform highly effective, highly leveraged work in just a few hours.
-                        </p>
-                    </div>
-                    <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
-                        <span class="text-white font-bold">ETHAN EVANS</span>
-                        <span class="text-brandGold/70">RETIRED VP, AMAZON</span>
-                    </div>
-                </div>
-                <div class="glass-panel p-5 sm:p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">"</div>
-                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.05),transparent_70%)]"></div>
-                    <div class="mb-8 relative z-10 pt-2">
-                        <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
-                            Some of my best seasons have been alongside Marcus. <span class="text-brandGold font-normal">Better on the field, more durable</span>, performing at a level I hadn't reached before.
-                        </p>
-                    </div>
-                    <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
-                        <span class="text-white font-bold">RYAN MCMAHON</span>
-                        <span class="text-brandGold/70">MLB ALL-STAR, NEW YORK YANKEES</span>
-                    </div>
-                </div>
-                <div class="glass-panel p-5 sm:p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">"</div>
-                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.05),transparent_70%)]"></div>
-                    <div class="mb-8 relative z-10 pt-2">
-                        <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
-                            Coming up just shy of $1.3M in sales, I needed a different approach. Three months with Marcus and I hit <span class="text-brandGold font-normal">almost 200% of plan</span>. The highest I'd performed in five years.
-                        </p>
-                    </div>
-                    <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
-                        <span class="text-white font-bold">DAVID VARGAS</span>
-                        <span class="text-brandGold/70">ENTERPRISE SALES EXECUTIVE</span>
-                    </div>
-                </div>
-                <div class="glass-panel p-5 sm:p-6 md:p-10 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-4 -left-2 text-[140px] font-serif text-brandGold opacity-[0.03] select-none leading-none group-hover:opacity-[0.05] transition-opacity">"</div>
-                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,163,89,0.02),transparent_70%)]"></div>
-                    <div class="mb-8 relative z-10 pt-2">
-                        <p class="font-serif text-[16px] md:text-[17px] italic text-textMain leading-[1.7] font-light">
-                            Marcus drilled into my exact constraints with extreme candor: <span class="text-brandGold font-normal">operational, physical, psychological</span>. I have not been the same since.
-                        </p>
-                    </div>
-                    <div class="text-[10px] font-mono tracking-[0.2em] uppercase pt-6 border-t border-glassBorder w-full relative z-10 flex flex-col gap-1.5">
-                        <span class="text-white font-bold">TED TANNER</span>
-                        <span class="text-brandGold/70">TECH EXECUTIVE & ARCHITECT</span>
-                    </div>
-                </div>
+        <div class="sample-strip" aria-label="Sample issue preview">
+          <div class="sample-item">
+            <span>Symptom</span>
+            <p>Focus keeps slipping.</p>
+          </div>
+          <div class="sample-item">
+            <span>Pattern</span>
+            <p>Open-loop overload.</p>
+          </div>
+          <div class="sample-item">
+            <span>Lever</span>
+            <p>4-minute shutdown protocol.</p>
+          </div>
+        </div>
+
+        <div class="access-line" aria-label="Brand positioning">
+          <span>VYRTŪOSITI</span>
+          <span>Built for Pressure</span>
+          <span>Zero Fluff</span>
+        </div>
+
+        <form class="form-shell" id="join" action="/.netlify/functions/subscribe" method="POST" data-netlify-subscribe method="post">
+          <!-- REQUIRED BEFORE PUBLISHING: replace action="#" with your Kit form endpoint, or connect this form to your serverless Kit subscriber function. -->
+          <label for="email" class="sr-only" style="position:absolute;left:-9999px;">Email address</label>
+          <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" inputmode="email" required />
+          <button class="button" type="submit">Join Mastery in Motion</button>
+        
+          <input type="hidden" name="source" value="mastery_in_motion_landing_page">
+          <input type="hidden" name="form_name" value="mastery_in_motion">
+        </form>
+        <p class="form-status" data-form-status aria-live="polite"></p>
+
+        <div class="micro">
+          Free. One useful email every Sunday. <strong>Read by 1,400+ high performers.</strong><br class="desktop-break" /> Performance architecture for high-consequence lives.
+        </div>
+      </div>
+
+      <aside class="hero-art" aria-label="Preview of the Mastery in Motion brief">
+        <div class="orb"></div>
+
+        <div class="dossier">
+          <div class="dossier-top">
+            <div class="dossier-title">Mastery in Motion</div>
+            <div class="issue">Issue 024</div>
+          </div>
+
+          <div class="dossier-body">
+            <h3>The Hidden Pattern</h3>
+            <p>Why your best shows up sometimes — and what has to change for it to show up when it matters.</p>
+
+            <div class="brief-card">
+              <div class="brief-label">Symptom</div>
+              <p>You keep trying to solve focus, energy, recovery, and execution separately.</p>
             </div>
 
-            <div class="mt-20 md:mt-32 max-w-4xl mx-auto reveal delay-100">
-                <div class="flex items-center gap-4 mb-8 md:mb-12 justify-center md:justify-start">
-                    <div class="h-[1px] w-8 bg-brandGold/50"></div>
-                    <div class="font-mono text-[10px] text-brandGold tracking-[0.3em] uppercase font-medium">The Architect</div>
-                </div>
-                <div class="flex flex-col md:flex-row gap-10 md:gap-12 lg:gap-16 items-stretch">
-                    <div class="shrink-0 relative group w-full max-w-[300px] mx-auto md:max-w-none md:w-[280px] lg:w-[340px]">
-                        <div class="absolute -inset-3 border border-white/5 rounded-2xl bg-white/[0.02] transition-all duration-700 md:group-hover:border-brandGold/20 md:group-hover:bg-brandGold/[0.02] hidden md:block"></div>
-                        <div class="relative w-full aspect-[4/5] sm:h-[400px] md:aspect-auto md:h-full overflow-hidden rounded-xl border border-white/10 bg-void z-10 shadow-2xl transition-all duration-700 md:group-hover:border-white/20 md:group-hover:shadow-[0_0_30px_rgba(194,163,89,0.1)]">
-                            <img src="https://i.imgur.com/SJLnvwa.png" alt="Marcus Lefton" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover saturate-50 contrast-125 brightness-75 transition-all duration-700 md:group-hover:saturate-100 md:group-hover:brightness-105 md:group-hover:scale-105" onerror="this.style.display='none';">
-                        </div>
-                    </div>
-                    <div class="flex-1 text-center md:text-left flex flex-col">
-                        <div>
-                            <h3 class="font-serif text-[28px] md:text-[36px] text-textMain leading-[1.1] mb-6">
-                                I do not coach.<br>
-                                <span class="text-brandGold italic font-light">I architect performance systems.</span>
-                            </h3>
-                            <p class="text-[15px] leading-[1.7] text-textSub font-light mb-4">
-                                You have done the work and you are still leaving performance on the table. Not because you lack discipline. Because nobody has mapped your biology to your ambition at the depth it requires.
-                            </p>
-                            <p class="text-[15px] leading-[1.7] text-textSub font-light mb-4">
-                                <strong class="text-white font-medium">Most stop at the symptom. I go to the system.</strong> Fifteen years across Major League Baseball, high-stakes arenas, the world's top performance labs, Fortune 500 boardrooms, and the founders rewriting entire industries.
-                            </p>
-                            <p class="text-[15px] leading-[1.7] text-textSub font-light mb-6">
-                                The ceiling was never effort. It was knowing exactly what your system needs to perform fully, in every dimension, without burning the life down to do it. Know thyself. Know the science. Find your minimum effective dose.
-                            </p>
-                            <div class="pl-4 md:pl-5 border-l-2 border-brandGold/60 my-6 md:my-8">
-                                <p class="text-[15px] md:text-[16px] leading-[1.6] text-white font-medium">
-                                    Mastery in Motion is where I share the frameworks before they become engagements. Weekly. Free. Built for the operator who runs on data, not motivation.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="pt-8 mt-auto border-t border-glassBorder grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 md:gap-10 text-center md:text-left">
-                            <div class="relative">
-                                <div class="font-mono text-[16px] md:text-[18px] text-white mb-1.5 flex items-center justify-center md:justify-start gap-2.5">
-                                    <span class="w-1 h-1 bg-textMuted rounded-full"></span> 15+ Years
-                                </div>
-                                <div class="font-mono text-[9px] text-textMuted tracking-[0.2em] uppercase leading-relaxed">
-                                    High-Consequence<br>Environments
-                                </div>
-                            </div>
-                            <div class="relative sm:border-l sm:border-glassBorder sm:pl-10">
-                                <div class="font-mono text-[16px] md:text-[18px] text-white mb-1.5 flex items-center justify-center md:justify-start gap-2.5">
-                                    <span class="w-1 h-1 bg-textMuted rounded-full"></span> 1,000+
-                                </div>
-                                <div class="font-mono text-[9px] text-textMuted tracking-[0.2em] uppercase leading-relaxed">
-                                    Pro & Executive<br>Athletes
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="brief-card">
+              <div class="brief-label">Pattern</div>
+              <p>The system underneath them is carrying more friction than your routines can absorb.</p>
             </div>
+
+            <div class="brief-card">
+              <div class="brief-label">Lever</div>
+              <p>One question, protocol, or adjustment to make performance more repeatable when it matters.</p>
+            </div>
+          </div>
         </div>
+
+        <div class="seal">
+          <span>Built For Pressure</span>
+        </div>
+      </aside>
     </section>
 
-    <section class="py-12 md:py-16 relative z-10 w-full max-w-[800px] mx-auto px-4 sm:px-6 reveal delay-200">
-        <div class="border border-brandGold/20 bg-brandGold/[0.02] p-5 sm:p-6 md:p-10 rounded-2xl relative overflow-hidden group hover:border-brandGold/40 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),0_0_30px_rgba(194,163,89,0.05)] transition-all duration-500 cursor-pointer">
-            <div class="absolute top-0 right-0 w-16 h-16 overflow-hidden">
-                <div class="absolute top-0 right-0 w-2 h-2 bg-brandGold/50 rounded-full m-4 animate-ping"></div>
-                <div class="absolute top-0 right-0 w-2 h-2 bg-brandGold rounded-full m-4"></div>
-            </div>
-            <div class="flex items-center gap-3 mb-6">
-                <span class="font-mono text-[10px] text-brandGold tracking-[0.3em] uppercase font-bold bg-brandGold/10 px-3 py-1 rounded">PROTOCOL RESTRICTION</span>
-            </div>
-            <h3 class="font-serif text-[24px] md:text-[28px] text-textMain leading-[1.2] mb-4">
-                Who this is <span class="italic text-brandGold font-light">not</span> for.
-            </h3>
-            <p class="text-[15px] leading-[1.7] text-textSub font-light mb-6">
-                This isn't a motivation feed. If you want morning routine hacks, hustle content, or surface-level performance tips, this isn't for you.
-            </p>
-            <div class="pt-6 border-t border-brandGold/10">
-                <p class="font-sans text-[15px] text-white/90 font-medium">
-                    If you're ready to operate at the system layer, <span class="text-brandGold italic">keep reading.</span>
-                </p>
-            </div>
-        </div>
+    <section class="proof-strip" aria-label="Credibility and proof">
+      <div class="proof-item">
+        <span class="num">15+ Years</span>
+        <span class="txt">Years across elite sport, MLB, executive performance, and high-consequence environments.</span>
+      </div>
+      <div class="proof-item">
+        <span class="num">1,400+ Readers</span>
+        <span class="txt">Founders, executives, athletes, and operators reading across the ecosystem.</span>
+      </div>
+      <div class="proof-item">
+        <span class="num">Five-Figure Work</span>
+        <span class="txt">Private clients, MLB All-Star results, and enterprise sales outcomes.</span>
+      </div>
+      <div class="proof-item">
+        <span class="num">3-Min Read</span>
+        <span class="txt">One useful pattern every Sunday. Clear, practical, and built for operators.</span>
+      </div>
     </section>
 
-    <section class="py-16 md:py-32 border-t border-glassBorder relative z-10 text-center mt-10">
-        <div class="ambient-glow-2"></div>
-        <div class="max-w-[700px] mx-auto px-4 sm:px-6 reveal relative z-20">
-            <div class="max-w-[560px] mx-auto mb-16 text-left">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-1 h-1 rounded-full bg-brandGold/70"></div>
-                    <div class="font-mono text-[10px] text-brandGold tracking-[0.3em] uppercase font-medium">Archive Index</div>
-                </div>
-                <div class="space-y-6 ml-[2px]">
-                    <div class="group cursor-pointer relative pl-5 transition-all duration-300 hover:translate-x-1">
-                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
-                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
-                            Endocrinology <span class="text-brandGold/50">×</span> Executive Capacity
-                        </span>
-                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
-                            The misdiagnosis of physiological debt as a discipline problem.
-                        </p>
-                    </div>
-                    <div class="group cursor-pointer relative pl-5 transition-all duration-300 hover:translate-x-1">
-                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
-                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
-                            Neurochemistry <span class="text-brandGold/50">×</span> Decision Velocity
-                        </span>
-                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
-                            The biometric signature of hesitation in high-stakes negotiations.
-                        </p>
-                    </div>
-                    <div class="group cursor-pointer relative pl-5 transition-all duration-300 hover:translate-x-1">
-                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-glassBorder group-hover:bg-brandGold/70 transition-colors duration-300"></div>
-                        <span class="font-mono text-[9px] text-textMuted uppercase tracking-widest block mb-1.5 flex items-center gap-2 transition-colors group-hover:text-brandGold/80">
-                            Autonomic State <span class="text-brandGold/50">×</span> Leverage
-                        </span>
-                        <p class="font-serif text-[15px] md:text-[17px] text-textSub italic font-light transition-colors group-hover:text-white">
-                            CO2 tolerance as a literal predictor of boardroom dominance.
-                        </p>
-                    </div>
-                </div>
-                <div class="mt-12 pt-10 border-t border-glassBorder/50">
-                    <div class="border-l-2 border-brandGold/30 pl-5">
-                        <p class="font-serif italic text-textSub text-[16px] md:text-[18px] leading-relaxed mb-3">"The strongest testimonial I can give you is the five digit sum I pay to have six months of calls with Marcus."</p>
-                        <p class="font-mono text-[9px] uppercase tracking-widest text-textMuted">Ethan Evans, Retired VP, Amazon</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="max-w-[820px] mx-auto relative min-h-[240px] flex flex-col justify-center">
-                <div id="footer-form-wrapper" class="transition-all duration-700 ease-in-out transform origin-center pt-2">
-                    <div class="text-center mb-6">
-                        <div class="inline-flex items-center justify-center gap-2 border border-brandGold/20 bg-brandGold/5 rounded-full px-4 py-1.5 mb-4 shadow-glow">
-                            <span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span>
-                            <span class="font-mono text-[9px] text-brandGold tracking-[0.3em] uppercase font-bold mt-px">Initialize Access</span>
-                        </div>
-                        <p class="text-[13px] md:text-[14px] text-textMain font-light tracking-wide">
-                            Next dispatch drops this week. <span class="text-textSub italic">Free protocol access.</span>
-                        </p>
-                    </div>
-                    
-                    <form name="dispatch_signup" class="form-container flex flex-col sm:flex-row items-center bg-[#050505]/60 border border-white/[0.08] p-2 sm:p-1.5 rounded-[24px] sm:rounded-full backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.05)] w-full relative group" onsubmit="return handleEntry(event, this, 'secure_email_2', 'footer-form-wrapper', 'footer-success-state', this.querySelector('button'), this.querySelector('.auth-progress'));">
-                        <div class="auth-progress absolute bottom-0 left-0 h-[2px] bg-brandGold w-0 transition-[width] duration-1000 ease-out opacity-0 z-10"></div>
-                        
-                        <div class="flex items-center w-full sm:w-auto shrink-0 relative z-20">
-                            <input name="first_name" type="text" autocomplete="given-name" class="w-1/2 sm:w-[110px] md:w-[130px] bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-3 sm:px-5 text-center focus:outline-none placeholder-white/40 focus:placeholder-white/20 font-sans font-medium tracking-wide transition-colors" placeholder="First Name" required>
-                            
-                            <div class="w-[1px] h-5 bg-gradient-to-b from-transparent via-white/15 to-transparent shrink-0"></div>
-                            
-                            <input name="last_name" type="text" autocomplete="family-name" class="w-1/2 sm:w-[110px] md:w-[130px] bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-3 sm:px-5 text-center focus:outline-none placeholder-white/40 focus:placeholder-white/20 font-sans font-medium tracking-wide transition-colors" placeholder="Last Name" required>
-                        </div>
-                        
-                        <div class="w-full h-[1px] sm:w-[1px] sm:h-7 bg-gradient-to-r sm:bg-gradient-to-b from-transparent via-white/15 to-transparent shrink-0 my-1 sm:my-0 sm:mx-1 relative z-20"></div>
-
-                        <input id="secure_email_2" name="email" type="email" autocomplete="email" class="w-full sm:flex-1 bg-transparent text-white/90 text-[16px] sm:text-[14px] py-3 sm:py-2.5 px-4 text-center sm:text-left focus:outline-none placeholder-white/40 focus:placeholder-white/20 caret-brandGold font-sans font-medium tracking-wide transition-colors relative z-20" placeholder="Operator Email (Free dispatch)" required>
-                        
-                        <button type="submit" class="cmd-btn shrink-0 w-full sm:w-auto py-[16px] sm:py-[12px] px-8 mt-2 sm:mt-0 relative z-20">
-                            <span class="btn-text relative z-10 flex items-center gap-2 drop-shadow-sm">SECURE DISPATCH</span>
-                            <span class="relative z-10 font-mono text-[10px] ml-1.5 hidden sm:flex items-center justify-center bg-black/15 border border-black/20 rounded px-1.5 py-0.5 leading-none shadow-sm btn-icon transition-opacity text-black/80 font-bold">↵</span>
-                        </button>
-                    </form>
-                    
-                    <div class="flex flex-col items-center gap-4 mt-6">
-                        <div class="flex items-center justify-center gap-2 opacity-60 font-sans text-[10px] font-medium tracking-wide text-white uppercase text-center flex-wrap px-4">
-                            <span class="flex items-center gap-1.5"><svg class="w-3 h-3 text-brandGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> JOIN 1,400+ OPERATORS</span>
-                            <span class="hidden sm:inline">&middot;</span>
-                            <span>AVG READ TIME: 3 MIN</span>
-                            <span class="hidden sm:inline">&middot;</span>
-                            <span>ZERO FLUFF</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="footer-success-state" class="hidden absolute inset-0 flex-col items-center justify-center transition-all duration-700 ease-out" style="opacity: 0; transform: translateY(10px) scale(0.98);">
-                    <div class="w-32 h-32 md:w-40 md:h-40 shrink-0 flex items-center justify-center mb-2 md:mb-3 relative">
-                        <img src="seal.gif" alt="Vyrtuositi Seal" class="w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_20px_rgba(194,163,89,0.2)]" onerror="this.style.display='none';">
-                    </div>
-                    <h4 class="font-serif text-[24px] md:text-[28px] text-textMain leading-tight mb-2">Protocol Unlocked.</h4>
-                    <p class="text-[14px] md:text-[15px] text-textSub font-sans font-light mb-5 text-center px-4">The first dispatch is en route to your secure inbox.</p>
-                    <div class="bg-brandGold/5 border border-brandGold/20 rounded-lg px-4 py-3 max-w-[360px] mx-auto w-full backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-                        <p class="text-[11px] md:text-[11px] text-brandGold/90 font-mono uppercase tracking-[0.08em] md:tracking-[0.1em] text-center leading-relaxed">
-                            <span class="font-bold text-brandGold flex items-center justify-center gap-1.5 mb-1.5"><span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-terminal"></span> ACTION REQUIRED</span> 
-                            Check your inbox now. Move the dispatch to your primary folder to secure the feed.
-                        </p>
-                    </div>
-                </div>
-            </div>
+    <section class="section" aria-labelledby="get-title">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">What You Get</div>
+          <h2 id="get-title">Every Sunday, one pattern worth seeing.</h2>
         </div>
+        <p>At a certain level, the problem is rarely one missing habit, tool, or routine. It is the interaction between your body, attention, calendar, environment, decisions, recovery, and leadership demands.</p>
+      </div>
+
+      <div class="cards-3">
+        <article class="card">
+          <div class="card-number">01 / Symptom</div>
+          <h3>What you’re trying to fix.</h3>
+          <p>The visible issue high performers usually attack first: focus, discipline, recovery, confidence, consistency, or calendar chaos.</p>
+        </article>
+
+        <article class="card">
+          <div class="card-number">02 / Pattern</div>
+          <h3>What may actually be driving it.</h3>
+          <p>The deeper interaction between your body, attention, environment, decisions, leadership demands, and recovery loop.</p>
+        </article>
+
+        <article class="card">
+          <div class="card-number">03 / Lever</div>
+          <h3>What to adjust next.</h3>
+          <p>One question, protocol, or operating adjustment you can use to reduce drag and make your best more repeatable.</p>
+        </article>
+      </div>
     </section>
 
-    <footer class="py-10 border-t border-glassBorder/40 bg-void/80 backdrop-blur-md relative z-20 mt-12">
-        <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="font-mono text-[10px] text-textMuted uppercase tracking-widest opacity-60 text-center md:text-left">
-                &copy; 2026 VYRTŪOSITI <span class="hidden md:inline mx-2 text-glassBorder">|</span> <span class="block md:inline mt-2 md:mt-0">ALL RIGHTS RESERVED.</span>
-            </div>
-            <div class="flex items-center gap-6 md:gap-8 font-mono text-[9px] text-textMuted uppercase tracking-widest font-medium">
-                <a href="/privacy/" target="_blank" rel="noopener noreferrer" class="hover:text-brandGold transition-colors duration-300 relative group">
-                    Privacy Policy
-                    <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandGold transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="/terms-of-service/" target="_blank" rel="noopener noreferrer" class="hover:text-brandGold transition-colors duration-300 relative group">
-                    Terms of Service
-                    <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandGold transition-all duration-300 group-hover:w-full"></span>
-                </a>
-            </div>
+    <section class="section" aria-labelledby="issues-title">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Recent Field Notes</div>
+          <h2 id="issues-title">Useful, not ornamental.</h2>
         </div>
+        <p>Short reads for people who want sharper thinking, greater capacity, cleaner execution, and less drag under pressure.</p>
+      </div>
+
+      <div class="issues">
+        <article class="issue-card">
+          <span class="tag">Focus</span>
+          <h3>The Focus Lie</h3>
+          <p>The misdiagnosis of physiological debt as a discipline problem.</p>
+        </article>
+
+        <article class="issue-card">
+          <span class="tag">Physiology</span>
+          <h3>The Hidden Regulator</h3>
+          <p>How autonomic state quietly changes decision quality.</p>
+        </article>
+
+        <article class="issue-card">
+          <span class="tag">State</span>
+          <h3>The 4-Minute Reset</h3>
+          <p>A minimum-effective-dose reset for shifting state when it matters.</p>
+        </article>
+
+        <article class="issue-card">
+          <span class="tag">Strategy</span>
+          <h3>Explore → Exploit → Expand</h3>
+          <p>How high performers move between exploration, execution, and growth.</p>
+        </article>
+
+        <article class="issue-card">
+          <span class="tag">Environment</span>
+          <h3>Environment OS</h3>
+          <p>Why your surroundings often shape the system before you do.</p>
+        </article>
+      </div>
+    </section>
+
+
+    <section class="section architecture" aria-labelledby="architecture-title">
+      <div class="architecture-panel">
+        <div>
+          <div class="section-kicker">Performance Architecture</div>
+          <h2 id="architecture-title">Not more noise. A better read on the system.</h2>
+        </div>
+        <div class="architecture-copy">
+          <p>The pattern is consistent: the problem people present with is rarely the problem we solve.</p>
+          <p>Most stop at the symptom. Mastery in Motion looks at the system — the frameworks, field notes, and protocols behind the work before they ever become private engagements.</p>
+          <p>The deeper constraint is usually somewhere in the interaction between the body, calendar, environment, decisions, recovery loop, and leadership demands.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section proof-section" aria-labelledby="proof-title">
+      <div class="proof-panel">
+        <div class="proof-intro">
+          <div class="section-kicker">Proof</div>
+          <h2 id="proof-title">Built from work with serious performers.</h2>
+          <p>The public layer of performance architecture used with athletes, founders, executives, and operators.</p>
+        </div>
+
+        <div class="proof-ledger" aria-label="Client proof and testimonials">
+          <figure class="proof-feature">
+            <p>“The strongest testimonial I can give you is the five-figure sum I paid to have six months of calls with Marcus.”</p>
+            <footer>
+              <strong>Ethan Evans</strong>
+              Former Amazon VP
+            </footer>
+          </figure>
+
+          <div class="proof-support">
+            <figure class="proof-line">
+              <p>“Marcus helped me understand what I needed to perform better, stay healthier, and be more durable.”</p>
+              <footer>
+                <strong>Ryan McMahon</strong>
+                MLB All-Star
+              </footer>
+            </figure>
+
+            <figure class="proof-line">
+              <p>“Marcus drilled into my exact constraints with extreme candor: operational, physical, psychological. I have not been the same since.”</p>
+              <footer>
+                <strong>Ted Tanner</strong>
+                Constraint-based transformation
+              </footer>
+            </figure>
+
+            <figure class="proof-line">
+              <p>“After three months, we were nearly 200% of plan.”</p>
+              <footer>
+                <strong>David Vargas</strong>
+                Business performance outcome
+              </footer>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" aria-labelledby="final-title">
+      <div class="final-box">
+        <div class="section-kicker">Join Mastery in Motion</div>
+        <h2 id="final-title">Make your best more repeatable.</h2>
+        <p>For founders, executives, athletes, and operators who want high performance to hold when it matters — without burning down their health, family, or quality of life.</p>
+        <div class="final-signal">Sunday cadence · Practical levers · Private-work caliber thinking</div>
+
+        <form class="form-shell" action="/.netlify/functions/subscribe" method="POST" data-netlify-subscribe method="post">
+          <!-- REQUIRED BEFORE PUBLISHING: replace action="#" with your Kit form endpoint, or connect this form to your serverless Kit subscriber function. -->
+          <label for="email-final" class="sr-only" style="position:absolute;left:-9999px;">Email address</label>
+          <input id="email-final" name="email" type="email" placeholder="Enter your email" autocomplete="email" inputmode="email" required />
+          <button class="button" type="submit">Join Mastery in Motion</button>
+        
+          <input type="hidden" name="source" value="mastery_in_motion_landing_page">
+          <input type="hidden" name="form_name" value="mastery_in_motion">
+        </form>
+        <p class="form-status" data-form-status aria-live="polite"></p>
+
+        <div class="micro"><strong>Join 1,400+ high performers</strong> · Avg read time: 3 min · Zero fluff</div>
+      </div>
+    </section>
+
+    <footer class="footer live-site-footer">
+      <div class="footer-inner">
+        <div class="footer-copy">
+          &copy; 2026 VYRTŪOSITI <span>|</span> ALL RIGHTS RESERVED.
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          <a href="/terms-of-service/" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+        </nav>
+      </div>
     </footer>
+  </main>
 
     <script>
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      (function () {
+        const SUBSCRIBE_ENDPOINT = "/.netlify/functions/subscribe";
 
-        function handleEntry(event, formElement, inputId, formWrapperId, successStateId, buttonElement, progressElement) {
-            if (event) event.preventDefault();
-
-            const emailInput = document.getElementById(inputId);
-            const formWrapper = document.getElementById(formWrapperId);
-            const successState = document.getElementById(successStateId);
-            const btn = buttonElement;
-            const progressLine = progressElement;
-            const btnText = btn.querySelector('.btn-text');
-            const btnIcon = btn.querySelector('.btn-icon');
-            
-            if (emailInput.value && emailInput.value.includes('@')) {
-                btn.disabled = true;
-                
-                // Secure and disable all inputs gracefully
-                const allInputs = formElement.querySelectorAll('input');
-                allInputs.forEach(el => {
-                    el.readOnly = true;
-                    el.style.opacity = '0.5';
-                });
-                
-                if(btnIcon) btnIcon.style.opacity = '0';
-                btn.style.background = '#000000';
-                btn.style.color = '#C2A359';
-                btn.style.border = '1px solid rgba(194, 163, 89, 0.4)';
-                btn.style.boxShadow = '0 0 20px rgba(194, 163, 89, 0.15), inset 0 0 10px rgba(194, 163, 89, 0.1)';
-                btnText.innerHTML = '<span class="animate-terminal tracking-[0.2em] font-mono">[ AUTHORIZING... ]</span>';
-                
-                if (progressLine) {
-                    progressLine.style.opacity = '1';
-                    setTimeout(() => { progressLine.style.width = '100%'; }, 50);
-                }
-
-                // Compile all form data dynamically
-                const formData = new FormData(formElement);
-                const payload = Object.fromEntries(formData.entries());
-
-                // SUBMISSION ROUTE: Sends data payload to Netlify serverless function
-                fetch('/.netlify/functions/subscribe', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                }).then(res => {
-                    if (res.ok) console.log('Dispatch secured.');
-                    else console.error('Subscription failed:', res.status);
-                }).catch(error => {
-                    console.error('Transmission error:', error);
-                });
-                
-                setTimeout(() => {
-                    formWrapper.style.opacity = '0';
-                    formWrapper.style.transform = 'scale(0.98)';
-                    setTimeout(() => {
-                        formWrapper.classList.add('hidden');
-                        formWrapper.classList.remove('flex', 'flex-col');
-                        successState.classList.remove('hidden');
-                        successState.classList.add('flex');
-                        setTimeout(() => {
-                            successState.style.opacity = '1';
-                            successState.style.transform = 'translateY(0) scale(1)';
-                        }, 50);
-                    }, 700); 
-                }, 1200);
-
-            } else {
-                formElement.classList.remove('animate-error-shake', 'error-state');
-                void formElement.offsetWidth; 
-                formElement.classList.add('animate-error-shake', 'error-state');
-                emailInput.focus();
-            }
-            return false;
+        function getFormEmail(form) {
+          const emailInput = form.querySelector('input[type="email"], input[name="email"]');
+          return emailInput ? emailInput.value.trim() : "";
         }
+
+        function setFormState(form, state, message) {
+          const button = form.querySelector('button[type="submit"]');
+          const status = form.parentElement.querySelector("[data-form-status]") || form.querySelector("[data-form-status]");
+
+          if (state === "loading") {
+            form.dataset.loading = "true";
+            if (button) {
+              button.disabled = true;
+              button.dataset.originalText = button.dataset.originalText || button.textContent;
+              button.textContent = "Joining...";
+            }
+          }
+
+          if (state === "success") {
+            form.dataset.loading = "false";
+            form.dataset.success = "true";
+            if (button) {
+              button.disabled = false;
+              button.textContent = "Joined";
+            }
+            if (status) {
+              status.textContent = message || "You’re in. Check your inbox for the first email.";
+              status.classList.remove("form-error");
+              status.classList.add("form-success");
+            }
+          }
+
+          if (state === "error") {
+            form.dataset.loading = "false";
+            if (button) {
+              button.disabled = false;
+              button.textContent = button.dataset.originalText || "Join Mastery in Motion";
+            }
+            if (status) {
+              status.textContent = message || "Something went wrong. Please try again.";
+              status.classList.remove("form-success");
+              status.classList.add("form-error");
+            }
+          }
+        }
+
+        async function handleSubscribe(event) {
+          event.preventDefault();
+
+          const form = event.currentTarget;
+          const email = getFormEmail(form);
+
+          if (!email || !email.includes("@")) {
+            setFormState(form, "error", "Enter a valid email address.");
+            const emailInput = form.querySelector('input[type="email"], input[name="email"]');
+            if (emailInput) emailInput.focus();
+            return false;
+          }
+
+          const formData = new FormData(form);
+          const payload = Object.fromEntries(formData.entries());
+
+          // The live marcuslefton.com code sends first_name, last_name, and email.
+          // This new page is intentionally email-only for lower opt-in friction.
+          // The Netlify function should accept at least { email }.
+          if (!payload.email) payload.email = email;
+
+          setFormState(form, "loading");
+
+          try {
+            const response = await fetch(SUBSCRIBE_ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+              throw new Error("Subscribe failed with status " + response.status);
+            }
+
+            setFormState(form, "success", "You’re in. Check your inbox for the first email.");
+            form.reset();
+          } catch (error) {
+            console.error("Subscription error:", error);
+            setFormState(form, "error", "The form did not submit. Please try again.");
+          }
+
+          return false;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          document.querySelectorAll("form[data-netlify-subscribe]").forEach(function (form) {
+            form.addEventListener("submit", handleSubscribe);
+          });
+        });
+      })();
     </script>
+
 </body>
 </html>
