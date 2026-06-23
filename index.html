@@ -7,7 +7,7 @@
   <meta property="og:title" content="Mastery in Motion | VYRTŪOSITI" />
   <meta property="og:description" content="A Sunday brief on the hidden patterns behind why your best shows up sometimes — and how to make it more repeatable when it matters." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://i.imgur.com/SJLnvwa.png" />
+  <meta property="og:image" content="https://i.imgur.com/57TScBW_d.png?maxwidth=520&shape=thumb&fidelity=high" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%23C2A359' font-family='serif'%3EV%3C/text%3E%3C/svg%3E" />
 
   <title>Mastery in Motion | VYRTŪOSITI</title>
@@ -1958,6 +1958,566 @@
       }
     }
 
+  
+    /* FINAL PREMIUM MICRO-INTERACTION PASS */
+    .form-shell {
+      transition:
+        border-color .22s ease,
+        box-shadow .22s ease,
+        background .22s ease,
+        transform .22s ease;
+    }
+
+    .form-shell:focus-within {
+      border-color: rgba(230,201,130,0.42) !important;
+      background: rgba(13,12,10,0.86) !important;
+      box-shadow:
+        0 0 0 1px rgba(230,201,130,0.09),
+        0 18px 55px rgba(0,0,0,0.38),
+        inset 0 1px 0 rgba(255,255,255,0.055) !important;
+      transform: translateY(-1px);
+    }
+
+    .form-shell button,
+    .button {
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        opacity .18s ease;
+    }
+
+    .form-shell button:hover,
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .form-shell button:active,
+    .button:active {
+      transform: translateY(0);
+    }
+
+    .issue-card,
+    .proof-line,
+    .proof-feature,
+    .card {
+      transition:
+        transform .24s ease,
+        border-color .24s ease,
+        background .24s ease,
+        box-shadow .24s ease;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .issue-card:hover,
+      .card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(230,201,130,0.34);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.066), rgba(255,255,255,0.026));
+        box-shadow:
+          0 18px 48px rgba(0,0,0,0.28),
+          inset 0 1px 0 rgba(255,255,255,0.048);
+      }
+
+      .proof-line:hover {
+        transform: translateX(2px);
+        border-color: rgba(230,201,130,0.34);
+        background:
+          linear-gradient(90deg, rgba(205,170,106,0.085), rgba(255,255,255,0.022));
+      }
+
+      .proof-feature:hover {
+        border-color: rgba(230,201,130,0.46);
+      }
+
+      .hero-art {
+        transition: transform .45s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform;
+      }
+
+      .hero-art:hover {
+        transform: translateY(-4px);
+      }
+
+      .hero-art:hover .dossier {
+        box-shadow:
+          0 28px 90px rgba(0,0,0,0.42),
+          0 0 0 1px rgba(230,201,130,0.08),
+          inset 0 1px 0 rgba(255,255,255,0.05);
+      }
+    }
+
+    .sample-strip {
+      transition: border-color .24s ease, background .24s ease, box-shadow .24s ease;
+    }
+
+    .sample-strip:hover {
+      border-color: rgba(230,201,130,0.27);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .form-shell[data-success="true"],
+    form[data-success="true"] {
+      border-color: rgba(230,201,130,0.42) !important;
+    }
+
+    .form-success {
+      color: rgba(230,201,130,0.95) !important;
+    }
+
+    .form-error {
+      color: rgba(255,176,145,0.94) !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-art,
+      .issue-card,
+      .proof-line,
+      .proof-feature,
+      .card,
+      .form-shell,
+      .button,
+      button {
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .form-shell:focus-within {
+        transform: none;
+        box-shadow:
+          0 0 0 1px rgba(230,201,130,0.10),
+          0 12px 38px rgba(0,0,0,0.32),
+          inset 0 1px 0 rgba(255,255,255,0.05) !important;
+      }
+
+      .form-shell button:hover,
+      .button:hover {
+        transform: none;
+      }
+    }
+
+  
+    @media (hover: hover) and (pointer: fine) {
+      .issue-card::after {
+        content: "Pattern note";
+        display: inline-flex;
+        margin-top: 18px;
+        color: rgba(230,201,130,0.58);
+        font-size: 9.5px;
+        font-weight: 850;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translateY(3px);
+        transition: opacity .22s ease, transform .22s ease;
+      }
+
+      .issue-card:hover::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+  
+    /* AUTHOR TRUST MODULE */
+    .author-section {
+      padding-top: clamp(68px, 7.5vw, 96px);
+      padding-bottom: clamp(68px, 7.5vw, 96px);
+    }
+
+    .author-panel {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.38fr) minmax(0, 1fr);
+      gap: clamp(26px, 4.8vw, 58px);
+      align-items: center;
+      padding: clamp(22px, 4vw, 42px);
+      border: 1px solid rgba(205,170,106,0.22);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(205,170,106,0.10), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,0.048), rgba(255,255,255,0.018));
+      box-shadow: var(--shadow-soft, 0 18px 70px rgba(0,0,0,0.32));
+    }
+
+    .author-portrait {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(205,170,106,0.28);
+      background: rgba(0,0,0,0.30);
+      box-shadow:
+        0 18px 50px rgba(0,0,0,0.34),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .author-portrait::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 58%, rgba(0,0,0,0.42)),
+        radial-gradient(circle at 50% 0%, rgba(205,170,106,0.12), transparent 48%);
+      pointer-events: none;
+    }
+
+    .author-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.55) saturate(0.72) contrast(1.08) brightness(0.82);
+      transform: scale(1.02);
+    }
+
+    .author-copy {
+      max-width: 720px;
+    }
+
+    .author-copy h2 {
+      font-size: clamp(34px, 4.4vw, 62px);
+      max-width: 720px;
+      margin-bottom: 18px;
+    }
+
+    .author-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.68;
+      max-width: 690px;
+    }
+
+    .author-copy p + p {
+      margin-top: 14px;
+    }
+
+    .author-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .author-metrics span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 8px 11px;
+      border: 1px solid rgba(205,170,106,0.18);
+      border-radius: 999px;
+      color: rgba(244,239,229,0.64);
+      background: rgba(0,0,0,0.18);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .author-panel {
+        transition: border-color .24s ease, background .24s ease, box-shadow .24s ease;
+      }
+
+      .author-panel:hover {
+        border-color: rgba(230,201,130,0.32);
+        box-shadow:
+          0 22px 70px rgba(0,0,0,0.34),
+          inset 0 1px 0 rgba(255,255,255,0.045);
+      }
+
+      .author-portrait img {
+        transition: transform .55s cubic-bezier(0.22, 1, 0.36, 1), filter .35s ease;
+      }
+
+      .author-panel:hover .author-portrait img {
+        transform: scale(1.055);
+        filter: grayscale(0.40) saturate(0.82) contrast(1.10) brightness(0.88);
+      }
+    }
+
+    @media (max-width: 820px) {
+      .author-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .author-portrait {
+        max-width: 220px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .author-section {
+        padding-top: 58px;
+        padding-bottom: 58px;
+      }
+
+      .author-panel {
+        padding: 20px;
+        border-radius: 24px;
+        gap: 22px;
+      }
+
+      .author-portrait {
+        max-width: 160px;
+        border-radius: 20px;
+      }
+
+      .author-copy h2 {
+        font-size: clamp(31px, 9vw, 44px);
+        margin-bottom: 14px;
+      }
+
+      .author-copy p {
+        font-size: 15px;
+        line-height: 1.58;
+      }
+
+      .author-metrics {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .author-metrics span {
+        justify-content: center;
+        border-radius: 14px;
+        line-height: 1.35;
+        text-align: center;
+      }
+    }
+
+  
+    /* PROPRIETARY HERO SYSTEM MAP — DESKTOP ONLY */
+    .hero-art {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .system-readout {
+      position: absolute;
+      inset: 2% -4% auto auto;
+      width: min(420px, 100%);
+      height: 360px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.72;
+      filter: saturate(0.92);
+    }
+
+    .readout-label {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 7px 9px;
+      border: 1px solid rgba(205,170,106,0.20);
+      border-radius: 999px;
+      color: rgba(230,201,130,0.58);
+      background: rgba(0,0,0,0.28);
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .readout-axis {
+      position: absolute;
+      background: linear-gradient(90deg, transparent, rgba(205,170,106,0.24), transparent);
+    }
+
+    .axis-x {
+      top: 52%;
+      left: 4%;
+      right: 2%;
+      height: 1px;
+    }
+
+    .axis-y {
+      top: 12%;
+      bottom: 8%;
+      left: 48%;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(205,170,106,0.24), transparent);
+    }
+
+    .readout-node {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(230,201,130,0.80);
+      box-shadow: 0 0 20px rgba(205,170,106,0.18);
+    }
+
+    .readout-node span {
+      position: absolute;
+      left: 14px;
+      top: -5px;
+      color: rgba(244,239,229,0.46);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .node-state { left: 18%; top: 34%; }
+    .node-capacity { left: 58%; top: 24%; }
+    .node-execution { left: 72%; top: 62%; }
+    .node-recovery { left: 31%; top: 70%; }
+
+    .readout-path {
+      position: absolute;
+      left: 19%;
+      top: 35%;
+      width: 54%;
+      height: 36%;
+      border-top: 1px solid rgba(205,170,106,0.22);
+      border-right: 1px solid rgba(205,170,106,0.18);
+      border-radius: 0 22px 0 0;
+      transform: skew(-10deg);
+      opacity: 0.8;
+    }
+
+    .readout-scan {
+      position: absolute;
+      left: 4%;
+      right: 2%;
+      top: 18%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(230,201,130,0.42), transparent);
+      opacity: 0.35;
+      animation: readoutScan 7.5s ease-in-out infinite;
+    }
+
+    @keyframes readoutScan {
+      0%, 100% { transform: translateY(0); opacity: 0.10; }
+      45% { opacity: 0.42; }
+      50% { transform: translateY(220px); opacity: 0.18; }
+    }
+
+    .dossier,
+    .dossier-card,
+    .preview-panel {
+      position: relative;
+      z-index: 2;
+    }
+
+    .memo-stamp {
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      z-index: 6;
+      display: grid;
+      gap: 3px;
+      padding: 10px 11px;
+      border: 1px solid rgba(205,170,106,0.22);
+      border-radius: 14px;
+      background: rgba(0,0,0,0.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .memo-stamp span {
+      color: rgba(230,201,130,0.62);
+      font-size: 8px;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .memo-stamp strong {
+      color: rgba(244,239,229,0.72);
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 1020px) {
+      .system-readout,
+      .memo-stamp {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .readout-scan {
+        animation: none !important;
+      }
+    }
+
+  
+    /* ISSUE CARD OVERLAP FIX */
+    .issue-card {
+      position: relative;
+      overflow: hidden;
+      min-height: auto !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .issue-card .issue-num,
+    .issue-card .issue-number,
+    .issue-card .issue-index,
+    .issue-card .number,
+    .issue-card > span:first-child {
+      position: relative !important;
+      display: inline-flex;
+      width: fit-content;
+      max-width: 100%;
+      margin-bottom: 14px;
+      z-index: 2;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .issue-card h3 {
+      position: relative;
+      z-index: 2;
+      clear: both;
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      text-wrap: balance;
+    }
+
+    .issue-card p {
+      position: relative;
+      z-index: 2;
+      max-width: 100%;
+    }
+
+    .issue-card::before {
+      pointer-events: none;
+    }
+
+    @media (max-width: 760px) {
+      .issue-card {
+        padding-top: 22px !important;
+      }
+
+      .issue-card .issue-num,
+      .issue-card .issue-number,
+      .issue-card .issue-index,
+      .issue-card .number,
+      .issue-card > span:first-child {
+        margin-bottom: 12px;
+      }
+
+      .issue-card h3 {
+        font-size: clamp(21px, 6vw, 26px) !important;
+        line-height: 1.08 !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -2031,6 +2591,11 @@
         <div class="orb"></div>
 
         <div class="dossier">
+          <div class="memo-stamp" aria-hidden="true">
+            <span>FIELD NOTE / 01</span>
+            <strong>Sunday Pattern Brief</strong>
+          </div>
+
           <div class="dossier-top">
             <div class="dossier-title">Mastery in Motion</div>
             <div class="issue">Issue 024</div>
@@ -2169,6 +2734,28 @@
       </div>
     </section>
 
+
+    <section class="section author-section" aria-labelledby="author-title">
+      <div class="author-panel">
+        <div class="author-portrait" aria-hidden="true">
+          <img src="https://i.imgur.com/57TScBW_d.png?maxwidth=520&shape=thumb&fidelity=high" alt="" loading="lazy" decoding="async">
+        </div>
+
+        <div class="author-copy">
+          <div class="section-kicker">From Marcus Lefton</div>
+          <h2 id="author-title">The public layer of private performance work.</h2>
+          <p>I write Mastery in Motion as the public layer of the work I do privately with serious performers — athletes, founders, executives, and operators navigating high-consequence demands.</p>
+          <p>The goal is not more information. It is a sharper read on the system behind your best work.</p>
+
+          <div class="author-metrics" aria-label="Marcus Lefton credentials">
+            <span>Founder, VYRTŪOSITI</span>
+            <span>15+ years</span>
+            <span>MLB · Founders · Executives</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section proof-section" aria-labelledby="proof-title">
       <div class="proof-panel">
         <div class="proof-intro">
@@ -2280,7 +2867,7 @@
               button.textContent = "Joined";
             }
             if (status) {
-              status.textContent = message || "You’re in. Check your inbox for the first email.";
+              status.textContent = message || "You’re in. Check your inbox for the first Sunday brief.";
               status.classList.remove("form-error");
               status.classList.add("form-success");
             }
@@ -2288,6 +2875,7 @@
 
           if (state === "error") {
             form.dataset.loading = "false";
+            form.dataset.success = "false";
             if (button) {
               button.disabled = false;
               button.textContent = button.dataset.originalText || "Join Mastery in Motion";
@@ -2334,7 +2922,7 @@
               throw new Error("Subscribe failed with status " + response.status);
             }
 
-            setFormState(form, "success", "You’re in. Check your inbox for the first email.");
+            setFormState(form, "success", "You’re in. Check your inbox for the first Sunday brief.");
             form.reset();
           } catch (error) {
             console.error("Subscription error:", error);
