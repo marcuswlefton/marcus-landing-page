@@ -4,9 +4,9 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>The Bottleneck Diagnostic | VYRTŪOSITI</title>
-<meta name="description" content="A three-minute VYRTŪOSITI diagnostic that turns last week’s evidence into one bottleneck, one hidden cost, and one next move."/>
+<meta name="description" content="A 3–4 minute VYRTŪOSITI diagnostic that turns last week’s evidence into one bottleneck, one hidden cost, and one next move."/>
 <meta property="og:title" content="The Bottleneck Diagnostic | VYRTŪOSITI"/>
-<meta property="og:description" content="A three-minute diagnostic that turns last week’s evidence into one bottleneck, one hidden cost, and one next move."/>
+<meta property="og:description" content="A 3–4 minute diagnostic that turns last week’s evidence into one bottleneck, one hidden cost, and one next move."/>
 <meta property="og:type" content="website"/>
 <meta name="theme-color" content="#050505"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -175,6 +175,24 @@ strong { color: #e5d8c2; font-weight: 750; }
 .why-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
 .why-pill { min-height: 54px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 13px 14px; border: 1px solid rgba(214,184,116,.16); border-radius: 999px; background: rgba(7,6,4,.62); color: #dfd2bd; font-size: 13px; font-weight: 750; }
 
+
+.selection-note {
+  margin: 14px 2px 0;
+  color: var(--muted-2);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.selection-note.warn { color: var(--gold); }
+.goal.locked:not(.active) { opacity: .44; }
+.goal.locked:not(.active):hover { transform: none; border-color: rgba(214,184,116,.14); }
+.char-count { margin-top: -4px; text-align: right; color: var(--muted-2); font-size: 11px; font-variant-numeric: tabular-nums; }
+.capture-note { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 0 0 14px; padding: 16px 18px; border: 1px solid rgba(226,162,154,.32); border-radius: 18px; background: rgba(226,162,154,.06); }
+.capture-note[hidden] { display: none; }
+.capture-note b { display:block; margin-bottom:4px; color: var(--ink); font-size: 13px; }
+.capture-note p { color: var(--muted); font-size: 12px; line-height: 1.5; }
+.capture-note .btn { flex: 0 0 auto; min-height: 42px; padding-inline: 16px; }
+.frame { scroll-margin-top: 92px; }
 
 /* calibration */
 .calibration-head {
@@ -689,8 +707,9 @@ strong { color: #e5d8c2; font-weight: 750; }
   .receive-strip { display: block; }
   .receive { display: none; }
   .answer-frame { margin: -12px 0 18px; font-size: 10.5px; line-height: 1.45; }
-  .result-metrics { grid-template-columns: 1fr; gap: 10px; margin: -4px 0 14px; }
+  .result-metrics { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin: -4px 0 14px; }
   .result-metrics > div { padding: 16px; }
+  .result-metrics > div:last-child { grid-column: 1 / -1; }
   .result-metrics b { font-size: 22px; }
   .pattern-band { grid-template-columns: 1fr; gap: 10px; }
   .pattern-card { padding: 22px 18px; border-radius: 18px; }
@@ -717,15 +736,15 @@ strong { color: #e5d8c2; font-weight: 750; }
     letter-spacing: -0.052em;
   }
   .stephead p { font-size: 14.5px; line-height: 1.62; }
-  .goalgrid { grid-template-columns: 1fr; gap: 10px; }
+  .goalgrid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px; }
   .goal {
-    min-height: auto;
-    padding: 19px 18px;
-    border-radius: 18px;
+    min-height: 142px;
+    padding: 16px 14px;
+    border-radius: 17px;
   }
-  .goal::before { font-size: 9px; }
-  .goal b { margin: 9px 0 7px; font-size: 23px; }
-  .goal p { font-size: 13.5px; line-height: 1.52; }
+  .goal::before { font-size: 8px; }
+  .goal b { margin: 8px 0 6px; font-size: 18px; line-height: 1.06; }
+  .goal p { font-size: 11.5px; line-height: 1.4; }
 
   .qmeta { margin-bottom: 22px; gap: 12px; align-items: flex-start; }
   .qmeta .label { max-width: 180px; }
@@ -753,8 +772,10 @@ strong { color: #e5d8c2; font-weight: 750; }
   .value-line { margin-top: 22px; font-size: 19px; min-height: 24px; }
   .qprogress { gap: 4px; margin-top: 28px; }
   .qprogress i { height: 3px; }
-  .nav { flex-direction: column-reverse; align-items: stretch; gap: 10px; margin-top: 28px; }
+  .nav { flex-direction: row; align-items: stretch; gap: 9px; margin-top: 28px; }
   .nav span { display: none; }
+  .nav .btn.solid { flex: 1; }
+  .nav .btn.quiet { flex: .42; }
 
   .gate { text-align: left; }
   .gate h2, .verdict h2 {
@@ -891,7 +912,8 @@ strong { color: #e5d8c2; font-weight: 750; }
   body[data-view="viewResults"] .mast-inner { grid-template-columns: minmax(0,1fr); }
 
   .frame { overflow: visible; }
-  .view.show > .nav {
+  #viewQuestions.show > .nav,
+  #viewCalibration.show > .nav {
     position: sticky;
     bottom: max(12px, env(safe-area-inset-bottom));
     z-index: 12;
@@ -904,8 +926,10 @@ strong { color: #e5d8c2; font-weight: 750; }
     -webkit-backdrop-filter: blur(18px);
     box-shadow: 0 18px 60px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.045);
   }
-  .view.show > .nav .btn { min-height: 50px; border-radius: 16px; }
-  .view.show > .nav .btn.quiet { min-height: 46px; background: rgba(255,255,255,.026); }
+  #viewQuestions.show > .nav .btn,
+  #viewCalibration.show > .nav .btn { min-height: 50px; border-radius: 16px; }
+  #viewQuestions.show > .nav .btn.quiet,
+  #viewCalibration.show > .nav .btn.quiet { min-height: 50px; background: rgba(255,255,255,.026); }
 
   .hero { min-height: calc(100svh - 62px); display: flex; flex-direction: column; justify-content: center; padding: 28px 0 34px; }
   .hero h1 { max-width: 12ch; font-size: clamp(44px, 13vw, 58px); }
@@ -957,15 +981,21 @@ strong { color: #e5d8c2; font-weight: 750; }
   .close .actions .btn { min-height: 50px; }
 }
 
-@media (max-width: 340px) {
-  .option-grid { grid-template-columns: 1fr; }
+@media (max-width: 640px) {
+  .capture-note { align-items: stretch; flex-direction: column; gap: 12px; }
+  .capture-note .btn { width: 100%; }
+}
+
+@media (max-width: 355px) {
+  .goalgrid, .option-grid { grid-template-columns: 1fr; }
+  .goal { min-height: auto; }
   .hero h1 { font-size: 40px; }
 }
 
 </style>
 </head>
 <body>
-<form name="diagnostic-leads" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+<form name="diagnostic-leads" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" hidden>
   <input type="hidden" name="form-name" value="diagnostic-leads"/>
   <input name="bot-field"/>
   <input name="firstName"/>
@@ -991,6 +1021,7 @@ strong { color: #e5d8c2; font-weight: 750; }
   <input name="utmCampaign"/>
   <input name="utmContent"/>
   <input name="utmTerm"/>
+  <input name="captureVersion"/>
 </form>
 
 <div class="shell">
@@ -1003,7 +1034,7 @@ strong { color: #e5d8c2; font-weight: 750; }
           <p>Performance architecture for operators</p>
         </div>
       </a>
-      <div class="mast-status" aria-hidden="true"><span>Private diagnostic</span><i></i><span>3 minutes</span></div>
+      <div class="mast-status" aria-hidden="true"><span>Private diagnostic</span><i></i><span>3–4 minutes</span></div>
       <div class="mast-actions">
         <button class="btn" type="button" data-action="start"><span class="desktop-label">Run Diagnostic</span><span class="mobile-label">Start</span></button>
       </div>
@@ -1013,11 +1044,11 @@ strong { color: #e5d8c2; font-weight: 750; }
 
   <main>
     <section class="hero">
-      <span class="label">The Bottleneck Diagnostic · Three minutes</span>
+      <span class="label">The Bottleneck Diagnostic · 3–4 minutes</span>
       <h1>Every operator has one constraint. <em>Your system already shows where.</em></h1>
-      <p class="lede">In three minutes, turn last week’s evidence into one bottleneck, one hidden cost, and one move to make this week cleaner.</p>
+      <p class="lede">In 3–4 minutes, turn last week’s evidence into one bottleneck, one hidden cost, and one move to make this week cleaner.</p>
       <div class="hero-actions">
-        <button class="btn solid" type="button" data-action="start">Find My Bottleneck <span class="btn-note">3 min</span></button>
+        <button class="btn solid" type="button" data-action="start">Find My Bottleneck <span class="btn-note">3–4 min</span></button>
         <a class="btn quiet hero-scan-link" href="https://marcuslefton.com/bottleneck" target="_blank" rel="noopener">Request Scan</a>
       </div>
       <p class="microproof">Last seven days · One constraint · One next move</p>
@@ -1042,6 +1073,7 @@ strong { color: #e5d8c2; font-weight: 750; }
           <p>Choose one or two priorities. This calibrates the diagnostic toward the operating outcome you actually want, not a generic score.</p>
         </div>
         <div class="goalgrid" id="goalGrid"></div>
+        <p class="selection-note" id="goalSelectionNote" aria-live="polite">Choose one or two priorities.</p>
         <div class="nav">
           <span></span>
           <button class="btn solid" type="button" id="beginSignals">Choose 1–2 to continue</button>
@@ -1071,7 +1103,7 @@ strong { color: #e5d8c2; font-weight: 750; }
 
       <div id="viewCalibration" class="view">
         <div class="stephead calibration-head">
-          <span class="label">Final Calibration · Three taps</span>
+          <span class="label">Final Calibration · Three choices</span>
           <h2>Where is the constraint actually costing you?</h2>
           <p>This turns the finding from a category into a read of your week: cost, timing, and the fix you may already be overusing.</p>
         </div>
@@ -1094,7 +1126,8 @@ strong { color: #e5d8c2; font-weight: 750; }
           <div class="calibration-block optional-context">
             <span class="label dim">Optional · Your words</span>
             <h3>What has felt most expensive this week?</h3>
-            <textarea id="expensive" maxlength="180" placeholder="Example: coming home depleted, losing deep work, reacting too fast, not recovering." aria-label="What has felt most expensive this week"></textarea>
+            <textarea id="expensive" maxlength="180" placeholder="Example: coming home depleted, losing deep work, reacting too fast, not recovering." aria-label="What has felt most expensive this week" aria-describedby="expensiveCount"></textarea>
+            <div class="char-count" id="expensiveCount">0 / 180</div>
           </div>
         </div>
         <div class="nav">
@@ -1106,13 +1139,13 @@ strong { color: #e5d8c2; font-weight: 750; }
       <div id="viewGate" class="view">
         <div class="gate">
           <span class="label">Your diagnostic is prepared</span>
-          <h2>Reveal your finding. Save it privately.</h2>
-          <p>Enter your email to reveal your finding here and save the written version privately. You’ll also receive Mastery in Motion, one weekly dispatch on cleaner energy, deeper work, and more repeatable performance.</p>
-          <input type="text" id="firstName" placeholder="First name" autocomplete="given-name"/>
-          <input type="email" id="email" placeholder="Email" autocomplete="email" inputmode="email"/>
+          <h2>Reveal your finding. Keep the context.</h2>
+          <p>Enter your email to reveal the finding here. We’ll save your diagnostic response privately so a future Bottleneck Scan can begin with context instead of making you repeat the week.</p>
+          <input type="text" id="firstName" placeholder="First name (optional)" autocomplete="given-name" maxlength="80"/>
+          <input type="email" id="email" placeholder="Email" autocomplete="email" inputmode="email" maxlength="254" aria-describedby="gateErr"/>
           <button class="btn solid" id="gateBtn" type="button">Reveal My Finding</button>
-          <p class="err" id="gateErr">Enter a valid email to reveal your finding.</p>
-          <p class="fineprint">No spam. Never shared. Built for operators, executives, and athletes.</p>
+          <p class="err" id="gateErr" role="alert" aria-live="assertive">Enter a valid email to reveal your finding.</p>
+          <p class="fineprint">No spam. Never sold or shared for advertising. Built for operators, executives, and athletes.</p>
         </div>
       </div>
 
@@ -1136,23 +1169,24 @@ strong { color: #e5d8c2; font-weight: 750; }
         </div>
 
         <div class="result-metrics" aria-label="Diagnostic score context">
-          <div><span>Constraint pressure</span><b id="pressureScore">-- / 100</b></div>
+          <div><span>Estimated pressure</span><b id="pressureScore">-- / 100</b></div>
           <div><span>Signal clarity</span><b id="signalStrength">--</b></div>
-          <div><span>Primary constraint</span><b id="primaryLeak">--</b></div>
+          <div><span title="Your chosen priorities influence which constraint ranks first; they do not change the underlying signal scores.">Priority-weighted constraint</span><b id="primaryLeak">--</b></div>
         </div>
 
+        <div class="capture-note" id="captureNote" hidden role="status"><div><b>Private save not confirmed.</b><p>Your finding is still available here. Check your connection and retry the save.</p></div><button class="btn quiet" type="button" id="retryCapture">Retry save</button></div>
         <div class="chosen-priorities" id="chosenPriorities"></div>
         <div class="diagnosis-card"><span class="label dim">Operating Diagnosis</span><p id="operatingDiagnosis"></p></div>
         <div class="context-card" id="contextCard" hidden><span class="label dim">Context Calibration</span><p id="contextLine"></p></div>
 
-        <div class="pattern-band" aria-label="Operating pattern and likely misdiagnosis">
-          <div class="pattern-card"><span class="label dim">Operating Pattern</span><b id="patternName"></b><p id="patternCopy"></p></div>
-          <div class="pattern-card not-card"><span class="label dim">What this is not</span><b id="notTitle"></b><p id="notCopy"></p></div>
-        </div>
-
         <div class="twocol">
           <div><span class="label dim">The Hidden Cost</span><b id="costTitle"></b><p id="costCopy"></p></div>
           <div><span class="label dim">Seven-Day Experiment</span><b id="oneMove"></b><div id="moveWhy"></div></div>
+        </div>
+
+        <div class="pattern-band" aria-label="Operating pattern and likely misdiagnosis">
+          <div class="pattern-card"><span class="label dim">Operating Pattern</span><b id="patternName"></b><p id="patternCopy"></p></div>
+          <div class="pattern-card not-card"><span class="label dim">What this is not</span><b id="notTitle"></b><p id="notCopy"></p></div>
         </div>
 
         <div class="why-card">
@@ -1275,7 +1309,7 @@ strong { color: #e5d8c2; font-weight: 750; }
 
   const $ = (id) => document.getElementById(id);
   const els = {
-    app:$("app"), goalGrid:$("goalGrid"), beginSignals:$("beginSignals"), qmetaLabel:$("qmetaLabel"), qcount:$("qcount"), qtitle:$("qtitle"), qsub:$("qsub"), qrange:$("qrange"), lowLabel:$("lowLabel"), highLabel:$("highLabel"), valueLine:$("valueLine"), qprogress:$("qprogress"), nextBtn:$("nextBtn"), gateBtn:$("gateBtn"), gateErr:$("gateErr"), firstName:$("firstName"), email:$("email"), expensive:$("expensive"), costGrid:$("costGrid"), timingGrid:$("timingGrid"), solutionGrid:$("solutionGrid"), continueCalibration:$("continueCalibration"), operatingDiagnosis:$("operatingDiagnosis"), revealLine:$("revealLine"), addressed:$("addressed"), resultLabel:$("resultLabel"), constraintTitle:$("constraintTitle"), constraintLine:$("constraintLine"), pressureScore:$("pressureScore"), signalStrength:$("signalStrength"), primaryLeak:$("primaryLeak"), chosenPriorities:$("chosenPriorities"), contextCard:$("contextCard"), contextLine:$("contextLine"), costTitle:$("costTitle"), costCopy:$("costCopy"), oneMove:$("oneMove"), moveWhy:$("moveWhy"), patternName:$("patternName"), patternCopy:$("patternCopy"), notTitle:$("notTitle"), notCopy:$("notCopy"), whyLabel:$("whyLabel"), whyList:$("whyList"), ctaTitle:$("ctaTitle"), ctaCopy:$("ctaCopy"), auditLink:$("auditLink"), auditLink2:$("auditLink2"), blurmap:$("blurmap")
+    app:$("app"), goalGrid:$("goalGrid"), goalSelectionNote:$("goalSelectionNote"), beginSignals:$("beginSignals"), qmetaLabel:$("qmetaLabel"), qcount:$("qcount"), qtitle:$("qtitle"), qsub:$("qsub"), qrange:$("qrange"), lowLabel:$("lowLabel"), highLabel:$("highLabel"), valueLine:$("valueLine"), qprogress:$("qprogress"), nextBtn:$("nextBtn"), gateBtn:$("gateBtn"), gateErr:$("gateErr"), firstName:$("firstName"), email:$("email"), expensive:$("expensive"), expensiveCount:$("expensiveCount"), costGrid:$("costGrid"), timingGrid:$("timingGrid"), solutionGrid:$("solutionGrid"), continueCalibration:$("continueCalibration"), operatingDiagnosis:$("operatingDiagnosis"), revealLine:$("revealLine"), addressed:$("addressed"), resultLabel:$("resultLabel"), constraintTitle:$("constraintTitle"), constraintLine:$("constraintLine"), pressureScore:$("pressureScore"), signalStrength:$("signalStrength"), primaryLeak:$("primaryLeak"), captureNote:$("captureNote"), retryCapture:$("retryCapture"), chosenPriorities:$("chosenPriorities"), contextCard:$("contextCard"), contextLine:$("contextLine"), costTitle:$("costTitle"), costCopy:$("costCopy"), oneMove:$("oneMove"), moveWhy:$("moveWhy"), patternName:$("patternName"), patternCopy:$("patternCopy"), notTitle:$("notTitle"), notCopy:$("notCopy"), whyLabel:$("whyLabel"), whyList:$("whyList"), ctaTitle:$("ctaTitle"), ctaCopy:$("ctaCopy"), auditLink:$("auditLink"), auditLink2:$("auditLink2"), blurmap:$("blurmap")
   };
 
 
@@ -1321,6 +1355,8 @@ strong { color: #e5d8c2; font-weight: 750; }
   let guestName = "";
   let expensiveContext = "";
   let contextAnswers = {cost:null, timing:null, solution:null};
+  let lastCapturePayload = null;
+  let captureStatus = "confirmed";
 
   function init(){
     questions.forEach(q => { answers[q.id] = null; });
@@ -1331,13 +1367,17 @@ strong { color: #e5d8c2; font-weight: 750; }
     els.beginSignals.addEventListener("click", () => { if(selectedGoals.length) goQuestions(); });
     $("backQuestion").addEventListener("click", prevQuestion);
     els.nextBtn.addEventListener("click", nextQuestion);
-    $("backCalibration").addEventListener("click", () => { qIndex = questions.length - 1; showView("viewQuestions"); renderQuestion(); });
-    els.continueCalibration.addEventListener("click", () => { if(calibrationReady()){ showView("viewGate"); window.setTimeout(() => els.firstName.focus(), 150); } });
+    $("backCalibration").addEventListener("click", () => { qIndex = questions.length - 1; showView("viewQuestions"); renderQuestion(); scrollToStep(); });
+    els.continueCalibration.addEventListener("click", () => { if(calibrationReady()){ showView("viewGate"); scrollToStep(); window.setTimeout(() => els.firstName.focus({preventScroll:true}), 300); } });
     els.qrange.addEventListener("pointerdown", () => { if(!answers[questions[qIndex].id]) setCurrentAnswer(els.qrange.value); });
     els.qrange.addEventListener("input", (event) => setCurrentAnswer(event.target.value));
     els.gateBtn.addEventListener("click", submitGate);
+    els.retryCapture.addEventListener("click", retryLeadCapture);
+    els.email.addEventListener("input", () => { els.gateErr.style.display = "none"; });
+    els.expensive.addEventListener("input", updateCharacterCount);
     $("adjustAnswers").addEventListener("click", restartDiagnostic);
     [els.firstName, els.email].forEach(input => input.addEventListener("keydown", event => { if(event.key === "Enter") submitGate(); }));
+    updateCharacterCount();
   }
 
   function startFlow(){
@@ -1346,7 +1386,12 @@ strong { color: #e5d8c2; font-weight: 750; }
   }
 
   function renderGoals(){
-    els.goalGrid.innerHTML = goals.map(g => `<button class="goal ${selectedGoals.includes(g.id) ? "active" : ""}" type="button" data-goal="${g.id}" aria-pressed="${selectedGoals.includes(g.id)}"><b>${g.title}</b><p>${g.copy}</p></button>`).join("");
+    const atLimit = selectedGoals.length >= 2;
+    els.goalGrid.innerHTML = goals.map(g => {
+      const active = selectedGoals.includes(g.id);
+      const locked = atLimit && !active;
+      return `<button class="goal ${active ? "active" : ""} ${locked ? "locked" : ""}" type="button" data-goal="${g.id}" aria-pressed="${active}" aria-disabled="${locked}"><b>${g.title}</b><p>${g.copy}</p></button>`;
+    }).join("");
     els.goalGrid.querySelectorAll(".goal").forEach(button => button.addEventListener("click", () => toggleGoal(button.dataset.goal)));
     updateBeginSignals();
   }
@@ -1355,13 +1400,23 @@ strong { color: #e5d8c2; font-weight: 750; }
     const ready = selectedGoals.length > 0;
     els.beginSignals.disabled = !ready;
     els.beginSignals.textContent = ready ? "Begin Signals" : "Choose 1–2 to continue";
+    els.goalSelectionNote.classList.remove("warn");
+    els.goalSelectionNote.textContent = selectedGoals.length === 0
+      ? "Choose one or two priorities."
+      : selectedGoals.length === 1
+        ? "One selected. Add one more or continue."
+        : "Two selected. Deselect one to choose a different priority.";
   }
 
   function toggleGoal(id){
     if(selectedGoals.includes(id)){
       selectedGoals = selectedGoals.filter(x => x !== id);
     } else {
-      if(selectedGoals.length >= 2) selectedGoals.shift();
+      if(selectedGoals.length >= 2){
+        els.goalSelectionNote.textContent = "Two priorities is the maximum. Deselect one before choosing another.";
+        els.goalSelectionNote.classList.add("warn");
+        return;
+      }
       selectedGoals.push(id);
     }
     renderGoals();
@@ -1369,13 +1424,25 @@ strong { color: #e5d8c2; font-weight: 750; }
 
   function showView(id){
     document.querySelectorAll(".view").forEach(v => v.classList.remove("show"));
-    $(id).classList.add("show");
+    const view = $(id);
+    view.classList.add("show");
     document.body.dataset.view = id;
+  }
+
+  function scrollToStep(){
+    const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    els.app.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"start"});
+  }
+
+  function updateCharacterCount(){
+    if(!els.expensiveCount) return;
+    els.expensiveCount.textContent = `${els.expensive.value.length} / 180`;
   }
 
   function goQuestions(){
     showView("viewQuestions");
     renderQuestion();
+    scrollToStep();
   }
 
   function restartDiagnostic(){
@@ -1387,7 +1454,11 @@ strong { color: #e5d8c2; font-weight: 750; }
     gated = false;
     guestName = "";
     expensiveContext = "";
+    lastCapturePayload = null;
+    captureStatus = "confirmed";
+    els.captureNote.hidden = true;
     if(els.expensive) els.expensive.value = "";
+    updateCharacterCount();
     if(els.firstName) els.firstName.value = "";
     if(els.email) els.email.value = "";
     latestConstraint = "Recovery";
@@ -1410,6 +1481,7 @@ strong { color: #e5d8c2; font-weight: 750; }
     els.lowLabel.textContent = q.low;
     els.highLabel.textContent = q.high;
     els.qrange.value = current ?? 3;
+    els.qrange.setAttribute("aria-valuetext", current ? label(current) : "Not answered");
     els.valueLine.textContent = current ? label(current) : "Move slider to answer";
     els.valueLine.classList.toggle("awaiting", !current);
     els.qrange.style.setProperty("--fill", (((current ?? 3)-1)/4*100)+"%");
@@ -1425,6 +1497,7 @@ strong { color: #e5d8c2; font-weight: 750; }
   function setCurrentAnswer(val){
     answers[questions[qIndex].id] = Number(val);
     els.valueLine.textContent = label(val);
+    els.qrange.setAttribute("aria-valuetext", label(val));
     els.valueLine.classList.remove("awaiting");
     els.nextBtn.disabled = false;
     els.qrange.style.setProperty("--fill", ((val-1)/4*100)+"%");
@@ -1435,11 +1508,13 @@ strong { color: #e5d8c2; font-weight: 750; }
     if(qIndex < questions.length-1){
       qIndex++;
       renderQuestion();
+      scrollToStep();
     } else if(gated){
       runReveal();
     } else {
       showView("viewCalibration");
       renderCalibration();
+      scrollToStep();
     }
   }
 
@@ -1447,6 +1522,7 @@ strong { color: #e5d8c2; font-weight: 750; }
     if(qIndex > 0){
       qIndex--;
       renderQuestion();
+      scrollToStep();
     } else {
       showView("viewStart");
     }
@@ -1464,8 +1540,14 @@ strong { color: #e5d8c2; font-weight: 750; }
     if(!container) return;
     container.innerHTML = calibration[type].map(item => `<button class="option-card ${contextAnswers[type] === item.id ? "active" : ""}" type="button" data-type="${type}" data-id="${item.id}" aria-pressed="${contextAnswers[type] === item.id}"><b>${item.title}</b><span>${item.copy}</span></button>`).join("");
     container.querySelectorAll(".option-card").forEach(button => button.addEventListener("click", () => {
-      contextAnswers[button.dataset.type] = button.dataset.id;
-      renderCalibration();
+      const type = button.dataset.type;
+      contextAnswers[type] = button.dataset.id;
+      container.querySelectorAll(".option-card").forEach(option => {
+        const active = option.dataset.id === contextAnswers[type];
+        option.classList.toggle("active", active);
+        option.setAttribute("aria-pressed", String(active));
+      });
+      updateCalibrationButton();
     }));
   }
 
@@ -1501,7 +1583,7 @@ strong { color: #e5d8c2; font-weight: 750; }
       Object.entries(q.weights).forEach(([k,w]) => { raw[k] += pressure*w; max[k] += 4*w; });
     });
     const disp = {}, rank = {};
-    Object.keys(raw).forEach(k => { disp[k] = Math.round((raw[k]/max[k])*100); rank[k] = disp[k]*boost[k]; });
+    Object.keys(raw).forEach(k => { disp[k] = Math.round(((raw[k]/max[k])*100)/5)*5; rank[k] = disp[k]*boost[k]; });
     return {disp,rank};
   }
 
@@ -1511,11 +1593,78 @@ strong { color: #e5d8c2; font-weight: 750; }
     const vals = Object.values(disp);
     const spread = Math.max(...vals)-Math.min(...vals);
     const topKey = sorted[0], topScore = disp[topKey];
+    const secondKey = sorted[1];
+    const clarityGap = Math.max(0, rank[topKey] - rank[secondKey]);
     let state = "leak";
     if(topScore <= 25) state = "protected";
     else if(spread < 6 && topScore >= 70) state = "systemic";
     else if(spread < 6) state = "flat";
-    return {sorted,disp,topKey,topScore,state};
+    return {sorted,disp,rank,topKey,topScore,secondKey,clarityGap,state};
+  }
+
+  function protocolToText(protocol){
+    if(!protocol) return "";
+    return `Do: ${protocol.do} | Track: ${protocol.track} | Watch for: ${protocol.watch}`;
+  }
+
+  async function postLeadCapture(payload){
+    const body = new URLSearchParams(payload).toString();
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), 5500);
+    try{
+      const response = await fetch("/", {
+        method:"POST",
+        headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+        body,
+        signal:controller.signal,
+        keepalive:true
+      });
+      if(!response.ok) throw new Error(`Netlify form submission failed: ${response.status}`);
+      return "confirmed";
+    }catch(error){
+      console.warn("Diagnostic lead capture did not confirm:", error);
+      try{
+        if(navigator.sendBeacon){
+          const queued = navigator.sendBeacon("/", new Blob([body], {type:"application/x-www-form-urlencoded;charset=UTF-8"}));
+          if(queued) return "queued";
+        }
+      }catch(beaconError){
+        console.warn("Diagnostic beacon fallback failed:", beaconError);
+      }
+      return "failed";
+    }finally{
+      window.clearTimeout(timer);
+    }
+  }
+
+  function updateCaptureNotice(){
+    if(captureStatus === "confirmed"){
+      els.captureNote.hidden = true;
+      return;
+    }
+    els.captureNote.hidden = false;
+    const title = els.captureNote.querySelector("b");
+    const copy = els.captureNote.querySelector("p");
+    if(captureStatus === "queued"){
+      title.textContent = "Private save queued.";
+      copy.textContent = "The browser accepted a background retry, but confirmation is not available yet. Your finding remains available here.";
+      els.retryCapture.hidden = true;
+    }else{
+      title.textContent = "Private save not confirmed.";
+      copy.textContent = "Your finding is still available here. Check your connection and retry the save.";
+      els.retryCapture.hidden = false;
+    }
+  }
+
+  async function retryLeadCapture(){
+    if(!lastCapturePayload) return;
+    els.retryCapture.hidden = false;
+    els.retryCapture.disabled = true;
+    els.retryCapture.textContent = "Retrying…";
+    captureStatus = await postLeadCapture(lastCapturePayload);
+    updateCaptureNotice();
+    els.retryCapture.disabled = false;
+    els.retryCapture.textContent = "Retry save";
   }
 
   async function submitGate(){
@@ -1528,7 +1677,7 @@ strong { color: #e5d8c2; font-weight: 750; }
     }
     els.gateErr.style.display = "none";
     guestName = firstName;
-    els.gateBtn.textContent = "One moment";
+    els.gateBtn.textContent = "Saving securely…";
     els.gateBtn.disabled = true;
     const d = diagnose();
     const c = constraints[d.topKey];
@@ -1536,46 +1685,39 @@ strong { color: #e5d8c2; font-weight: 750; }
     const drivers = topDrivers(d).join(", ");
     const operatingDiagnosis = buildOperatingDiagnosis(d, c, pattern);
     const experiment = d.state === "leak" ? c.move : d.state === "protected" ? "Pressure-test the architecture" : d.state === "systemic" ? "Build a minimum viable day" : "Get one week of real evidence";
-    try{
-      const query = new URLSearchParams(window.location.search);
-      const submissionId = (window.crypto && crypto.randomUUID)
-        ? crypto.randomUUID()
-        : `diag-${Date.now()}-${Math.random().toString(36).slice(2,10)}`;
-      const response = await fetch("/",{
-        method:"POST",
-        headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
-        body:new URLSearchParams({
-          "form-name":"diagnostic-leads",
-          firstName,
-          email,
-          source:"bottleneck-diagnostic",
-          constraint:d.state === "leak" ? d.topKey.toLowerCase() : d.state,
-          score:String(d.topScore),
-          goals:selectedGoals.map(id => goals.find(g => g.id === id).title).join(", "),
-          pattern:pattern.pattern,
-          drivers,
-          experiment,
-          expensive:expensiveContext,
-          costContext:getCalibration("cost")?.title || "",
-          timingContext:getCalibration("timing")?.title || "",
-          falseSolution:getCalibration("solution")?.title || "",
-          operatingDiagnosis,
-          submissionId,
-          submittedAt:new Date().toISOString(),
-          pageUrl:window.location.href,
-          referrer:document.referrer || "direct",
-          utmSource:query.get("utm_source") || "",
-          utmMedium:query.get("utm_medium") || "",
-          utmCampaign:query.get("utm_campaign") || "",
-          utmContent:query.get("utm_content") || "",
-          utmTerm:query.get("utm_term") || ""
-        }).toString()
-      });
-      if(!response.ok) throw new Error(`Netlify form submission failed: ${response.status}`);
-    }catch(e){
-      console.warn("Diagnostic lead capture did not confirm:", e);
-      // Never block the finding on a network hiccup.
-    }
+    const query = new URLSearchParams(window.location.search);
+    const submissionId = (window.crypto && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : `diag-${Date.now()}-${Math.random().toString(36).slice(2,10)}`;
+    const protocol = d.state === "leak" ? c.protocol : stateProtocol(d.state);
+    lastCapturePayload = {
+      "form-name":"diagnostic-leads",
+      firstName,
+      email,
+      source:"bottleneck-diagnostic",
+      constraint:d.state === "leak" ? d.topKey.toLowerCase() : d.state,
+      score:String(d.topScore),
+      goals:selectedGoals.map(id => goals.find(g => g.id === id).title).join(", "),
+      pattern:pattern.pattern,
+      drivers,
+      experiment:protocolToText(protocol),
+      expensive:expensiveContext,
+      costContext:getCalibration("cost")?.title || "",
+      timingContext:getCalibration("timing")?.title || "",
+      falseSolution:getCalibration("solution")?.title || "",
+      operatingDiagnosis,
+      submissionId,
+      submittedAt:new Date().toISOString(),
+      pageUrl:window.location.href,
+      referrer:document.referrer || "direct",
+      utmSource:query.get("utm_source") || "",
+      utmMedium:query.get("utm_medium") || "",
+      utmCampaign:query.get("utm_campaign") || "",
+      utmContent:query.get("utm_content") || "",
+      utmTerm:query.get("utm_term") || "",
+      captureVersion:"2026-07-bulletproof-v1"
+    };
+    captureStatus = await postLeadCapture(lastCapturePayload);
     gated = true;
     els.gateBtn.textContent = "Reveal My Finding";
     els.gateBtn.disabled = false;
@@ -1615,11 +1757,13 @@ strong { color: #e5d8c2; font-weight: 750; }
       .map(item => item.title);
   }
 
-  function signalStrength(score){
-    if(score >= 70) return "Very high";
-    if(score >= 50) return "High";
-    if(score >= 26) return "Moderate";
-    return "Protected";
+  function signalClarity(d){
+    if(d.state === "systemic") return "System-wide";
+    if(d.state === "flat") return "Diffuse";
+    if(d.state === "protected") return "Protected";
+    if(d.clarityGap >= 15) return "High";
+    if(d.clarityGap >= 7) return "Moderate";
+    return "Low";
   }
 
   function stateProtocol(state){
@@ -1683,9 +1827,12 @@ strong { color: #e5d8c2; font-weight: 750; }
     return pieces.join(", ");
   }
 
-  function solutionCorrection(c){
+  function solutionCorrection(d, c){
     const solution = getCalibration("solution");
     if(!solution) return "";
+    if(d.state === "systemic") return `Your current fix — ${solution.title.toLowerCase()} — may be adding another lever before the system has enough margin to use it.`;
+    if(d.state === "flat") return `Your current fix — ${solution.title.toLowerCase()} — may be premature while the signal is still too even to isolate cleanly.`;
+    if(d.state === "protected") return `Your current fix — ${solution.title.toLowerCase()} — is not obviously required by this seven-day signal. Pressure-test before adding more intervention.`;
     const map = {
       discipline:`More discipline may increase output for a week, but it will not solve ${c.short.toLowerCase()} if the system underneath cannot support the demand.`,
       planning:`Better planning helps only if the constraint is planning. This result points lower in the stack: the week is not failing because the list is unclear.`,
@@ -1823,8 +1970,13 @@ strong { color: #e5d8c2; font-weight: 750; }
     const date = new Date().toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"});
     els.addressed.textContent = (guestName ? `Prepared for ${guestName} · ` : "Prepared · ") + date;
     els.pressureScore.textContent = `${d.topScore} / 100`;
-    els.signalStrength.textContent = d.state === "flat" ? "Diffuse" : d.state === "systemic" ? "System-wide" : signalStrength(d.topScore);
-    els.primaryLeak.textContent = d.state === "flat" || d.state === "systemic" ? "Multiple systems" : c.short;
+    els.signalStrength.textContent = signalClarity(d);
+    els.primaryLeak.textContent = d.state === "protected"
+      ? "No active constraint"
+      : d.state === "flat" || d.state === "systemic"
+        ? "Multiple systems"
+        : c.short;
+    updateCaptureNotice();
     els.chosenPriorities.innerHTML = `<b>${chosenPrioritiesLine()}</b>`;
     const pattern = resultPatternForState(d, c);
     els.operatingDiagnosis.textContent = buildOperatingDiagnosis(d, c, pattern);
@@ -1839,7 +1991,7 @@ strong { color: #e5d8c2; font-weight: 750; }
     els.patternName.textContent = pattern.pattern;
     els.patternCopy.textContent = pattern.patternCopy;
     els.notTitle.textContent = pattern.notTitle;
-    const correction = solutionCorrection(c);
+    const correction = solutionCorrection(d, c);
     els.notCopy.textContent = correction ? `${pattern.notCopy} ${correction}` : pattern.notCopy;
     els.whyLabel.textContent = d.state === "protected" ? "Closest signals" : d.state === "flat" ? "Why the signal stayed flat" : d.state === "systemic" ? "Why this is system-wide" : "Why this surfaced";
     const drivers = topDrivers(d);
