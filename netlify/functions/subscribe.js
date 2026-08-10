@@ -1,40 +1,81 @@
 // netlify/functions/subscribe.js
 
-const JSON_HEADERS = {
-  "Content-Type": "application/json",
-  "Cache-Control": "no-store",
-};
+const ALLOWED_ORIGINS = new Set([
+  "https://marcuslefton.com",
+  "https://www.marcuslefton.com",
+]);
 
-function reply(statusCode, body) {
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function jsonResponse(statusCode, body) {
   return {
     statusCode,
-    headers: JSON_HEADERS,
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store",
+    },
     body: JSON.stringify(body),
   };
 }
 
 exports.handler = async (event) => {
-  // Production endpoint should only accept POST.
+  // ─────────────────────────────────────────────────────────────
+  // 1. ONLY ALLOW POST
+  // ─────────────────────────────────────────────────────────────
+
   if (event.httpMethod !== "POST") {
-    return reply(405, { error: "Method Not Allowed" });
+    return jsonResponse(405, {
+      error: "Method Not Allowed",
+    });
   }
 
-  // Reject abnormally large payloads.
-  if (!event.body || event.body.length > 10000) {
-    return reply(413, { error: "Invalid request" });
+  // ─────────────────────────────────────────────────────────────
+  // 2. BASIC ORIGIN CHECK
+  // ─────────────────────────────────────────────────────────────
+
+  const origin =
+    event.headers?.origin ||
+    event.headers?.Origin ||
+    "";
+
+  if (origin && !ALLOWED_ORIGINS.has(origin)) {
+    console.warn("Blocked unexpected origin:", origin);
+
+    return jsonResponse(403, {
+      error: "Forbidden",
+    });
   }
+
+  // ─────────────────────────────────────────────────────────────
+  // 3. REJECT ABNORMALLY LARGE REQUESTS
+  // ─────────────────────────────────────────────────────────────
+
+  if (!event.body || event.body.length > 10000) {
+    return jsonResponse(400, {
+      error: "Invalid request",
+    });
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // 4. PARSE REQUEST
+  // ─────────────────────────────────────────────────────────────
 
   let payload;
 
   try {
     payload = JSON.parse(event.body);
-  } catch {
-    return reply(400, { error: "Invalid request" });
+  } catch (error) {
+    return jsonResponse(400, {
+      error: "Invalid request",
+    });
   }
 
-  // ---------------------------
-  // 1. HONEYPOT
-  // ---------------------------
+  // ─────────────────────────────────────────────────────────────
+  // 5. HONEYPOT
+  //
+  // Humans never see or fill the "website" field.
+  // Basic form-filling bots often do.
+  // ─────────────────────────────────────────────────────────────
 
   const honeypot =
     typeof payload.website === "string"
@@ -42,131 +83,66 @@ exports.handler = async (event) => {
       : "";
 
   if (honeypot) {
-    // Pretend it worked so simple bots don't learn
-    // that they triggered the honeypot.
-    return reply(200, {
-      message: "Check your inbox to confirm.",
+    console.warn("Honeypot triggered.");
+
+    // Return success intentionally.
+    // We don't want the bot learning why it was rejected.
+    return jsonResponse(200, {
+      message: "Subscribed",
     });
   }
 
-  // ---------------------------
-  // 2. VALIDATE EMAIL
-  // ---------------------------
+  // ─────────────────────────────────────────────────────────────
+  // 6. NORMALIZE + VALIDATE EMAIL
+  // ─────────────────────────────────────────────────────────────
 
   const email =
     typeof payload.email === "string"
       ? payload.email.trim().toLowerCase()
       : "";
 
-  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
   if (
     !email ||
     email.length > 254 ||
     !EMAIL_REGEX.test(email)
   ) {
-    return reply(400, {
+    return jsonResponse(400, {
       error: "Enter a valid email address.",
     });
   }
 
-  // ---------------------------
-  // 3. VERIFY TURNSTILE
-  // ---------------------------
-
-  const turnstileToken =
-    typeof payload["cf-turnstile-response"] === "string"
-      ? payload["cf-turnstile-response"]
-      : "";
-
-  const TURNSTILE_SECRET =
-    process.env.TURNSTILE_SECRET_KEY;
-
-  if (!TURNSTILE_SECRET) {
-    console.error("TURNSTILE_SECRET_KEY is not configured");
-    return reply(500, {
-      error: "Server configuration error.",
-    });
-  }
-
-  if (!turnstileToken) {
-    return reply(403, {
-      error: "Human verification required.",
-    });
-  }
-
-  let verification;
-
-  try {
-    const verifyResponse = await fetch(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          secret: TURNSTILE_SECRET,
-          response: turnstileToken,
-        }),
-      }
-    );
-
-    if (!verifyResponse.ok) {
-      throw new Error(
-        `Turnstile returned ${verifyResponse.status}`
-      );
-    }
-
-    verification = await verifyResponse.json();
-  } catch (error) {
-    console.error(
-      "Turnstile verification error:",
-      error.message
-    );
-
-    return reply(403, {
-      error: "Verification failed.",
-    });
-  }
-
-  const allowedHostnames = new Set([
-    "marcuslefton.com",
-    "www.marcuslefton.com",
-  ]);
-
+  // Prevent obvious malformed addresses.
   if (
-    !verification.success ||
-    verification.action !== "newsletter_signup" ||
-    !allowedHostnames.has(verification.hostname)
+    email.includes("..") ||
+    email.startsWith(".") ||
+    email.endsWith(".")
   ) {
-    console.warn("Rejected signup", {
-      success: verification.success,
-      hostname: verification.hostname,
-      action: verification.action,
-      errors: verification["error-codes"],
-    });
-
-    return reply(403, {
-      error: "Verification failed.",
+    return jsonResponse(400, {
+      error: "Enter a valid email address.",
     });
   }
 
-  // ---------------------------
-  // 4. KIT
-  // ---------------------------
+  // ─────────────────────────────────────────────────────────────
+  // 7. CHECK ENVIRONMENT VARIABLES
+  // ─────────────────────────────────────────────────────────────
 
   const KIT_API_KEY = process.env.KIT_API_KEY;
   const KIT_FORM_ID = process.env.KIT_FORM_ID;
 
   if (!KIT_API_KEY || !KIT_FORM_ID) {
-    console.error("Kit environment variables missing");
+    console.error("Missing Kit environment variables.", {
+      hasApiKey: Boolean(KIT_API_KEY),
+      hasFormId: Boolean(KIT_FORM_ID),
+    });
 
-    return reply(500, {
+    return jsonResponse(500, {
       error: "Server configuration error.",
     });
   }
+
+  // ─────────────────────────────────────────────────────────────
+  // 8. SEND TO KIT
+  // ─────────────────────────────────────────────────────────────
 
   const kitUrl =
     `https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`;
@@ -183,33 +159,36 @@ exports.handler = async (event) => {
       }),
     });
 
-    const kitResponseText =
-      await kitResponse.text();
+    const kitResponseText = await kitResponse.text();
 
     if (!kitResponse.ok) {
-      // Keep Kit's response in SERVER logs,
-      // not in the user's browser.
+      // Log Kit's response privately in Netlify.
+      // Do NOT expose it to the visitor.
       console.error(
-        "Kit subscription failed:",
+        "Kit rejected subscription:",
         kitResponse.status,
         kitResponseText
       );
 
-      return reply(502, {
+      return jsonResponse(502, {
         error: "Unable to subscribe right now.",
       });
     }
 
-    return reply(200, {
-      message: "Check your inbox to confirm.",
+    // ───────────────────────────────────────────────────────────
+    // 9. SUCCESS
+    // ───────────────────────────────────────────────────────────
+
+    return jsonResponse(200, {
+      message: "You're in. Check your inbox to confirm.",
     });
   } catch (error) {
     console.error(
-      "Kit request error:",
+      "Kit subscription request failed:",
       error.message
     );
 
-    return reply(502, {
+    return jsonResponse(502, {
       error: "Unable to subscribe right now.",
     });
   }
