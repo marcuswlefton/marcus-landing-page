@@ -2553,9 +2553,15 @@
         <form class="form-shell" id="join" action="/.netlify/functions/subscribe" method="POST" data-netlify-subscribe data-primary-form="true">
           <!-- REQUIRED BEFORE PUBLISHING: replace action="#" with your Kit form endpoint, or connect this form to your serverless Kit subscriber function. -->
           <label for="email" class="sr-only" style="position:absolute;left:-9999px;">Email address</label>
-          <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" inputmode="email" required />
+          <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" inputmode="email" maxlength="254" required />
           <button class="button" type="submit">Join Mastery in Motion</button>
         
+          <div style="display:none !important;" aria-hidden="true">
+            <label>Leave this field empty
+              <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </label>
+          </div>
+
           <input type="hidden" name="source" value="mastery_in_motion_landing_page">
           <input type="hidden" name="form_name" value="mastery_in_motion">
         </form>
@@ -2812,9 +2818,15 @@
         <form class="form-shell" action="/.netlify/functions/subscribe" method="POST" data-netlify-subscribe>
           <!-- REQUIRED BEFORE PUBLISHING: replace action="#" with your Kit form endpoint, or connect this form to your serverless Kit subscriber function. -->
           <label for="email-final" class="sr-only" style="position:absolute;left:-9999px;">Email address</label>
-          <input id="email-final" name="email" type="email" placeholder="Enter your email" autocomplete="email" inputmode="email" required />
+          <input id="email-final" name="email" type="email" placeholder="Enter your email" autocomplete="email" inputmode="email" maxlength="254" required />
           <button class="button" type="submit">Join Mastery in Motion</button>
         
+          <div style="display:none !important;" aria-hidden="true">
+            <label>Leave this field empty
+              <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </label>
+          </div>
+
           <input type="hidden" name="source" value="mastery_in_motion_landing_page">
           <input type="hidden" name="form_name" value="mastery_in_motion">
         </form>
@@ -2922,7 +2934,7 @@
               throw new Error("Subscribe failed with status " + response.status);
             }
 
-            setFormState(form, "success", "You’re in. Check your inbox for the first Sunday brief.");
+            setFormState(form, "success", "Almost there. Check your inbox to confirm your subscription.");
             form.reset();
           } catch (error) {
             console.error("Subscription error:", error);
