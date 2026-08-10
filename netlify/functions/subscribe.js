@@ -19,20 +19,14 @@ function jsonResponse(statusCode, body) {
 }
 
 exports.handler = async (event) => {
-  // ─────────────────────────────────────────────────────────────
-  // 1. ONLY ALLOW POST
-  // ─────────────────────────────────────────────────────────────
-
+  // Only allow POST requests
   if (event.httpMethod !== "POST") {
     return jsonResponse(405, {
       error: "Method Not Allowed",
     });
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // 2. BASIC ORIGIN CHECK
-  // ─────────────────────────────────────────────────────────────
-
+  // Basic origin check
   const origin =
     event.headers?.origin ||
     event.headers?.Origin ||
@@ -46,20 +40,14 @@ exports.handler = async (event) => {
     });
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // 3. REJECT ABNORMALLY LARGE REQUESTS
-  // ─────────────────────────────────────────────────────────────
-
+  // Reject empty or unusually large requests
   if (!event.body || event.body.length > 10000) {
     return jsonResponse(400, {
       error: "Invalid request",
     });
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // 4. PARSE REQUEST
-  // ─────────────────────────────────────────────────────────────
-
+  // Parse the incoming request
   let payload;
 
   try {
@@ -70,13 +58,8 @@ exports.handler = async (event) => {
     });
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // 5. HONEYPOT
-  //
-  // Humans never see or fill the "website" field.
-  // Basic form-filling bots often do.
-  // ─────────────────────────────────────────────────────────────
-
+  // Honeypot
+  // Real users should never fill this field.
   const honeypot =
     typeof payload.website === "string"
       ? payload.website.trim()
@@ -85,17 +68,14 @@ exports.handler = async (event) => {
   if (honeypot) {
     console.warn("Honeypot triggered.");
 
-    // Return success intentionally.
-    // We don't want the bot learning why it was rejected.
+    // Pretend the signup worked so bots don't learn
+    // that they were blocked.
     return jsonResponse(200, {
       message: "Subscribed",
     });
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // 6. NORMALIZE + VALIDATE EMAIL
-  // ─────────────────────────────────────────────────────────────
-
+  // Normalize + validate email
   const email =
     typeof payload.email === "string"
       ? payload.email.trim().toLowerCase()
@@ -111,7 +91,7 @@ exports.handler = async (event) => {
     });
   }
 
-  // Prevent obvious malformed addresses.
+  // Reject a few obvious malformed addresses
   if (
     email.includes("..") ||
     email.startsWith(".") ||
@@ -122,10 +102,7 @@ exports.handler = async (event) => {
     });
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // 7. CHECK ENVIRONMENT VARIABLES
-  // ─────────────────────────────────────────────────────────────
-
+  // Check required Netlify environment variables
   const KIT_API_KEY = process.env.KIT_API_KEY;
   const KIT_FORM_ID = process.env.KIT_FORM_ID;
 
@@ -140,10 +117,7 @@ exports.handler = async (event) => {
     });
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // 8. SEND TO KIT
-  // ─────────────────────────────────────────────────────────────
-
+  // Subscribe through Kit
   const kitUrl =
     `https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`;
 
@@ -162,8 +136,6 @@ exports.handler = async (event) => {
     const kitResponseText = await kitResponse.text();
 
     if (!kitResponse.ok) {
-      // Log Kit's response privately in Netlify.
-      // Do NOT expose it to the visitor.
       console.error(
         "Kit rejected subscription:",
         kitResponse.status,
@@ -175,12 +147,8 @@ exports.handler = async (event) => {
       });
     }
 
-    // ───────────────────────────────────────────────────────────
-    // 9. SUCCESS
-    // ───────────────────────────────────────────────────────────
-
     return jsonResponse(200, {
-      message: "You're in. Check your inbox to confirm.",
+      message: "Almost there. Check your inbox to confirm your subscription.",
     });
   } catch (error) {
     console.error(
