@@ -3,10 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
   <meta name="description" content="The Minimum Effective Dose — the inputs that stack the odds in your favor." />
   <title>The Minimum Effective Dose — Field Guide | Marcus Lefton</title>
   <style>
@@ -22,10 +18,10 @@
       --gold-soft:#d0ba84;
       --line:rgba(183,154,91,.25);
       --line-soft:rgba(255,255,255,.08);
-      --serif:"Playfair Display","Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
-      --sans:"Inter",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+      --sans:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       --max:1200px;
-      --copy:690px;
+      --copy:760px;
       --radius:4px;
       --shadow:0 24px 80px rgba(0,0,0,.32);
     }
@@ -54,32 +50,15 @@
       display:flex; align-items:center; justify-content:space-between; gap:24px;
     }
     .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
+      display:flex; align-items:center; gap:12px;
+      font-size:12px; letter-spacing:.16em; text-transform:uppercase;
     }
     .vmark{
-      width:30px;
-      height:30px;
-      border:1px solid rgba(183,154,91,.38);
-      display:grid;
-      place-items:center;
-      color:var(--gold-soft);
-      font-family:var(--serif);
-      font-size:14px;
-      line-height:1;
-      flex:0 0 auto;
+      width:26px;height:26px;border:1px solid var(--line);
+      display:grid;place-items:center;border-radius:0;
+      color:var(--gold-soft);font-family:var(--serif);font-size:12px;
     }
-    .brand strong{
-      font-weight:600;
-      font-size:13px;
-      letter-spacing:.22em;
-      color:var(--ink);
-      white-space:nowrap;
-    }
+    .brand strong{font-weight:600; letter-spacing:.19em}
 
     .hero{
       max-width:var(--max); margin:auto; padding:128px 28px 96px;
@@ -89,22 +68,6 @@
     .eyebrow{
       color:var(--gold-soft); font-size:11px; letter-spacing:.18em;
       text-transform:uppercase; font-weight:650; margin-bottom:26px;
-    }
-    .field-meta{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-      color:var(--faint);
-      font-size:10px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      font-weight:600;
-      margin-bottom:30px;
-    }
-    .field-meta span + span::before{
-      content:"/";
-      margin-right:18px;
-      color:#4f4b44;
     }
     h1,h2,h3{font-family:var(--serif); font-weight:500; letter-spacing:-.025em; margin:0}
     h1{
@@ -178,54 +141,10 @@
 
     main{min-width:0}
     .pillar{
-      position:relative;
       scroll-margin-top:100px;
-      padding:0 0 118px;
+      padding:0 0 100px;
       border-top:1px solid var(--line-soft);
-      padding-top:56px;
-      overflow:visible;
-    }
-    .pillar::before{
-      content:attr(data-num);
-      position:absolute;
-      left:-16px;
-      top:22px;
-      font-family:var(--serif);
-      font-size:clamp(74px,10vw,126px);
-      line-height:1;
-      color:rgba(244,240,231,.035);
-      letter-spacing:-.06em;
-      pointer-events:none;
-      user-select:none;
-    }
-    .pillar.attention .pillar-body{max-width:790px}
-    .pillar.direction .pillar-body{max-width:840px}
-    .pillar.capacity .pillar-body{max-width:700px}
-    .pillar.connection .pillar-body{max-width:745px}
-    .pillar.attention .copy{max-width:500px}
-    .pillar.direction .copy{max-width:545px}
-    .pillar.capacity .copy{max-width:455px}
-    .pillar.connection .copy{max-width:500px}
-    .pillar.inline-test .pillar-body{
-      grid-template-columns:1fr;
-      max-width:740px;
-    }
-    .pillar.inline-test .experiment{
-      max-width:560px;
-      margin-top:16px;
-      margin-left:84px;
-    }
-    .pillar.full-width .pillar-body{
-      grid-template-columns:1fr;
-      max-width:840px;
-    }
-    .pillar.full-width .copy{
-      max-width:680px;
-    }
-    .pillar.full-width .experiment{
-      max-width:420px;
-      margin-top:22px;
-      margin-left:auto;
+      padding-top:40px;
     }
     .pillar:first-child{border-top:0;padding-top:0}
     .pillar-head{
@@ -233,29 +152,21 @@
       margin-bottom:34px;
     }
     .num{
-      color:#8d877d;
-      font-size:9px;
-      letter-spacing:.16em;
+      color:var(--gold);
+      font-family:var(--serif);
+      font-size:18px;
+      letter-spacing:.08em;
       text-transform:uppercase;
       border-top:1px solid var(--line);
       padding-top:10px;
     }
     .pillar h2{font-size:clamp(38px,5vw,58px);line-height:1.04}
     .question{
-      margin:12px 0 0;
-      color:#aaa49a;
-      font-family:var(--serif);
-      font-size:17px;
-      font-style:italic;
-      line-height:1.45;
+      margin:10px 0 0;color:var(--muted);font-size:16px
     }
     .pillar-body{
-      margin-left:112px;
-      max-width:755px;
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 258px;
-      gap:56px;
-      align-items:start;
+      margin-left:112px; max-width:800px;
+      display:grid; grid-template-columns:minmax(0,1fr) 290px; gap:42px; align-items:start;
     }
     .copy p{margin:0 0 18px;color:#d4d0c7;font-size:16px}
     .copy strong{color:var(--ink);font-weight:600}
@@ -270,55 +181,23 @@
       content:""; position:absolute;left:0;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--gold)
     }
     .principle{
-      margin:32px 0 0;
-      padding-left:18px;
-      border-left:1px solid var(--line);
-      font-family:var(--serif);
-      font-size:22px;
-      line-height:1.45;
-      color:var(--ink)
-    }
-    .pull-quote{
-      margin:38px -78px 0 44px;
-      max-width:520px;
-      font-family:var(--serif);
-      font-size:clamp(24px,3.2vw,34px);
-      line-height:1.28;
-      color:#cbc5ba;
-      letter-spacing:-.02em;
-    }
-    .pull-quote span{
-      color:var(--ink);
-      display:block;
-      margin-bottom:6px;
+      margin:30px 0 0;padding-left:18px;border-left:1px solid var(--gold);
+      font-family:var(--serif);font-size:22px;line-height:1.45;color:var(--ink)
     }
 
     .experiment{
-      position:relative;
-      top:auto;
-      padding:17px 0 18px;
-      border-top:1px solid var(--line);
+      position:relative;top:auto;
+      padding:18px 0 18px;
+      border-top:1px solid var(--gold);
       border-bottom:1px solid var(--line-soft);
       background:transparent;
     }
-    .experiment::before{
-      content:"";
-      position:absolute;
-      top:-1px;
-      left:0;
-      width:42px;
-      border-top:1px solid var(--gold);
-    }
     .experiment .label{
       display:flex;align-items:center;justify-content:space-between;
-      color:#918a7e;font-size:9px;letter-spacing:.17em;text-transform:uppercase;font-weight:650
+      color:var(--gold-soft);font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700
     }
     .experiment h3{
-      margin:15px 0 10px;
-      font-family:var(--serif);
-      font-size:18px;
-      font-weight:500;
-      letter-spacing:-.01em
+      margin:13px 0 12px;font-family:var(--sans);font-size:15px;font-weight:650;letter-spacing:-.01em
     }
     .experiment p,.experiment li{color:var(--muted);font-size:13px;line-height:1.58}
     .experiment ul{padding-left:17px;margin:10px 0 0}
@@ -328,12 +207,8 @@
     }
 
     .subhead{
-      color:#938d82;
-      font-size:10px;
-      letter-spacing:.15em;
-      text-transform:uppercase;
-      font-weight:700;
-      margin:30px 0 9px
+      color:var(--gold-soft);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+      font-weight:700;margin:28px 0 8px
     }
     .input-bridge{
       margin:10px 0 100px;
@@ -342,8 +217,8 @@
       border-bottom:1px solid var(--line-soft);
     }
     .input-bridge blockquote{
-      margin:0 0 0 58px;
-      max-width:850px;
+      margin:0;
+      max-width:920px;
       font-family:var(--serif);
       font-size:clamp(28px,4vw,44px);
       line-height:1.28;
@@ -358,7 +233,7 @@
     .input-bridge blockquote strong{
       display:block;
       margin-top:18px;
-      color:var(--ink);
+      color:var(--gold-soft);
       font-weight:500;
     }
 
@@ -395,7 +270,7 @@
     .audit-rows{margin-top:34px;border-top:1px solid var(--line-soft)}
     .audit-row{
       display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
-      padding:20px 0;border-bottom:1px solid var(--line-soft)
+      padding:18px 0;border-bottom:1px solid var(--line-soft)
     }
     .audit-row strong{display:block;font-size:14px}
     .audit-row small{color:var(--muted);font-size:12px}
@@ -457,27 +332,21 @@
       padding:62px 0;
       background:transparent;
     }
-    .advisory .tag{color:#8f897e;font-size:9px;letter-spacing:.17em;text-transform:uppercase}
-    .advisory h2{margin-top:16px;font-size:clamp(40px,5vw,58px);max-width:760px}
+    .advisory .tag{color:var(--gold-soft);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+    .advisory h2{margin-top:13px;font-size:clamp(42px,5vw,62px);max-width:780px}
     .advisory p{max-width:720px;color:var(--muted);font-size:16px}
     .apply{
-      margin-top:32px;
+      margin-top:30px;
       display:inline-flex;
       align-items:center;
-      gap:14px;
-      padding:0 0 6px;
-      border-bottom:1px solid var(--line);
+      gap:12px;
+      padding:0 0 5px;
+      border-bottom:1px solid var(--gold);
       color:var(--ink);
-      font-weight:600;
+      font-weight:650;
       font-size:13px;
-      letter-spacing:.025em;
+      letter-spacing:.035em;
       transition:.18s ease
-    }
-    .apply::after{
-      content:"";
-      width:34px;
-      border-top:1px solid var(--gold);
-      transform:translateY(1px);
     }
     .apply:hover{color:var(--gold-soft);transform:translateX(2px)}
 
@@ -501,39 +370,24 @@
       .score-card{text-align:left;border-left:0;border-top:1px solid var(--line-soft);padding:20px 0 0}
     }
     @media(max-width:760px){
-      .site-header .inner{height:62px;padding:0 22px}
-      .brand{gap:12px}
-      .vmark{width:28px;height:28px;font-size:13px}
-      .brand strong{display:block;font-size:12px;letter-spacing:.20em}
-      .hero{padding:78px 22px 66px}
+      .site-header .inner{height:62px;padding:0 18px}
+      .brand strong{display:none}
+      .hero{padding:72px 18px 60px}
       .hero-side{padding-left:20px}
-      .loop-wrap,.content-shell{padding-left:22px;padding-right:22px}
+      .loop-wrap,.content-shell{padding-left:18px;padding-right:18px}
       .loop{padding:20px}
       .loop-head{display:block}
       .loop-head p{margin-top:10px}
       .pillar{padding-bottom:76px}
       .pillar-head{grid-template-columns:1fr;gap:12px}
       .num{width:58px}
-      .pillar::before{
-        left:auto;
-        right:-6px;
-        top:22px;
-        font-size:78px;
-      }
-      .pillar-body{grid-template-columns:1fr;gap:28px}
-      .pillar.inline-test .experiment,
-      .pillar.full-width .experiment{
-        margin-left:0;
-        max-width:none;
-      }
-      .input-bridge blockquote{margin-left:0}
-      .pull-quote{margin:30px 0 0;max-width:none}
+      .pillar-body{grid-template-columns:1fr;gap:25px}
       .experiment{position:static}
       .subtraction,.audit,.advisory{padding-left:0;padding-right:0}
       .subtraction .grid,.remember-grid{grid-template-columns:1fr}
       .audit-row{grid-template-columns:1fr}
       .choices{justify-content:flex-start}
-      footer .inner{padding:24px 22px;display:block}
+      footer .inner{padding:24px 18px;display:block}
       footer .inner div+div{margin-top:8px}
     }
     @media(prefers-reduced-motion:reduce){
@@ -555,10 +409,7 @@
 
   <section class="hero" id="top">
     <div>
-      <div class="field-meta">
-        <span>VYRTŪOSITI / FIELD NOTE</span>
-        <span>UPDATED AUGUST 2026</span>
-      </div>
+      <div class="eyebrow">Field Guide</div>
       <h1>The Minimum Effective Dose.</h1>
       <div class="hero-kicker">The inputs that stack the odds in your favor.</div>
       <p class="hero-lede">
@@ -605,7 +456,7 @@
     </aside>
 
     <main>
-      <section class="pillar" id="rhythm" data-num="01">
+      <section class="pillar" id="rhythm">
         <div class="pillar-head">
           <div class="num">01 / 07</div>
           <div><h2>Rhythm</h2><p class="question">Does your system know when to be on and when to be off?</p></div>
@@ -614,7 +465,7 @@
           <div class="copy">
             <p>Circadian rhythm sits upstream of sleep, alertness, metabolism, recovery, and cognition.</p>
             <p>You don't need to perfect sleep. You need enough consistency that your biology isn't constantly guessing what time it is.</p>
-            
+            <div class="subhead">Minimum baseline</div>
             <ul class="micro-list">
               <li>Get outside and get daylight after waking.</li>
               <li>Get regular daylight throughout the day.</li>
@@ -625,7 +476,7 @@
             <div class="principle">Rhythm before optimization.</div>
           </div>
           <aside class="experiment">
-            <div class="label">FOR THE NEXT 3 DAYS <span>3 days</span></div>
+            <div class="label">Tiny Experiment <span>3 days</span></div>
             <h3>Anchor the clock.</h3>
             <ul>
               <li>Get outside shortly after waking.</li>
@@ -637,7 +488,7 @@
         </div>
       </section>
 
-      <section class="pillar inline-test" id="fuel" data-num="02">
+      <section class="pillar" id="fuel">
         <div class="pillar-head">
           <div class="num">02 / 07</div>
           <div><h2>Fuel</h2><p class="question">Are you supplying what the system needs?</p></div>
@@ -657,7 +508,7 @@
             <div class="principle">Best practices are starting points. Your response determines what stays.</div>
           </div>
           <aside class="experiment">
-            <div class="label">FIELD TEST <span>3 days</span></div>
+            <div class="label">Tiny Experiment <span>3 days</span></div>
             <h3>Improve the first two inputs.</h3>
             <p>Make your first two substantial meals mostly whole foods, include a meaningful protein source, eat enough for your demands, and hydrate consistently.</p>
             <div class="notice"><strong>Notice:</strong> energy stability, hunger, cravings, mental clarity, training, digestion, sleep.</div>
@@ -674,7 +525,7 @@
           <strong>Be intentional about what enters the system.</strong>
         </blockquote>
       </section>
-      <section class="pillar capacity" id="capacity" data-num="03">
+      <section class="pillar" id="capacity">
         <div class="pillar-head">
           <div class="num">03 / 07</div>
           <div><h2>Capacity</h2><p class="question">Can your body comfortably handle the demand?</p></div>
@@ -689,13 +540,10 @@
               <li>Enough usable mobility for what you actually want to do.</li>
             </ul>
             <p>You don't need to live in the gym. Physical reserve matters whether you're competing professionally, running a company, raising a family, or simply trying to remain capable as you age.</p>
-            <div class="pull-quote">
-              <span>Reserve is not excess.</span>
-              It is the space between what life asks of you and what your system can handle.
-            </div>
+            <div class="principle">More reserve gives you more room before normal demand becomes overload.</div>
           </div>
           <aside class="experiment">
-            <div class="label">TRY THIS TODAY <span>Today</span></div>
+            <div class="label">Tiny Experiment <span>Today</span></div>
             <h3>Change state through the body.</h3>
             <p>Take a brisk 20–30 minute walk, complete a short strength session, or break up prolonged sitting with brief movement bouts.</p>
             <div class="notice"><strong>Before / after:</strong> rate energy, mood, mental clarity, and physical tension.</div>
@@ -703,7 +551,7 @@
         </div>
       </section>
 
-      <section class="pillar attention" id="attention" data-num="04">
+      <section class="pillar" id="attention">
         <div class="pillar-head">
           <div class="num">04 / 07</div>
           <div><h2>Attention</h2><p class="question">What are you repeatedly giving your mind to?</p></div>
@@ -727,7 +575,7 @@
             <div class="principle">Focus is useful only when aimed at the right thing.</div>
           </div>
           <aside class="experiment">
-            <div class="label">60-MINUTE TEST <span>45–90 min</span></div>
+            <div class="label">Tiny Experiment <span>45–90 min</span></div>
             <h3>One task. Then no input.</h3>
             <ul>
               <li>Choose one meaningful task.</li>
@@ -741,7 +589,7 @@
         </div>
       </section>
 
-      <section class="pillar full-width" id="regulation" data-num="05">
+      <section class="pillar" id="regulation">
         <div class="pillar-head">
           <div class="num">05 / 07</div>
           <div><h2>Regulation</h2><p class="question">Can you recognize your state — and change it when necessary?</p></div>
@@ -761,7 +609,7 @@
             <div class="principle">High performance isn't being calm. It's being able to access the state the moment requires.</div>
           </div>
           <aside class="experiment">
-            <div class="label">STATE CHECK <span>2–5 min</span></div>
+            <div class="label">Tiny Experiment <span>2–5 min</span></div>
             <h3>Move your state on purpose.</h3>
             <p>Before an important task, rate arousal from 1–10. Decide what level would serve the task better. Use one lever — breathing, movement, music, light, or stillness — and rate again.</p>
             <div class="notice"><strong>Notice:</strong> could you identify your starting state? Could you move it? Did the new state improve performance?</div>
@@ -769,7 +617,7 @@
         </div>
       </section>
 
-      <section class="pillar connection" id="environment" data-num="06">
+      <section class="pillar" id="environment">
         <div class="pillar-head">
           <div class="num">06 / 07</div>
           <div><h2>Environment + Connection</h2><p class="question">What around you is making the desired state easier or harder?</p></div>
@@ -784,7 +632,7 @@
             <div class="principle">Design the conditions, not just the behavior.</div>
           </div>
           <aside class="experiment">
-            <div class="label">TODAY <span>15 min</span></div>
+            <div class="label">Tiny Experiment <span>Today</span></div>
             <h3>Reduce friction + connect.</h3>
             <p>Make one environmental change that makes a desired behavior easier. Then have one 15-minute undistracted conversation with someone you care about.</p>
             <div class="notice"><strong>Notice:</strong> did the environment reduce the need for willpower? Did the conversation shift mood, energy, or perspective?</div>
@@ -792,7 +640,7 @@
         </div>
       </section>
 
-      <section class="pillar direction full-width" id="direction" data-num="07">
+      <section class="pillar" id="direction">
         <div class="pillar-head">
           <div class="num">07 / 07</div>
           <div><h2>Direction</h2><p class="question">What is all this capacity being used for?</p></div>
@@ -812,7 +660,7 @@
             <div class="principle">Purpose gives direction. Play makes the system worth sustaining.</div>
           </div>
           <aside class="experiment">
-            <div class="label">END-OF-DAY CHECK <span>Today</span></div>
+            <div class="label">Tiny Experiment <span>Today</span></div>
             <h3>Make the day mean something.</h3>
             <p>Write the one outcome that would make today feel meaningfully well-used. Spend your first available focused block moving it forward.</p>
             <div class="notice"><strong>Notice:</strong> does clarity reduce procrastination? Where does your calendar contradict what you say matters?</div>
@@ -848,7 +696,7 @@
       <section class="audit" id="audit">
         <div class="audit-top">
           <div>
-            <div class="eyebrow">M.E.D. Audit · 60 seconds</div>
+            <div class="eyebrow">60-Second M.E.D. Audit</div>
             <h2>Find the weakest link.</h2>
             <p>This is not a scorecard. Mark each domain Off, Adequate, or Strong. Your lowest-rated domain is simply the first place to experiment.</p>
           </div>
@@ -928,14 +776,15 @@
         <h2>The principles are rarely the complicated part.</h2>
         <p>The harder work is identifying what is actually limiting the system, what deserves attention now, and what can safely be ignored.</p>
         <p>I work privately with a small number of founders, executives, athletes, and high-performing operators to pressure-test the whole system, identify the constraints that matter, and focus on the few changes most likely to move it.</p>
-        <a class="apply" href="https://marcuslefton.com/waitlist">Apply for Private Advisory</a>
+        <a class="apply" href="https://marcuslefton.com/waitlist">Apply for Private Advisory <span aria-hidden="true">↗</span></a>
       </section>
     </main>
   </div>
 
   <footer>
     <div class="inner">
-      <div>VYRTŪOSITI · 2026</div>
+      <div>© 2026 VYRTŪOSITI</div>
+      <div>Performance architecture for high-consequence lives.</div>
     </div>
   </footer>
 
