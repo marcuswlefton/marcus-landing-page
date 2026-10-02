@@ -1,25 +1,239 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Terms of Service | VYRTŪOSITI</title><meta name="description" content="Terms of Service for VYRTŪOSITI LLC.">
-<link rel="canonical" href="https://www.marcuslefton.com/terms-of-service/"><meta name="theme-color" content="#080909">
-<meta property="og:type" content="website"><meta property="og:title" content="Terms of Service | VYRTŪOSITI"><meta property="og:description" content="Terms of Service for VYRTŪOSITI LLC."><meta property="og:url" content="https://www.marcuslefton.com/terms-of-service/">
-<meta property="og:image" content="https://i.imgur.com/57TScBW_d.png?maxwidth=520&amp;shape=thumb&amp;fidelity=high">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="preload" href="/assets/manrope-400.woff" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/refinements.css"><script src="/assets/site.js" defer></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service | VYRTŪOSITI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark-gold: #b8860b;
+    --gold-muted: rgba(184, 134, 11, 0.15);
+    --gold-border: rgba(184, 134, 11, 0.25);
+    --white: #f0ece4;
+    --gray-text: #a09a90;
+    --gray-dim: #5a5550;
+    --section-bg: rgba(255,255,255,0.02);
+  }
 
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Terms of Service | VYRTŪOSITI", "url": "https://www.marcuslefton.com/terms-of-service/", "description": "Terms of Service for VYRTŪOSITI LLC.", "isPartOf": {"@type": "WebSite", "name": "Marcus Lefton | VYRTŪOSITI", "url": "https://www.marcuslefton.com"}}</script></head>
-<body class=""><a class="skip" href="#main">Skip to content</a>
-<header class="site-header"><div class="wrap header-inner"><a class="wordmark" href="/" aria-label="Marcus Lefton — Home"><strong>Marcus Lefton</strong><span>VYRTŪOSITI</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menu<span aria-hidden="true">+</span></button><nav id="navigation" aria-label="Main navigation"><a href="/advisory/">Private Advisory</a><a href="/evidence/">Evidence</a><a href="/mastery-in-motion/">Mastery in Motion</a><a class="button button-small nav-cta" href="/advisory/#apply">Work with Marcus</a></nav></div></header>
-<main id="main"><article class="legal wrap">
-  <h1 class="">Terms of Service</h1>
-  <div class="effective-date ">Last Updated: March 27, 2026</div>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  <div class="intro-block ">
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* --- CUSTOM SCROLLBAR --- */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--black);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--gray-dim);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-gold);
+  }
+
+  /* --- CUSTOM TEXT SELECTION --- */
+  ::selection {
+    background: rgba(184, 134, 11, 0.25);
+    color: var(--white);
+  }
+
+  .policy-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 100px 24px 120px;
+  }
+
+  .brand-mark {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--dark-gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .effective-date {
+    font-size: 13px;
+    color: var(--gray-dim);
+    margin-bottom: 56px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .intro-block {
+    border-left: 2px solid var(--dark-gold);
+    padding-left: 24px;
+    margin-bottom: 64px;
+    color: var(--gray-text);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .section {
+    margin-bottom: 56px;
+  }
+
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--dark-gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  h2 {
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  p {
+    color: var(--gray-text);
+    margin-bottom: 16px;
+    font-size: 15px;
+  }
+
+  .data-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 24px 0;
+  }
+
+  .data-list li {
+    color: var(--gray-text);
+    font-size: 14.5px;
+    padding: 8px 0 8px 24px;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .data-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 17px;
+    width: 8px;
+    height: 1px;
+    background: var(--dark-gold);
+  }
+
+  .highlight-box {
+    background: var(--section-bg);
+    border: 1px solid var(--gold-border);
+    padding: 24px 28px;
+    margin: 24px 0;
+    font-size: 14.5px;
+    color: var(--gray-text);
+    line-height: 1.7;
+    border-radius: 2px;
+  }
+
+  .highlight-box strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  a {
+    color: var(--dark-gold);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  a:hover {
+    border-bottom-color: var(--dark-gold);
+  }
+
+  .footer-block {
+    margin-top: 100px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+
+  .footer-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--gray-dim);
+    margin-bottom: 12px;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--gray-dim);
+  }
+
+  strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* --- ANIMATIONS --- */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    .policy-container { padding: 64px 20px 80px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 18px; }
+    .intro-block { padding-left: 16px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="policy-container">
+
+  <div class="brand-mark fade-up">VYRTŪOSITI</div>
+  <h1 class="fade-up" style="transition-delay: 0.1s;">Terms of Service</h1>
+  <div class="effective-date fade-up" style="transition-delay: 0.2s;">Last Updated: March 27, 2026</div>
+
+  <div class="intro-block fade-up" style="transition-delay: 0.3s;">
     This is a rolling Terms of Service. By using our Services, you agree to the most current version. We encourage you to review periodically for updates.
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">01</span>
     <h2>Scope of Services</h2>
     <p>VYRTŪOSITI, operated by VYRTŪOSITI LLC (“we,” “us,” or “our”), provides high-performance advisory, strategic consulting, and digital systems designed to elevate personal, professional, and organizational performance.</p>
@@ -36,7 +250,7 @@
     <p>By using our Services, you represent that you are at least 18 years old and have the legal capacity to enter into a binding contract.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">02</span>
     <h2>Client Commitments</h2>
     <p>To ensure a successful partnership, you agree to:</p>
@@ -50,7 +264,7 @@
     <p>You understand that this is an advisory relationship. You remain the primary decision-maker and are solely responsible for your choices, actions, and outcomes.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">03</span>
     <h2>Confidentiality</h2>
     <p>All personal, business, and strategic information shared during sessions or correspondence is treated as confidential. We will not share your information with third parties without written consent, unless legally required.</p>
@@ -58,7 +272,7 @@
     <p>Recordings, assessments, and communications may be securely stored and accessed only by authorized members of our team. In the course of delivering Services, we may use artificial intelligence tools or automated systems to assist with research, content development, and strategic analysis. We do not input your personally identifiable information or health data into third-party AI systems without your knowledge. Additionally, certain administrative or operational functions may be supported by contractors or service providers located outside the United States, whose access is limited to scheduling and logistical data. For full details, see our Privacy Policy.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">04</span>
     <h2>Payment Terms</h2>
     <p>All fees and payment schedules are confirmed in writing prior to the start of Services.</p>
@@ -72,7 +286,7 @@
     </ul>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">05</span>
     <h2>Cancellations and Rescheduling</h2>
     <p>You may cancel or reschedule live sessions with at least 24 hours’ notice.</p>
@@ -83,7 +297,7 @@
     </ul>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">06</span>
     <h2>Intellectual Property</h2>
     <p>All content and materials provided by VYRTŪOSITI—including but not limited to documents, frameworks, templates, videos, and systems—are the exclusive intellectual property of VYRTŪOSITI LLC.</p>
@@ -98,7 +312,7 @@
     <p>Violation of this clause will result in immediate termination and potential legal action.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">07</span>
     <h2>Disclaimer and Limitation of Liability</h2>
     <p>We provide high-performance advisory and strategic intelligence backed by science and experience, but results are not guaranteed.</p>
@@ -112,7 +326,7 @@
     <p>To the maximum extent allowed by law, we disclaim all liability for direct, indirect, incidental, or consequential damages arising from your use of our Services. In no event shall our total liability to you for all damages, losses, or causes of action exceed the total amount of fees you have paid to us in the six (6) months preceding the claim.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">08</span>
     <h2>Termination</h2>
     <p>We reserve the right to terminate your access to Services at any time for:</p>
@@ -126,21 +340,21 @@
     <p>You may terminate Services with written notice. Early termination does not entitle you to a refund unless otherwise stated.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">09</span>
     <h2>Changes to Terms</h2>
     <p>These Terms may be modified at any time. Updates become effective immediately upon being posted on our website or shared via direct communication.</p>
     <p>Your continued use of our Services constitutes acceptance of the updated Terms. We recommend reviewing this page periodically. You are bound by the version of the Terms in effect at the time of your most recent purchase or engagement.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">10</span>
     <h2>Governing Law</h2>
     <p>These Terms are governed by and interpreted under the laws of the State of Arizona, without regard to its conflict-of-law rules.</p>
     <p>All claims, disputes, or legal matters must be brought exclusively in the appropriate courts or arbitration forums located in Arizona.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">11</span>
     <h2>Dispute Resolution</h2>
     <p>In the event of a dispute, both parties agree to first attempt resolution through good faith communication.</p>
@@ -149,7 +363,7 @@
     <p>Each party is responsible for their own legal costs unless otherwise ruled.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">12</span>
     <h2>Data & Privacy (Including GDPR)</h2>
     <p>We take your privacy seriously. Personal data is collected solely to deliver Services, enhance your experience, and fulfill our legal and contractual obligations. Data collection includes information provided through email, text/SMS, scheduling platforms, intake forms, diagnostic assessments, and any AI-assisted tools used in the course of service delivery.</p>
@@ -158,20 +372,20 @@
     <p>For complete details on the categories of data we collect, how we use and share your information, data retention schedules, and your rights, please review our <a href="/privacy">Privacy Policy</a>.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">13</span>
     <h2>Force Majeure</h2>
     <p>We shall not be liable for any failure or delay in delivering our Services due to circumstances beyond our reasonable control. This includes, but is not limited to, natural disasters, platform or internet outages, illness, strikes, or governmental actions. In such events, we will make reasonable efforts to resume services as soon as possible.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">14</span>
     <h2>Entire Agreement</h2>
     <p>These Terms represent the entire agreement between you and VYRTŪOSITI. They supersede all prior verbal or written communications related to the Services.</p>
     <p>No waiver or amendment is valid unless made in writing and signed by both parties.</p>
   </div>
 
-  <div class="section ">
+  <div class="section fade-up">
     <span class="section-number">15</span>
     <h2>Contact Information</h2>
     <p>If you have any questions about these Terms, please contact us at:</p>
@@ -182,5 +396,36 @@
       Phoenix, Arizona, United States
     </div>
   </div>
-</article></main>
-<footer class="site-footer"><div class="wrap"><div class="footer-top"><a class="wordmark" href="/"><strong>Marcus Lefton</strong><span>VYRTŪOSITI</span></a><p>Performance architecture.<br>A clearer way to your next result.</p><div><a href="/contact/">Contact</a><a href="https://www.linkedin.com/in/marcuslefton/">LinkedIn</a><a href="/mastery-in-motion/">The Sunday letter</a></div></div><div class="footer-bottom"><span>© 2026 VYRTŪOSITI LLC</span><div><a href="/privacy/">Privacy</a><a href="/terms-of-service/">Terms</a></div></div></div></footer></body></html>
+
+  <div class="footer-block fade-up">
+    <div class="footer-brand">VYRTŪOSITI</div>
+    <div class="footer-copy">&copy; 2026 VYRTŪOSITI LLC. All rights reserved.</div>
+  </div>
+
+</div>
+
+<!-- Intersection Observer Script for Fade-Up Animations -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Stop observing once it's visible
+        }
+      });
+    }, observerOptions);
+
+    const fadeElements = document.querySelectorAll('.fade-up');
+    fadeElements.forEach(el => observer.observe(el));
+  });
+</script>
+</body>
+</html>
+

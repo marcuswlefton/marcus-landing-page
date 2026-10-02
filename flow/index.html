@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="theme-color" content="#020617">
     <meta name="description" content="The Flow Fundamentals: Multidimensional Performance Mastery for the Executive Athlete.">
+    <link rel="canonical" href="https://www.marcuslefton.com/flow/">
     <title>FLOW PRONE | The Flow Fundamentals</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +15,7 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
+        if (window.tailwind) tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
@@ -129,7 +130,7 @@
         <div id="scroll-progress" class="h-full bg-gradient-to-r from-flowblue-700 via-flowblue-400 to-floworange-400 w-0 shadow-[0_0_12px_rgba(56,189,248,0.9)] will-change-[width]"></div>
     </div>
 
-    <nav class="absolute top-0 left-0 w-full px-6 lg:px-8 py-5 lg:py-7 flex justify-between items-center z-40 print:hidden pointer-events-none mix-blend-difference">
+    <nav aria-label="Flow Prone navigation" class="absolute top-0 left-0 w-full px-6 lg:px-8 py-5 lg:py-7 flex justify-between items-center z-40 print:hidden pointer-events-none mix-blend-difference">
         <div class="flex items-center gap-3 lg:gap-4 group">
             <div class="relative flex items-center justify-center">
                 <div class="absolute w-4 h-4 rounded-full bg-flowblue-600 blur-[8px] opacity-60 group-hover:bg-floworange-500 transition-colors duration-500"></div>
