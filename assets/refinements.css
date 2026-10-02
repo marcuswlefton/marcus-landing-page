@@ -290,3 +290,35 @@ section[id],article[id]{scroll-margin-top:100px}
 @media(max-width:750px){.advisory-page .deliverable-grid{grid-template-columns:1fr}.advisory-page .quote-band{padding-block:28px 32px}.advisory-page .performance-map dd{font-size:15px}}
 
 .advisory-page .performance-map{color:#242321}.advisory-page .performance-map dt{color:#70654e}.advisory-page .performance-map dl>div{border-color:#d1cdc3}.advisory-page .deliverable-section h2 span{color:#6b6861}
+
+/* Evidence: monochrome editorial hierarchy, aligned with the main brand. */
+.review-wall-intro{padding-bottom:56px}
+.review-wall-intro>p{color:#b9b6af}
+.wall-review{background:#111111;border-color:#2e2d2a;padding:34px}
+.wall-review blockquote{color:#c4c1ba}
+.wall-review strong,.wall-review figcaption{color:#eeede7}
+.wall-review figcaption{border-color:#34322e}
+.wall-review figcaption span{color:#b0ada6;font-size:13px}
+.wall-review-featured{background:#eeece5;border-color:#eeece5;border-top:2px solid #c7b78d}
+.wall-review-featured blockquote{color:#514e47}
+.wall-review-featured strong,.wall-review-featured figcaption,.wall-review-featured .text-link{color:#242321}
+.wall-review-featured figcaption{border-color:#ccc7bd}
+.wall-review-featured figcaption span{color:#605b52}
+.wall-review-emphasis{background:#1b1a18;border-color:#524b3d}
+.wall-lead{gap:26px;margin-bottom:32px}
+.wall-lead .wall-review{padding:38px 40px}
+.wall-lead .wall-review-featured{padding:48px}
+.wall-lead .wall-review:not(.wall-review-featured){background:#111111}
+.wall-lead .wall-review-featured blockquote{line-height:1.38}
+@media(max-width:700px){.review-wall-intro{padding-bottom:36px}.wall-lead{gap:18px;margin-bottom:24px}.wall-lead .wall-review,.wall-lead .wall-review-featured{padding:30px}.wall-review{padding:28px}}
+
+/* Evidence: consistent cards; emphasis follows interaction. */
+.wall-review-emphasis{background:#111111;border-color:#2e2d2a}
+.wall-review-featured{border-top:1px solid #eeece5}
+.wall-review{transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+@media(hover:hover) and (pointer:fine){
+.wall-review:hover{transform:translateY(-4px);border-color:#77736c;box-shadow:0 12px 28px #00000020}
+.wall-review-featured:hover{border-color:#b4afa4}
+}
+.wall-review:focus-within{border-color:#77736c}
+@media(prefers-reduced-motion:reduce){.wall-review{transition:none}.wall-review:hover{transform:none}}
