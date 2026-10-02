@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <meta name="description" content="The Minimum Effective Dose — the inputs that stack the odds in your favor." />
+  <link rel="canonical" href="https://www.marcuslefton.com/MED/" />
+  <title>The Minimum Effective Dose — Field Guide | Marcus Lefton</title>
+  <style>
+    :root{
+      --bg:#0a0a09;
+      --bg-soft:#11110f;
+      --panel:#141411;
+      --panel-2:#181815;
+      --ink:#f4f0e7;
+      --muted:#aaa69d;
+      --faint:#969188;
+      --gold:#b79a5b;
+      --gold-soft:#d0ba84;
+      --line:rgba(183,154,91,.25);
+      --line-soft:rgba(255,255,255,.08);
+      --serif:"Playfair Display","Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+      --sans:"Inter",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --max:1200px;
+      --copy:690px;
+      --radius:4px;
+      --shadow:0 24px 80px rgba(0,0,0,.32);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:var(--sans);
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+    }
+    ::selection{background:rgba(183,154,91,.3); color:var(--ink)}
+
+    a:focus-visible,
+    button:focus-visible{
+      outline:1px solid var(--gold);
+      outline-offset:4px;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+
+    .site-header{
+      position:relative;
+      background:transparent;
+      border-bottom:1px solid var(--line-soft);
+    }
+    .site-header .inner{
+      max-width:var(--max); margin:auto; height:70px; padding:0 28px;
+      display:flex; align-items:center; justify-content:space-between; gap:24px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .vmark{
+      width:30px;
+      height:30px;
+      border:1px solid rgba(183,154,91,.38);
+      display:grid;
+      place-items:center;
+      color:var(--gold-soft);
+      font-family:var(--serif);
+      font-size:14px;
+      line-height:1;
+      flex:0 0 auto;
+    }
+    .brand strong{
+      font-weight:600;
+      font-size:13px;
+      letter-spacing:.22em;
+      color:var(--ink);
+      white-space:nowrap;
+    }
+
+    .hero{
+      max-width:var(--max); margin:auto; padding:128px 28px 96px;
+      display:grid; grid-template-columns:minmax(0,1.35fr) minmax(290px,.65fr); gap:72px;
+      align-items:end;
+    }
+    .eyebrow{
+      color:var(--gold-soft); font-size:11px; letter-spacing:.18em;
+      text-transform:uppercase; font-weight:650; margin-bottom:26px;
+    }
+    .field-meta{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      color:var(--faint);
+      font-size:10px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-weight:600;
+      margin-bottom:30px;
+    }
+    .field-meta span + span::before{
+      content:"/";
+      margin-right:18px;
+      color:#4f4b44;
+    }
+    h1,h2,h3{font-family:var(--serif); font-weight:500; letter-spacing:-.025em; margin:0}
+    h1{
+      max-width:790px; font-size:clamp(54px,7vw,96px); line-height:.98;
+    }
+    .hero-kicker{
+      margin-top:22px;
+      font-family:var(--serif);
+      font-size:clamp(26px,3vw,40px);
+      line-height:1.22;
+      color:#d8d2c7;
+      letter-spacing:-.02em;
+      max-width:760px;
+    }
+    .hero-lede{
+      max-width:690px; margin:26px 0 0;
+      color:#d9d5cc; font-size:clamp(18px,2vw,23px); line-height:1.55;
+    }
+    .hero-lede strong{color:var(--ink);font-weight:560}
+    .hero-side{
+      border-left:1px solid var(--line); padding-left:30px; padding-bottom:10px;
+    }
+    .how-to{
+      margin:0 0 34px;
+      padding-bottom:24px;
+      border-bottom:1px solid var(--line-soft);
+    }
+    .how-to > span{
+      display:block;
+      color:#989187;
+      font-size:9px;
+      letter-spacing:.17em;
+      text-transform:uppercase;
+      font-weight:650;
+      margin-bottom:12px;
+    }
+    .how-to ol{
+      list-style:none;
+      margin:0;
+      padding:0;
+      counter-reset:steps;
+      display:grid;
+      gap:7px;
+    }
+    .how-to li{
+      counter-increment:steps;
+      color:#b7b1a7;
+      font-size:12px;
+    }
+    .how-to li::before{
+      content:"0" counter(steps);
+      display:inline-block;
+      width:28px;
+      color:#6f695f;
+      font-size:9px;
+      letter-spacing:.08em;
+    }
+    .hero-side p{margin:0 0 18px;color:var(--muted);font-size:13px}
+    .hero-side .mantra{
+      font-family:var(--serif); font-size:23px; line-height:1.4; color:var(--ink);
+    }
+
+    .loop-wrap{max-width:var(--max);margin:0 auto;padding:0 28px 96px}
+    .loop{
+      border-top:1px solid var(--gold);
+      border-bottom:1px solid var(--line-soft);
+      border-radius:0;
+      background:transparent;
+      padding:28px 0;
+      box-shadow:none;
+    }
+    .loop-head{
+      display:flex;justify-content:space-between;gap:28px;align-items:end;
+      padding-bottom:22px;border-bottom:1px solid var(--line-soft)
+    }
+    .loop-head h2{font-size:32px}
+    .loop-head p{max-width:520px;margin:0;color:var(--muted);font-size:14px}
+    .loop-steps{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:20px
+    }
+    .loop-step{padding:10px 18px 4px;border-right:1px solid var(--line-soft)}
+    .loop-step:last-child{border-right:0}
+    .loop-step span{display:block;color:var(--gold-soft);font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+    .loop-step strong{font-size:14px;font-weight:600}
+    .loop-step small{
+      display:block;
+      margin-top:5px;
+      color:#817b72;
+      font-size:10px;
+      line-height:1.4;
+    }
+
+    .mobile-jump{display:none}
+    .content-shell{
+      max-width:var(--max); margin:auto; padding:0 28px;
+      display:grid; grid-template-columns:220px minmax(0,1fr); gap:72px;
+    }
+    .rail{position:relative}
+    .rail nav{
+      position:sticky; top:40px; padding:14px 0 30px;
+      border-top:1px solid var(--line);
+    }
+    .rail-label{
+      display:block;color:var(--faint);font-size:10px;text-transform:uppercase;
+      letter-spacing:.18em;margin:16px 0 14px;
+    }
+    .rail a{
+      display:flex;align-items:center;gap:10px;padding:7px 0;
+      color:#848078;font-size:12px;transition:.2s ease;
+    }
+    .rail-num{
+      display:inline-block;
+      width:22px;
+      color:var(--faint);
+      font-size:9px;
+      letter-spacing:.08em;
+    }
+    .rail a.active,.rail a:hover{color:var(--ink)}
+    .rail a.active .rail-num,.rail a:hover .rail-num{color:var(--gold-soft)}
+
+    main{min-width:0}
+    .pillar{
+      position:relative;
+      scroll-margin-top:100px;
+      padding:0 0 118px;
+      border-top:1px solid var(--line-soft);
+      padding-top:56px;
+      overflow:visible;
+    }
+    .pillar::before{
+      content:attr(data-num);
+      position:absolute;
+      left:-16px;
+      top:22px;
+      font-family:var(--serif);
+      font-size:clamp(74px,10vw,126px);
+      line-height:1;
+      color:rgba(244,240,231,.035);
+      letter-spacing:-.06em;
+      pointer-events:none;
+      user-select:none;
+    }
+    .pillar-body{
+      margin-left:112px;
+      max-width:820px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 258px;
+      gap:56px;
+      align-items:start;
+    }
+    .copy{max-width:560px}
+    .experiment{
+      max-width:258px;
+      margin:0;
+    }
+    .pillar:first-child{border-top:0;padding-top:0}
+    .pillar-head{
+      display:grid;grid-template-columns:88px minmax(0,1fr);gap:24px;align-items:start;
+      margin-bottom:34px;
+    }
+    .num{
+      color:#8d877d;
+      font-size:9px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      border-top:1px solid var(--line);
+      padding-top:10px;
+    }
+    .pillar h2{font-size:clamp(38px,5vw,58px);line-height:1.04}
+    .question{
+      margin:12px 0 0;
+      color:#aaa49a;
+      font-family:var(--serif);
+      font-size:17px;
+      font-style:italic;
+      line-height:1.45;
+    }
+    .copy p{margin:0 0 18px;color:#d4d0c7;font-size:16px}
+    .copy strong{color:var(--ink);font-weight:600}
+    .micro-list{
+      margin:22px 0 26px;padding:0;list-style:none;
+      display:grid;gap:9px
+    }
+    .micro-list li{
+      color:#d3cfc6;font-size:15px;padding-left:18px;position:relative
+    }
+    .micro-list li:before{
+      content:""; position:absolute;left:0;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--gold)
+    }
+    .principle{
+      margin:32px 0 0;
+      padding-left:18px;
+      border-left:1px solid var(--line);
+      font-family:var(--serif);
+      font-size:22px;
+      line-height:1.45;
+      color:var(--ink)
+    }
+    .pull-quote{
+      margin:38px -78px 0 44px;
+      max-width:520px;
+      font-family:var(--serif);
+      font-size:clamp(24px,3.2vw,34px);
+      line-height:1.28;
+      color:#cbc5ba;
+      letter-spacing:-.02em;
+    }
+    .pull-quote span{
+      color:var(--ink);
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .experiment{
+      position:relative;
+      top:auto;
+      padding:17px 0 18px;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line-soft);
+      background:transparent;
+    }
+    .experiment::before{
+      content:"";
+      position:absolute;
+      top:-1px;
+      left:0;
+      width:42px;
+      border-top:1px solid var(--gold);
+    }
+    .experiment .label{
+      display:flex;align-items:center;justify-content:space-between;
+      color:#a39b90;font-size:9px;letter-spacing:.17em;text-transform:uppercase;font-weight:650
+    }
+    .experiment h3{
+      margin:15px 0 10px;
+      font-family:var(--serif);
+      font-size:18px;
+      font-weight:500;
+      letter-spacing:-.01em
+    }
+    .experiment p,.experiment li{color:var(--muted);font-size:13px;line-height:1.58}
+    .experiment ul{padding-left:17px;margin:10px 0 0}
+    .experiment .notice{
+      margin-top:16px;padding-top:14px;border-top:1px solid var(--line-soft);
+      color:#cac5bb;font-size:12px
+    }
+
+    .attention-compare{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      margin:22px 0 18px;
+    }
+    .attention-compare > div + div{
+      border-left:1px solid var(--line-soft);
+      padding-left:28px;
+    }
+    .attention-compare p{
+      margin:8px 0 0;
+      font-size:14px;
+      line-height:1.6;
+    }
+    .subhead{
+      color:#938d82;
+      font-size:10px;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+      font-weight:700;
+      margin:30px 0 9px
+    }
+    .input-bridge{
+      margin:10px 0 100px;
+      padding:54px 0 58px;
+      border-top:1px solid var(--line-soft);
+      border-bottom:1px solid var(--line-soft);
+    }
+    .input-bridge blockquote{
+      margin:0 0 0 58px;
+      max-width:850px;
+      font-family:var(--serif);
+      font-size:clamp(28px,4vw,44px);
+      line-height:1.28;
+      letter-spacing:-.025em;
+      color:#bdb7ac;
+    }
+    .input-bridge blockquote span{
+      display:block;
+      color:var(--ink);
+      margin-bottom:10px;
+    }
+    .input-bridge blockquote strong{
+      display:block;
+      margin-top:18px;
+      color:var(--ink);
+      font-weight:500;
+    }
+
+    .subtraction{
+      margin:8px 0 96px; padding:52px 0;
+      border-top:1px solid var(--gold);
+      border-bottom:1px solid var(--line-soft);
+      border-radius:0;
+      background:transparent;
+    }
+    .subtraction h2{font-size:44px}
+    .subtraction .grid{
+      margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:42px
+    }
+    .subtraction p{color:var(--muted);margin:0}
+    .audit{
+      scroll-margin-top:100px;
+      margin-bottom:110px;
+      padding:52px 0 36px;
+      border-top:1px solid var(--gold);
+      border-bottom:1px solid var(--line-soft);
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+    }
+    .audit-top{display:grid;grid-template-columns:1fr 260px;gap:40px;align-items:end}
+    .audit h2{font-size:48px}
+    .audit p{color:var(--muted);margin:10px 0 0}
+    .audit-key{
+      margin-top:18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 20px;
+      color:#8a8379;
+      font-size:10px;
+    }
+    .audit-key strong{color:#a29b91;font-weight:600;margin-right:4px}
+    .score-card{
+      text-align:left;border-left:1px solid var(--line-soft);padding-left:30px
+    }
+    .score-card .score-label{color:var(--faint);font-size:11px;text-transform:uppercase;letter-spacing:.15em;margin-bottom:10px}
+    .score-card .weakest{font-family:var(--serif);font-size:34px;line-height:1.1;color:var(--gold-soft)}
+    .audit-rows{margin-top:34px;border-top:1px solid var(--line-soft)}
+    .audit-row{
+      display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+      padding:20px 0;border-bottom:1px solid var(--line-soft)
+    }
+    .audit-row strong{display:block;font-size:14px}
+    .audit-row small{color:var(--muted);font-size:12px}
+    .choices{display:flex;gap:18px}
+    .choice{
+      position:relative;
+      z-index:3;
+      min-width:78px;
+      min-height:44px;
+      border:0;
+      background:transparent;
+      color:var(--muted);
+      cursor:pointer;
+      transition:.18s ease;
+      padding:9px 4px;
+      text-align:left;
+      font-size:12px;
+      letter-spacing:.01em;
+      pointer-events:auto;
+      touch-action:manipulation;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .choice::before{
+      content:"";
+      display:inline-block;
+      width:10px;height:10px;
+      border:1px solid var(--faint);
+      border-radius:50%;
+      margin-right:7px;
+      vertical-align:-1px;
+    }
+    .choice:hover{color:var(--ink)}
+    .choice.selected{color:var(--gold-soft)}
+    .choice.selected::before{
+      border-color:var(--gold);
+      background:var(--gold);
+      box-shadow:inset 0 0 0 2px var(--bg);
+    }
+    .audit-result{
+      min-height:45px;margin-top:22px;color:#d7d2c8;font-family:var(--serif);
+      font-size:21px;line-height:1.45
+    }
+
+    .conditional{
+      margin:0 0 110px;padding:0 0 0 28px;border-left:1px solid var(--gold);
+      max-width:780px
+    }
+    .conditional h2{font-size:42px}
+    .conditional p{color:var(--muted)}
+    .questions{margin-top:24px;display:grid;gap:10px}
+    .questions div{font-family:var(--serif);font-size:21px;color:#ded8cd}
+
+    .remember{
+      margin:0 0 116px;padding:76px 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)
+    }
+    .remember h2{font-size:48px}
+    .remember-grid{
+      margin-top:34px;display:grid;grid-template-columns:repeat(2,1fr);gap:0 44px
+    }
+    .remember-item{padding:15px 0;border-top:1px solid var(--line-soft)}
+    .remember-item strong{display:block;color:var(--gold-soft);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+    .remember-item span{font-family:var(--serif);font-size:19px}
+    .final-loop{
+      margin-top:42px;font-family:var(--serif);font-size:clamp(27px,4vw,42px);line-height:1.3;letter-spacing:-.02em
+    }
+
+    .advisory{
+      margin:0 0 76px;
+      border-top:1px solid var(--gold);
+      border-bottom:1px solid var(--line-soft);
+      border-radius:0;
+      padding:62px 0;
+      background:transparent;
+    }
+    .advisory .tag{color:#8f897e;font-size:9px;letter-spacing:.17em;text-transform:uppercase}
+    .advisory h2{margin-top:16px;font-size:clamp(40px,5vw,58px);max-width:760px}
+    .advisory p{max-width:720px;color:var(--muted);font-size:16px}
+    .apply{
+      position:relative;
+      z-index:5;
+      margin-top:32px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:11px;
+      min-height:46px;
+      width:auto;
+      max-width:100%;
+      padding:12px 16px 12px 17px;
+      border:1px solid rgba(183,154,91,.46);
+      border-radius:2px;
+      background:transparent;
+      color:var(--ink);
+      font-weight:600;
+      font-size:13px;
+      line-height:1.2;
+      letter-spacing:.025em;
+      text-decoration:none;
+      cursor:pointer;
+      pointer-events:auto;
+      touch-action:manipulation;
+      -webkit-tap-highlight-color:transparent;
+      transition:border-color .18s ease, background-color .18s ease, color .18s ease, transform .18s ease;
+    }
+    .apply::after{
+      content:"↗";
+      display:inline-block;
+      color:var(--gold-soft);
+      font-size:15px;
+      line-height:1;
+      transform:translateY(-1px);
+      transition:transform .18s ease;
+      pointer-events:none;
+    }
+    .apply:hover{
+      border-color:rgba(183,154,91,.78);
+      background:rgba(183,154,91,.045);
+      color:var(--ink);
+      transform:translateY(-1px);
+    }
+    .apply:hover::after{transform:translate(2px,-3px)}
+    .apply:active{transform:translateY(0)}
+
+    footer{
+      border-top:1px solid var(--line-soft);
+      color:var(--faint);font-size:12px;letter-spacing:.12em;text-transform:uppercase
+    }
+    footer .inner{
+      max-width:var(--max);margin:auto;padding:30px 28px;display:flex;justify-content:space-between;gap:24px
+    }
+
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr;gap:44px;padding-top:86px}
+      .hero-side{max-width:560px}
+      .loop-steps{grid-template-columns:repeat(5,minmax(120px,1fr));overflow:auto}
+      .content-shell{grid-template-columns:1fr}
+      .rail{display:none}
+
+      .mobile-jump{
+        display:flex;
+        gap:14px;
+        overflow-x:auto;
+        padding:0 22px 24px;
+        margin:-44px 0 44px;
+        scrollbar-width:none;
+      }
+      .mobile-jump::-webkit-scrollbar{display:none}
+      .mobile-jump a{
+        flex:0 0 auto;
+        color:#8b857b;
+        font-size:10px;
+        letter-spacing:.05em;
+        white-space:nowrap;
+      }
+      .attention-compare{grid-template-columns:1fr}
+      .attention-compare > div + div{
+        border-left:0;
+        border-top:1px solid var(--line-soft);
+        padding-left:0;
+        padding-top:16px;
+      }
+
+      .pillar-body{margin-left:0}
+      .pillar-head{grid-template-columns:64px 1fr}
+      .audit-top{grid-template-columns:1fr}
+      .score-card{text-align:left;border-left:0;border-top:1px solid var(--line-soft);padding:20px 0 0}
+    }
+    @media(max-width:760px){
+      .site-header .inner{height:62px;padding:0 22px}
+      .brand{gap:12px}
+      .vmark{width:28px;height:28px;font-size:13px}
+      .brand strong{display:block;font-size:12px;letter-spacing:.20em}
+      .hero{padding:78px 22px 66px}
+      .hero-side{padding-left:20px}
+      .loop-wrap,.content-shell{padding-left:22px;padding-right:22px}
+      .loop{padding:20px}
+      .loop-head{display:block}
+      .loop-head p{margin-top:10px}
+      .pillar{padding-bottom:76px}
+      .pillar-head{grid-template-columns:1fr;gap:12px}
+      .num{width:58px}
+      .pillar::before{
+        left:auto;
+        right:-6px;
+        top:22px;
+        font-size:78px;
+      }
+      .pillar-body{
+        margin-left:0;
+        max-width:none;
+        grid-template-columns:1fr;
+        gap:28px;
+      }
+      .copy{max-width:none}
+      .experiment{
+        position:static;
+        max-width:none;
+        margin:0;
+      }
+      .input-bridge blockquote{margin-left:0}
+      .pull-quote{margin:30px 0 0;max-width:none}
+      .subtraction,.audit,.advisory{padding-left:0;padding-right:0}
+      .subtraction .grid,.remember-grid{grid-template-columns:1fr}
+      .audit-row{grid-template-columns:1fr}
+      .choices{justify-content:flex-start}
+      footer .inner{padding:24px 22px;display:block}
+      footer .inner div+div{margin-top:8px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *{transition:none!important}
+    }
+  
+    @media print{
+      :root{
+        --bg:#fff;
+        --ink:#111;
+        --muted:#444;
+        --faint:#666;
+        --gold:#555;
+        --gold-soft:#333;
+        --line:#aaa;
+        --line-soft:#ddd;
+      }
+      body{background:#fff;color:#111;font-size:11pt}
+      .site-header,.rail,.mobile-jump,.advisory,footer{display:none!important}
+      .hero,.loop-wrap,.content-shell{max-width:none;padding-left:0;padding-right:0}
+      .hero{padding-top:0;grid-template-columns:1fr}
+      .hero-side{margin-top:18pt}
+      .pillar{page-break-inside:avoid;padding-bottom:34pt}
+      .pillar-body{margin-left:0;max-width:none;grid-template-columns:1fr}
+      .experiment{margin-top:12pt;max-width:none}
+      .audit{page-break-before:always}
+      a{color:#111;text-decoration:none}
+      h1{font-size:36pt}
+      h2{font-size:24pt}
+      .input-bridge blockquote{margin-left:0}
+    }
+
+  
+    .rail a,
+    .mobile-jump a,
+    .brand,
+    .apply{
+      pointer-events:auto;
+      touch-action:manipulation;
+    }
+
+    .rail a,
+    .mobile-jump a{
+      position:relative;
+      z-index:3;
+    }
+
+    @media(max-width:760px){
+      .apply{
+        min-height:48px;
+        padding:13px 16px;
+        font-size:13px;
+      }
+      .choices{
+        gap:8px 14px;
+        flex-wrap:wrap;
+      }
+      .choice{
+        min-width:88px;
+        min-height:46px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+<header class="site-header">
+    <div class="inner">
+      <a href="#top" class="brand" aria-label="VYRTŪOSITI home">
+        <span class="vmark">V</span>
+        <strong>VYRTŪOSITI</strong>
+      </a>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div>
+      <div class="field-meta">
+        <span>VYRTŪOSITI / FIELD NOTE</span>
+        <span>UPDATED AUGUST 2026</span>
+      </div>
+      <h1>The Minimum Effective Dose.</h1>
+      <div class="hero-kicker">The inputs that stack the odds in your favor.</div>
+      <p class="hero-lede">
+        There will always be another protocol, supplement, wearable, diet, productivity system, recovery tool, or optimization to try.
+        <br><br>
+        <strong>Most are downstream.</strong>
+        <br><br>
+        Before assuming you need more, inspect the conditions you're repeatedly asking yourself to function under.
+      </p>
+    </div>
+    <aside class="hero-side">
+      <div class="how-to">
+        <span>How to use this</span>
+        <ol>
+          <li>Scan the seven inputs.</li>
+          <li>Rate the last 7 days.</li>
+          <li>Test the weakest link.</li>
+        </ol>
+      </div>
+      <p>Rhythm. Fuel. Capacity. Attention. Regulation. Environment + Connection. Direction.</p>
+      <div class="mantra">Don't mistake a temporary state for an identity.<br><em>Inspect the inputs first.</em></div>
+    </aside>
+  </section>
+
+  <section class="loop-wrap" aria-labelledby="loop-title">
+    <div class="loop">
+      <div class="loop-head">
+        <h2 id="loop-title">The M.E.D. Loop</h2>
+        <p>There is no universally perfect protocol. The right intervention depends on the person, the demand, and the current constraint.</p>
+      </div>
+      <div class="loop-steps">
+        <div class="loop-step"><span>01</span><strong>Observe</strong><small>What is happening?</small></div>
+        <div class="loop-step"><span>02</span><strong>Act</strong><small>Change one variable.</small></div>
+        <div class="loop-step"><span>03</span><strong>Measure</strong><small>What changed?</small></div>
+        <div class="loop-step"><span>04</span><strong>Learn</strong><small>What did the response teach you?</small></div>
+        <div class="loop-step"><span>05</span><strong>Adjust</strong><small>Keep, change, or remove.</small></div>
+      </div>
+    </div>
+  </section>
+  <div class="mobile-jump" aria-label="Jump to section">
+    <a href="#rhythm">01 Rhythm</a>
+    <a href="#fuel">02 Fuel</a>
+    <a href="#capacity">03 Capacity</a>
+    <a href="#attention">04 Attention</a>
+    <a href="#regulation">05 Regulation</a>
+    <a href="#environment">06 Connection</a>
+    <a href="#direction">07 Direction</a>
+    <a href="#audit">Audit</a>
+  </div>
+
+
+  <div class="content-shell">
+    <aside class="rail">
+      <nav aria-label="Page sections">
+        <span class="rail-label">The Seven Inputs</span>
+        <a href="#rhythm"><span class="rail-num">01</span>Rhythm</a>
+        <a href="#fuel"><span class="rail-num">02</span>Fuel</a>
+        <a href="#capacity"><span class="rail-num">03</span>Capacity</a>
+        <a href="#attention"><span class="rail-num">04</span>Attention</a>
+        <a href="#regulation"><span class="rail-num">05</span>Regulation</a>
+        <a href="#environment"><span class="rail-num">06</span>Environment + Connection</a>
+        <a href="#direction"><span class="rail-num">07</span>Direction</a>
+        <a href="#audit"><span class="rail-num">—</span>Audit</a>
+      </nav>
+    </aside>
+
+    <main>
+      <section class="pillar" id="rhythm" data-num="01">
+        <div class="pillar-head">
+          <div class="num">01 / 07</div>
+          <div><h2>Rhythm</h2><p class="question">Does your system know when to be on and when to be off?</p></div>
+        </div>
+        <div class="pillar-body">
+          <div class="copy">
+            <p>Circadian rhythm sits upstream of sleep, alertness, metabolism, recovery, and cognition.</p>
+            <p>You don't need to perfect sleep. You need enough consistency that your biology isn't constantly guessing what time it is.</p>
+            
+            <ul class="micro-list">
+              <li>Get outside and get daylight after waking.</li>
+              <li>Get regular daylight throughout the day.</li>
+              <li>Keep sleep and wake timing reasonably consistent.</li>
+              <li>Protect enough opportunity to sleep.</li>
+              <li>Make nighttime darker, quieter, and less stimulating.</li>
+            </ul>
+            <div class="principle">Rhythm before optimization.</div>
+          </div>
+          <aside class="experiment">
+            <div class="label">FOR THE NEXT 3 DAYS <span>3 DAYS</span></div>
+            <h3>Anchor the clock.</h3>
+            <ul>
+              <li>Get outside shortly after waking.</li>
+              <li>Keep wake time inside the same 30–60 minute window.</li>
+              <li>Reduce unnecessary bright light before bed.</li>
+            </ul>
+            <div class="notice"><strong>Notice:</strong> waking ease, morning alertness, afternoon energy, sleepiness at night, sleep onset.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pillar" id="fuel" data-num="02">
+        <div class="pillar-head">
+          <div class="num">02 / 07</div>
+          <div><h2>Fuel</h2><p class="question">Are you supplying what the system needs?</p></div>
+        </div>
+        <div class="pillar-body">
+          <div class="copy">
+            <p>Food provides the energy and raw materials your brain and body use to function, repair, regulate, and adapt.</p>
+            <p>That doesn't mean chasing individual nutrients or trying to “hack dopamine.” It means your inputs deserve intention.</p>
+            <div class="subhead">Think in five variables</div>
+            <ul class="micro-list">
+              <li><strong>Quality:</strong> mostly nutrient-dense, minimally processed foods with enough variety.</li>
+              <li><strong>Quantity:</strong> enough total energy and protein for your goals and demands.</li>
+              <li><strong>Timing:</strong> support training, cognition, digestion, energy, and sleep.</li>
+              <li><strong>Hydration:</strong> match fluids and electrolytes to activity, environment, and losses.</li>
+              <li><strong>Response:</strong> pay attention to what actually happens in you.</li>
+            </ul>
+            <div class="principle">Best practices are starting points. Your response determines what stays.</div>
+          </div>
+          <aside class="experiment">
+            <div class="label">FIELD TEST <span>3 DAYS</span></div>
+            <h3>Improve the first two inputs.</h3>
+            <p>Make your first two substantial meals mostly whole foods, include a meaningful protein source, eat enough for your demands, and hydrate consistently.</p>
+            <div class="notice"><strong>Notice:</strong> energy stability, hunger, cravings, mental clarity, training, digestion, sleep.</div>
+          </aside>
+        </div>
+      </section>
+      <section class="pillar" id="capacity" data-num="03">
+        <div class="pillar-head">
+          <div class="num">03 / 07</div>
+          <div><h2>Capacity</h2><p class="question">Can your body comfortably handle the demand?</p></div>
+        </div>
+        <div class="pillar-body">
+          <div class="copy">
+            <p>Build more physical capacity than your normal life requires.</p>
+            <ul class="micro-list">
+              <li>Strength and muscle.</li>
+              <li>Aerobic fitness.</li>
+              <li>Regular movement.</li>
+              <li>Enough usable mobility for what you actually want to do.</li>
+            </ul>
+            <p>You don't need to live in the gym. Physical reserve matters whether you're competing professionally, running a company, raising a family, or simply trying to remain capable as you age.</p>
+            <div class="pull-quote">
+              <span>Reserve is not excess.</span>
+              It is the space between what life asks of you and what your system can handle.
+            </div>
+          </div>
+          <aside class="experiment">
+            <div class="label">TRY THIS TODAY <span>TODAY</span></div>
+            <h3>Change state through the body.</h3>
+            <p>Take a brisk 20–30 minute walk, complete a short strength session, or break up prolonged sitting with brief movement bouts.</p>
+            <div class="notice"><strong>Before / after:</strong> rate energy, mood, mental clarity, and physical tension.</div>
+          </aside>
+        </div>
+      </section>
+
+
+      <section class="input-bridge" aria-label="Input quality principle">
+        <div class="eyebrow">A broader definition of diet</div>
+        <blockquote>
+          <span>Your diet is more than what you eat.</span>
+          What you watch. What you listen to. What you scroll. Who you spend time with. The environments you occupy.
+          <strong>Be intentional about what enters the system.</strong>
+        </blockquote>
+      </section>
+
+
+      <section class="pillar" id="attention" data-num="04">
+        <div class="pillar-head">
+          <div class="num">04 / 07</div>
+          <div><h2>Attention</h2><p class="question">What are you repeatedly giving your mind to?</p></div>
+        </div>
+        <div class="pillar-body">
+          <div class="copy">
+            <p>Attention is an investment. Some inputs compound. Others simply consume.</p>
+            <div class="attention-compare">
+              <div>
+                <div class="subhead">Invest</div>
+                <p>Deep work. Skill acquisition. Creation. Relationships. Deliberate practice. Solving meaningful problems.</p>
+              </div>
+              <div>
+                <div class="subhead">Spend carefully</div>
+                <p>Reactive feeds. Constant novelty. Unnecessary switching. Notifications. Meaningless consumption.</p>
+              </div>
+            </div>
+            <p>Reduce unnecessary cognitive load. Subtract before adding. Protect periods of directed attention.</p>
+
+            <div class="subhead">Match challenge to skill</div>
+            <p>Too little challenge and attention drifts. Too much and you can tip into overload. Near the edge of your current capability is often where deeper engagement becomes possible.</p>
+            <p><strong>Flow becomes more likely when you combine clear goals, immediate feedback, deep concentration, and challenge–skill balance.</strong></p>
+            <p>You cannot command flow. You can design conditions that make it more likely.</p>
+
+            <div class="subhead">Close enough loops to leave</div>
+            <p>Unfinished work is harder to disengage from when your brain still believes something requires action.</p>
+            <p>Before you stop, use a simple sequence: <strong>Capture → Clarify → Commit → Release.</strong> Write down what is unfinished, define the next action, decide when it will happen, then stop carrying it mentally.</p>
+
+            <div class="subhead">Reflection or rumination?</div>
+            <p>Reflection produces information, a decision, or a next action. Rumination keeps revisiting the same material without useful resolution.</p>
+            <p>If you can act now, act. If it belongs later, capture it. If there is nothing useful to do right now, practice releasing it.</p>
+
+            <div class="subhead">Leave room for boredom</div>
+            <p>Not every unstimulated moment needs to be filled. Sometimes the system needs enough space to stop consuming, disengage, wander, integrate, and reset.</p>
+            <div class="principle">Direct the attention. Close the loop. Then let it go.</div>
+          </div>
+          <aside class="experiment">
+            <div class="label">FOCUS BLOCK <span>45–90 MIN</span></div>
+            <h3>One task. Close. Then no input.</h3>
+            <ul>
+              <li>Choose one meaningful task and a clear finish line.</li>
+              <li>Phone away. Notifications off.</li>
+              <li>Work until the block ends or quality clearly falls.</li>
+              <li>Capture anything unfinished and define the next action.</li>
+              <li>Then take 10 minutes with no phone, podcast, or work.</li>
+            </ul>
+            <div class="notice"><strong>Notice:</strong> urge to switch, depth of focus, whether your mind keeps returning to unfinished work, and what changes when you stop consuming.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pillar" id="regulation" data-num="05">
+        <div class="pillar-head">
+          <div class="num">05 / 07</div>
+          <div><h2>Regulation</h2><p class="question">Can you recognize your state — and change it when necessary?</p></div>
+        </div>
+        <div class="pillar-body">
+          <div class="copy">
+            <p>There is no single optimal state. Different demands require different levels of activation.</p>
+            <p>The skill is knowing: <strong>What state am I in? What state does this task require? Can I move the needle?</strong></p>
+            <p>Notice breathing, tension, energy, fatigue, attention, emotion, hunger, and cognitive quality. Then learn which inputs reliably shift you: movement, breathing, music, light, environment, social interaction, stillness, food, or rest.</p>
+
+            <div class="subhead">State should match task</div>
+            <p>Competition may benefit from higher activation. Deep thought may require calm concentration. Connection and recovery require something different.</p>
+            <p>The goal is not to stay calm. It is to become more flexible between activation and recovery.</p>
+
+            <div class="subhead">Oscillate: stress → recover → adapt</div>
+            <p>Performance is not sustained maximal intensity. Attention and output naturally fluctuate across the day, often described in terms of <strong>ultradian rhythms</strong>.</p>
+            <p>Use that as a principle, not a stopwatch. A focused block of roughly 60–90 minutes can be a useful starting experiment, but there is no magic interval. The better skill is recognizing when quality starts to fall.</p>
+            <p><strong>Sprint. Disengage. Restore. Re-engage.</strong></p>
+
+            <div class="subhead">Transitions matter</div>
+            <p>Ending the task does not guarantee the state ends with it. A good transition helps the system recognize that the demand is over.</p>
+            <p>Close enough loops to leave, reduce input, and give yourself an intentional off-ramp from effort into recovery.</p>
+
+            <div class="subhead">Recovery means changing state</div>
+            <p>Stopping work is not automatically recovery. Switching straight to scrolling can keep attention and arousal highly engaged.</p>
+            <p>After demand, give the system a chance to downshift toward a more recovery-dominant, parasympathetic state: slower breathing, less muscular tension, lower stimulation, and less urgency to keep consuming input.</p>
+
+            <div class="subhead">Match recovery to the debt</div>
+            <p>Recovery is not one behavior. Restore the resource you actually taxed.</p>
+            <p>Cognitive fatigue may respond to a low-input walk. Muscular fatigue may benefit from easy movement. High arousal may need slower breathing or stillness. Sleep debt needs sleep. Sometimes connection restores you; sometimes solitude does.</p>
+            <p><strong>Active recovery can be useful when light movement lowers demand while helping the system transition. It is not automatically better than rest.</strong></p>
+
+            <div class="subhead">How to know if you recovered</div>
+            <p>Look for a real shift: breathing settles, tension drops, heart rate trends down, attention releases, the urge for stimulation decreases, and the next effort feels more available.</p>
+            <p>Wearables can add context through heart rate or HRV trends, but they are supporting signals — not the verdict.</p>
+
+            <div class="principle">Direct → Perform → Close → Downshift → Restore → Re-engage.</div>
+          </div>
+          <aside class="experiment">
+            <div class="label">OSCILLATION TEST <span>1 BLOCK</span></div>
+            <h3>Work hard. Then deliberately downshift.</h3>
+            <p>Before a demanding block, rate arousal from 1–10. Work for 45–90 minutes, or until quality noticeably declines. Then take 5–15 minutes with genuinely low input.</p>
+            <p>Use one downshift lever: slow breathing, walking, stillness, light movement, or quiet connection.</p>
+            <div class="notice"><strong>Notice:</strong> Did breathing and tension settle? Did attention release from the previous task? Did the urge for stimulation decrease? Did you feel more available for the next effort? That response is more useful than blindly following a timer.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pillar" id="environment" data-num="06">
+        <div class="pillar-head">
+          <div class="num">06 / 07</div>
+          <div><h2>Environment + Connection</h2><p class="question">What around you is making the desired state easier or harder?</p></div>
+        </div>
+        <div class="pillar-body">
+          <div class="copy">
+            <p>Willpower is expensive. Environment changes the default.</p>
+            <p>Look at your physical space, digital environment, calendar, cues, friction, access, and people. Make desirable behaviors easier. Make undesirable behaviors harder.</p>
+
+            <div class="subhead">Condition the cue</div>
+            <p>Repeated pairings teach your system what a context predicts. A place, sound, sequence, or object repeatedly paired with focus, activation, or recovery can begin to cue that response.</p>
+            <p>Use that deliberately: a consistent work setup, a pre-performance sequence, a shutdown ritual, or a recovery context that reliably signals it is time to downshift.</p>
+            <p><strong>You are always conditioning something. Make the cue work for you.</strong></p>
+
+            <div class="subhead">Social fitness</div>
+            <p>Maintain relationships that provide connection, support, challenge, belonging, play, and perspective.</p>
+            <p>Humans regulate each other. The people and environments around you influence your state, behavior, and perception of what is normal.</p>
+            <div class="principle">Design the conditions, not just the behavior.</div>
+          </div>
+          <aside class="experiment">
+            <div class="label">CONNECTION TEST <span>TODAY</span></div>
+            <h3>Build one useful cue + connect.</h3>
+            <p>Choose one repeatable cue for a desired state or behavior: set up the same focus space, use the same shutdown sequence, or create a clear recovery context. Then have one 15-minute undistracted conversation with someone you care about.</p>
+            <div class="notice"><strong>Notice:</strong> did the cue reduce friction or help the state arrive faster? Did the conversation shift mood, energy, or perspective?</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pillar" id="direction" data-num="07">
+        <div class="pillar-head">
+          <div class="num">07 / 07</div>
+          <div><h2>Direction</h2><p class="question">What is all this capacity being used for?</p></div>
+        </div>
+        <div class="pillar-body">
+          <div class="copy">
+            <p>Performance without direction is just efficient movement.</p>
+            <p>Know what matters. Know what you're moving toward. Then reverse-engineer that into today's behavior.</p>
+            <p><strong>Values → North Star → Current Season → Today's Actions</strong></p>
+
+            <div class="subhead">Know the season</div>
+            <p><strong>Explore</strong> when you need options. <strong>Exploit</strong> when something works. <strong>Expand</strong> when it's ready for more.</p>
+            <p>The right behavior in the wrong phase can become the wrong behavior.</p>
+
+            <div class="subhead">Beliefs shape behavior</div>
+            <p>Your beliefs influence what you notice, attempt, persist through, and interpret as possible. Treat them as hypotheses, not facts.</p>
+            <p>Growth is not pretending every outcome is possible. It's refusing to let an untested belief unnecessarily shrink the field of action.</p>
+
+            <div class="subhead">Leave room for play</div>
+            <p>Not everything needs to improve a metric. Do things because they're interesting, fun, connecting, or because you enjoy being alive while doing them.</p>
+            <div class="principle">Purpose gives direction. Play makes the system worth sustaining.</div>
+          </div>
+          <aside class="experiment">
+            <div class="label">TODAY'S DIRECTION <span>TODAY</span></div>
+            <h3>Make the day mean something.</h3>
+            <p>Write the one outcome that would make today feel meaningfully well-used. Spend your first available focused block moving it forward.</p>
+            <div class="notice"><strong>Notice:</strong> does clarity reduce procrastination? Where does your calendar contradict what you say matters?</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="subtraction">
+        <div class="eyebrow">The Subtraction Experiment</div>
+        <h2>Before adding more, remove one thing.</h2>
+        <div class="grid">
+          <div>
+            <p>Remove one recurring input that may be costing more than it gives. Test the absence before adding another habit, protocol, or tool.</p>
+            <ul class="micro-list" style="margin-top:22px">
+              <li>Notifications</li>
+              <li>A feed</li>
+              <li>Late caffeine</li>
+              <li>Background content</li>
+              <li>A low-value meeting</li>
+              <li>A redundant protocol</li>
+            </ul>
+          </div>
+          <div>
+            <p><strong style="color:var(--ink)">Then ask:</strong><br><br>
+            What changed?<br>
+            Was the change meaningful?<br>
+            What is the smallest dose that seems sufficient?<br>
+            Is this worth keeping, adjusting, or removing?</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="audit" id="audit">
+        <div class="audit-top">
+          <div>
+            <div class="eyebrow">M.E.D. Audit · 60 seconds</div>
+            <h2>Find the weakest link.</h2>
+            <p>Rate the last 7 days, not your intentions or your best week. This is not a scorecard. Your lowest-rated domain is simply the first place to experiment.</p>
+            <div class="audit-key">
+              <span><strong>Off</strong> routinely working against you</span>
+              <span><strong>Adequate</strong> generally handled</span>
+              <span><strong>Strong</strong> unlikely to be the current constraint</span>
+            </div>
+          </div>
+          <div class="score-card">
+            <div class="score-label">Start Here</div>
+            <div class="weakest" id="weakest">—</div>
+          </div>
+        </div>
+
+        <div class="audit-rows" id="auditRows">
+          <div class="audit-row" data-name="Rhythm">
+            <div><strong>Rhythm</strong><small>Is my sleep/light timing reasonably anchored?</small></div>
+            <div class="choices"><button class="choice" type="button" data-score="0">Off</button><button class="choice" type="button" data-score="1">Adequate</button><button class="choice" type="button" data-score="2">Strong</button></div>
+          </div>
+          <div class="audit-row" data-name="Fuel">
+            <div><strong>Fuel</strong><small>Am I supplying the energy, nutrients, and hydration my demands require?</small></div>
+            <div class="choices"><button class="choice" type="button" data-score="0">Off</button><button class="choice" type="button" data-score="1">Adequate</button><button class="choice" type="button" data-score="2">Strong</button></div>
+          </div>
+          <div class="audit-row" data-name="Capacity">
+            <div><strong>Capacity</strong><small>Do I have physical reserve beyond the demands of normal life?</small></div>
+            <div class="choices"><button class="choice" type="button" data-score="0">Off</button><button class="choice" type="button" data-score="1">Adequate</button><button class="choice" type="button" data-score="2">Strong</button></div>
+          </div>
+          <div class="audit-row" data-name="Attention">
+            <div><strong>Attention</strong><small>Does my best attention regularly go toward what matters?</small></div>
+            <div class="choices"><button class="choice" type="button" data-score="0">Off</button><button class="choice" type="button" data-score="1">Adequate</button><button class="choice" type="button" data-score="2">Strong</button></div>
+          </div>
+          <div class="audit-row" data-name="Regulation">
+            <div><strong>Regulation</strong><small>Can I recognize my state and intentionally shift it?</small></div>
+            <div class="choices"><button class="choice" type="button" data-score="0">Off</button><button class="choice" type="button" data-score="1">Adequate</button><button class="choice" type="button" data-score="2">Strong</button></div>
+          </div>
+          <div class="audit-row" data-name="Environment + Connection">
+            <div><strong>Environment + Connection</strong><small>Do my surroundings and relationships make good functioning easier?</small></div>
+            <div class="choices"><button class="choice" type="button" data-score="0">Off</button><button class="choice" type="button" data-score="1">Adequate</button><button class="choice" type="button" data-score="2">Strong</button></div>
+          </div>
+          <div class="audit-row" data-name="Direction">
+            <div><strong>Direction</strong><small>Is my daily behavior connected to something I genuinely value?</small></div>
+            <div class="choices"><button class="choice" type="button" data-score="0">Off</button><button class="choice" type="button" data-score="1">Adequate</button><button class="choice" type="button" data-score="2">Strong</button></div>
+          </div>
+        </div>
+        <div class="audit-result" id="auditResult">Score all seven. Your lowest domain becomes the first experiment — not a verdict.</div>
+      </section>
+
+      <section class="conditional">
+        <div class="eyebrow">Everything Else Is Conditional</div>
+        <h2>Make every intervention earn admission.</h2>
+        <p>Supplements, wearables, fasting, recovery tools, and advanced interventions can all be useful. But first ask:</p>
+        <div class="questions">
+          <div>What problem does this solve?</div>
+          <div>Is that problem limiting me now?</div>
+          <div>Is there a simpler intervention?</div>
+          <div>How will I know if it worked?</div>
+        </div>
+      </section>
+
+      <section class="remember">
+        <div class="eyebrow">Remember</div>
+        <h2>You do not need to perfect all seven.</h2>
+        <div class="remember-grid">
+          <div class="remember-item"><strong>Rhythm</strong><span>Give the system predictable timing.</span></div>
+          <div class="remember-item"><strong>Fuel</strong><span>Give it the raw materials it needs.</span></div>
+          <div class="remember-item"><strong>Capacity</strong><span>Build reserve beyond normal demand.</span></div>
+          <div class="remember-item"><strong>Attention</strong><span>Decide what deserves your mind.</span></div>
+          <div class="remember-item"><strong>Regulation</strong><span>Recognize your state and shift it.</span></div>
+          <div class="remember-item"><strong>Environment + Connection</strong><span>Design conditions that make good functioning easier.</span></div>
+          <div class="remember-item"><strong>Direction</strong><span>Point the system toward something that matters.</span></div>
+        </div>
+        <div class="final-loop">
+          Find the weakest link.<br>
+          Improve it enough that it stops being the constraint.<br>
+          <span style="color:var(--gold-soft)">Then reassess.</span>
+        </div>
+      </section>
+
+      <section class="advisory" id="private-advisory">
+        <div class="tag">Private Advisory</div>
+        <h2>The principles are rarely the complicated part.</h2>
+        <p>The harder work is identifying what is actually limiting the system, what deserves attention now, and what can safely be ignored.</p>
+        <p>I work privately with a small number of founders, executives, athletes, and high-performing operators to pressure-test the whole system, identify the constraints that matter, and focus on the few changes most likely to move it.</p>
+        <a class="apply" href="https://marcuslefton.com/waitlist" aria-label="Apply for Private Advisory">Apply for Private Advisory</a>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="inner">
+      <div>VYRTŪOSITI · 2026</div>
+    </div>
+  </footer>
+
+  <script>
+    // Active rail item
+    const sections = [...document.querySelectorAll('.pillar, #audit')];
+    const links = [...document.querySelectorAll('.rail a')];
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, {rootMargin:'-18% 0px -70% 0px', threshold:0});
+    sections.forEach(s => observer.observe(s));
+
+    // Audit
+    const rows = [...document.querySelectorAll('.audit-row')];
+    const weakestEl = document.getElementById('weakest');
+    const resultEl = document.getElementById('auditResult');
+
+    rows.forEach(row => {
+      row.querySelectorAll('.choice').forEach(btn => {
+        btn.addEventListener('click', () => {
+          row.querySelectorAll('.choice').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          row.dataset.score = btn.dataset.score;
+          updateAudit();
+        });
+      });
+    });
+
+    function updateAudit(){
+      const answered = rows.filter(r => r.dataset.score !== undefined);
+
+      if(!answered.length){
+        weakestEl.textContent = '—';
+        resultEl.textContent = 'Score all seven. Your lowest domain becomes the first experiment — not a verdict.';
+        return;
+      }
+
+      if(answered.length < rows.length){
+        weakestEl.textContent = 'Keep going';
+        resultEl.textContent = `Rate ${rows.length - answered.length} more domain${rows.length - answered.length === 1 ? '' : 's'} to identify your first experiment.`;
+        return;
+      }
+
+      const min = Math.min(...rows.map(r => Number(r.dataset.score)));
+      const weakest = rows.filter(r => Number(r.dataset.score) === min).map(r => r.dataset.name);
+
+      if(min === 2){
+        weakestEl.textContent = 'No obvious gap';
+        resultEl.textContent = 'Resist adding complexity. Maintain the foundations and use the M.E.D. Loop only when a real constraint appears.';
+      } else if(weakest.length >= 3){
+        weakestEl.textContent = 'Multiple constraints';
+        resultEl.innerHTML = `Choose the one that seems most <span style="color:var(--gold-soft)">upstream</span> or easiest to test first. Run one experiment, hold the other variables reasonably steady, observe the response, then reassess.`;
+      } else {
+        weakestEl.textContent = weakest.join(' + ');
+        resultEl.innerHTML = `This is your <span style="color:var(--gold-soft)">first place to experiment</span>, not a diagnosis. Run one experiment, hold the other variables reasonably steady, observe the response, then reassess.`;
+      }
+    }
+  </script>
+</body>
+</html>
