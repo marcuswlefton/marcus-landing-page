@@ -1,0 +1,42 @@
+# Consolidate previous advisory entry points. The originals remain in Git history.
+/bottleneck /advisory/ 301!
+/bottleneck/ /advisory/ 301!
+/Bottleneck /advisory/ 301!
+/Bottleneck/ /advisory/ 301!
+/Bottleneck/index.html /advisory/ 301!
+/proof /evidence/ 301!
+/proof/ /evidence/ 301!
+/proof/index.html /evidence/ 301!
+/apply /advisory/#apply 301!
+/apply/ /advisory/#apply 301!
+/apply/index.html /advisory/#apply 301!
+/waitlist /advisory/#apply 301!
+/waitlist/ /advisory/#apply 301!
+/waitlist/index.html /advisory/#apply 301!
+/mastery /advisory/ 301!
+/mastery/ /advisory/ 301!
+/mastery/index.html /advisory/ 301!
+/AI /advisory/ 301!
+/AI/ /advisory/ 301!
+/AI/index.html /advisory/ 301!
+/ai /advisory/ 301!
+/ai/ /advisory/ 301!
+# Retired resource: preserve old links without advertising the guide.
+/med /mastery-in-motion/ 302!
+/med/ /mastery-in-motion/ 302!
+/med/index.html /mastery-in-motion/ 302!
+/MED /mastery-in-motion/ 302!
+/MED/ /mastery-in-motion/ 302!
+/MED/index.html /mastery-in-motion/ 302!
+/insights /mastery-in-motion/ 301!
+/insights/ /mastery-in-motion/ 301!
+/insights/compensation/ /mastery-in-motion/the-cost-of-compensation/ 301!
+/about/ /#marcus 301!
+/method/ /#approach 301!
+/draft /flow/ 301!
+/draft/ /flow/ 301!
+/draft/index.html /flow/ 301!
+# Development files are not public pages.
+/tools/* /404.html 404!
+/docs/* /404.html 404!
+/netlify/* /404.html 404!
