@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /tools/
+Disallow: /docs/
+Disallow: /draft/
+Sitemap: https://www.marcuslefton.com/sitemap.xml

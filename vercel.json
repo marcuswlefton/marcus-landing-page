@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    {"source": "/:path*", "destination": "https://www.marcuslefton.com/:path*", "permanent": true}
+  ]
+}
