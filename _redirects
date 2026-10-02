@@ -21,8 +21,13 @@
 /AI/index.html /advisory/ 301!
 /ai /advisory/ 301!
 /ai/ /advisory/ 301!
-/med /MED/ 301!
-/med/ /MED/ 301!
+# Retired resource: preserve old links without advertising the guide.
+/med /mastery-in-motion/ 302!
+/med/ /mastery-in-motion/ 302!
+/med/index.html /mastery-in-motion/ 302!
+/MED /mastery-in-motion/ 302!
+/MED/ /mastery-in-motion/ 302!
+/MED/index.html /mastery-in-motion/ 302!
 /insights /mastery-in-motion/ 301!
 /insights/ /mastery-in-motion/ 301!
 /insights/compensation/ /mastery-in-motion/the-cost-of-compensation/ 301!

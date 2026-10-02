@@ -7,6 +7,14 @@ const event = data => ({httpMethod:'POST',headers:{origin:'https://www.marcuslef
 const complete = {email:'qa@example.com',first_name:'Website QA',role_company:'Test',current_issue:'Test submission',readiness:'Yes',source:'advisory | linkedin / featured'};
 test('form transport, routing, validation, and truthful confirmation', async () => {
   process.env.KIT_API_KEY = 'test-fixture-key';
+  for (const kind of [newsletter, application]) {
+    for (const origin of ['https://deploy-preview-1--marcuslefton.netlify.app','https://deploy-preview-24--marcuslefton.netlify.app']) {
+      assert.equal((await kind({...event({email:'invalid'}),headers:{origin}})).statusCode,400);
+    }
+    for (const origin of ['https://deploy-preview-1--other-site.netlify.app','https://deploy-preview-1--marcuslefton.netlify.app.evil.example','http://deploy-preview-1--marcuslefton.netlify.app','null']) {
+      assert.equal((await kind({...event({email:'invalid'}),headers:{origin}})).statusCode,403);
+    }
+  }
   let captured;
   global.fetch = async (url,options) => { captured={url,payload:JSON.parse(options.body)};return {ok:true,status:200,json:async()=>({subscription:{id:123}})}; };
   let res=await newsletter(event({email:' QA@example.com ',source:'mastery_in_motion | linkedin'}));

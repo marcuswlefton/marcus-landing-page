@@ -2,6 +2,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 import json, re, sys
+from urllib.parse import urljoin, urlsplit, unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = [
@@ -51,6 +52,15 @@ for rel in CORE:
     if dup: failures.append(f'{rel}: duplicate IDs {dup}')
     for href in doc.hrefs:
         if href.startswith('/') and not route_exists(href): failures.append(f'{rel}: missing internal link {href}')
+    for href in doc.hrefs:
+        if not href.startswith(('/', '#')) or '#' not in href: continue
+        route = urlsplit(urljoin('/'+rel, href))
+        target = ROOT / route.path.lstrip('/')
+        if target.is_dir(): target = target / 'index.html'
+        if target.is_file() and route.fragment:
+            linked = Doc(); linked.feed(target.read_text())
+            if unquote(route.fragment) not in linked.ids:
+                failures.append(f'{rel}: missing fragment {href}')
     for src in doc.srcs:
         if src.startswith('/') and not route_exists(src): failures.append(f'{rel}: missing local asset {src}')
     for block in doc.jsonld:

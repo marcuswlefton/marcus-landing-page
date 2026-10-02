@@ -1,0 +1,27 @@
+<div id="marcus-full-review">
+<style>
+#marcus-full-review{background:#080909;color:#eeede7;font:14px/1.5 Arial,sans-serif}#marcus-full-review .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 100px 14px 16px}#marcus-full-review select,#marcus-full-review button{font:inherit;background:#171917;color:#eeede7;border:1px solid #50534b;padding:10px;border-radius:5px;max-width:100%}#marcus-full-review iframe{width:100%;height:820px;border:0;display:block}#marcus-full-review textarea{box-sizing:border-box;width:100%;height:650px;background:#101210;color:#eeede7;padding:16px}#marcus-full-review [hidden]{display:none!important}#marcus-full-review .note{padding:0 16px 12px;margin:0;color:#bec0b9}
+</style>
+<div class="controls"><label>Page <select aria-label="Page"></select></label><button type="button" data-mode="preview">Preview</button><button type="button" data-mode="code">Code</button><button type="button" data-copy>Copy page HTML</button></div>
+<p class="note" role="status">All pages connected · Forms are demonstrations and send nothing</p>
+<iframe title="Marcus Lefton — full website review" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
+<textarea aria-label="Selected page HTML" readonly hidden></textarea>
+
+</div>
+<script>
+(()=>{
+const root=document.getElementById('marcus-full-review');
+const data=__DATA__;
+const select=root.querySelector('select'),frame=root.querySelector('iframe'),code=root.querySelector('textarea'),note=root.querySelector('.note');
+let current='/';
+Object.entries(data.pages).forEach(([path,p])=>{const o=document.createElement('option');o.value=path;o.textContent=p.label;select.append(o)});
+function assets(s){Object.entries(data.assets).forEach(([path,url])=>{s=s.split(path).join(url)});return s}
+function documentFor(path,preview){const p=data.pages[path];return '\x3c!doctype html>\x3chtml lang="en">\x3chead>'+assets(p.head)+'<style>'+assets(data.css)+'</style></head>\x3cbody class="'+p.bodyClass+'">'+assets(p.body)+'<script>'+(preview?data.previewScript:data.liveScript)+'</scr'+'ipt></body></html>'}
+function show(href){const u=new URL(href,'https://www.marcuslefton.com'+current);let path=u.pathname;if(!path.endsWith('/'))path+='/';if(!data.pages[path]){note.textContent='This destination is outside this review: '+href;return}current=path;select.value=path;frame.srcdoc=documentFor(path,true);code.value=documentFor(path,false);frame.hidden=false;code.hidden=true;note.textContent='All pages connected · Forms are demonstrations and send nothing';frame.onload=()=>{if(u.hash)frame.contentWindow.postMessage({type:'review-anchor',hash:u.hash},'*')}}
+select.addEventListener('change',()=>show(select.value));
+root.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{frame.hidden=b.dataset.mode==='code';code.hidden=!frame.hidden}));
+root.querySelector('[data-copy]').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(code.value);note.textContent='Selected page HTML copied.'}catch(_){frame.hidden=true;code.hidden=false;code.focus();code.select();note.textContent='Press ⌘C or Ctrl+C to copy the selected page.'}});
+window.addEventListener('message',e=>{if(e.source===frame.contentWindow&&e.data?.type==='marcus-navigate')show(e.data.href)});
+show('/advisory/');
+})();
+</script>
