@@ -32,9 +32,9 @@
   const performance = document.querySelector('.synthesis');
   if (performance) {
     const stages = {
-      ability: ['More to draw on.', 'Build the energy, attention, skills, and resources available to you. Each expands what is possible.'],
-      mastery: ['Practice turns range into precision.', 'Practice, feedback, and refinement deepen how your capabilities work together. Mastery remains an ongoing pursuit.'],
-      virtuosity: ['More of what you’re capable of. When it matters.', 'VYRTŪOSITI is practiced mastery expressed through judgment. Bringing your capabilities together in a response that fits the moment.']
+      ability: ['More to draw on.', 'Build the energy, attention, skills, and resources available to you.'],
+      mastery: ['Precision through practice.', 'Practice and feedback refine how your capabilities work together.'],
+      virtuosity: ['Mastery, expressed.', 'Bring your capacity, skill, and judgment together in a response that fits the moment.']
     };
     const play = performance.querySelector('.progression-play');
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
