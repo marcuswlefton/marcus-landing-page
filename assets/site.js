@@ -20,40 +20,83 @@
     if (e.key === 'Escape' && menu?.getAttribute('aria-expanded') === 'true') { closeMenu(); menu.focus(); }
   });
 
-  // A finite, user-controlled illustration. The final state is useful without JS.
-  const performance = document.querySelector('.virtuosity-explainer');
+  const logoToggle = document.querySelector('.logo-motion-toggle');
+  logoToggle?.addEventListener('click', () => {
+    const paused = logoToggle.getAttribute('aria-pressed') !== 'true';
+    logoToggle.setAttribute('aria-pressed', String(paused));
+    logoToggle.setAttribute('aria-label', paused ? 'Resume client logo animation' : 'Pause client logo animation');
+    logoToggle.closest('.logo-marquee').classList.toggle('is-paused', paused);
+  });
+
+  // Finite, user-directed story. Geometry interpolates in JS for browser consistency.
+  const performance = document.querySelector('.synthesis');
   if (performance) {
     const stages = {
-      ability: ['Develop the pieces.', 'More to draw on.', 'Build the energy, attention, skills, and resources available to you. These are the ingredients. How they work together is the next question.'],
-      mastery: ['Practice. Feedback. Refinement.', 'The pieces begin to work as one.', 'Practice connects your capabilities to a result. Feedback sharpens the connection. Mastery keeps developing as you and the demands evolve.'],
-      virtuosity: ['Conditions change. Your approach adapts.', 'Your capabilities. One considered response.', 'Bring your capacity, skill, and judgment together to meet the moment. VYRTŪOSITI is deeply practiced mastery, expressed with precision, adaptability, and your own unmistakable style.']
+      ability: ['More to draw on.', 'Build the energy, attention, skills, and resources available to you. Each expands what is possible.'],
+      mastery: ['Practice turns range into precision.', 'Practice, feedback, and refinement deepen how your capabilities work together. Mastery remains an ongoing pursuit.'],
+      virtuosity: ['More of what you’re capable of. When it matters.', 'VYRTŪOSITI is practiced mastery expressed through judgment. Bringing your capabilities together in a response that fits the moment.']
     };
     const play = performance.querySelector('.progression-play');
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
-    let timer, playing = false;
-    function stop() { clearTimeout(timer); playing = false; play.innerHTML = 'Watch the story <span aria-hidden="true">↗</span>'; }
-    function stage(name) {
-      performance.dataset.stage = name;
-      performance.querySelectorAll('[data-performance-stage]').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.performanceStage===name)));
-      const text=stages[name];
-      ['kicker','heading','copy'].forEach((key,i)=>performance.querySelector('[data-stage-'+key+']').textContent=text[i]);
-      performance.querySelectorAll('.performance-paths path').forEach((p,i)=>{
-        const y=25+i*50;
-        const mid=name==='ability' ? [70,45,145,120,260,220][i] : name==='mastery' ? y : [30,50,70,230,250,270][i];
-        const end=name==='ability' ? [55,90,135,170,220,255][i] : name==='mastery' ? 150 : 95;
-        p.setAttribute('d',`M 0 ${y} C 160 ${y} 180 ${mid} 285 ${mid} C 410 ${mid} 465 ${end} 560 ${end}`);
-      });
-      performance.querySelectorAll('.result-point,.result-halo').forEach(c=>c.setAttribute('cy',name==='virtuosity'?'95':'150'));
+    const paths = [...performance.querySelectorAll('.synthesis-paths path')];
+    const sparks = [...performance.querySelectorAll('.synthesis-sparks circle')];
+    let timers = [], frame = 0, playing = false, current = [150,150,150,150,150,150];
+    const ends = {ability:[40,85,130,175,220,265],mastery:[125,135,145,155,165,175],virtuosity:[150,150,150,150,150,150]};
+    function draw(values) {
+      paths.forEach((p,i)=>p.setAttribute('d',`M 0 ${25+i*50} C 210 ${25+i*50} 250 ${values[i]} 450 ${values[i]} L 570 ${values[i]}`));
     }
-    performance.querySelectorAll('[data-performance-stage]').forEach(b=>b.addEventListener('click',()=>{stop();stage(b.dataset.performanceStage)}));
-    play.addEventListener('click',()=>{
-      if(playing){stop();return}
-      if(motion.matches){stage('virtuosity');return}
-      playing=true;play.textContent='Pause illustration';stage('ability');
-      timer=setTimeout(()=>{stage('mastery');timer=setTimeout(()=>{stage('virtuosity');stop()},2300)},2300);
-    });
-    function reduced(){stop();play.hidden=motion.matches;}
-    motion.addEventListener('change',reduced); reduced();
+    function stop() {
+      timers.forEach(clearTimeout);timers=[];playing=false;cancelAnimationFrame(frame);
+      play.innerHTML='Replay the story <span aria-hidden="true">↗</span>';
+      sparks.forEach(dot=>dot.style.opacity='0');
+      performance.querySelector('[aria-live]').setAttribute('aria-live','polite');
+    }
+    function stage(name, instant = false) {
+      cancelAnimationFrame(frame);performance.classList.remove('is-arriving');
+      performance.dataset.stage=name;
+      performance.querySelectorAll('[data-performance-stage]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.performanceStage===name)));
+      performance.querySelector('[data-stage-heading]').textContent=stages[name][0];
+      performance.querySelector('[data-stage-copy]').textContent=stages[name][1];
+      const from=current.slice(), to=ends[name], start=performance.ownerDocument.defaultView.performance.now();
+      if(motion.matches || instant){current=to.slice();draw(current);return;}
+      function tick(now){
+        const t=Math.min(1,(now-start)/850),ease=1-Math.pow(1-t,4);
+        current=to.map((n,i)=>from[i]+(n-from[i])*ease);draw(current);
+        if(t<1)frame=requestAnimationFrame(tick);
+        else if(name==='virtuosity'){
+          const pulseStart=now;
+          function pulse(time){
+            const progress=Math.min(1,(time-pulseStart)/800);
+            sparks.forEach((dot,i)=>{const point=paths[i].getPointAtLength(paths[i].getTotalLength()*progress);dot.setAttribute('cx',point.x);dot.setAttribute('cy',point.y);dot.style.opacity=progress<1?'1':'0';});
+            if(progress<1)frame=requestAnimationFrame(pulse);
+            else performance.classList.add('is-arriving');
+          }
+          frame=requestAnimationFrame(pulse);
+        }
+      }
+      sparks.forEach(dot=>dot.style.opacity='0');frame=requestAnimationFrame(tick);
+    }
+    let started = false;
+    function run() {
+      if(motion.matches)return;
+      started=true;playing=true;play.textContent='Pause story';
+      performance.querySelector('[aria-live]').setAttribute('aria-live','off');
+      stage('ability',true);
+      timers.push(setTimeout(()=>stage('mastery'),1300));
+      timers.push(setTimeout(()=>stage('virtuosity'),2600));
+      timers.push(setTimeout(stop,4400));
+    }
+    performance.querySelectorAll('[data-performance-stage]').forEach(b=>b.addEventListener('click',()=>{started=true;stop();stage(b.dataset.performanceStage)}));
+    play.addEventListener('click',()=>{started=true;if(playing){stop();return;}run();});
+    const observer = new IntersectionObserver(entries=>{
+      const visible=entries[0].intersectionRatio>=.65;
+      if(visible&&!started&&!motion.matches)run();
+      else if(!entries[0].isIntersecting&&playing){stop();stage('virtuosity',true);}
+    },{threshold:[0,.65]});
+    observer.observe(performance.querySelector('.synthesis-canvas'));
+    document.addEventListener('visibilitychange',()=>{if(document.hidden&&playing){stop();stage('virtuosity',true);}});
+    motion.addEventListener('change',()=>{stop();play.hidden=motion.matches;stage('virtuosity',true);});
+    play.hidden=motion.matches;
   }
 
   // Only campaign labels are retained, for the current tab; never form answers.
