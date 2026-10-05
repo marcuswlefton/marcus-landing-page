@@ -99,10 +99,18 @@
     play.hidden=motion.matches;
   }
 
-  // Only campaign labels are retained, for the current tab; never form answers.
+  // Retain campaign labels and the first essay path in this tab, never form answers or full URLs.
   const params = new URLSearchParams(location.search);
   const safeLabel = v => (v || '').replace(/[^a-zA-Z0-9 _.-]/g, '').slice(0,80);
+  const essayPaths = new Set([
+    '/mastery-in-motion/founder-time-management/',
+    '/mastery-in-motion/the-cost-of-compensation/',
+    '/mastery-in-motion/think-clearly-under-pressure/'
+  ]);
   try {
+    if (essayPaths.has(location.pathname) && !sessionStorage.getItem('ml_entry_article')) {
+      sessionStorage.setItem('ml_entry_article', location.pathname);
+    }
     const campaign = ['utm_source','utm_medium','utm_campaign'].map(key => safeLabel(params.get(key))).filter(Boolean).join(' / ');
     if (campaign) sessionStorage.setItem('ml_campaign', campaign);
     else if (!sessionStorage.getItem('ml_campaign') && document.referrer) {
@@ -119,7 +127,14 @@
       const button = form.querySelector('button[type="submit"]');
       const initialText = button.textContent;
       const payload = Object.fromEntries(new FormData(form));
-      try { const campaign = sessionStorage.getItem('ml_campaign'); if (campaign) payload.source = `${payload.source} | ${campaign}`; } catch (_) {}
+      try {
+        const entry = sessionStorage.getItem('ml_entry_article');
+        const campaign = sessionStorage.getItem('ml_campaign');
+        const parts = [String(payload.source || '').slice(0,90)];
+        if (essayPaths.has(entry)) parts.push('essay:' + entry.split('/')[2]);
+        if (campaign) parts.push(campaign);
+        payload.source = parts.join(' | ').slice(0,240);
+      } catch (_) {}
       status.textContent = kind === 'newsletter' ? 'Joining…' : 'Sending your application…';
       status.dataset.error = 'false';
       form.dataset.pending = 'true'; button.disabled = true; button.textContent = 'Sending…';
