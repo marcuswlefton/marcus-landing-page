@@ -1,6 +1,6 @@
 # Evidence revision — 2026-10-02
 
-The preview is not published. Selected testimonials are accounts, not audited or representative outcomes.
+Selected testimonials are accounts, not audited or representative outcomes.
 
 ## Sources used
 - Marcus's live /proof/ page, retrieved 2026-10-02: Ethan Evans, David V., Ted Tanner and anonymized case summaries.
@@ -20,3 +20,11 @@ The preview is not published. Selected testimonials are accounts, not audited or
 ## Latest user-supplied role corrections
 - FRC: former consultant and program leader.
 - Rockies section now describes connected performance systems, individual and team context; no new numerical outcome or organizational endorsement is asserted.
+## Client excerpts added — 2026-10-05
+
+Marcus supplied and requested publication of four additional excerpts. Jason leads this group in the review wall. No roles, outcomes, endorsements, or aggregate ratings were added. Selection rationale and session timestamps remain off the public cards.
+
+- Jason Fowler: “I didn’t even actually realize I was doing that until you said that.” Matched the timestamped transcript copy in Notion, August 6, 2026 at 21:19; page `3b4c7ac6-a08c-813c-963a-cdfbffba9ad0`. Contiguous excerpt, with sentence punctuation normalized. Original audio was not checked.
+- Sathiya: “The prep was like a home run. Literally no blind spots.” User-supplied wording; exact passage not independently verified in an original record. Both sentences retained together.
+- Gary Nihart: “A lot of your coaching has been helping me figure out what the one main thing is, and now I got one main thing.” Matched the timestamped transcript copy in Notion, September 28, 2026 at 37:08; page `3eac7ac6-a08c-819a-92ab-e6b71d6a4af8`. Contiguous excerpt ending before the next clause. Original audio was not checked.
+- Mike Clark: “I think you pretty much have everything… Nothing leaps to mind… that you haven’t already articulated or touched on.” User-supplied excerpt; exact passage not independently verified in an original record. Supplied ellipses retained.
