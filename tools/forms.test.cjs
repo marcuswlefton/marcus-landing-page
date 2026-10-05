@@ -21,6 +21,13 @@ test('form transport, routing, validation, and truthful confirmation', async () 
   assert.equal(res.statusCode,200);assert.equal(JSON.parse(res.body).ok,true);assert.match(captured.url,/9270901/);assert.equal(captured.payload.email,'qa@example.com');assert.equal(captured.payload.fields.opt_in_source,'mastery_in_motion | linkedin');
   res=await application(event(complete));
   assert.equal(res.statusCode,200);assert.match(captured.url,/9586922/);assert.equal(captured.payload.fields.bottleneck_current_issue,'Test submission');assert.equal(captured.payload.first_name,'Website QA');assert.equal(captured.payload.fields.bottleneck_audit_readiness,'Yes');
+  res=await application(event({...complete,prompted_by:'A founder forwarded the essay',journey:JSON.stringify(['/mastery-in-motion/the-cost-of-compensation/','/advisory/','/private-client?email=secret@example.com'])}));
+  assert.equal(res.statusCode,200);
+  assert.equal(captured.payload.fields.advisory_prompted_by,'A founder forwarded the essay');
+  assert.equal(captured.payload.fields.advisory_journey,'/mastery-in-motion/the-cost-of-compensation/ > /advisory/ > enquiry');
+  assert.equal(captured.payload.fields.advisory_stage,undefined); // Never overwrite an existing paid/qualified status.
+  assert.equal((await application(event({...complete,prompted_by:'x'.repeat(601)}))).statusCode,400);
+  assert.equal((await application(event({...complete,journey:'not json'}))).statusCode,200);
   res=await application({...event(complete),headers:{'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams(complete).toString()});
   assert.equal(res.statusCode,303);assert.equal(res.headers.Location,'/application-received/');
   res=await newsletter({...event({email:'qa@example.com'}),headers:{'content-type':'application/x-www-form-urlencoded'},body:'email=qa%40example.com'});
