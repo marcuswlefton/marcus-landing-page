@@ -46,3 +46,13 @@ The functions require a provider-confirmed subscription ID before displaying suc
 Pushing `main` triggers the existing Netlify deployment. The linked Vercel mirror redirects to the canonical Netlify domain so there is one public source of truth.
 
 Supporting launch copy, evidence decisions, and route decisions are in `docs/`.
+
+## Selected essays
+
+Edit essay content and metadata in `tools/essays.json`, then run `python tools/build_site.py` and `python tools/static-check.py`. Commit the generated pages, sitemap, and source together. Keep existing slugs when updating an essay. Publication dates refer to the website edition; update the modified date only when content materially changes.
+
+Editorial styles live in `assets/essays.css`. The newsletter page automatically lists the selected essays. New articles require adding their route to the essay allowlist in `assets/site.js` and the core documents in `tools/static-check.py`.
+
+Attribution retains the first selected essay viewed and campaign labels for the current browser tab. Forms append these to the existing Kit source fields; no new Kit field is required. This is same-tab attribution, not cross-device tracking or proof of causation. Never put personal data in campaign parameters.
+
+October 5 content release: three essays were checked at 320, 390, and 1440 pixels, with automated WCAG A/AA checks. Local simulated-provider checks covered application failure/retry, newsletter confirmation, article/campaign attribution, unavailable storage, and readable content with JavaScript disabled. These tests do not create a real Kit subscriber or verify email delivery. Search Console indexing and live provider delivery require separate account-level verification.
