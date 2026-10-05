@@ -44,13 +44,24 @@ function handlerFor(kind) {
     const fields = {opt_in_source:source};
     const payload = {email,fields};
     if (kind === 'application') {
-      const limits = {first_name:120,role_company:240,current_issue:3000,already_tried:2000,why_now:600,linkedin_website:500};
+      const limits = {first_name:120,role_company:240,current_issue:3000,already_tried:2000,why_now:600,linkedin_website:500,prompted_by:600,journey:2000};
       for (const [name,limit] of Object.entries(limits)) if (str(name).length > limit) return send(400,{error:'One of your answers is too long. Please shorten it and try again.'});
       if (!str('first_name') || !str('role_company') || !str('current_issue')) return send(400,{error:'Please include your name, role, and the result you want to work toward.'});
       if (!['Yes','Maybe, depends on fit','Not right now'].includes(str('readiness'))) return send(400,{error:'Please select your investment readiness.'});
       if (str('linkedin_website')) {
         try { if (!['https:','http:'].includes(new URL(str('linkedin_website')).protocol)) throw new Error(); }
         catch (_) { return send(400,{error:'Use a complete LinkedIn or website address beginning with https://.'}); }
+      }
+      if (str('prompted_by')) fields.advisory_prompted_by = str('prompted_by');
+      if (str('journey')) {
+        const allowedPaths = new Set(['/', '/advisory/', '/evidence/', '/evidence/commercial-performance/', '/mastery-in-motion/', '/mastery-in-motion/founder-time-management/', '/mastery-in-motion/the-cost-of-compensation/', '/mastery-in-motion/think-clearly-under-pressure/']);
+        try {
+          const journey = JSON.parse(str('journey'));
+          if (Array.isArray(journey)) {
+            const paths = journey.filter(path => typeof path === 'string' && allowedPaths.has(path)).slice(0,16);
+            if (paths.length) fields.advisory_journey = paths.join(' > ') + ' > enquiry';
+          }
+        } catch (_) { /* Attribution never blocks an otherwise valid application. */ }
       }
       payload.first_name = str('first_name');
       Object.assign(fields,{bottleneck_source:source,bottleneck_role_company:str('role_company'),bottleneck_current_issue:str('current_issue'),bottleneck_already_tried:str('already_tried'),bottleneck_why_now:str('why_now'),bottleneck_linkedin_website:str('linkedin_website'),bottleneck_audit_readiness:str('readiness')});

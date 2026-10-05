@@ -1,0 +1,27 @@
+/* Small, deliberate additions to the established page hierarchy. */
+.home-situation{padding-block:34px;border-block:1px solid var(--line);display:grid;grid-template-columns:1fr 1.2fr;gap:48px;margin-top:18px}
+.home-situation h2{font-size:clamp(1.5rem,2.7vw,2rem);line-height:1.3;letter-spacing:-.035em;margin:0}
+.home-situation p{color:var(--muted);margin:0 0 18px;max-width:55ch;line-height:1.75}
+.case-teaser{padding-block:48px;border-block:1px solid var(--line);display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:center}
+.case-teaser h2{font-size:clamp(1.65rem,3vw,2.4rem);line-height:1.25;letter-spacing:-.04em;margin:0 0 20px}
+.case-teaser blockquote{font-size:clamp(1.25rem,2.1vw,1.7rem);line-height:1.55;margin:0 0 16px;color:var(--ivory,#edece4)}
+.case-teaser figcaption{font-size:.875rem;color:var(--muted)}
+.case-teaser figure{margin:0}
+.case-teaser .case-context{font-size:.8125rem;line-height:1.7;color:var(--muted);margin:16px 0 0;max-width:58ch}
+.evidence-case{margin-bottom:56px}
+.engagement-practical{margin-top:44px;padding-top:28px;border-top:1px solid var(--line)}
+.engagement-practical h3{font-size:1.25rem;letter-spacing:-.02em}
+.engagement-practical-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:24px}
+.engagement-practical h4{font-size:.875rem;font-weight:600;margin:0 0 12px}
+.engagement-practical p{font-size:.9375rem;line-height:1.75;color:var(--muted);margin:0}
+.case-page .case-result{max-width:680px;margin:48px auto;padding:32px;border:1px solid var(--line);border-radius:14px;background:#111110}
+.case-result blockquote{font-size:clamp(1.4rem,3vw,1.9rem);line-height:1.5;letter-spacing:-.025em;margin:0 0 24px}
+.case-result figcaption{font-size:.875rem;color:var(--gold)}
+.case-result>p{font-size:.8125rem;line-height:1.7;color:var(--muted);margin-top:16px}
+.case-map{max-width:740px;margin:56px auto;padding:36px;border:1px solid #403b31;border-radius:16px;background:linear-gradient(135deg,#171613,#101010)}
+.case-map-heading h2{font-size:clamp(1.6rem,3vw,2rem);line-height:1.25;letter-spacing:-.04em}
+.case-map-heading>p:last-child{color:var(--muted);font-size:.8125rem;line-height:1.7;max-width:65ch;margin:20px 0 28px}
+.case-map dl{margin:0}.case-map dl>div{border-top:1px solid var(--line);padding-block:22px;display:grid;grid-template-columns:155px 1fr;gap:28px}
+.case-map dt{font-size:.8125rem;color:var(--gold);line-height:1.6}.case-map dd{font-size:1rem;line-height:1.7;margin:0;color:var(--ivory,#edece4)}
+.case-page .case-followup{margin-top:36px}
+@media(max-width:640px){.home-situation,.case-teaser{grid-template-columns:1fr;gap:24px;padding-block:30px}.home-situation{margin-top:0}.engagement-practical-grid{grid-template-columns:1fr;gap:24px}.case-page .case-result{padding:24px;margin-block:36px}.case-map{padding:24px 20px;margin-block:40px}.case-map dl>div{grid-template-columns:1fr;gap:9px;padding-block:20px}.evidence-case{margin-bottom:36px}}

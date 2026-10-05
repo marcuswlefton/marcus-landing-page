@@ -107,7 +107,14 @@
     '/mastery-in-motion/the-cost-of-compensation/',
     '/mastery-in-motion/think-clearly-under-pressure/'
   ]);
+  const journeyPaths = new Set(['/', '/advisory/', '/evidence/', '/evidence/commercial-performance/', '/mastery-in-motion/', ...essayPaths]);
   try {
+    let journey;
+    try { journey = JSON.parse(sessionStorage.getItem('ml_journey') || '[]'); } catch (_) { journey = []; }
+    if (!Array.isArray(journey)) journey = [];
+    journey = journey.filter(path => journeyPaths.has(path)).slice(0,15);
+    if (journeyPaths.has(location.pathname) && journey[journey.length - 1] !== location.pathname) journey.push(location.pathname);
+    sessionStorage.setItem('ml_journey', JSON.stringify(journey));
     if (essayPaths.has(location.pathname) && !sessionStorage.getItem('ml_entry_article')) {
       sessionStorage.setItem('ml_entry_article', location.pathname);
     }
@@ -128,6 +135,7 @@
       const initialText = button.textContent;
       const payload = Object.fromEntries(new FormData(form));
       try {
+        if (kind === 'application') payload.journey = sessionStorage.getItem('ml_journey') || '[]';
         const entry = sessionStorage.getItem('ml_entry_article');
         const campaign = sessionStorage.getItem('ml_campaign');
         const parts = [String(payload.source || '').slice(0,90)];
