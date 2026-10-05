@@ -1,3 +1,11 @@
+# Canonical publication alias and retired launch copy.
+/newsletter /mastery-in-motion/ 301!
+/newsletter/ /mastery-in-motion/ 301!
+/newsletter/index.html /mastery-in-motion/ 301!
+/marcuslefton-launch / 301!
+/marcuslefton-launch/ / 301!
+/marcuslefton-launch/index.html / 301!
+/marcuslefton-launch/* /:splat 301!
 # Consolidate previous advisory entry points. The originals remain in Git history.
 /bottleneck /advisory/ 301!
 /bottleneck/ /advisory/ 301!

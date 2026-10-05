@@ -56,3 +56,13 @@ Editorial styles live in `assets/essays.css`. The newsletter page automatically 
 Attribution retains the first selected essay viewed and campaign labels for the current browser tab. Forms append these to the existing Kit source fields; no new Kit field is required. This is same-tab attribution, not cross-device tracking or proof of causation. Never put personal data in campaign parameters.
 
 October 5 content release: three essays were checked at 320, 390, and 1440 pixels, with automated WCAG A/AA checks. Local simulated-provider checks covered application failure/retry, newsletter confirmation, article/campaign attribution, unavailable storage, and readable content with JavaScript disabled. These tests do not create a real Kit subscriber or verify email delivery. Search Console indexing and live provider delivery require separate account-level verification.
+
+## Featured essay, case, and lead attribution
+
+The featured essay is selected in `tools/build_site.py`; supporting essays remain sourced from `tools/essays.json`. The commercial case lives in `tools/commercial-case.html`, and its additional presentation lives in `assets/conversion.css`.
+
+Application responses use the existing Kit form plus `advisory_prompted_by` and `advisory_journey`. These fields and the manual `advisory_stage` field were created in Kit on October 5. Sales stages are not overwritten by website submissions. Prepared distribution copy, campaign URLs, stage definitions, and measurement limits are in `docs/distribution-and-measurement.md`.
+
+Keep `googlefed99dda8152e2b3.html` at the website root for Search Console ownership verification. The retired launch-copy directory is redirected; its source remains in Git.
+
+The October 5 refinement passed 24 responsive WCAG A/AA audits across eight pages at 320/390/1440 pixels, with no page errors or horizontal overflow. Mock form tests cover the new attribution fields and preserve existing application/subscription confirmation behavior. These checks do not send email or create subscribers.
