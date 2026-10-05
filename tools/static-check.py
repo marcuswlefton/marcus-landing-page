@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 CORE = [
     'index.html','advisory/index.html','evidence/index.html','mastery-in-motion/index.html',
     'mastery-in-motion/the-cost-of-compensation/index.html','contact/index.html',
+    'mastery-in-motion/founder-time-management/index.html',
+    'mastery-in-motion/think-clearly-under-pressure/index.html',
     'privacy/index.html','terms-of-service/index.html','thankyou/index.html',
     'application-received/index.html','404.html'
 ]

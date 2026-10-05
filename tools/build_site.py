@@ -13,21 +13,29 @@ NAV = [('advisory', 'Private Advisory', '/advisory/'), ('evidence', 'Evidence', 
 def button(text='Work with Marcus', href='/advisory/', cls='button'):
     return f'<a class="{cls}" href="{href}">{text}</a>'
 
-def page(path, title, description, content, active='', kind='', noindex=False):
+def page(path, title, description, content, active='', kind='', noindex=False, article_meta=None):
     nav = ''.join(f'<a href="{url}"'+(' aria-current="page"' if key == active else '')+f'>{label}</a>' for key,label,url in NAV)
     canonical = ORIGIN + ('/' if path == 'index.html' else '/' + path.replace('index.html',''))
     schema = {'@context':'https://schema.org','@type':'WebPage','name':title,'url':canonical,'description':description,'isPartOf':{'@type':'WebSite','name':'Marcus Lefton | VYRTŪOSITI','url':ORIGIN}}
     if path == 'index.html':
         schema['about'] = {'@type':'Person','name':'Marcus Lefton','url':ORIGIN,'jobTitle':'Founder and Principal Consultant','worksFor':{'@type':'Organization','name':'VYRTŪOSITI'},'sameAs':['https://www.linkedin.com/in/marcuslefton/']}
+    if article_meta:
+        schema.update({'@type':'BlogPosting','headline':article_meta['title'],
+            'author':{'@type':'Person','name':'Marcus Lefton','url':ORIGIN+'/#marcus'},
+            'datePublished':article_meta['published'], 'dateModified':article_meta['modified'],
+            'mainEntityOfPage':canonical, 'inLanguage':'en',
+            'image':ORIGIN+'/assets/marcus-lefton.webp',
+            'publisher':{'@type':'Organization','name':'VYRTŪOSITI','url':ORIGIN}})
+    extra_css = f'<link rel="stylesheet" href="{asset_url("essays.css")}">' if active == 'publication' else ''
     doc = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title><meta name="description" content="{html.escape(description, quote=True)}">
 <link rel="canonical" href="{canonical}"><meta name="theme-color" content="#080909">
-<meta property="og:type" content="website"><meta property="og:title" content="{html.escape(title, quote=True)}"><meta property="og:description" content="{html.escape(description, quote=True)}"><meta property="og:url" content="{canonical}">
+<meta property="og:type" content="{'article' if article_meta else 'website'}"><meta property="og:title" content="{html.escape(title, quote=True)}"><meta property="og:description" content="{html.escape(description, quote=True)}"><meta property="og:url" content="{canonical}">
 <meta property="og:image" content="https://i.imgur.com/57TScBW_d.png?maxwidth=520&amp;shape=thumb&amp;fidelity=high">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="preload" href="/assets/manrope-400.woff" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="{asset_url("site.css")}"><link rel="stylesheet" href="{asset_url("refinements.css")}"><script src="{asset_url("site.js")}" defer></script>
+<link rel="stylesheet" href="{asset_url("site.css")}"><link rel="stylesheet" href="{asset_url("refinements.css")}">{extra_css}<script src="{asset_url("site.js")}" defer></script>
 {'<meta name="robots" content="noindex,follow">' if noindex else ''}
 <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script></head>
 <body class="{kind}"><a class="skip" href="#main">Skip to content</a>
@@ -109,15 +117,32 @@ evidence=f'''<section class="wrap review-wall-intro"><h1>In their own words.</h1
 </section><section class="closing-cta wrap"><h2>What could change<br><span>for you?</span></h2>{button()}</section>'''
 page('evidence/index.html','Evidence | Marcus Lefton & VYRTŪOSITI','Client perspectives on Marcus Lefton’s work across private advisory, professional sport, and performance coaching.',evidence,'evidence')
 
-publication=f'''<section class="wrap letter-hero-simple"><p class="eyebrow">Mastery in Motion · The Sunday letter</p><h1>Make your best<br><span>more repeatable.</span></h1><p class="letter-hero-copy">One practical idea each Sunday to think clearly, perform well, and build with intention. Drawn from my work in professional baseball, performance neuroscience, entrepreneurship, and private advisory. — Marcus Lefton</p>{newsletter_form('join','Subscribe free')}</section>
-<section class="wrap letter-preview-simple"><p class="eyebrow">Read a field note</p><a class="letter-feature" href="/mastery-in-motion/the-cost-of-compensation/"><div class="letter-feature-art" aria-hidden="true"><span class="letter-cover-brand">Mastery<br>in Motion.</span><strong>The work<br>gets done.<br><span>At what cost?</span></strong><span class="letter-cover-author">Marcus Lefton</span></div><div class="letter-feature-copy"><h2>High performers can make bad systems look healthy.</h2><p>When your ability to keep delivering conceals the cost of the way you work.</p><span class="text-link">Read the field note <span aria-hidden="true">→</span></span></div></a></section>
+ESSAYS = json.loads((ROOT/'tools/essays.json').read_text())
+def essay_url(essay):
+    return '/mastery-in-motion/'+essay['slug']+'/'
+
+selected_essays = '<section class="wrap selected-essays" aria-labelledby="essays-heading"><div class="essay-section-heading"><h2 id="essays-heading">Selected essays.</h2><p>Start with the question closest to your week.</p></div><div class="essay-list">'+''.join(
+    f'<a class="essay-card" href="{essay_url(e)}"><div><h3>{html.escape(e["title"])}</h3><p>{html.escape(e["lead"])}</p></div><span class="essay-arrow" aria-hidden="true">↗</span></a>' for e in ESSAYS)+'</div></section>'
+
+publication=f'''<section class="wrap letter-hero-simple"><p class="eyebrow">Mastery in Motion · The Sunday letter</p><h1>Make your best<br><span>more repeatable.</span></h1><p class="letter-hero-copy">One practical idea each Sunday to think clearly, perform well, and build with intention. Drawn from my work in professional baseball, performance neuroscience, entrepreneurship, and private advisory. Written by Marcus Lefton</p>{newsletter_form('join','Subscribe free')}</section>
+{selected_essays}
 <section class="wrap letter-benefits"><h2>A clearer read.<br><span>A practical next move.</span></h2><div class="letter-benefit-grid"><div><h3>One useful idea.</h3><p>A pattern, question, or adjustment you can test in the week ahead.</p></div><div><h3>A connected perspective.</h3><p>See how your physiology, attention, judgment, and working systems affect one another.</p></div><div><h3>Built for your week.</h3><p>Short, practical reading. Choose what matters to your situation and put it to work.</p></div></div></section>
 <section class="wrap newsletter-author"><img src="/assets/marcus-lefton.webp" width="840" height="1826" loading="lazy" alt="Marcus Lefton"><div><p class="eyebrow">From Marcus</p><h2>Different arenas.<br><span>A wider field of view.</span></h2><p>My work has taken me from professional baseball with the Colorado Rockies to human-performance technology at Sparta Science, applied neuroscience at Flow Research Collective, and private advisory for founders and high-stakes operators. Alongside that work, I’ve built VYRTŪOSITI and co-founded Flow Prone Performance.</p><p>Across those settings, I’ve worked with the body producing the effort, the mind directing it, and the systems shaping the result. That experience informs what I notice: when a focus problem calls for recovery, when more effort conceals a missing skill, and when better performance starts with changing the work itself.</p><p><strong>Mastery in Motion brings that connected perspective to your next decision.</strong></p></div></section>
 <section class="wrap newsletter-close letter-close-simple"><h2>Get the next Sunday letter.</h2><p>One useful idea each Sunday. A more informed next move for your week.</p>{newsletter_form('closing-join','Subscribe free')}</section>'''
 page('mastery-in-motion/index.html','Mastery in Motion | Marcus Lefton’s Sunday Letter','One useful idea each Sunday from professional sport, applied performance, and private advisory. Read Marcus Lefton’s field notes and join Mastery in Motion.',publication,'publication')
 
-article=f'''<article class="article wrap"><header><a class="text-link" href="/mastery-in-motion/">Mastery in Motion</a><p class="eyebrow">Field note · Marcus Lefton</p><h1>High performers can make bad systems look healthy.</h1><p class="lead">Your ability to keep delivering can conceal the cost of the way you work.</p></header><div class="article-body"><p>The work gets done. The client stays happy. The decision gets made. From the outside, the system appears to function.</p><p>Look more closely at where the effort lands. You might be the person catching the dropped handoff, making the decision someone else owns, or finishing your most important work after everyone else has stopped.</p><h2>Start with what keeps reaching you.</h2><p>Pick one recurring interruption from the last week. A request for approval. A deliverable that needs rescuing. A question the team cannot answer without you.</p><p>Ask what would need to be true for the next occurrence to move forward without your involvement.</p><ul><li>Does someone have clear ownership?</li><li>Do they have the capability and an example of the standard?</li><li>Is there a decision rule they can use?</li><li>Is the escalation threshold clear?</li></ul><p>Different answers point to different work. A missing skill needs practice. Unclear ownership needs a decision. A vague standard needs an example. More focus from you may leave each of those conditions unchanged.</p><h2>Run a small test.</h2><p>Choose one recurring decision. Agree who owns it, what good looks like, and when it should return to you. Try that arrangement for a week.</p><p>Watch both sides: how often you are interrupted, and whether the quality of the decision holds. Time recovered without a dependable result is an incomplete improvement.</p><h2>Check the wider system.</h2><p>Reclaimed time also needs a purpose. Put it toward the result that matters, or toward recovery that makes your best work more available. Otherwise, the calendar can refill before anything meaningfully changes.</p><p>That is the work of performance architecture: start with the result, find what is limiting it, change the system, and test it against reality.</p><aside class="article-question"><span class="small-label">A question for your week</span><p>What is one thing someone else technically owns that you still end up touching?</p></aside><p>If there is a consequential result you want to produce, and your current approach is costing too much, <a href="/advisory/">explore the 30-day Intensive</a>.</p></div><div class="article-subscribe"><h2>One useful idea.<br>Every Sunday.</h2>{newsletter_form('article-join')}</div></article>'''
-page('mastery-in-motion/the-cost-of-compensation/index.html','High performers can make bad systems look healthy | Mastery in Motion','A field note on recurring decisions, hidden dependence, and testing a change that protects both capacity and the quality of the result.',article,'publication')
+for essay in ESSAYS:
+    words = len(re.sub(r'<[^>]+>', ' ', essay['body']).split())
+    minutes = max(1, round(words/200))
+    date_label = 'Updated October 5, 2026' if essay['published'] != essay['modified'] else 'October 5, 2026'
+    related = ''.join(f'<a href="{essay_url(e)}">{html.escape(e["title"])} <span aria-hidden="true">→</span></a>' for e in ESSAYS if e['slug'] != essay['slug'])
+    article = f'''<article class="article wrap essay-page"><header><a class="text-link" href="/mastery-in-motion/">Mastery in Motion</a><p class="essay-meta"><a href="/#marcus" rel="author">Marcus Lefton</a><span><time datetime="{essay['modified']}">{date_label}</time> · {minutes} min read</span></p><h1>{html.escape(essay['title'])}</h1><p class="lead">{html.escape(essay['lead'])}</p></header>
+<div class="article-body">{essay['body']}</div>
+<aside class="essay-advisory"><h2>Find what needs to change first.</h2><p>{html.escape(essay['cta'])}</p>{button('Explore private advisory','/advisory/','text-link')}</aside>
+<div class="article-subscribe"><h2>A clearer read on your next move.</h2><p>One practical idea each Sunday from professional sport, performance neuroscience, entrepreneurship, and private advisory.</p>{newsletter_form('essay-'+essay['slug'],'Get the Sunday letter')}</div>
+<aside class="essay-author"><p><strong>Written by Marcus Lefton.</strong> My perspective spans professional baseball with the Colorado Rockies, performance technology at Sparta Science, and applied neuroscience at Flow Research Collective. I advise founders and high-stakes operators through VYRTŪOSITI.</p><a class="text-link" href="/evidence/">Explore the evidence <span aria-hidden="true">→</span></a><p class="essay-origin">{html.escape(essay['source'])}</p></aside>
+<nav class="essay-related" aria-label="Related essays"><h2>Continue reading.</h2>{related}</nav></article>'''
+    page('mastery-in-motion/'+essay['slug']+'/index.html',essay['title']+' | Marcus Lefton',essay['description'],article,'publication','essay',article_meta=essay)
 
 page('contact/index.html','Contact Marcus Lefton | VYRTŪOSITI','Contact Marcus Lefton for private advisory and other enquiries.',f'<section class="page-hero wrap contact"><p class="eyebrow">Contact</p><h1>Start with<br><span>what matters.</span></h1><p class="lead">For private advisory, tell me the result you are working toward and what is getting in the way.</p>{button("Apply for the Intensive","/advisory/#apply")}<div class="contact-detail"><h2>Other enquiries</h2><a class="text-link" href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a><p>Based in Arizona. Working with clients remotely.</p></div></section>')
 page('thankyou/index.html','Check your inbox | Mastery in Motion','Your subscription request has been received. Check your inbox for the next step.',f'<section class="confirmation wrap"><p class="eyebrow">Mastery in Motion</p><h1>Check your inbox.</h1><p class="lead">If you have just subscribed, look for an email from Marcus and confirm your address if prompted. Check spam or promotions if it has not arrived.</p><p>Already subscribed? You’ll continue receiving the Sunday letter.</p><div class="actions">{button("Read a field note","/mastery-in-motion/the-cost-of-compensation/")}{button("Return home","/","text-link")}</div><p class="small">Need help? <a href="mailto:marcus@marcuslefton.com">Email Marcus</a>.</p></section>',noindex=True)
@@ -137,7 +162,8 @@ for name,title in [('privacy','Privacy Policy'),('terms-of-service','Terms of Se
     body=re.sub(r'(?m)^\s+$','',body)
     page(name+'/index.html',title+' | VYRTŪOSITI',title+' for VYRTŪOSITI LLC.',f'<article class="legal wrap">{body}</article>')
 
-routes=['/','/advisory/','/evidence/','/mastery-in-motion/','/mastery-in-motion/the-cost-of-compensation/','/contact/','/privacy/','/terms-of-service/']
+routes=['/','/advisory/','/evidence/','/mastery-in-motion/','/contact/','/privacy/','/terms-of-service/']
+routes += [essay_url(e) for e in ESSAYS]
 (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{ORIGIN}{r}</loc></url>' for r in routes)+'</urlset>')
 (ROOT/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /tools/\nDisallow: /docs/\nDisallow: /draft/\nSitemap: '+ORIGIN+'/sitemap.xml\n')
 print('Generated primary, article, legal, contact, and confirmation pages.')
