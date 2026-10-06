@@ -1,7 +1,4 @@
 /* Small, deliberate additions to the established page hierarchy. */
-.home-situation{padding-block:34px;border-block:1px solid var(--line);display:grid;grid-template-columns:1fr 1.2fr;gap:48px;margin-top:18px}
-.home-situation h2{font-size:clamp(1.5rem,2.7vw,2rem);line-height:1.3;letter-spacing:-.035em;margin:0}
-.home-situation p{color:var(--muted);margin:0 0 18px;max-width:55ch;line-height:1.75}
 .case-teaser{padding-block:48px;border-block:1px solid var(--line);display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:center}
 .case-teaser h2{font-size:clamp(1.65rem,3vw,2.4rem);line-height:1.25;letter-spacing:-.04em;margin:0 0 20px}
 .case-teaser blockquote{font-size:clamp(1.25rem,2.1vw,1.7rem);line-height:1.55;margin:0 0 16px;color:var(--ivory,#edece4)}
@@ -24,4 +21,58 @@
 .case-map dl{margin:0}.case-map dl>div{border-top:1px solid var(--line);padding-block:22px;display:grid;grid-template-columns:155px 1fr;gap:28px}
 .case-map dt{font-size:.8125rem;color:var(--gold);line-height:1.6}.case-map dd{font-size:1rem;line-height:1.7;margin:0;color:var(--ivory,#edece4)}
 .case-page .case-followup{margin-top:36px}
-@media(max-width:640px){.home-situation,.case-teaser{grid-template-columns:1fr;gap:24px;padding-block:30px}.home-situation{margin-top:0}.engagement-practical-grid{grid-template-columns:1fr;gap:24px}.case-page .case-result{padding:24px;margin-block:36px}.case-map{padding:24px 20px;margin-block:40px}.case-map dl>div{grid-template-columns:1fr;gap:9px;padding-block:20px}.evidence-case{margin-bottom:36px}}
+@media(max-width:640px){.case-teaser{grid-template-columns:1fr;gap:24px;padding-block:30px}.engagement-practical-grid{grid-template-columns:1fr;gap:24px}.case-page .case-result{padding:24px;margin-block:36px}.case-map{padding:24px 20px;margin-block:40px}.case-map dl>div{grid-template-columns:1fr;gap:9px;padding-block:20px}.evidence-case{margin-bottom:36px}}
+
+/* October 6: readable copy, quiet controls, and the selected proof sequence. */
+.home .about-section .section-intro>p:last-child{max-width:60ch;line-height:1.7}
+.advisory-introduction .lead{max-width:52ch;line-height:1.65}
+.advisory-page .fit-section{align-items:start;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(40px,6vw,88px)}
+.fit-section h2{max-width:14ch;line-height:1.2}
+.fit-situations>div{padding-block:26px;border-top:1px solid var(--line)}
+.fit-situations>div:first-child{padding-top:0;border-top:0}
+.fit-situations h3{font-size:clamp(20px,2vw,24px);line-height:1.35;letter-spacing:-.025em;margin:0 0 10px}
+.fit-section .fit-situations p{max-width:57ch;font-size:16px;line-height:1.7;margin:0}
+.fit-section .fit-conclusion{border-top:1px solid var(--line);padding-top:24px;color:var(--text)}
+.engagement-practical p,.map-outputs dd,.faq-list p,.application-intro p{max-width:65ch}
+.leading-proof .wall-lead{margin-bottom:0}
+.leading-proof{padding-bottom:48px}
+.evidence-case{border-top:1px solid var(--line);margin-bottom:48px}
+.review-wall-intro>p{max-width:62ch;line-height:1.7}
+.wall-review,.wall-lead .wall-review-featured{background:#111111;border:1px solid #35322e;border-radius:14px;box-shadow:none;transition:transform 180ms ease,border-color 180ms ease}
+.wall-review blockquote{max-width:56ch}
+.wall-review .text-link,.featured-review-footer .text-link{min-height:44px}
+.wall-review a:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px}
+.wall-review:focus-within{border-color:#77736c}
+@media(hover:hover) and (pointer:fine){.wall-review:hover,.wall-lead .wall-review-featured:hover{transform:translateY(-2px);border-color:#77736c;box-shadow:none}}
+@media(hover:none){.wall-review:hover{transform:none;box-shadow:none}}
+.letter-hero-simple .letter-hero-copy{max-width:58ch;line-height:1.7}
+.newsletter-author{border-top:1px solid var(--line)}
+.newsletter-author p{max-width:62ch;line-height:1.75}
+.logo-marquee{padding-bottom:32px}
+.logo-motion-toggle{display:none;inset:auto 0 0 auto;width:auto;min-width:80px;height:44px;padding:8px 10px;border-radius:8px;font:inherit;font-size:12px;color:var(--muted);background:transparent;align-items:center;justify-content:center}
+.js .logo-motion-toggle{display:flex}
+.logo-motion-toggle>span{align-items:center;gap:7px}
+.logo-motion-toggle .logo-pause-label{display:flex}
+.logo-motion-toggle .logo-resume-label{display:none}
+.logo-motion-toggle[aria-pressed="true"] .logo-pause-label{display:none}
+.logo-motion-toggle[aria-pressed="true"] .logo-resume-label{display:flex}
+.logo-motion-toggle:hover,.logo-motion-toggle:focus-visible{color:var(--text)}
+.logo-motion-toggle:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.button,.menu-toggle{min-height:44px}
+@media(max-width:820px){.advisory-page .fit-section{grid-template-columns:1fr;gap:30px}.fit-section h2{max-width:20ch}}
+@media(max-width:650px){
+ .home .about-section .section-intro>p:last-child,.arena-list p,.personal-perspective,.offer-section>div>p:not(.eyebrow),.engagement-practical p,.engagement-summary-output,.map-outputs dd,.faq-list p,.application-intro p:not(.small),.newsletter-author p,.letter-feature-copy p,.essay-card p{font-size:16px;line-height:1.7}
+ .advisory-introduction .lead,.letter-hero-simple .letter-hero-copy{font-size:18px;line-height:1.65}
+ .advisory-page .fit-section,.newsletter-author{padding-block:48px}
+ .fit-situations>div{padding-block:24px}.fit-situations h3{font-size:21px;margin-bottom:10px}
+ .leading-proof{padding-bottom:32px}.evidence-case{margin-bottom:32px}
+ .wall-lead{gap:18px}.review-wall .wall-review{margin-bottom:18px}
+ .wall-review blockquote,.wall-review-emphasis blockquote{font-size:20px;line-height:1.6}
+ .newsletter-author{gap:24px}.newsletter-author h2{margin-bottom:20px}
+ .logo-motion-toggle{min-width:76px;padding-inline:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ .logo-marquee{padding-bottom:0}.js .logo-motion-toggle{display:none}
+ .wall-review{transition:none}.wall-review:hover,.wall-lead .wall-review-featured:hover{transform:none}
+ .button,.text-link{transition:none}.button:hover,.button:active{transform:none}
+}
