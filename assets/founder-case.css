@@ -1,0 +1,24 @@
+/* A readable case record, using the site's existing editorial palette. */
+.founder-case h1 span{color:var(--muted)}
+.founder-case .case-comparison{width:100%;table-layout:fixed;border-collapse:collapse;margin:40px 0 52px;font-size:1rem;line-height:1.65}
+.case-comparison caption{text-align:left;font-size:.875rem;color:var(--muted);padding-bottom:20px}
+.case-comparison th,.case-comparison td{text-align:left;vertical-align:top;padding:20px 24px;border-bottom:1px solid var(--line)}
+.case-comparison th{font-weight:500;color:var(--text);border-top:1px solid var(--line)}
+.case-comparison td:first-child{color:var(--muted)}
+.case-comparison td:last-child{color:var(--text);background:#121211}
+.case-comparison .comparison-label{display:none}
+.founder-case .founder-quote{margin:36px 0;padding:24px 0 24px 24px;border-left:2px solid var(--gold)}
+.founder-quote blockquote{font-size:clamp(1.25rem,2.3vw,1.65rem);line-height:1.55;letter-spacing:-.025em;color:var(--text);margin:0}
+.founder-quote figcaption{font-size:.8125rem;line-height:1.7;color:var(--muted);margin-top:16px}
+.founder-case .essay-advisory .button{margin-top:16px}
+@media(max-width:480px){
+ .founder-case .case-comparison{display:block;margin-block:32px 40px}
+ .case-comparison caption{display:block}
+ .case-comparison thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ .case-comparison tbody,.case-comparison tr,.case-comparison td{display:block}
+ .case-comparison tr{border-top:1px solid var(--line);padding-block:12px}
+ .case-comparison tr:last-child{border-bottom:1px solid var(--line)}
+ .case-comparison td{border:0;padding:12px 16px}
+ .case-comparison .comparison-label{display:block;color:var(--muted);font-size:.75rem;letter-spacing:.02em;margin-bottom:4px}
+ .founder-case .founder-quote{padding-left:20px;margin-block:28px}
+}
