@@ -99,13 +99,14 @@
     play.hidden=motion.matches;
   }
 
-  // Retain campaign labels and the first essay path in this tab, never form answers or full URLs.
+  // Retain campaign labels and the first essay or case path in this tab, never form answers or full URLs.
   const params = new URLSearchParams(location.search);
   const safeLabel = v => (v || '').replace(/[^a-zA-Z0-9 _.-]/g, '').slice(0,80);
   const essayPaths = new Set([
     '/mastery-in-motion/founder-time-management/',
     '/mastery-in-motion/the-cost-of-compensation/',
-    '/mastery-in-motion/think-clearly-under-pressure/'
+    '/mastery-in-motion/think-clearly-under-pressure/',
+    '/evidence/founder-dependent-business/'
   ]);
   const journeyPaths = new Set(['/', '/advisory/', '/evidence/', '/evidence/commercial-performance/', '/mastery-in-motion/', ...essayPaths]);
   try {
