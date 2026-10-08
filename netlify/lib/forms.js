@@ -54,7 +54,7 @@ function handlerFor(kind) {
       }
       if (str('prompted_by')) fields.advisory_prompted_by = str('prompted_by');
       if (str('journey')) {
-        const allowedPaths = new Set(['/', '/advisory/', '/evidence/', '/evidence/commercial-performance/', '/mastery-in-motion/', '/mastery-in-motion/founder-time-management/', '/mastery-in-motion/the-cost-of-compensation/', '/mastery-in-motion/think-clearly-under-pressure/']);
+        const allowedPaths = new Set(['/', '/advisory/', '/evidence/', '/evidence/commercial-performance/', '/evidence/founder-dependent-business/', '/mastery-in-motion/', '/mastery-in-motion/founder-time-management/', '/mastery-in-motion/the-cost-of-compensation/', '/mastery-in-motion/think-clearly-under-pressure/']);
         try {
           const journey = JSON.parse(str('journey'));
           if (Array.isArray(journey)) {
