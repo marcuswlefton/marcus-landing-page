@@ -1,0 +1,69 @@
+/* Case selection: one clear reading path, with proof before the invitation. */
+.case-library{padding-block:24px 80px}
+.case-library-heading{display:flex;align-items:baseline;justify-content:space-between;gap:24px 48px;margin-bottom:28px}
+.case-library-heading h2{font-size:clamp(1.75rem,2.7vw,2.25rem);font-weight:500;line-height:1.2;letter-spacing:-.035em;margin:0;max-width:22ch}
+.case-library-heading>p{font-size:1rem;line-height:1.65;color:var(--muted,#abaea7);max-width:43ch;margin:0}
+.case-library-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;list-style:none;padding:0;margin:0}
+.case-library-grid>li{min-width:0;margin:0;padding:0;display:flex}
+.case-library-grid>.case-library-featured{grid-column:1/-1}
+.case-library .case-preview{display:flex;flex-direction:column;gap:24px;width:100%;min-width:0;padding:32px;border:1px solid #35352f;border-radius:14px;background:#111110;color:var(--text,#eeede7);text-decoration:none;transition:border-color 180ms ease,background-color 180ms ease;box-sizing:border-box}
+.case-library .case-preview-main{min-width:0}
+.case-library .case-preview-context{font-size:.8125rem;font-weight:500;line-height:1.6;letter-spacing:.045em;color:var(--gold,#c7b78d);margin:0 0 16px}
+.case-library .case-preview h3{font-size:clamp(1.5rem,2.3vw,1.875rem);font-weight:500;line-height:1.25;letter-spacing:-.035em;max-width:27ch;margin:0 0 18px;text-wrap:pretty;overflow-wrap:break-word}
+.case-library .case-preview-change{font-size:1rem;line-height:1.7;color:#c5c7be;max-width:54ch;margin:0}
+.case-library .case-preview-proof{min-width:0;border-top:1px solid #34352f;padding-top:24px;margin:0}
+.case-library .case-preview-proof blockquote{font-size:1.125rem;font-weight:400;line-height:1.6;letter-spacing:-.015em;color:var(--text,#eeede7);margin:0 0 16px;max-width:45ch}
+.case-library .case-preview-proof figcaption{font-size:.875rem;line-height:1.6;color:var(--muted,#abaea7);margin:0}
+.case-library .case-preview-link{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:44px;padding-top:12px;margin-top:auto;font-size:.9375rem;font-weight:500;line-height:1.5;color:var(--gold,#c7b78d)}
+.case-library .case-preview-arrow{display:inline-block;flex:none;font-size:1.25rem;line-height:1;transition:transform 180ms ease}
+.case-library-featured .case-preview{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);column-gap:56px;row-gap:24px;padding:40px}
+.case-library-featured .case-preview h3{font-size:clamp(1.875rem,3vw,2.5rem);max-width:25ch}
+.case-library-featured .case-preview-proof{border-top:0;border-left:1px solid #34352f;padding:4px 0 0 40px;align-self:stretch}
+.case-library-featured .case-preview-proof blockquote{font-size:clamp(1.25rem,2vw,1.5rem);line-height:1.5}
+.case-library-featured .case-preview>.case-preview-link{grid-column:1/-1;border-top:1px solid #34352f;padding-top:20px;margin-top:0}
+.case-library .case-preview:focus-visible{outline:2px solid var(--gold,#c7b78d);outline-offset:4px;border-color:#7b725b;background:#171713}
+.case-library .case-preview:focus-visible .case-preview-arrow{transform:translateX(4px)}
+@media(hover:hover){
+ .case-library .case-preview:hover{border-color:#7b725b;background:#171713}
+ .case-library .case-preview:hover .case-preview-arrow{transform:translateX(4px)}
+}
+
+/* Article openings: descriptive context, then a compact overview on the reading measure. */
+.case-page>header .case-engagement{max-width:680px;margin:26px 0 0}
+.case-page>header .case-engagement p{font-size:1rem;line-height:1.65;max-width:60ch;margin:0;color:var(--muted,#abaea7)}
+.case-page>header .case-engagement p+p{margin-top:6px}
+.case-page>header .case-engagement strong{font-size:1rem;font-weight:500;color:var(--text,#eeede7)}
+.case-page>.case-brief{max-width:680px;margin:40px auto 0;border-top:1px solid #3a3b33;border-bottom:1px solid #3a3b33;padding:4px 0}
+.case-page .case-brief dl{margin:0}
+.case-page .case-brief dl>div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;padding-block:20px}
+.case-page .case-brief dl>div+div{border-top:1px solid var(--line,#2b2e2a)}
+.case-page .case-brief dt{font-size:.875rem;font-weight:500;line-height:1.65;color:var(--gold,#c7b78d);margin:0}
+.case-page .case-brief dd{font-size:1rem;line-height:1.7;color:var(--text,#eeede7);margin:0;overflow-wrap:break-word}
+.case-page .article-body{max-width:680px;font-size:1.0625rem;line-height:1.8}
+
+@media(max-width:760px){
+ .case-library{padding-block:16px 56px}
+ .case-library-heading{display:block;margin-bottom:24px}
+ .case-library-heading h2{font-size:1.75rem;max-width:none}
+ .case-library-heading>p{margin-top:12px;max-width:48ch}
+ .case-library-grid{grid-template-columns:1fr;gap:20px}
+ .case-library .case-preview,.case-library-featured .case-preview{display:flex;flex-direction:column;padding:28px;gap:24px}
+ .case-library .case-preview h3,.case-library-featured .case-preview h3{font-size:1.75rem;line-height:1.25;max-width:30ch;margin-bottom:16px}
+ .case-library .case-preview-proof,.case-library-featured .case-preview-proof{border-left:0;border-top:1px solid #34352f;padding:24px 0 0}
+ .case-library .case-preview-proof blockquote,.case-library-featured .case-preview-proof blockquote{font-size:1.125rem;line-height:1.6}
+ .case-library .case-preview>.case-preview-link,.case-library-featured .case-preview>.case-preview-link{border:0;padding-top:0;margin-top:0;font-size:1rem}
+ .case-page>.case-brief{margin-top:32px}
+}
+@media(max-width:480px){
+ .case-library.wrap,.case-page.wrap{width:calc(100% - 40px)}
+ .case-library .case-preview,.case-library-featured .case-preview{padding:24px 20px}
+ .case-library .case-preview h3,.case-library-featured .case-preview h3{font-size:1.625rem}
+ .case-library .case-preview-context{margin-bottom:12px}
+ .case-page .case-brief dl>div{grid-template-columns:1fr;gap:6px;padding-block:18px}
+ .case-page>header .case-engagement{margin-top:22px}
+ .case-page .article-body{font-size:1rem;line-height:1.8}
+}
+@media(prefers-reduced-motion:reduce){
+ .case-library .case-preview,.case-library .case-preview-arrow{transition:none}
+ .case-library .case-preview:hover .case-preview-arrow,.case-library .case-preview:focus-visible .case-preview-arrow{transform:none}
+}
