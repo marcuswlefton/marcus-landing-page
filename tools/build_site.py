@@ -28,11 +28,11 @@ def page(path, title, description, content, active='', kind='', noindex=False, a
             'image':ORIGIN+'/assets/marcus-lefton.webp',
             'publisher':{'@type':'Organization','name':'VYRTŪOSITI','url':ORIGIN}})
     extra_css = f'<link rel="stylesheet" href="{asset_url("essays.css")}">' if active == 'publication' or kind == 'case' else ''
-    if path == 'evidence/founder-dependent-business/index.html':
+    if path in ['evidence/founder-dependent-business/index.html', 'evidence/capacity-and-career-performance/index.html']:
         extra_css += f'<link rel="stylesheet" href="{asset_url("founder-case.css")}">'
     if kind in ['home','advisory-page','case'] or active == 'evidence' or path == 'mastery-in-motion/index.html':
         extra_css += f'<link rel="stylesheet" href="{asset_url("conversion.css")}">'
-    social_image = ORIGIN+'/assets/marcus-lefton.webp' if path == 'evidence/founder-dependent-business/index.html' else 'https://i.imgur.com/57TScBW_d.png?maxwidth=520&shape=thumb&fidelity=high'
+    social_image = ORIGIN+'/assets/marcus-lefton.webp' if path in ['evidence/founder-dependent-business/index.html', 'evidence/capacity-and-career-performance/index.html'] else 'https://i.imgur.com/57TScBW_d.png?maxwidth=520&shape=thumb&fidelity=high'
     doc = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title><meta name="description" content="{html.escape(description, quote=True)}">
@@ -130,6 +130,7 @@ evidence=f'''<section class="wrap review-wall-intro"><h1>In their own words.</h1
 </div></section>
 {case_teaser("evidence-case")}
 {founder_case_teaser("evidence-case")}
+<section class="wrap case-teaser evidence-case"><div><h2>His next chapter required<br>more than a career move.</h2><a class="text-link" href="/evidence/capacity-and-career-performance/">Read the performance architecture case <span aria-hidden="true">→</span></a></div><div><p>Senior technology professional · Private advisory</p><p>From competing ambitions to clearer priorities, focused preparation, and a personal system for work, health, and family.</p></div></section>
 <section class="wrap review-wall" aria-label="Client reviews">{wall_reviews}
 </section><section class="closing-cta wrap"><h2>What could change<br><span>for you?</span></h2>{button()}</section>'''
 page('evidence/index.html','Evidence | Marcus Lefton & VYRTŪOSITI','Client perspectives on Marcus Lefton’s work across private advisory, professional sport, and performance coaching.',evidence,'evidence')
@@ -138,7 +139,10 @@ case_content = (ROOT/'tools/commercial-case.html').read_text()
 page('evidence/commercial-performance/index.html','Commercial performance case | Marcus Lefton','A client-reported commercial-performance outcome, Marcus Lefton’s account of the intervention, and an annotated reconstruction of the working Performance Map.',case_content,'evidence','case')
 
 founder_case_content = (ROOT/'tools/founder-case.html').read_text()
-page('evidence/founder-dependent-business/index.html','Founder Overwhelm and Business Design | Marcus Lefton','A 30-day private advisory case connecting personal capacity, a clear business priority, and a structured offer, with client-reported buyer interest a month later.',founder_case_content,'evidence','case',article_meta={'type':'Article','title':'The business was working. The way it was working was the problem.','published':'2026-10-08','modified':'2026-10-08'})
+page('evidence/founder-dependent-business/index.html','Founder Overwhelm and Business Design | Marcus Lefton','A 30-day private advisory case connecting personal capacity, a clear business priority, and a structured offer, with client-reported buyer interest a month later.',founder_case_content,'evidence','case',article_meta={'type':'Article','title':'The business was working. The way it was working was the problem.','published':'2026-10-08','modified':'2026-10-09'})
+
+technology_case_content = (ROOT/'tools/technology-case.html').read_text()
+page('evidence/capacity-and-career-performance/index.html','Performance Architecture Case Study | Marcus Lefton','How private advisory helped a senior technology professional build clearer priorities, focused preparation, and a personal system for work, health, and life.',technology_case_content,'evidence','case',article_meta={'type':'Article','title':'His next chapter required more than a career move.','published':'2026-10-09','modified':'2026-10-09'})
 
 ESSAYS = json.loads((ROOT/'tools/essays.json').read_text())
 def essay_url(essay):
@@ -188,7 +192,7 @@ for name,title in [('privacy','Privacy Policy'),('terms-of-service','Terms of Se
     page(name+'/index.html',title+' | VYRTŪOSITI',title+' for VYRTŪOSITI LLC.',f'<article class="legal wrap">{body}</article>')
 
 routes=['/','/advisory/','/evidence/','/mastery-in-motion/','/contact/','/privacy/','/terms-of-service/']
-routes += [essay_url(e) for e in ESSAYS] + ['/evidence/commercial-performance/', '/evidence/founder-dependent-business/']
+routes += [essay_url(e) for e in ESSAYS] + ['/evidence/commercial-performance/', '/evidence/founder-dependent-business/', '/evidence/capacity-and-career-performance/']
 (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{ORIGIN}{r}</loc></url>' for r in routes)+'</urlset>')
 (ROOT/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /tools/\nDisallow: /docs/\nDisallow: /draft/\nSitemap: '+ORIGIN+'/sitemap.xml\n')
 print('Generated primary, article, legal, contact, and confirmation pages.')

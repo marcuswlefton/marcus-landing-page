@@ -6,6 +6,7 @@ from urllib.parse import urljoin, urlsplit, unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = [
+    'evidence/capacity-and-career-performance/index.html',
     'evidence/founder-dependent-business/index.html',
     'evidence/commercial-performance/index.html',
     'index.html','advisory/index.html','evidence/index.html','mastery-in-motion/index.html',

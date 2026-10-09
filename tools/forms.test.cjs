@@ -28,6 +28,9 @@ test('form transport, routing, validation, and truthful confirmation', async () 
   res=await application(event({...complete,journey:JSON.stringify(['/evidence/founder-dependent-business/','/advisory/','/private?email=secret@example.com'])}));
   assert.equal(res.statusCode,200);
   assert.equal(captured.payload.fields.advisory_journey,'/evidence/founder-dependent-business/ > /advisory/ > enquiry');
+  res=await application(event({...complete,journey:JSON.stringify(['/evidence/capacity-and-career-performance/','/advisory/','/private?email=secret@example.com'])}));
+  assert.equal(res.statusCode,200);
+  assert.equal(captured.payload.fields.advisory_journey,'/evidence/capacity-and-career-performance/ > /advisory/ > enquiry');
   assert.equal(captured.payload.fields.advisory_stage,undefined); // Never overwrite an existing paid/qualified status.
   assert.equal((await application(event({...complete,prompted_by:'x'.repeat(601)}))).statusCode,400);
   assert.equal((await application(event({...complete,journey:'not json'}))).statusCode,200);
