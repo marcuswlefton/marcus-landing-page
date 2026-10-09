@@ -34,4 +34,9 @@ Marcus supplied and requested publication of four additional excerpts. Jason lea
 - David V. case: exact quotation checked against the retained original `proof/index.html`, previously public. The result is client-reported at three months from an earlier engagement, not a 30-day Intensive result. Intervention details come from Marcus's supplied account already recorded in the evidence register. The Performance Map is explicitly reconstructed; no independent sales audit or quantified wellbeing outcome is asserted.
 - Founder bottleneck essay: anonymized operator example checked against Notion `352c7ac6-a08c-813b-885b-cd50837526fd`, a retrospective sales asset pack. Includes role clarity, decision boundaries, strategic plans and client-created tools. Omits financial figures, health data, company names, and private family details. The decision-boundary diagram is a reconstruction, not an original client artifact.
 - Working cadence checked against the actual 30-day SOW, Notion `39cc7ac6-a08c-801c-87a4-d821efe2f313`, linked from the July 13 offer email. It specifies flexible strategic sessions, focused async feedback and a private workspace. No fixed call quota, session duration, or weekly client-hours promise was imported. The individual client's program-development deliverables were not generalized to every engagement.
-- Supporting LinkedIn, conversation, partner and newsletter copy is prepared in `docs/distribution-and-measurement.md`. No messages were sent or posts published.
+
+### Advisory clarity pass, October 9, 2026
+
+- Reviewed existing 30-day engagement agreements. Public copy describes intake/material review, analysis before the first session, focused working sessions, real-world testing, written feedback, and a private workspace.
+- Cadence and support vary by scope. No universal session count, duration, weekly client-hours estimate, or response-time promise is established. The page says these are agreed before payment.
+- Reused Ethan Evans's existing sourced quotation near the advisory hero. It concerns his earlier engagement and is not presented as an outcome of the current 30-day Intensive.
