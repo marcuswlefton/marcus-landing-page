@@ -32,6 +32,8 @@ def page(path, title, description, content, active='', kind='', noindex=False, a
         extra_css += f'<link rel="stylesheet" href="{asset_url("founder-case.css")}">'
     if kind in ['home','advisory-page','case'] or active == 'evidence' or path == 'mastery-in-motion/index.html':
         extra_css += f'<link rel="stylesheet" href="{asset_url("conversion.css")}">'
+    if kind == 'case' or path == 'evidence/index.html':
+        extra_css += f'<link rel="stylesheet" href="{asset_url("case-presentation.css")}">'
     social_image = ORIGIN+'/assets/marcus-lefton.webp' if path in ['evidence/founder-dependent-business/index.html', 'evidence/capacity-and-career-performance/index.html'] else 'https://i.imgur.com/57TScBW_d.png?maxwidth=520&shape=thumb&fidelity=high'
     doc = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -128,9 +130,25 @@ evidence=f'''<section class="wrap review-wall-intro"><h1>In their own words.</h1
 <figure class="wall-review wall-review-range"><blockquote>“He could go vertically deep and horizontally in recommending <strong>operationally, physically, and psychologically.</strong>”</blockquote><figcaption>Ted Tanner<span>CTO, Investor</span></figcaption><a class="text-link" href="https://www.tedtanner.org/review-flow-research-collective/">Read the original <span aria-hidden="true">↗</span></a></figure>
 <figure class="wall-review wall-review-sport"><blockquote>“Had some of my <strong>best seasons</strong> alongside Marcus.”</blockquote><figcaption>Ryan McMahon<span>MLB All-Star</span></figcaption></figure>
 </div></section>
-{case_teaser("evidence-case")}
-{founder_case_teaser("evidence-case")}
-<section class="wrap case-teaser evidence-case"><div><h2>His next chapter required<br>more than a career move.</h2><a class="text-link" href="/evidence/capacity-and-career-performance/">Read the performance architecture case <span aria-hidden="true">→</span></a></div><div><p>Senior technology professional · Private advisory</p><p>From competing ambitions to clearer priorities, focused preparation, and a personal system for work, health, and family.</p></div></section>
+<section class="wrap case-library" aria-labelledby="case-library-heading">
+<div class="case-library-heading"><h2 id="case-library-heading">Inside the work.</h2><p>The situation. The judgment. What changed.</p></div>
+<ul class="case-library-grid">
+<li class="case-library-featured"><a class="case-preview" href="/evidence/founder-dependent-business/" aria-labelledby="founder-preview-title">
+<div class="case-preview-main"><p class="case-preview-context">Performance expert · 30-day private advisory</p><h3 id="founder-preview-title">From overextended expert<br>to a business built for leverage.</h3><p class="case-preview-change">More room to think. A clear commercial priority. Expertise shaped into an offer that attracted buyers after the sprint.</p></div>
+<figure class="case-preview-proof"><blockquote>“I didn’t even actually realize I was doing that until you said that.”</blockquote><figcaption>Jason F.</figcaption></figure>
+<span class="case-preview-link">Read the case <span class="case-preview-arrow" aria-hidden="true">→</span></span>
+</a></li>
+<li><a class="case-preview" href="/evidence/capacity-and-career-performance/" aria-labelledby="technology-preview-title">
+<div class="case-preview-main"><p class="case-preview-context">Senior technology professional · Private advisory</p><h3 id="technology-preview-title">His next chapter required<br>more than a career move.</h3><p class="case-preview-change">Clearer priorities, focused preparation, and a new role in technology. A personal system built around work, health, and family.</p></div>
+<figure class="case-preview-proof"><blockquote>“The prep was like a home run. Literally no blind spots.”</blockquote><figcaption>Senior technology professional · Longer partnership</figcaption></figure>
+<span class="case-preview-link">Read the case <span class="case-preview-arrow" aria-hidden="true">→</span></span>
+</a></li>
+<li><a class="case-preview" href="/evidence/commercial-performance/" aria-labelledby="commercial-preview-title">
+<div class="case-preview-main"><p class="case-preview-context">Commercial performance · Earlier engagement</p><h3 id="commercial-preview-title">Give your best work<br>your best hours.</h3><p class="case-preview-change">Better hours protected for higher-value work, with recovery and a deliberate end to the day built into the plan.</p></div>
+<figure class="case-preview-proof"><blockquote>“Within three months, I had my best Q1 ever, hitting almost 200% of plan”</blockquote><figcaption>David V. · Client-reported result</figcaption></figure>
+<span class="case-preview-link">Read the case <span class="case-preview-arrow" aria-hidden="true">→</span></span>
+</a></li>
+</ul></section>
 <section class="wrap review-wall" aria-label="Client reviews">{wall_reviews}
 </section><section class="closing-cta wrap"><h2>What could change<br><span>for you?</span></h2>{button()}</section>'''
 page('evidence/index.html','Evidence | Marcus Lefton & VYRTŪOSITI','Client perspectives on Marcus Lefton’s work across private advisory, professional sport, and performance coaching.',evidence,'evidence')
