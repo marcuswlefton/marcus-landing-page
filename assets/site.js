@@ -106,7 +106,8 @@
     '/mastery-in-motion/founder-time-management/',
     '/mastery-in-motion/the-cost-of-compensation/',
     '/mastery-in-motion/think-clearly-under-pressure/',
-    '/evidence/founder-dependent-business/'
+    '/evidence/founder-dependent-business/',
+    '/evidence/capacity-and-career-performance/'
   ]);
   const journeyPaths = new Set(['/', '/advisory/', '/evidence/', '/evidence/commercial-performance/', '/mastery-in-motion/', ...essayPaths]);
   try {
