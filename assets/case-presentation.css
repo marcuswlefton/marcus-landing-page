@@ -17,6 +17,7 @@
 .case-library .case-preview-link{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:44px;padding-top:12px;margin-top:auto;font-size:.9375rem;font-weight:500;line-height:1.5;color:var(--gold,#c7b78d)}
 .case-library .case-preview-arrow{display:inline-block;flex:none;font-size:1.25rem;line-height:1;transition:transform 180ms ease}
 .case-library-featured .case-preview{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);column-gap:56px;row-gap:24px;padding:40px}
+.case-library-featured .case-preview>.case-preview-change{align-self:center}
 .case-library-featured .case-preview h3{font-size:clamp(1.875rem,3vw,2.5rem);max-width:25ch}
 .case-library-featured .case-preview-proof{border-top:0;border-left:1px solid #34352f;padding:4px 0 0 40px;align-self:stretch}
 .case-library-featured .case-preview-proof blockquote{font-size:clamp(1.25rem,2vw,1.5rem);line-height:1.5}
