@@ -78,7 +78,6 @@ home=f'''<section class="hero wrap"><div class="hero-copy"><p class="eyebrow">Pr
 <div><div class="arena-heading"><span class="arena-domain">Professional baseball</span><h3>Colorado Rockies</h3></div><p>Connecting physical preparation, recovery, and team systems so individual and collective performance hold across a long season.</p></div>
 <div><div class="arena-heading"><span class="arena-domain">Performance research &amp; technology</span><h3>Sparta Science<br>Flow Research Collective</h3></div><div class="arena-insight"><p>Force-plate measurement and readiness at Sparta Science. Applied performance neuroscience as a former consultant and program leader at FRC.</p><a class="sparta-acquisition" href="https://ouraring.com/blog/oura-acquires-sparta-science-to-expand-enterprise-capabilities/">Sparta Science was acquired by ŌURA in 2024.</a></div></div>
 <div><div class="arena-heading"><span class="arena-domain">Entrepreneurship</span><h3>Founder &amp; co-founder</h3></div><p>Founder of VYRTŪOSITI. Co-founder of Flow Prone Performance. Building lean teams where human judgment, clear ownership, and thoughtful use of AI turn expertise into results.</p></div>
-<div><div class="arena-heading"><span class="arena-domain">Private advisory</span><h3>VYRTŪOSITI</h3></div><p>Connecting capacity, judgment, skills, and systems to the consequential result a founder or high-stakes operator needs next.</p></div>
 </div>
 <p class="personal-perspective">I’m also a father of two. The question is personal: how do you build something meaningful and still have energy and attention for the people you’re building it with?</p></section>
 {system}
@@ -152,13 +151,12 @@ evidence=f'''<section class="wrap review-wall-intro"><h1>In their own words.</h1
 <div class="case-library-heading"><h2 id="case-library-heading">Inside the work.</h2><p>The situation. The judgment. What changed.</p></div>
 <ul class="case-library-grid">
 <li class="case-library-featured"><a class="case-preview" href="/evidence/founder-dependent-business/" aria-labelledby="founder-preview-title">
-<div class="case-preview-main"><p class="case-preview-context">Performance expert · 30-day private advisory</p><h3 id="founder-preview-title">From overextended expert<br>to a business built for leverage.</h3><p class="case-preview-change">More room to think. A clear commercial priority. Expertise shaped into an offer that attracted buyers after the sprint.</p></div>
-<figure class="case-preview-proof"><blockquote>“I didn’t even actually realize I was doing that until you said that.”</blockquote><figcaption>Performance expert</figcaption></figure>
+<div class="case-preview-main"><p class="case-preview-context">Performance expert · 30-day private advisory</p><h3 id="founder-preview-title">From overextended expert<br>to a business built for leverage.</h3></div>
+<p class="case-preview-change">More room to think. A clear commercial priority. Expertise shaped into an offer that attracted buyers after the sprint.</p>
 <span class="case-preview-link">Read the case <span class="case-preview-arrow" aria-hidden="true">→</span></span>
 </a></li>
 <li><a class="case-preview" href="/evidence/capacity-and-career-performance/" aria-labelledby="technology-preview-title">
-<div class="case-preview-main"><p class="case-preview-context">Senior technology professional · Private advisory</p><h3 id="technology-preview-title">His next chapter required<br>more than a career move.</h3><p class="case-preview-change">Clearer priorities, focused preparation, and a new role in technology. A personal system built around work, health, and family.</p></div>
-<figure class="case-preview-proof"><blockquote>“The prep was like a home run. Literally no blind spots.”</blockquote><figcaption>Senior technology professional · Longer partnership</figcaption></figure>
+<div class="case-preview-main"><p class="case-preview-context">Senior technology professional · Longer partnership</p><h3 id="technology-preview-title">His next chapter required<br>more than a career move.</h3><p class="case-preview-change">Clearer priorities, focused preparation, and a new role in technology. A personal system built around work, health, and family.</p></div>
 <span class="case-preview-link">Read the case <span class="case-preview-arrow" aria-hidden="true">→</span></span>
 </a></li>
 <li><a class="case-preview" href="/evidence/commercial-performance/" aria-labelledby="commercial-preview-title">
@@ -192,7 +190,7 @@ publication=f'''<section class="wrap letter-hero-simple"><p class="eyebrow">Mast
 {selected_essays}
 
 <section class="wrap newsletter-author"><img src="/assets/marcus-lefton.webp" width="840" height="1826" loading="lazy" alt="Marcus Lefton"><div><p class="eyebrow">From Marcus</p><h2>Different arenas.<br><span>A wider field of view.</span></h2><p>My work has taken me from professional baseball with the Colorado Rockies to human-performance technology at Sparta Science, applied neuroscience at Flow Research Collective, and private advisory for founders and high-stakes operators. Alongside that work, I’ve built VYRTŪOSITI and co-founded Flow Prone Performance.</p><p>Across those settings, I’ve worked with the body producing the effort, the mind directing it, and the systems shaping the result. That experience informs what I notice: when a focus problem calls for recovery, when more effort conceals a missing skill, and when better performance starts with changing the work itself.</p><p><strong>Mastery in Motion brings that connected perspective to your next decision.</strong></p></div></section>
-<section class="wrap newsletter-close letter-close-simple"><h2>Get the next Sunday letter.</h2><p>One useful idea each Sunday. A more informed next move for your week.</p>{newsletter_form('closing-join','Subscribe free')}</section>'''
+<section class="wrap newsletter-close letter-close-simple"><h2>Get the next Sunday letter.</h2>{newsletter_form('closing-join','Subscribe free')}</section>'''
 page('mastery-in-motion/index.html','Mastery in Motion | Marcus Lefton’s Sunday Letter','One useful idea each Sunday from professional sport, applied performance, and private advisory. Read Marcus Lefton’s field notes and join Mastery in Motion.',publication,'publication')
 
 for essay in ESSAYS:
