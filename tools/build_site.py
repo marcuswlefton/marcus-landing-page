@@ -37,7 +37,7 @@ def page(path, title, description, content, active='', kind='', noindex=False, a
     extra_js = ''
     if kind == 'advisory-page':
         extra_css += f'<link rel="stylesheet" href="{asset_url("advisory.css")}"><link rel="stylesheet" href="{asset_url("advisory-system.css")}">'
-        extra_js = f'<script src="{asset_url("advisory-system.js")}" defer></script>'
+        extra_js = f'<script src="{asset_url("advisory-system.js")}" defer></script><script src="{asset_url("advisory-form.js")}" defer></script>'
     social_image = ORIGIN+'/assets/marcus-lefton.webp' if path in ['evidence/founder-dependent-business/index.html', 'evidence/capacity-and-career-performance/index.html'] else 'https://i.imgur.com/57TScBW_d.png?maxwidth=520&shape=thumb&fidelity=high'
     doc = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -92,8 +92,28 @@ def case_teaser(extra_class=''):
 def founder_case_teaser(extra_class=''):
     return '<section class="wrap case-teaser '+extra_class+'"><div><h2>The business was working.<br>The way it was working was the problem.</h2><a class="text-link" href="/evidence/founder-dependent-business/">Read the founder advisory case <span aria-hidden="true">→</span></a></div><figure><blockquote>“I didn’t even actually realize I was doing that until you said that.”</blockquote><figcaption>Performance expert</figcaption><p class="case-context">Thirty days connecting personal capacity, a clear commercial priority, and a structured offer. A month later, he reported two buyers ready to sign up.</p></figure></section>'
 
-application='''<section class="application-section wrap" id="apply"><div class="application-intro"><p class="eyebrow">Work with Marcus</p><h2>Tell me what<br>needs to change.</h2><p>I’ll review your application and reply by email. If the fit looks promising, we’ll have a complimentary 15-minute conversation about the result, the working relationship, and the scope.</p><p class="muted">Before you commit, we agree the session schedule, between-session support, and the work required from you. Applying carries no payment obligation.</p><p class="small">Prefer email? <a class="text-link" href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a></p></div>
-<form class="application-form" action="/.netlify/functions/apply" method="post" data-form="application"><div class="field-pair"><label>Your name<input name="first_name" autocomplete="name" maxlength="120" required></label><label>Email address<input type="email" name="email" autocomplete="email" maxlength="254" required></label></div><label>Role / company<input name="role_company" autocomplete="organization" maxlength="240" required></label><label>What result matters, and what is getting in the way?<textarea name="current_issue" rows="4" maxlength="3000" required placeholder="A few sentences is enough."></textarea></label><label>What prompted you to reach out? <span class="optional">Optional</span><input name="prompted_by" maxlength="600" placeholder="An article, a referral, a specific situation…"></label><label>What have you already tried? <span class="optional">Optional</span><textarea name="already_tried" rows="2" maxlength="2000"></textarea></label><div class="field-pair"><label>Why is now the right time? <span class="optional">Optional</span><input name="why_now" maxlength="600"></label><label>LinkedIn / website <span class="optional">Optional</span><input type="url" name="linkedin_website" maxlength="500" placeholder="https://"></label></div><label>Are you open to a $5,000 engagement if there is a fit?<select name="readiness" required><option value="">Select an answer</option><option value="Yes">Yes</option><option value="Maybe, depends on fit">I’d like to understand the fit first</option><option value="Not right now">Not right now</option></select></label><div class="honeypot" aria-hidden="true"><label>Leave empty<input name="website" tabindex="-1" autocomplete="off"></label></div><input type="hidden" name="source" value="advisory"><button class="button" type="submit">Send your application</button><p class="form-status" role="status" aria-live="polite"></p><p class="form-note">Your details are used to respond to this enquiry. <a href="/privacy/">Privacy policy</a>.</p></form></section>'''
+application='''<section class="application-section wrap" id="apply">
+<div class="application-intro"><p class="eyebrow">Work with Marcus</p><h2>Tell me what<br>needs to change.</h2><p>Share the result you want and what is getting in the way. I’ll review your application and reply by email.</p><p class="muted">If there’s a fit, we’ll arrange a complimentary 15-minute conversation. No payment is required to apply.</p><p class="small">Prefer email? <a class="text-link" href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a></p></div>
+<form class="application-form" action="/.netlify/functions/apply" method="post" data-form="application">
+  <div class="field-pair"><label>Your name<input name="first_name" autocomplete="name" maxlength="120" required></label><label>Email address<input type="email" name="email" autocomplete="email" maxlength="254" required></label></div>
+  <label>Role / company<input name="role_company" autocomplete="organization" maxlength="240" required></label>
+  <label>What result matters, and what is getting in the way?<textarea name="current_issue" rows="4" maxlength="3000" required placeholder="A few sentences is enough."></textarea></label>
+  <label>Are you open to a $5,000 engagement if there is a fit?<select name="readiness" required><option value="">Select an answer</option><option value="Yes">Yes</option><option value="Maybe, depends on fit">I’d like to understand the fit first</option><option value="Not right now">Not right now</option></select></label>
+  <details class="application-context">
+    <summary>Add more context <span class="optional">(optional)</span></summary>
+    <div class="application-context-fields">
+      <label>What prompted you to reach out? <span class="optional">Optional</span><input name="prompted_by" maxlength="600" placeholder="An article, a referral, a specific situation…"></label>
+      <label>What have you already tried? <span class="optional">Optional</span><textarea name="already_tried" rows="2" maxlength="2000"></textarea></label>
+      <div class="field-pair"><label>Why is now the right time? <span class="optional">Optional</span><input name="why_now" maxlength="600"></label><label>LinkedIn / website <span class="optional">Optional</span><input type="url" name="linkedin_website" maxlength="500" placeholder="https://"></label></div>
+    </div>
+  </details>
+  <div class="honeypot" aria-hidden="true"><label>Leave empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+  <input type="hidden" name="source" value="advisory">
+  <button class="button" type="submit">Send your application</button>
+  <p class="form-status" role="status" aria-live="polite"></p>
+  <p class="form-note">Your details are used to respond to this enquiry. <a href="/privacy/">Privacy policy</a>.</p>
+</form></section>'''
+
 advisory = (ROOT / 'tools/advisory.html').read_text().replace('{{SYSTEM}}', (ROOT / 'tools/advisory-system.html').read_text()).replace('{{APPLICATION}}', application)
 page('advisory/index.html','Performance Advisory for Founders | Marcus Lefton','A $5,000, 30-day private engagement with Marcus Lefton. Define the result, find the constraint, test changes, and build your Performance Map.',advisory,'advisory',kind='advisory-page')
 
