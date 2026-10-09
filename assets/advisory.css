@@ -87,6 +87,13 @@
 .advisory-page .application-section { padding-block: 80px 96px; }
 .advisory-page .application-form { border-radius: 16px; }
 .advisory-page input::placeholder, .advisory-page textarea::placeholder { color: #aaa69e; }
+/* Optional background stays in the same accessible, native form. */
+.advisory-page .application-context { border-block: 1px solid var(--line); }
+.advisory-page .application-context > summary { min-height: 56px; padding: 17px 30px 17px 0; font-size: 15px; line-height: 1.6; }
+.advisory-page .application-context > summary::after { top: 16px; }
+.advisory-page .application-context > summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; border-radius: 2px; }
+.advisory-page .application-context-fields { display: grid; gap: 24px; padding-block: 6px 24px; }
+.advisory-page .application-context .field-pair > label { min-width: 0; }
 @media (min-width: 1500px) { .advisory-opening h1 { font-size: 77px; } }
 @media (max-width: 1000px) {
   .advisory-opening-bottom { gap: 42px; grid-template-columns: 1.3fr 1fr; }
