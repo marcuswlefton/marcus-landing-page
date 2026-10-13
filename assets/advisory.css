@@ -162,10 +162,13 @@
   .advisory-case-copy { margin-top: 16px; }
   .advisory-case figure { margin-top: 24px; padding-top: 22px; }
   .advisor-portrait { max-width: none; border-radius: 16px; }
-  .advisor-portrait img { height: 340px; object-position: center 35%; }
+  .advisor-portrait img { height: 260px; object-position: center 35%; }
   .advisor-portrait figcaption { left: 24px; bottom: 24px; }
   .advisor-story h2 { font-size: 32px; }
   .advisor-story > p.advisor-lead { font-size: 18px; }
+  .advisor-experience { margin-top: 24px; }
+  .advisor-experience > div { padding-block: 18px; }
+  .advisor-experience dt { font-size: 13px; letter-spacing: .025em; text-transform: none; }
   .advisor-experience dd span { font-size: 16px; }
   .advisor-endorsement blockquote { font-size: 23px; }
   .advisory-engagement h2 { font-size: 36px; }

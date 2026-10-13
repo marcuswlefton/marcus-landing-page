@@ -21,11 +21,19 @@
 .essay-page .article-body a{text-underline-offset:4px}
 .essay-page .article-question{margin-block:44px;padding-block:4px}
 .essay-page .article-question p{margin:0;color:var(--ivory,#edece4)}
+.essay-page .article-case-link{margin-block:32px;padding:4px 0 4px 22px;border-left:1px solid var(--line)}
+.essay-page .article-case-link p{margin:0;color:var(--muted);font-size:1.125rem;line-height:1.7}
 .essay-advisory,.essay-page .article-subscribe,.essay-author,.essay-related{max-width:680px;margin:60px auto 0;border-top:1px solid var(--line);padding-top:36px}
 .essay-advisory h2,.essay-page .article-subscribe h2{font-size:clamp(1.6rem,3vw,2rem);line-height:1.25;letter-spacing:-.04em}
+.essay-advisory h2+p,.essay-page .article-subscribe h2+p{margin-top:14px}
 .essay-advisory p,.essay-page .article-subscribe>p,.essay-author p{color:var(--muted);line-height:1.75}
 .essay-author p{font-size:.9375rem}
-.essay-author .essay-origin{font-size:.8125rem;line-height:1.65;margin-top:24px}
+.essay-author .essay-origin{font-size:.875rem;line-height:1.7;margin-top:18px}
+.essay-close{max-width:680px;margin:60px auto 0;border-top:1px solid var(--line);padding-top:36px}
+.essay-page .essay-close .article-subscribe{max-width:none;margin:0;border:0;padding:0}
+.essay-page .essay-close .essay-advisory{max-width:none;margin:24px 0 0;border:0;padding:0}
+.essay-close .essay-advisory p{margin:0;font-size:1rem;line-height:1.75}
+.essay-close .essay-advisory a,.essay-author p a{color:var(--ivory,#edece4);text-decoration:underline;text-underline-offset:4px}
 .essay-related h2,.essay-source h2{font-size:1rem;letter-spacing:0;font-weight:600}
 .essay-related a{display:block;padding-block:18px;border-bottom:1px solid var(--line);line-height:1.65;font-size:1rem}
 .essay-related a span{color:var(--gold)}
@@ -34,6 +42,7 @@
 @media(hover:hover){.essay-card:hover .essay-arrow{transform:translate(3px,-3px)}.essay-card:hover h3{color:var(--gold)}}
 @media(max-width:640px){.selected-essays{padding-block:44px 56px}.essay-section-heading{display:block;margin-bottom:26px}.essay-section-heading p{margin-top:14px;max-width:none}.essay-card{padding-block:26px;gap:16px}.essay-arrow{font-size:1.25rem}.essay-page{padding-top:34px}.essay-meta{display:block;margin-top:28px}.essay-meta span{display:block;margin-top:7px}.essay-page h1{font-size:2.3rem;line-height:1.16;text-wrap:pretty}.essay-page .article-body{margin-top:38px}.essay-advisory,.essay-page .article-subscribe,.essay-author,.essay-related{margin-top:44px;padding-top:28px}.essay-page .article-subscribe .email-row{display:flex;flex-direction:column;gap:10px}.essay-page .article-subscribe .email-row input,.essay-page .article-subscribe .email-row button{width:100%;min-width:0}.essay-page .article-body>h2{font-size:1.65rem;line-height:1.3}}
 @media(prefers-reduced-motion:reduce){.essay-card,.essay-arrow{transition:none}}
+@media(max-width:640px){.essay-close{margin-top:44px;padding-top:28px}.essay-page .article-case-link{padding-left:18px}.essay-page .essay-close .essay-advisory{margin-top:22px}.essay-close+.essay-author{margin-top:36px;padding-top:24px}.essay-author+.essay-related{margin-top:36px;padding-top:24px}}
 
 .essay-featured{margin:0 0 34px}
 .essay-featured .letter-feature-copy h3{font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:1.2;letter-spacing:-.04em;font-weight:500;margin:0}

@@ -6,6 +6,8 @@
 .case-library-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;list-style:none;padding:0;margin:0}
 .case-library-grid>li{min-width:0;margin:0;padding:0;display:flex}
 .case-library-grid>.case-library-featured{grid-column:1/-1}
+.case-library-action{display:flex;justify-content:flex-end;margin-top:24px}
+.case-library-action .text-link{min-height:44px;align-items:center}
 .case-library .case-preview{display:flex;flex-direction:column;gap:24px;width:100%;min-width:0;padding:32px;border:1px solid #35352f;border-radius:14px;background:#111110;color:var(--text,#eeede7);text-decoration:none;transition:border-color 180ms ease,background-color 180ms ease;box-sizing:border-box}
 .case-library .case-preview-main{min-width:0}
 .case-library .case-preview-context{font-size:.8125rem;font-weight:500;line-height:1.6;letter-spacing:.045em;color:var(--gold,#c7b78d);margin:0 0 16px}
