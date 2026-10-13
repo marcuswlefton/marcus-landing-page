@@ -164,7 +164,7 @@ evidence=f'''<section class="wrap review-wall-intro"><h1>In their own words.</h1
 <figure class="case-preview-proof"><blockquote>“Within three months, I had my best Q1 ever, hitting almost 200% of plan”</blockquote><figcaption>Executive business partner · Client-reported result</figcaption></figure>
 <span class="case-preview-link">Read the case <span class="case-preview-arrow" aria-hidden="true">→</span></span>
 </a></li>
-</ul></section>
+</ul><div class="case-library-action">{button('Work with Marcus <span aria-hidden="true">→</span>','/advisory/','text-link')}</div></section>
 <section class="wrap review-wall" aria-label="Client reviews">{wall_reviews}
 </section><section class="closing-cta wrap"><h2>What could change<br><span>for you?</span></h2>{button()}</section>'''
 page('evidence/index.html','Evidence | Marcus Lefton & VYRTŪOSITI','Client perspectives on Marcus Lefton’s work across private advisory, professional sport, and performance coaching.',evidence,'evidence')
@@ -173,7 +173,7 @@ case_content = (ROOT/'tools/commercial-case.html').read_text()
 page('evidence/commercial-performance/index.html','Commercial performance case | Marcus Lefton','A client-reported commercial-performance outcome, Marcus Lefton’s account of the intervention, and an annotated reconstruction of the working Performance Map.',case_content,'evidence','case')
 
 founder_case_content = (ROOT/'tools/founder-case.html').read_text()
-page('evidence/founder-dependent-business/index.html','Founder Overwhelm and Business Design | Marcus Lefton','A 30-day private advisory case connecting personal capacity, a clear business priority, and a structured offer, with client-reported buyer interest a month later.',founder_case_content,'evidence','case',article_meta={'type':'Article','title':'The business was working. The way it was working was the problem.','published':'2026-10-08','modified':'2026-10-09'})
+page('evidence/founder-dependent-business/index.html','Founder Overwhelm and Business Design | Marcus Lefton','A 30-day private advisory case connecting personal capacity, a clear business priority, and a structured offer, with client-reported buyer interest a month later.',founder_case_content,'evidence','case',article_meta={'type':'Article','title':'The business was working. The way it was working was the problem.','published':'2026-10-08','modified':'2026-10-13'})
 
 technology_case_content = (ROOT/'tools/technology-case.html').read_text()
 page('evidence/capacity-and-career-performance/index.html','Performance Architecture Case Study | Marcus Lefton','How private advisory helped a senior technology professional build clearer priorities, focused preparation, and a personal system for work, health, and life.',technology_case_content,'evidence','case',article_meta={'type':'Article','title':'His next chapter required more than a career move.','published':'2026-10-09','modified':'2026-10-09'})
@@ -201,9 +201,9 @@ for essay in ESSAYS:
     related = ''.join(f'<a href="{essay_url(e)}">{html.escape(e["title"])} <span aria-hidden="true">→</span></a>' for e in ESSAYS if e['slug'] != essay['slug'])
     article = f'''<article class="article wrap essay-page"><header><a class="text-link" href="/mastery-in-motion/">Mastery in Motion</a><p class="essay-meta"><a href="/#marcus" rel="author">Marcus Lefton</a><span><time datetime="{essay['modified']}">{date_label}</time> · {minutes} min read</span></p><h1>{html.escape(essay['title'])}</h1><p class="lead">{html.escape(essay['lead'])}</p></header>
 <div class="article-body">{essay['body']}</div>
-<aside class="essay-advisory"><h2>Find what needs to change first.</h2><p>{html.escape(essay['cta'])}</p>{button('Explore private advisory','/advisory/','text-link')}</aside>
-<div class="article-subscribe"><h2>A clearer read on your next move.</h2><p>One practical idea each Sunday from professional sport, performance neuroscience, entrepreneurship, and private advisory.</p>{newsletter_form('essay-'+essay['slug'],'Get the Sunday letter')}</div>
-<aside class="essay-author"><p><strong>Written by Marcus Lefton.</strong> My perspective spans professional baseball with the Colorado Rockies, performance technology at Sparta Science, and applied neuroscience at Flow Research Collective. I advise founders and high-stakes operators through VYRTŪOSITI.</p><a class="text-link" href="/evidence/">Explore the evidence <span aria-hidden="true">→</span></a><p class="essay-origin">{html.escape(essay['source'])}</p></aside>
+<div class="essay-close"><div class="article-subscribe"><h2>A clearer read on your next move.</h2><p>One practical idea each Sunday from professional sport, performance neuroscience, entrepreneurship, and private advisory.</p>{newsletter_form('essay-'+essay['slug'],'Get the Sunday letter')}</div>
+<aside class="essay-advisory"><p>{html.escape(essay['cta'])} <a href="/advisory/">Explore private advisory <span aria-hidden="true">→</span></a></p></aside></div>
+<aside class="essay-author"><p><strong>Written by <a href="/#marcus" rel="author">Marcus Lefton</a>.</strong> Experience across the Colorado Rockies, Sparta Science, and Flow Research Collective. Founder of VYRTŪOSITI. <a href="/evidence/">Explore the evidence.</a></p><p class="essay-origin">{html.escape(essay['source'])}</p></aside>
 <nav class="essay-related" aria-label="Related essays"><h2>Continue reading.</h2>{related}</nav></article>'''
     page('mastery-in-motion/'+essay['slug']+'/index.html',essay['title']+' | Marcus Lefton',essay['description'],article,'publication','essay',article_meta=essay)
 
