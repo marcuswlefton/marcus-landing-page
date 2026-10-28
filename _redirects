@@ -52,6 +52,11 @@
 
 # Retired public copies must not re-expose old client attributions.
 /evidence-update/* /evidence/ 301!
-/evidence/index* /evidence/ 301!
+/evidence/index.html /evidence/ 301!
+/evidence/index%20(3).html /evidence/ 301!
+/evidence/index%20(4).html /evidence/ 301!
 /exports/* /404.html 404!
 /marcus-site-github.zip /404.html 404!
+
+# Unused exports and unverified third-party logo artwork are not public assets.
+/assets/logos/* /404.html 404!
