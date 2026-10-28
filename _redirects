@@ -57,6 +57,3 @@
 /evidence/index%20(4).html /evidence/ 301!
 /exports/* /404.html 404!
 /marcus-site-github.zip /404.html 404!
-
-# Unused exports and unverified third-party logo artwork are not public assets.
-/assets/logos/* /404.html 404!

@@ -70,4 +70,4 @@ The October 5 refinement passed 24 responsive WCAG A/AA audits across eight page
 
 ## Privacy and policy maintenance
 
-Legal content lives in `tools/privacy.content.html` and `tools/terms-of-service.content.html`. Regenerate their public pages with the shared generator. Client identities, original notes, consent records, and source-document locators belong outside this public repository. The current cleanup does not purge Git history, branches, archives, or third-party caches. Review publication permission separately. No provider delivery or inbox notification is implied by static checks.
+Legal content lives in `tools/privacy.content.html` and `tools/terms-of-service.content.html`. Regenerate their public pages with the shared generator. Private client identities, original notes, and consent records belong outside this public repository. Approved public testimonials may use names and link to their public sources. The current cleanup does not purge Git history, branches, archives, or third-party caches. Review publication permission separately. No provider delivery or inbox notification is implied by static checks.
