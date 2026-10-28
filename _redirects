@@ -57,3 +57,7 @@
 /evidence/index%20(4).html /evidence/ 301!
 /exports/* /404.html 404!
 /marcus-site-github.zip /404.html 404!
+
+# Retired logo artwork.
+/assets/logos/bainandcompany.svg /404.html 404!
+/assets/logos/microsoft.svg /404.html 404!
