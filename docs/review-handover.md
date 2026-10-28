@@ -5,7 +5,7 @@ Publication remains paused for Marcus’s review.
 ## Design changes
 
 - Put price, duration, and direct access beside the hero action. Tightened the connection between the disciplines and the intervention.
-- Moved the full contextualized Ethan testimonial and a concise David case ahead of the method. Reduced numerical spectacle; kept the reported result and its limits adjacent.
+- Moved the full contextualized technology executive testimonial and a concise commercial case ahead of the method. Reduced numerical spectacle; kept the reported result and its limits adjacent.
 - Moved the client-background strip above the method with a visible relationship qualifier.
 - Replaced the four-stage diagnostic with a complete default account: signal, first test, and what to watch. Six dimensions remain visible, with leverage identified as a starting hypothesis.
 - Optional reasoning uses native keyboard-accessible disclosure. The entire explanation works without JavaScript or animation.
