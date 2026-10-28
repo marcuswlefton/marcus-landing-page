@@ -1,0 +1,19 @@
+/* A direct newsletter signup after the first client endorsement. Home only. */
+.home-letter-capture{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:clamp(32px,5vw,64px);padding-block:40px 44px;border-bottom:1px solid var(--line)}
+.home-letter-capture .eyebrow{margin-bottom:12px;font-size:12px;letter-spacing:.1em}
+.home-letter-capture h2{font-size:clamp(28px,3vw,34px);line-height:1.16;letter-spacing:-.035em}
+.home-letter-capture .home-letter-promise{max-width:50ch;margin-top:16px;font-size:16px;line-height:1.65;color:var(--muted)}
+.home-letter-capture .newsletter-form{min-width:0;margin:0}
+.home-letter-capture .email-row{flex-direction:row;gap:12px}
+.home-letter-capture .email-row input{min-width:0;min-height:52px}
+.home-letter-capture .email-row .button{align-self:stretch;min-height:52px;font-size:15px}
+.home-letter-capture .form-note{font-size:13px!important;line-height:1.6!important}
+.home-letter-capture .form-status{margin-top:12px;overflow-wrap:anywhere}
+@media(max-width:800px){
+ .home-letter-capture{grid-template-columns:minmax(0,1fr);gap:24px;padding-block:32px 36px}
+ .home-letter-capture .newsletter-form{width:100%;max-width:600px}
+}
+@media(max-width:480px){
+ .home-letter-capture .email-row{flex-direction:column}
+ .home-letter-capture .email-row .button{width:100%}
+}
