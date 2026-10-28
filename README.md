@@ -66,3 +66,8 @@ Application responses use the existing Kit form plus `advisory_prompted_by` and 
 Keep `googlefed99dda8152e2b3.html` at the website root for Search Console ownership verification. The retired launch-copy directory is redirected; its source remains in Git.
 
 The October 5 refinement passed 24 responsive WCAG A/AA audits across eight pages at 320/390/1440 pixels, with no page errors or horizontal overflow. Mock form tests cover the new attribution fields and preserve existing application/subscription confirmation behavior. These checks do not send email or create subscribers.
+
+
+## Privacy and policy maintenance
+
+Legal content lives in `tools/privacy.content.html` and `tools/terms-of-service.content.html`. Regenerate their public pages with the shared generator. Client identities, original notes, consent records, and source-document locators belong outside this public repository. The current cleanup does not purge Git history, branches, archives, or third-party caches. Review publication permission separately. No provider delivery or inbox notification is implied by static checks.

@@ -36,6 +36,8 @@ def page(path, title, description, content, active='', kind='', noindex=False, a
         extra_css += f'<link rel="stylesheet" href="{asset_url("home-newsletter.css")}">'
     if kind == 'case' or path == 'evidence/index.html':
         extra_css += f'<link rel="stylesheet" href="{asset_url("case-presentation.css")}">'
+    if kind == 'home':
+        extra_css += '<style>.client-experience .logo-group .logo-item{width:190px;flex-basis:190px}.client-experience .logo-item .arena-mark{font-size:16px;line-height:1.4;letter-spacing:.015em;color:#dedbd2;font-weight:500}.logo-group{gap:30px}</style>'
     extra_js = ''
     if kind == 'advisory-page':
         extra_css += f'<link rel="stylesheet" href="{asset_url("advisory.css")}"><link rel="stylesheet" href="{asset_url("advisory-system.css")}">'
@@ -69,14 +71,15 @@ def letter_strip():
 def early_letter_signup():
     return '<section class="home-letter-capture wrap" id="home-newsletter" aria-labelledby="home-newsletter-heading"><div><p class="eyebrow">Mastery in Motion</p><h2 id="home-newsletter-heading">Make your best<br><span>more repeatable.</span></h2><p class="home-letter-promise">Practical ideas to build capacity, sharpen judgment, and perform better in business and life.</p></div>'+newsletter_form('home-early-letter','Subscribe free',note='Free. Unsubscribe anytime.')+'</section>'
 
-logo_items = [('apple','Apple'),('mlb','MLB'),('amazon','Amazon'),('us-air-force','U.S. Air Force'),('microsoft','Microsoft'),('ncaa','NCAA'),('tesla','Tesla'),('bainandcompany','Bain & Company'),('flow-research-collective','Flow Research Collective — former consultant and program leader')]
-logo_marks = ''.join(f'<div class="logo-item logo-{file}"><img src="/assets/logos/{file}.{"png" if file == "flow-research-collective" else "svg"}" alt="{name}" width="150" height="62" loading="eager"></div>' for file,name in logo_items)
-logos = '<section class="experience client-experience wrap" aria-labelledby="client-heading"><div class="client-heading"><p class="eyebrow" id="client-heading">Clients come from worlds where performance matters.</p><p>Selected client backgrounds and professional affiliations across private advisory, professional sport, and performance research &amp; technology.</p></div><div class="logo-marquee"><button class="logo-motion-toggle" type="button" aria-label="Pause client logo animation" aria-pressed="false"><span class="logo-pause-label" aria-hidden="true">Ⅱ <span>Pause</span></span><span class="logo-resume-label" aria-hidden="true">▷ <span>Play</span></span></button><div class="logo-window"><div class="logo-track"><div class="logo-group">'+logo_marks+'</div><div class="logo-group" aria-hidden="true">'+logo_marks+'</div></div></div></div><div class="logo-evidence-link"><a class="text-link" href="/evidence/">Explore the evidence <span aria-hidden="true">→</span></a></div></section>'
+# Refer to arenas, not third-party trademarks or organizational endorsements.
+logo_sectors = ['Professional sport', 'Technology', 'Entrepreneurship', 'Military', 'Performance research']
+logo_marks = ''.join('<div class="logo-item"><span class="arena-mark">'+html.escape(name)+'</span></div>' for name in logo_sectors)
+logos = '<section class="experience client-experience wrap" aria-labelledby="client-heading"><div class="client-heading"><p class="eyebrow" id="client-heading">Experience across high-stakes arenas.</p><p>Private advisory, professional sport, and coaching and programs delivered through Flow Research Collective.</p></div><div class="logo-marquee"><button class="logo-motion-toggle" type="button" aria-label="Pause experience animation" aria-pressed="false"><span class="logo-pause-label" aria-hidden="true">Ⅱ <span>Pause</span></span><span class="logo-resume-label" aria-hidden="true">▷ <span>Play</span></span></button><div class="logo-window"><div class="logo-track"><div class="logo-group">'+logo_marks+'</div><div class="logo-group" aria-hidden="true">'+logo_marks+'</div></div></div></div><div class="logo-evidence-link"><a class="text-link" href="/evidence/">Explore the evidence <span aria-hidden="true">→</span></a></div></section>'
 
 system = (ROOT / 'tools/diagnostic.html').read_text()
 home=f'''<section class="hero wrap"><div class="hero-copy"><p class="eyebrow">Private performance advisory</p><h1>Build the capacity.<br><span>Make it count.</span></h1><p class="hero-lead">For founders and high-stakes operators.</p><p class="hero-support">I identify what’s limiting your next consequential result, then help you build the capacity, skills, and systems to achieve it.</p><p class="hero-support">Perform better. Live well.</p><div class="actions">{button()}{button('Read Mastery in Motion','/mastery-in-motion/','text-link')}</div></div><figure class="portrait"><img src="/assets/marcus-lefton.webp" alt="Marcus Lefton" width="840" height="1826" fetchpriority="high" decoding="async"></figure></section>
 {logos}
-<section class="home-endorsement wrap" aria-label="Client perspective"><figure><blockquote>“I feel like I am getting every penny’s worth.”</blockquote><figcaption><strong>Ethan Evans</strong><span>Former Amazon VP</span></figcaption><a class="text-link" href="https://www.linkedin.com/posts/ethanevansvp_despite-being-retired-from-my-vp-job-i-activity-7275918001512595457-ARC9/" target="_blank" rel="noopener noreferrer">Read his original account <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></figure></section>
+<section class="home-endorsement wrap" aria-label="Client perspective"><figure><blockquote>“I feel like I am getting every penny’s worth.”</blockquote><figcaption><strong>Technology executive</strong><span>Earlier six-month engagement</span></figcaption></figure></section>
 {early_letter_signup()}
 <section class="about-section wrap" id="marcus">
 <div class="section-intro"><p class="eyebrow">Why this perspective</p><h2>Different arenas.<br><span>One connected view.</span></h2><p>A performance problem can begin in the person, the skill, or the system around them. My experience across these arenas informs where I look and what I help you change first.</p></div>
@@ -92,10 +95,10 @@ home=f'''<section class="hero wrap"><div class="hero-copy"><p class="eyebrow">Pr
 page('index.html','Marcus Lefton | Performance Architecture & Private Advisory','Private performance advisory for founders and high-stakes operators. Build the capacity, skills, and systems for your next consequential result with Marcus Lefton.',home,kind='home')
 
 def case_teaser(extra_class=''):
-    return '<section class="wrap case-teaser '+extra_class+'"><div><h2>What the work can look like.</h2><a class="text-link" href="/evidence/commercial-performance/">Read the commercial-performance case <span aria-hidden="true">→</span></a></div><figure><blockquote>“Within three months, I had my best Q1 ever, hitting almost 200% of plan”</blockquote><figcaption>Executive business partner · Client-reported result</figcaption><p class="case-context">From an earlier engagement, not the current 30-day Intensive. Read the account of the work, the reported outcome, and what the evidence supports.</p></figure></section>'
+    return '<section class="wrap case-teaser '+extra_class+'"><div><h2>What the work can look like.</h2><a class="text-link" href="/evidence/commercial-performance/">Read the commercial-performance case <span aria-hidden="true">→</span></a></div><figure><p>Client-reported commercial improvement after aligning higher-value work with better hours.</p><figcaption>Executive business partner · Client-reported result</figcaption><p class="case-context">From an earlier engagement, not the current 30-day Intensive. Read the account of the work, the reported outcome, and what the evidence supports.</p></figure></section>'
 
 def founder_case_teaser(extra_class=''):
-    return '<section class="wrap case-teaser '+extra_class+'"><div><h2>The business was working.<br>The way it was working was the problem.</h2><a class="text-link" href="/evidence/founder-dependent-business/">Read the founder advisory case <span aria-hidden="true">→</span></a></div><figure><blockquote>“I didn’t even actually realize I was doing that until you said that.”</blockquote><figcaption>Performance expert</figcaption><p class="case-context">Thirty days connecting personal capacity, a clear commercial priority, and a structured offer. A month later, he reported two buyers ready to sign up.</p></figure></section>'
+    return '<section class="wrap case-teaser '+extra_class+'"><div><h2>The business was working.<br>The way it was working was the problem.</h2><a class="text-link" href="/evidence/founder-dependent-business/">Read the founder advisory case <span aria-hidden="true">→</span></a></div><figure><blockquote>“I didn’t even actually realize I was doing that until you said that.”</blockquote><figcaption>Performance expert</figcaption><p class="case-context">Thirty days connecting personal capacity, a clear commercial priority, and a structured offer. A month later, he reported prospective clients ready to enroll. No paid sales are asserted.</p></figure></section>'
 
 application='''<section class="application-section wrap" id="apply">
 <div class="application-intro"><p class="eyebrow">Work with Marcus</p><h2>Tell me what<br>needs to change.</h2><p>Share the result you want and what is getting in the way. I’ll review your application and reply by email.</p><p class="muted">If there’s a fit, we’ll arrange a complimentary 15-minute conversation. No payment is required to apply.</p><p class="small">Prefer email? <a class="text-link" href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a></p></div>
@@ -116,49 +119,43 @@ application='''<section class="application-section wrap" id="apply">
   <input type="hidden" name="source" value="advisory">
   <button class="button" type="submit">Send your application</button>
   <p class="form-status" role="status" aria-live="polite"></p>
-  <p class="form-note">Your details are used to respond to this enquiry. <a href="/privacy/">Privacy policy</a>.</p>
+  <p class="form-note">Please leave out medical records, payment credentials, and sensitive information about others. Your details are used to respond to this enquiry. <a href="/privacy/">Privacy policy</a>.</p>
 </form></section>'''
 
 advisory = (ROOT / 'tools/advisory.html').read_text().replace('{{SYSTEM}}', (ROOT / 'tools/advisory-system.html').read_text()).replace('{{APPLICATION}}', application)
 page('advisory/index.html','Performance Advisory for Founders | Marcus Lefton','A $5,000, 30-day private engagement with Marcus Lefton. Define the result, find the constraint, test changes, and build your Performance Map.',advisory,'advisory',kind='advisory-page')
 
-# Selected excerpts supplied by Marcus; preserve wording and initials.
+# Selected excerpts supplied by Marcus; preserve wording and withhold client identities.
 reviews = json.loads((ROOT / 'tools/client-reviews.json').read_text())
 def review_fig(review):
-    return '<figure class="client-review"><p class="eyebrow">'+html.escape(review['theme'])+'</p><blockquote>“'+html.escape(review['quote'])+'”</blockquote><figcaption>'+html.escape(review['name'])+'</figcaption></figure>'
+    return '<figure class="client-review"><p class="eyebrow">'+html.escape(review['theme'])+'</p><blockquote>“'+html.escape(review['quote'])+'”</blockquote><figcaption>'+html.escape(review['name'])+'<span>'+html.escape(review['engagement'])+'</span></figcaption></figure>'
 review_featured = ''.join(review_fig(r) for r in reviews[:6])
 review_archive = ''.join(review_fig(r) for r in reviews[6:])
 
-review_emphasis = {
-    'Donovan M.': 'apply to all different real world settings',
-    'Elizabeth L.': 'get to the heart of the conversation quickly',
-    'Naomi W.': 'small actionable steps',
-    'Debb B.': 'an outstanding coach and trusted advisor',
-    'Carlomagno M.': 'how clear he puts everything for you to take action',
-    'Yonnas G.': 'felt very heard and got clear direction',
-}
+review_emphasis = ['apply to all different real world settings', 'get to the heart of the conversation quickly', 'small actionable steps', 'an outstanding coach and trusted advisor', 'how clear he puts everything for you to take action', 'felt very heard and got clear direction']
+
 def wall_review(review):
     quote = html.escape(review['quote'])
-    phrase = review_emphasis.get(review['name'])
+    phrase = next((p for p in review_emphasis if p in review['quote']), None)
     if phrase:
         phrase = html.escape(phrase)
         quote = quote.replace(phrase, '<strong>'+phrase+'</strong>')
-    feature = ' wall-review-emphasis' if review['name'] in ['Donovan M.', 'Debb B.', 'Carlomagno M.'] else ''
-    return '<figure class="wall-review'+feature+'"><blockquote>“'+quote+'”</blockquote><figcaption>'+html.escape(review['name'])+'</figcaption></figure>'
+    feature = ''
+    return '<figure class="wall-review'+feature+'"><blockquote>“'+quote+'”</blockquote><figcaption>'+html.escape(review['name'])+'<span>'+html.escape(review['engagement'])+'</span></figcaption></figure>'
 wall_reviews = ''.join(wall_review(r) for r in reviews)
-evidence=f'''<section class="wrap review-wall-intro"><h1>In their own words.</h1><p>Professional athletes. Founders. Executives. Technical specialists. Different arenas, demanding standards—their accounts of working with Marcus.</p></section>
+evidence=f'''<section class="wrap review-wall-intro"><h1>Trusted by high-stakes performers.</h1><p>Client perspectives across private advisory, professional sport, and earlier coaching or program work. Names and identifying links are withheld. Engagement context appears with each account.</p></section>
 <section class="wrap leading-proof" aria-label="Selected client accounts"><div class="wall-lead">
-<figure class="wall-review wall-review-featured"><blockquote>“The strongest testimonial I can give you is the five digit sum I pay to have six months of private advisory calls with Marcus. <strong>I feel like I am getting every penny’s worth.”</strong></blockquote><div class="featured-review-footer"><figcaption>Ethan Evans<span>Former Amazon VP</span></figcaption><a class="text-link" href="https://www.linkedin.com/posts/ethanevansvp_despite-being-retired-from-my-vp-job-i-activity-7275918001512595457-ARC9/" target="_blank" rel="noopener noreferrer">Read the original <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div></figure>
+<figure class="wall-review wall-review-featured"><blockquote>“The strongest testimonial I can give you is the five digit sum I pay to have six months of calls with Marcus. <strong>I feel like I am getting every penny’s worth.”</strong></blockquote><div class="featured-review-footer"><figcaption>Technology executive<span>Earlier six-month engagement</span></figcaption></div></figure>
 
-<figure class="wall-review wall-review-range"><blockquote>“He could go vertically deep and horizontally in recommending <strong>operationally, physically, and psychologically.</strong>”</blockquote><figcaption>Ted Tanner<span>CTO, Investor</span></figcaption><a class="text-link" href="https://www.tedtanner.org/review-flow-research-collective/">Read the original <span aria-hidden="true">↗</span></a></figure>
-<figure class="wall-review wall-review-sport"><blockquote>“Had some of my <strong>best seasons</strong> alongside Marcus.”</blockquote><figcaption>Ryan McMahon<span>MLB All-Star</span></figcaption></figure>
+<figure class="wall-review wall-review-range"><blockquote>“He could go vertically deep and horizontally in recommending <strong>operationally, physically, and psychologically.</strong>”</blockquote><figcaption>Technology leader<span>Earlier FRC program coaching, including one-to-one sessions</span></figcaption></figure>
+<figure class="wall-review wall-review-sport"><blockquote>“Had some of my <strong>best seasons</strong> alongside Marcus.”</blockquote><figcaption>Professional athlete<span>Earlier professional-sport work</span></figcaption></figure>
 </div></section>
 <section class="wrap case-library" aria-labelledby="case-library-heading">
 <div class="case-library-heading"><h2 id="case-library-heading">Inside the work.</h2><p>The situation. The judgment. What changed.</p></div>
 <ul class="case-library-grid">
 <li class="case-library-featured"><a class="case-preview" href="/evidence/founder-dependent-business/" aria-labelledby="founder-preview-title">
 <div class="case-preview-main"><p class="case-preview-context">Performance expert · 30-day private advisory</p><h3 id="founder-preview-title">From overextended expert<br>to a business built for leverage.</h3></div>
-<p class="case-preview-change">More room to think. A clear commercial priority. Expertise shaped into an offer that attracted buyers after the sprint.</p>
+<p class="case-preview-change">More room to think. A clear commercial priority. Expertise shaped into a clearer offer, followed by prospective clients ready to enroll.</p>
 <span class="case-preview-link">Read the case <span class="case-preview-arrow" aria-hidden="true">→</span></span>
 </a></li>
 <li><a class="case-preview" href="/evidence/capacity-and-career-performance/" aria-labelledby="technology-preview-title">
@@ -167,7 +164,7 @@ evidence=f'''<section class="wrap review-wall-intro"><h1>In their own words.</h1
 </a></li>
 <li><a class="case-preview" href="/evidence/commercial-performance/" aria-labelledby="commercial-preview-title">
 <div class="case-preview-main"><p class="case-preview-context">Commercial performance · Earlier engagement</p><h3 id="commercial-preview-title">Give your best work<br>your best hours.</h3><p class="case-preview-change">Better hours protected for higher-value work, with recovery and a deliberate end to the day built into the plan.</p></div>
-<figure class="case-preview-proof"><blockquote>“Within three months, I had my best Q1 ever, hitting almost 200% of plan”</blockquote><figcaption>Executive business partner · Client-reported result</figcaption></figure>
+<figure class="case-preview-proof"><p>Client-reported commercial improvement after aligning higher-value work with better hours.</p><figcaption>Executive business partner · Client-reported result</figcaption></figure>
 <span class="case-preview-link">Read the case <span class="case-preview-arrow" aria-hidden="true">→</span></span>
 </a></li>
 </ul><div class="case-library-action">{button('Work with Marcus <span aria-hidden="true">→</span>','/advisory/','text-link')}</div></section>
@@ -179,7 +176,7 @@ case_content = (ROOT/'tools/commercial-case.html').read_text()
 page('evidence/commercial-performance/index.html','Commercial performance case | Marcus Lefton','A client-reported commercial-performance outcome, Marcus Lefton’s account of the intervention, and an annotated reconstruction of the working Performance Map.',case_content,'evidence','case')
 
 founder_case_content = (ROOT/'tools/founder-case.html').read_text()
-page('evidence/founder-dependent-business/index.html','Founder Overwhelm and Business Design | Marcus Lefton','A 30-day private advisory case connecting personal capacity, a clear business priority, and a structured offer, with client-reported buyer interest a month later.',founder_case_content,'evidence','case',article_meta={'type':'Article','title':'The business was working. The way it was working was the problem.','published':'2026-10-08','modified':'2026-10-13'})
+page('evidence/founder-dependent-business/index.html','Founder Overwhelm and Business Design | Marcus Lefton','A 30-day private advisory case connecting personal capacity, a clear business priority, and a structured offer, with client-reported readiness to enroll a month later.',founder_case_content,'evidence','case',article_meta={'type':'Article','title':'The business was working. The way it was working was the problem.','published':'2026-10-08','modified':'2026-10-13'})
 
 technology_case_content = (ROOT/'tools/technology-case.html').read_text()
 page('evidence/capacity-and-career-performance/index.html','Performance Architecture Case Study | Marcus Lefton','How private advisory helped a senior technology professional build clearer priorities, focused preparation, and a personal system for work, health, and life.',technology_case_content,'evidence','case',article_meta={'type':'Article','title':'His next chapter required more than a career move.','published':'2026-10-09','modified':'2026-10-09'})
@@ -213,22 +210,14 @@ for essay in ESSAYS:
 <nav class="essay-related" aria-label="Related essays"><h2>Continue reading.</h2>{related}</nav></article>'''
     page('mastery-in-motion/'+essay['slug']+'/index.html',essay['title']+' | Marcus Lefton',essay['description'],article,'publication','essay',article_meta=essay)
 
-page('contact/index.html','Contact Marcus Lefton | VYRTŪOSITI','Contact Marcus Lefton for private advisory and other enquiries.',f'<section class="page-hero wrap contact"><p class="eyebrow">Contact</p><h1>Start with<br><span>what matters.</span></h1><p class="lead">For private advisory, tell me the result you are working toward and what is getting in the way.</p>{button("Apply for the Intensive","/advisory/#apply")}<div class="contact-detail"><h2>Other enquiries</h2><a class="text-link" href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a><p>Based in Arizona. Working with clients remotely.</p></div></section>')
+page('contact/index.html','Contact Marcus Lefton | VYRTŪOSITI','Contact Marcus Lefton for private advisory and other enquiries.',f'<section class="page-hero wrap contact"><p class="eyebrow">Contact</p><h1>Start with<br><span>what matters.</span></h1><p class="lead">For private advisory, tell me the result you are working toward and what is getting in the way.</p>{button("Apply for the Intensive","/advisory/#apply")}<div class="contact-detail"><h2>Other enquiries and accessibility</h2><a class="text-link" href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a><p>Based in Arizona. Working with clients remotely. If a page or form is difficult to use, email me for an alternative way to enquire.</p></div></section>')
 page('thankyou/index.html','Check your inbox | Mastery in Motion','Your subscription request has been received. Check your inbox for the next step.',f'<section class="confirmation wrap"><p class="eyebrow">Mastery in Motion</p><h1>Check your inbox.</h1><p class="lead">If you have just subscribed, look for an email from Marcus and confirm your address if prompted. Check spam or promotions if it has not arrived.</p><p>Already subscribed? You’ll continue receiving Mastery in Motion.</p><div class="actions">{button("Read a field note","/mastery-in-motion/the-cost-of-compensation/")}{button("Return home","/","text-link")}</div><p class="small">Need help? <a href="mailto:marcus@marcuslefton.com">Email Marcus</a>.</p></section>',noindex=True)
 page('application-received/index.html','Application received | Marcus Lefton','Your application has been received. Marcus will review it and reply by email.',f'<section class="confirmation wrap"><p class="eyebrow">Private advisory</p><h1>Thank you<br><span>for the context.</span></h1><p class="lead">If you have just submitted the application, it has been received. I’ll review it and reply by email about fit and next steps.</p><p>No payment has been taken. If the fit looks promising, we’ll arrange a complimentary 15-minute conversation.</p>{button("Explore the evidence","/evidence/")}<p class="small">Something to add? <a href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a>.</p></section>',noindex=True)
 page('404.html','Page not found | Marcus Lefton','Find private advisory, evidence, and Mastery in Motion.',f'<section class="confirmation wrap"><p class="eyebrow">Page not found</p><h1>Let’s get you<br><span>to the right place.</span></h1><div class="actions">{button("Return home","/")}{button("Private advisory","/advisory/","text-link")}</div></section>',noindex=True)
 
-# Preserve the existing legal wording; replace presentation and shared navigation only.
+# Legal content has one maintained source for each public policy.
 for name,title in [('privacy','Privacy Policy'),('terms-of-service','Terms of Service')]:
-    source_path=ROOT/'tools'/f'{name}.source.html'
-    if not source_path.exists():
-        source_path.write_text((ROOT/name/'index.html').read_text())
-    text=source_path.read_text()
-    body=text.split('<div class="policy-container">',1)[1].split('<div class="footer-block',1)[0]
-    body=re.sub(r'<div class="brand-mark[^>]*>.*?</div>','',body,flags=re.S)
-    body=re.sub(r'\sstyle="[^"]*"','',body)
-    body=body.replace('fade-up','')
-    body=re.sub(r'(?m)^\s+$','',body)
+    body=(ROOT/'tools'/f'{name}.content.html').read_text()
     page(name+'/index.html',title+' | VYRTŪOSITI',title+' for VYRTŪOSITI LLC.',f'<article class="legal wrap">{body}</article>')
 
 routes=['/','/advisory/','/evidence/','/mastery-in-motion/','/contact/','/privacy/','/terms-of-service/']
