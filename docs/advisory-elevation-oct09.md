@@ -1,6 +1,6 @@
 # Advisory presentation update · October 9, 2026
 
-The advisory page now explains the connection between the person, skills, and surrounding systems, demonstrates the judgment through a three-stage Jason case, and substantiates Marcus's perspective with a dedicated advisor section and two complementary client cases.
+The advisory page now explains the connection between the person, skills, and surrounding systems, demonstrates the judgment through a three-stage performance expert case, and substantiates Marcus's perspective with a dedicated advisor section and two complementary client cases.
 
 ## Editing
 
@@ -16,7 +16,7 @@ Run `python tools/build_site.py` after edits. Commit generated `advisory/index.h
 
 - Clearer opening and recognizable buying situations.
 - One user-controlled explanation: see the whole picture, find the constraint, test and refine. Each stage connects the diagram to a documented engagement.
-- Jason and the anonymous technology case demonstrate different applications. The longer technology partnership is explicitly labeled.
+- performance expert and the anonymous technology case demonstrate different applications. The longer technology partnership is explicitly labeled.
 - A portrait-led advisor section connects professional baseball, performance science and technology, and entrepreneurship to Marcus's judgment.
 - A single offer section explains the $5,000 / 30-day Intensive, Performance Map, working sessions, and implementation expectations.
 
