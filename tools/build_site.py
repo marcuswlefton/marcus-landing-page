@@ -32,6 +32,8 @@ def page(path, title, description, content, active='', kind='', noindex=False, a
         extra_css += f'<link rel="stylesheet" href="{asset_url("founder-case.css")}">'
     if kind in ['home','advisory-page','case'] or active == 'evidence' or path == 'mastery-in-motion/index.html':
         extra_css += f'<link rel="stylesheet" href="{asset_url("conversion.css")}">'
+    if kind == 'home':
+        extra_css += f'<link rel="stylesheet" href="{asset_url("home-newsletter.css")}">'
     if kind == 'case' or path == 'evidence/index.html':
         extra_css += f'<link rel="stylesheet" href="{asset_url("case-presentation.css")}">'
     extra_js = ''
@@ -56,13 +58,16 @@ def page(path, title, description, content, active='', kind='', noindex=False, a
 <footer class="site-footer"><div class="wrap"><div class="footer-top"><a class="wordmark" href="/"><strong>Marcus Lefton</strong><span>VYRTŪOSITI</span></a><p>Performance architecture.<br>A clearer way to your next result.</p><div><a href="/contact/">Contact</a><a href="https://www.linkedin.com/in/marcuslefton/">LinkedIn</a><a href="/mastery-in-motion/">The Sunday letter</a></div></div><div class="footer-bottom"><span>© 2026 VYRTŪOSITI LLC</span><div><a href="/privacy/">Privacy</a><a href="/terms-of-service/">Terms</a></div></div></div></footer></body></html>'''
     dest = ROOT / path; dest.parent.mkdir(parents=True, exist_ok=True); dest.write_text(doc)
 
-def newsletter_form(id='newsletter', label='Join the Sunday letter'):
+def newsletter_form(id='newsletter', label='Join the Sunday letter', note='Free. One useful email every Sunday. Unsubscribe anytime.'):
     return f'''<form class="newsletter-form" id="{id}" action="/.netlify/functions/subscribe" method="post" data-form="newsletter">
 <label for="{id}-email">Email address</label><div class="email-row"><input id="{id}-email" name="email" type="email" autocomplete="email" placeholder="Your email address" maxlength="254" required><button class="button" type="submit">{label}</button></div>
-<div class="honeypot" aria-hidden="true"><label>Leave empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div><input type="hidden" name="source" value="mastery_in_motion/{id}"><p class="form-status" role="status" aria-live="polite"></p><p class="form-note">Free. One useful email every Sunday. Unsubscribe anytime. <a href="/privacy/">Privacy</a></p></form>'''
+<div class="honeypot" aria-hidden="true"><label>Leave empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div><input type="hidden" name="source" value="mastery_in_motion/{id}"><p class="form-status" role="status" aria-live="polite"></p><p class="form-note">{html.escape(note)} <a href="/privacy/">Privacy</a></p></form>'''
 
 def letter_strip():
     return '<section class="letter-strip" id="join"><div class="wrap letter-grid"><div><p class="eyebrow">The Sunday letter</p><h2>Mastery in Motion.</h2><p>Recognize where your best effort is being wasted—and what to change first.</p><blockquote class="letter-sample">“A missing skill needs practice. Unclear ownership needs a decision.”</blockquote><p class="letter-sample-label">From a Mastery in Motion field note</p>'+button('Read a field note','/mastery-in-motion/the-cost-of-compensation/','text-link')+'</div>'+newsletter_form('home-letter')+'</div></section>'
+
+def early_letter_signup():
+    return '<section class="home-letter-capture wrap" id="home-newsletter" aria-labelledby="home-newsletter-heading"><div><p class="eyebrow">Mastery in Motion</p><h2 id="home-newsletter-heading">Make your best<br><span>more repeatable.</span></h2><p class="home-letter-promise">Practical ideas to build capacity, sharpen judgment, and perform better in business and life.</p></div>'+newsletter_form('home-early-letter','Subscribe free',note='Free. Unsubscribe anytime.')+'</section>'
 
 logo_items = [('apple','Apple'),('mlb','MLB'),('amazon','Amazon'),('us-air-force','U.S. Air Force'),('microsoft','Microsoft'),('ncaa','NCAA'),('tesla','Tesla'),('bainandcompany','Bain & Company'),('flow-research-collective','Flow Research Collective — former consultant and program leader')]
 logo_marks = ''.join(f'<div class="logo-item logo-{file}"><img src="/assets/logos/{file}.{"png" if file == "flow-research-collective" else "svg"}" alt="{name}" width="150" height="62" loading="eager"></div>' for file,name in logo_items)
@@ -72,6 +77,7 @@ system = (ROOT / 'tools/diagnostic.html').read_text()
 home=f'''<section class="hero wrap"><div class="hero-copy"><p class="eyebrow">Private performance advisory</p><h1>Build the capacity.<br><span>Make it count.</span></h1><p class="hero-lead">For founders and high-stakes operators.</p><p class="hero-support">I identify what’s limiting your next consequential result, then help you build the capacity, skills, and systems to achieve it.</p><p class="hero-support">Perform better. Live well.</p><div class="actions">{button()}{button('Read Mastery in Motion','/mastery-in-motion/','text-link')}</div></div><figure class="portrait"><img src="/assets/marcus-lefton.webp" alt="Marcus Lefton" width="840" height="1826" fetchpriority="high" decoding="async"></figure></section>
 {logos}
 <section class="home-endorsement wrap" aria-label="Client perspective"><figure><blockquote>“I feel like I am getting every penny’s worth.”</blockquote><figcaption><strong>Ethan Evans</strong><span>Former Amazon VP</span></figcaption><a class="text-link" href="https://www.linkedin.com/posts/ethanevansvp_despite-being-retired-from-my-vp-job-i-activity-7275918001512595457-ARC9/" target="_blank" rel="noopener noreferrer">Read his original account <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></figure></section>
+{early_letter_signup()}
 <section class="about-section wrap" id="marcus">
 <div class="section-intro"><p class="eyebrow">Why this perspective</p><h2>Different arenas.<br><span>One connected view.</span></h2><p>A performance problem can begin in the person, the skill, or the system around them. My experience across these arenas informs where I look and what I help you change first.</p></div>
 <div class="arena-list">
