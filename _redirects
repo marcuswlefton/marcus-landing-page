@@ -48,3 +48,10 @@
 /tools/* /404.html 404!
 /docs/* /404.html 404!
 /netlify/* /404.html 404!
+
+
+# Retired public copies must not re-expose old client attributions.
+/evidence-update/* /evidence/ 301!
+/evidence/index* /evidence/ 301!
+/exports/* /404.html 404!
+/marcus-site-github.zip /404.html 404!
