@@ -1,12 +1,21 @@
 # Evidence and publication register
 
-Client identities and direct source locators are intentionally withheld from this public repository. Keep original records and any publication permissions in a private system, outside Git and deployable exports.
+## Attribution rules
 
-- Reviews describe different engagements. The technology-executive account concerns six months of calls; the technology-leader account concerns prior FRC program coaching; the professional-athlete account concerns earlier sport work.
-- Preserve the exact supplied quotation. Program and engagement context belongs outside quotation marks. Do not add "private advisory" to the six-month quote.
-- The founder follow-up supports prospective clients ready to enroll and further sales conversations. It does not independently establish completed purchases, revenue, or hours saved.
-- The technology case describes a longer partnership. Medical treatment, weight, trading, exact engagement dates, employers, and private family observations are withheld.
-- The commercial case is an earlier engagement, not a current Intensive outcome. Precise financial figures are withheld. Any map is explicitly reconstructed.
-- The sector strip describes experience arenas without third-party logo artwork or organizational endorsements. Restore a trademark only after a brand-specific permissions review.
-- Anonymized attribution alone does not establish consent or prevent all re-identification. Publication approval for private quotations must be recorded outside this public repository.
-- Old commits, branches, archives, and third-party caches can retain previous identities. This release is not a Git-history purge.
+- Approved public testimonials: Ethan Evans, Ted Tanner, Ryan McMahon, and David V. retain their approved public attribution. Ethan and Ted link to their original public accounts. David links to his public Trustpilot review. Ryan’s approved professional-baseball quote is retained without inventing an external source.
+- Earlier review collection: use the supplied first name and last initial. Identify an earlier program where it is known; otherwise use “Earlier coaching engagement.”
+- Private advisory clients: use a non-identifying role only unless they have a public testimonial link approved for use. The four private excerpts at the start of the review data remain role-only. Do not add names, private source identifiers, session timestamps, medical details, or trading details to their cases or source notes.
+
+## Public source context
+
+- Ethan’s account concerns six months of calls. Preserve “six months of calls” verbatim, without inserting “private advisory” into the quotation.
+- Ted’s account concerns FRC program coaching, including individual sessions with Marcus.
+- Ryan’s account concerns professional-baseball work. Do not attribute his All-Star selection or contracts to advisory.
+- David’s Trustpilot review describes one-to-one work with Marcus within FRC’s Zero to Dangerous program. The commercial result is client-reported and predates the current 30-day Intensive. Use a contiguous excerpt of the original review. No independently audited revenue or universal expected outcome is claimed.
+- The logo strip refers to client backgrounds and professional affiliations. Its headline describes high performers, not organizational purchasers or endorsements. This update follows Marcus’s explicit instruction to restore the existing logo bar; it does not assert newly obtained trademark licences.
+
+## Private evidence limits
+
+- The founder follow-up supports prospective clients ready to enroll and further sales conversations, not independently verified paid sales.
+- The technology case reflects a longer partnership. Medical treatment, weight, trading, precise engagement dates, and employers stay withheld.
+- Store original private records and publication permissions outside this public repository. This release does not purge historical commits or archives.
