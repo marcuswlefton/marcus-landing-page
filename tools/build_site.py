@@ -69,9 +69,9 @@ def letter_strip():
 def early_letter_signup():
     return '<section class="home-letter-capture wrap" id="home-newsletter" aria-labelledby="home-newsletter-heading"><div><p class="eyebrow">Mastery in Motion</p><h2 id="home-newsletter-heading">Make your best<br><span>more repeatable.</span></h2><p class="home-letter-promise">Practical ideas to build capacity, sharpen judgment, and perform better in business and life.</p></div>'+newsletter_form('home-early-letter','Subscribe free',note='Free. Unsubscribe anytime.')+'</section>'
 
-logo_items = [('apple','Apple'),('mlb','MLB'),('amazon','Amazon'),('us-air-force','U.S. Air Force'),('microsoft','Microsoft'),('ncaa','NCAA'),('tesla','Tesla'),('bainandcompany','Bain & Company'),('flow-research-collective','Flow Research Collective — former consultant and program leader')]
+logo_items = [('apple','Apple'),('mlb','MLB'),('amazon','Amazon'),('us-air-force','U.S. Air Force'),('tesla','Tesla'),('ncaa','NCAA'),('flow-research-collective','Flow Research Collective — former consultant and program leader')]
 logo_marks = ''.join(f'<div class="logo-item logo-{file}"><img src="/assets/logos/{file}.{"png" if file == "flow-research-collective" else "svg"}" alt="{name}" width="150" height="62" loading="eager"></div>' for file,name in logo_items)
-logos = '<section class="experience client-experience wrap" aria-labelledby="client-heading"><div class="client-heading"><p class="eyebrow" id="client-heading">Trusted by high performers in high-stakes domains.</p><p>Selected client backgrounds and professional affiliations.</p></div><div class="logo-marquee"><button class="logo-motion-toggle" type="button" aria-label="Pause client logo animation" aria-pressed="false"><span class="logo-pause-label" aria-hidden="true">Ⅱ <span>Pause</span></span><span class="logo-resume-label" aria-hidden="true">▷ <span>Play</span></span></button><div class="logo-window"><div class="logo-track"><div class="logo-group">'+logo_marks+'</div><div class="logo-group" aria-hidden="true">'+logo_marks+'</div></div></div></div><div class="logo-evidence-link"><a class="text-link" href="/evidence/">Explore the evidence <span aria-hidden="true">→</span></a></div></section>'
+logos = '<section class="experience client-experience wrap" aria-labelledby="client-heading"><div class="client-heading"><p class="eyebrow" id="client-heading">Experience across high-stakes domains.</p><p>Selected client affiliations and prior professional experience, including work delivered through Flow Research Collective. No organizational endorsement implied.</p></div><div class="logo-marquee"><button class="logo-motion-toggle" type="button" aria-label="Pause client logo animation" aria-pressed="false"><span class="logo-pause-label" aria-hidden="true">Ⅱ <span>Pause</span></span><span class="logo-resume-label" aria-hidden="true">▷ <span>Play</span></span></button><div class="logo-window"><div class="logo-track"><div class="logo-group">'+logo_marks+'</div><div class="logo-group" aria-hidden="true">'+logo_marks+'</div></div></div></div><div class="logo-evidence-link"><a class="text-link" href="/evidence/">Explore the evidence <span aria-hidden="true">→</span></a></div></section>'
 
 system = (ROOT / 'tools/diagnostic.html').read_text()
 home=f'''<section class="hero wrap"><div class="hero-copy"><p class="eyebrow">Private performance advisory</p><h1>Build the capacity.<br><span>Make it count.</span></h1><p class="hero-lead">For founders and high-stakes operators.</p><p class="hero-support">I identify what’s limiting your next consequential result, then help you build the capacity, skills, and systems to achieve it.</p><p class="hero-support">Perform better. Live well.</p><div class="actions">{button()}{button('Read Mastery in Motion','/mastery-in-motion/','text-link')}</div></div><figure class="portrait"><img src="/assets/marcus-lefton.webp" alt="Marcus Lefton" width="840" height="1826" fetchpriority="high" decoding="async"></figure></section>
@@ -92,7 +92,7 @@ home=f'''<section class="hero wrap"><div class="hero-copy"><p class="eyebrow">Pr
 page('index.html','Marcus Lefton | Performance Architecture & Private Advisory','Private performance advisory for founders and high-stakes operators. Build the capacity, skills, and systems for your next consequential result with Marcus Lefton.',home,kind='home')
 
 def case_teaser(extra_class=''):
-    return '<section class="wrap case-teaser '+extra_class+'"><div><h2>What the work can look like.</h2><a class="text-link" href="/evidence/commercial-performance/">Read the commercial-performance case <span aria-hidden="true">→</span></a></div><figure><p>His best Q1. Almost 200% of plan.</p><figcaption>David V. · Earlier FRC coaching · Client-reported result</figcaption><p class="case-context">From an earlier engagement, not the current 30-day Intensive. Read the account of the work, the reported outcome, and what the evidence supports.</p></figure></section>'
+    return '<section class="wrap case-teaser '+extra_class+'"><div><h2>What the work can look like.</h2><a class="text-link" href="/evidence/commercial-performance/">Read the commercial-performance case <span aria-hidden="true">→</span></a></div><figure><p>His best Q1. Almost 200% of plan.</p><figcaption>David V. · Earlier FRC 1:1 work · Client-reported result</figcaption><p class="case-context">From an earlier engagement, not the current 30-day Intensive. Read the account of the work, the reported outcome, and what the evidence supports.</p></figure></section>'
 
 def founder_case_teaser(extra_class=''):
     return '<section class="wrap case-teaser '+extra_class+'"><div><h2>The business was working.<br>The way it was working was the problem.</h2><a class="text-link" href="/evidence/founder-dependent-business/">Read the founder advisory case <span aria-hidden="true">→</span></a></div><figure><blockquote>“I didn’t even actually realize I was doing that until you said that.”</blockquote><figcaption>Performance expert</figcaption><p class="case-context">Thirty days connecting personal capacity, a clear commercial priority, and a structured offer. A month later, he reported prospective clients ready to enroll. No paid sales are asserted.</p></figure></section>'
@@ -124,27 +124,29 @@ page('advisory/index.html','Performance Advisory for Founders | Marcus Lefton','
 
 # Selected excerpts supplied by Marcus; preserve wording and withhold client identities.
 reviews = json.loads((ROOT / 'tools/client-reviews.json').read_text())
+def display_quote(review):
+    return review.get('excerpt', review['quote'])
 def review_fig(review):
-    return '<figure class="client-review"><p class="eyebrow">'+html.escape(review['theme'])+'</p><blockquote>“'+html.escape(review['quote'])+'”</blockquote><figcaption>'+html.escape(review['name'])+'<span>'+html.escape(review['engagement'])+'</span></figcaption></figure>'
+    return '<figure class="client-review"><p class="eyebrow">'+html.escape(review['theme'])+'</p><blockquote>“'+html.escape(display_quote(review))+'”</blockquote><figcaption>'+html.escape(review['name'])+'<span>'+html.escape(review['engagement'])+'</span></figcaption></figure>'
 review_featured = ''.join(review_fig(r) for r in reviews[:6])
 review_archive = ''.join(review_fig(r) for r in reviews[6:])
 
-review_emphasis = ['apply to all different real world settings', 'get to the heart of the conversation quickly', 'small actionable steps', 'an outstanding coach and trusted advisor', 'how clear he puts everything for you to take action', 'felt very heard and got clear direction']
+review_emphasis = ['apply to all different real world settings', 'get to the heart of the conversation quickly', 'small actionable steps', 'trusted advisor', 'how clear he puts everything for you to take action', 'felt very heard and got clear direction']
 
 def wall_review(review):
-    quote = html.escape(review['quote'])
-    phrase = next((p for p in review_emphasis if p in review['quote']), None)
+    quote = html.escape(display_quote(review))
+    phrase = next((p for p in review_emphasis if p in display_quote(review)), None)
     if phrase:
         phrase = html.escape(phrase)
         quote = quote.replace(phrase, '<strong>'+phrase+'</strong>')
     feature = ''
     return '<figure class="wall-review'+feature+'"><blockquote>“'+quote+'”</blockquote><figcaption>'+html.escape(review['name'])+'<span>'+html.escape(review['engagement'])+'</span></figcaption></figure>'
 wall_reviews = ''.join(wall_review(r) for r in reviews)
-evidence=f'''<section class="wrap review-wall-intro"><h1>In their own words.</h1><p>Professional athletes. Founders. Executives. Technical specialists. Their accounts of working with Marcus across private advisory, professional sport, and coaching through Flow Research Collective.</p></section>
+evidence=f'''<section class="wrap review-wall-intro"><h1>Trusted by high performers.</h1><p>Professional athletes. Founders. Executives. Technical specialists. Their accounts of working with Marcus across private advisory, professional sport, and 1:1 work through Flow Research Collective.</p></section>
 <section class="wrap leading-proof" aria-label="Selected client accounts"><div class="wall-lead">
 <figure class="wall-review wall-review-featured"><blockquote>“The strongest testimonial I can give you is the five digit sum I pay to have six months of calls with Marcus. <strong>I feel like I am getting every penny’s worth.”</strong></blockquote><div class="featured-review-footer"><figcaption>Ethan Evans<span>Former Amazon VP · Earlier six-month engagement</span></figcaption><a class="text-link" href="https://www.linkedin.com/posts/ethanevansvp_despite-being-retired-from-my-vp-job-i-activity-7275918001512595457-ARC9/" target="_blank" rel="noopener noreferrer">Read his original account <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div></figure>
 
-<figure class="wall-review wall-review-range"><blockquote>“He could go vertically deep and horizontally in recommending <strong>operationally, physically, and psychologically.</strong>”</blockquote><figcaption>Ted Tanner<span>CTO, Investor · Earlier FRC program coaching</span></figcaption><a class="text-link" href="https://www.tedtanner.org/review-flow-research-collective/" target="_blank" rel="noopener noreferrer">Read his original review <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></figure>
+<figure class="wall-review wall-review-range"><blockquote>“He could go vertically deep and horizontally in recommending <strong>operationally, physically, and psychologically.</strong>”</blockquote><figcaption>Ted Tanner<span>CTO, Investor · Earlier FRC 1:1 work</span></figcaption><a class="text-link" href="https://www.tedtanner.org/review-flow-research-collective/" target="_blank" rel="noopener noreferrer">Read his original review <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></figure>
 <figure class="wall-review wall-review-sport"><blockquote>“Had some of my <strong>best seasons</strong> alongside Marcus.”</blockquote><figcaption>Ryan McMahon<span>MLB All-Star · Professional baseball</span></figcaption></figure>
 </div></section>
 <section class="wrap case-library" aria-labelledby="case-library-heading">
@@ -161,13 +163,13 @@ evidence=f'''<section class="wrap review-wall-intro"><h1>In their own words.</h1
 </a></li>
 <li><a class="case-preview" href="/evidence/commercial-performance/" aria-labelledby="commercial-preview-title">
 <div class="case-preview-main"><p class="case-preview-context">Commercial performance · Earlier engagement</p><h3 id="commercial-preview-title">Give your best work<br>your best hours.</h3><p class="case-preview-change">Better hours protected for higher-value work, with recovery and a deliberate end to the day built into the plan.</p></div>
-<figure class="case-preview-proof"><p>His best Q1. Almost 200% of plan.</p><figcaption>David V. · Earlier FRC coaching · Client-reported result</figcaption></figure>
+<figure class="case-preview-proof"><p>His best Q1. Almost 200% of plan.</p><figcaption>David V. · Earlier FRC 1:1 work · Client-reported result</figcaption></figure>
 <span class="case-preview-link">Read the case <span class="case-preview-arrow" aria-hidden="true">→</span></span>
 </a></li>
 </ul><div class="case-library-action">{button('Work with Marcus <span aria-hidden="true">→</span>','/advisory/','text-link')}</div></section>
 <section class="wrap review-wall" aria-label="Client reviews">{wall_reviews}
 </section><section class="closing-cta wrap"><h2>What could change<br><span>for you?</span></h2>{button()}</section>'''
-page('evidence/index.html','Evidence | Marcus Lefton & VYRTŪOSITI','Client perspectives on Marcus Lefton’s work across private advisory, professional sport, and performance coaching.',evidence,'evidence')
+page('evidence/index.html','Evidence | Marcus Lefton & VYRTŪOSITI','Client perspectives on Marcus Lefton’s work across private advisory, professional sport, and applied performance.',evidence,'evidence')
 
 case_content = (ROOT/'tools/commercial-case.html').read_text()
 page('evidence/commercial-performance/index.html','Commercial performance case | Marcus Lefton','A client-reported commercial-performance outcome, Marcus Lefton’s account of the intervention, and an annotated reconstruction of the working Performance Map.',case_content,'evidence','case')
