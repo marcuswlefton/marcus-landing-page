@@ -9,24 +9,49 @@ def asset_url(name):
     digest = hashlib.sha256((ROOT / 'assets' / name).read_bytes()).hexdigest()[:12]
     return f'/assets/{name}?v={digest}'
 
+# One identity for search engines and AI assistants: every page describes the same
+# person, organization, and website by stable @id. State only facts visible on the site.
+PERSON_ID, ORG_ID, SITE_ID = ORIGIN+'/#marcus', ORIGIN+'/#organization', ORIGIN+'/#website'
+PERSON = {'@type':'Person','@id':PERSON_ID,'name':'Marcus Lefton','url':ORIGIN+'/','image':ORIGIN+'/assets/marcus-lefton.webp',
+    'jobTitle':'Founder and Principal Consultant','worksFor':{'@id':ORG_ID},
+    'description':'Marcus Lefton is the founder of VYRTŪOSITI and a private performance advisor to founders and high-stakes operators. His experience spans professional baseball with the Colorado Rockies, performance science at Sparta Science and Flow Research Collective, and entrepreneurship. He writes the Mastery in Motion newsletter.',
+    'knowsAbout':['Private performance advisory','Professional sport','Performance neuroscience','Entrepreneurship'],
+    'affiliation':{'@type':'Organization','name':'Flow Prone Performance','url':'https://flowprone.com/'},
+    'sameAs':['https://www.linkedin.com/in/marcuslefton/','https://x.com/marcuswlefton','https://www.instagram.com/marcuslefton/','https://www.youtube.com/@MarcusLefton']}
+ORGANIZATION = {'@type':'Organization','@id':ORG_ID,'name':'VYRTŪOSITI','alternateName':'VYRTUOSITI','legalName':'VYRTŪOSITI LLC','url':ORIGIN+'/',
+    'description':'Private performance advisory for founders and high-stakes operators.','founder':{'@id':PERSON_ID}}
+WEBSITE = {'@type':'WebSite','@id':SITE_ID,'name':'Marcus Lefton','alternateName':'Marcus Lefton | VYRTŪOSITI','url':ORIGIN+'/','inLanguage':'en','publisher':{'@id':ORG_ID}}
+LASTMOD = {}
+
+def plain(fragment):
+    return html.unescape(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', fragment))).strip()
+
 NAV = [('advisory', 'Private Advisory', '/advisory/'), ('evidence', 'Evidence', '/evidence/'), ('publication', 'Mastery in Motion', '/mastery-in-motion/')]
 
 def button(text='Work with Marcus', href='/advisory/', cls='button'):
     return f'<a class="{cls}" href="{href}">{text}</a>'
 
-def page(path, title, description, content, active='', kind='', noindex=False, article_meta=None):
+def page(path, title, description, content, active='', kind='', noindex=False, article_meta=None, breadcrumb=None, extra_schema=None):
     nav = ''.join(f'<a href="{url}"'+(' aria-current="page"' if key == active else '')+f'>{label}</a>' for key,label,url in NAV)
     canonical = ORIGIN + ('/' if path == 'index.html' else '/' + path.replace('index.html',''))
-    schema = {'@context':'https://schema.org','@type':'WebPage','name':title,'url':canonical,'description':description,'isPartOf':{'@type':'WebSite','name':'Marcus Lefton | VYRTŪOSITI','url':ORIGIN}}
+    node = {'@type':'WebPage','@id':canonical+'#webpage','name':title,'url':canonical,'description':description,'inLanguage':'en','isPartOf':{'@id':SITE_ID}}
     if path == 'index.html':
-        schema['about'] = {'@type':'Person','name':'Marcus Lefton','url':ORIGIN,'jobTitle':'Founder and Principal Consultant','worksFor':{'@type':'Organization','name':'VYRTŪOSITI'},'sameAs':['https://www.linkedin.com/in/marcuslefton/']}
+        node['about'] = {'@id':PERSON_ID}; node['mainEntity'] = {'@id':PERSON_ID}
     if article_meta:
-        schema.update({'@type':article_meta.get('type','BlogPosting'),'headline':article_meta['title'],
-            'author':{'@type':'Person','name':'Marcus Lefton','url':ORIGIN+'/#marcus'},
+        node.update({'@type':article_meta.get('type','BlogPosting'),'headline':article_meta['title'],
+            'author':{'@id':PERSON_ID},
             'datePublished':article_meta['published'], 'dateModified':article_meta['modified'],
-            'mainEntityOfPage':canonical, 'inLanguage':'en',
+            'mainEntityOfPage':canonical,
             'image':ORIGIN+'/assets/marcus-lefton.webp',
-            'publisher':{'@type':'Organization','name':'VYRTŪOSITI','url':ORIGIN}})
+            'publisher':{'@id':ORG_ID}})
+        LASTMOD['/'+path.replace('index.html','')] = article_meta['modified']
+    graph = [WEBSITE, ORGANIZATION, PERSON, node]
+    if breadcrumb:
+        trail = [('Home', ORIGIN+'/')] + [(label, ORIGIN+url) for label,url in breadcrumb] + [(plain(article_meta['title']) if article_meta else title, canonical)]
+        graph.append({'@type':'BreadcrumbList','@id':canonical+'#breadcrumb','itemListElement':[{'@type':'ListItem','position':i,'name':label,'item':url} for i,(label,url) in enumerate(trail,1)]})
+        node['breadcrumb'] = {'@id':canonical+'#breadcrumb'}
+    graph += extra_schema or []
+    schema = {'@context':'https://schema.org','@graph':graph}
     extra_css = f'<link rel="stylesheet" href="{asset_url("essays.css")}">' if active == 'publication' or kind == 'case' else ''
     if path in ['evidence/founder-dependent-business/index.html', 'evidence/capacity-and-career-performance/index.html']:
         extra_css += f'<link rel="stylesheet" href="{asset_url("founder-case.css")}">'
@@ -48,7 +73,7 @@ def page(path, title, description, content, active='', kind='', noindex=False, a
 <meta property="og:type" content="{'article' if article_meta else 'website'}"><meta property="og:title" content="{html.escape(title, quote=True)}"><meta property="og:description" content="{html.escape(description, quote=True)}"><meta property="og:url" content="{canonical}">
 <meta property="og:image" content="{html.escape(social_image, quote=True)}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="preload" href="/assets/manrope-400.woff" as="font" type="font/woff" crossorigin>
+<link rel="alternate" type="application/rss+xml" title="Mastery in Motion by Marcus Lefton" href="/feed.xml"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="preload" href="/assets/manrope-400.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="{asset_url("site.css")}"><link rel="stylesheet" href="{asset_url("refinements.css")}">{extra_css}<script src="{asset_url("site.js")}" defer></script>{extra_js}
 {'<meta name="robots" content="noindex,follow">' if noindex else ''}
 <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script></head>
@@ -56,7 +81,7 @@ def page(path, title, description, content, active='', kind='', noindex=False, a
 <header class="site-header"><div class="wrap header-inner"><a class="wordmark" href="/" aria-label="Marcus Lefton — Home"><strong>Marcus Lefton</strong><span>VYRTŪOSITI</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menu<span aria-hidden="true">+</span></button><nav id="navigation" aria-label="Main navigation">{nav}{button(href='/advisory/#apply',cls='button button-small nav-cta')}</nav></div></header>
 <main id="main">{content}</main>
 <footer class="site-footer"><div class="wrap"><div class="footer-top"><a class="wordmark" href="/"><strong>Marcus Lefton</strong><span>VYRTŪOSITI</span></a><p>Performance architecture.<br>A clearer way to your next result.</p><div><a href="/contact/">Contact</a><a href="https://www.linkedin.com/in/marcuslefton/">LinkedIn</a><a href="/mastery-in-motion/">Mastery in Motion</a></div></div><div class="footer-bottom"><span>© 2026 VYRTŪOSITI LLC</span><div><a href="/privacy/">Privacy</a><a href="/terms-of-service/">Terms</a></div></div></div></footer></body></html>'''
-    dest = ROOT / path; dest.parent.mkdir(parents=True, exist_ok=True); dest.write_text(doc)
+    dest = ROOT / path; dest.parent.mkdir(parents=True, exist_ok=True); dest.write_text(doc+'\n')
 
 def newsletter_form(id='newsletter', label='Subscribe free', note='Free. Unsubscribe anytime.'):
     return f'''<form class="newsletter-form" id="{id}" action="/.netlify/functions/subscribe" method="post" data-form="newsletter">
@@ -120,7 +145,12 @@ application='''<section class="application-section wrap" id="apply">
 </form></section>'''
 
 advisory = (ROOT / 'tools/advisory.html').read_text().replace('{{SYSTEM}}', (ROOT / 'tools/advisory-system.html').read_text()).replace('{{APPLICATION}}', application)
-page('advisory/index.html','Performance Advisory for Founders | Marcus Lefton','A $5,000, 30-day private engagement with Marcus Lefton. Define the result, find the constraint, test changes, and build your Performance Map.',advisory,'advisory',kind='advisory-page')
+page('advisory/index.html','Performance Advisory for Founders | Marcus Lefton','A $5,000, 30-day private engagement with Marcus Lefton. Define the result, find the constraint, test changes, and build your Performance Map.',advisory,'advisory',kind='advisory-page',extra_schema=[
+    {'@type':'Service','@id':ORIGIN+'/advisory/#intensive','name':'The Performance Architecture Intensive','serviceType':'Private performance advisory','url':ORIGIN+'/advisory/',
+     'description':'A 30-day private 1:1 engagement with Marcus Lefton focused on one consequential result. The output is a Performance Map: a working diagnosis, changes tested in your circumstances, and a clear decision about what to continue, change, or stop.',
+     'provider':{'@id':ORG_ID},'audience':{'@type':'Audience','audienceType':'Founders and high-stakes operators'},
+     'offers':{'@type':'Offer','price':'5000','priceCurrency':'USD','url':ORIGIN+'/advisory/#apply'}},
+    {'@type':'FAQPage','@id':ORIGIN+'/advisory/#faq','mainEntity':[{'@type':'Question','name':plain(q),'acceptedAnswer':{'@type':'Answer','text':plain(a)}} for q,a in re.findall(r'<details><summary>(.*?)</summary>(.*?)</details>', advisory, re.S)]}])
 
 # Selected excerpts supplied by Marcus; preserve wording and withhold client identities.
 reviews = json.loads((ROOT / 'tools/client-reviews.json').read_text())
@@ -172,13 +202,13 @@ evidence=f'''<section class="wrap review-wall-intro"><h1>Trusted by high perform
 page('evidence/index.html','Evidence | Marcus Lefton & VYRTŪOSITI','Client perspectives on Marcus Lefton’s work across private advisory, professional sport, and applied performance.',evidence,'evidence')
 
 case_content = (ROOT/'tools/commercial-case.html').read_text()
-page('evidence/commercial-performance/index.html','Commercial performance case | Marcus Lefton','A client-reported commercial-performance outcome, Marcus Lefton’s account of the intervention, and an annotated reconstruction of the working Performance Map.',case_content,'evidence','case')
+page('evidence/commercial-performance/index.html','Commercial performance case | Marcus Lefton','A client-reported commercial-performance outcome, Marcus Lefton’s account of the intervention, and an annotated reconstruction of the working Performance Map.',case_content,'evidence','case',breadcrumb=[('Evidence','/evidence/')])
 
 founder_case_content = (ROOT/'tools/founder-case.html').read_text()
-page('evidence/founder-dependent-business/index.html','Founder Overwhelm and Business Design | Marcus Lefton','A 30-day private advisory case connecting personal capacity, a clear business priority, and a structured offer, with client-reported readiness to enroll a month later.',founder_case_content,'evidence','case',article_meta={'type':'Article','title':'The business was working. The way it was working was the problem.','published':'2026-10-08','modified':'2026-10-13'})
+page('evidence/founder-dependent-business/index.html','Founder Overwhelm and Business Design | Marcus Lefton','A 30-day private advisory case connecting personal capacity, a clear business priority, and a structured offer, with client-reported readiness to enroll a month later.',founder_case_content,'evidence','case',article_meta={'type':'Article','title':'The business was working. The way it was working was the problem.','published':'2026-10-08','modified':'2026-10-13'},breadcrumb=[('Evidence','/evidence/')])
 
 technology_case_content = (ROOT/'tools/technology-case.html').read_text()
-page('evidence/capacity-and-career-performance/index.html','Performance Architecture Case Study | Marcus Lefton','How private advisory helped a senior technology professional build clearer priorities, focused preparation, and a personal system for work, health, and life.',technology_case_content,'evidence','case',article_meta={'type':'Article','title':'His next chapter required more than a career move.','published':'2026-10-09','modified':'2026-10-09'})
+page('evidence/capacity-and-career-performance/index.html','Performance Architecture Case Study | Marcus Lefton','How private advisory helped a senior technology professional build clearer priorities, focused preparation, and a personal system for work, health, and life.',technology_case_content,'evidence','case',article_meta={'type':'Article','title':'His next chapter required more than a career move.','published':'2026-10-09','modified':'2026-10-09'},breadcrumb=[('Evidence','/evidence/')])
 
 ESSAYS = json.loads((ROOT/'tools/essays.json').read_text())
 def essay_url(essay):
@@ -207,7 +237,7 @@ for essay in ESSAYS:
 <aside class="essay-advisory"><p>{html.escape(essay['cta'])} <a href="/advisory/">Explore private advisory <span aria-hidden="true">→</span></a></p></aside></div>
 <aside class="essay-author"><p><strong>Written by <a href="/#marcus" rel="author">Marcus Lefton</a>.</strong> Experience across the Colorado Rockies, Sparta Science, and Flow Research Collective. Founder of VYRTŪOSITI. <a href="/evidence/">Explore the evidence.</a></p><p class="essay-origin">{html.escape(essay['source'])}</p></aside>
 <nav class="essay-related" aria-label="Related essays"><h2>Continue reading.</h2>{related}</nav></article>'''
-    page('mastery-in-motion/'+essay['slug']+'/index.html',essay['title']+' | Marcus Lefton',essay['description'],article,'publication','essay',article_meta=essay)
+    page('mastery-in-motion/'+essay['slug']+'/index.html',essay['title']+' | Marcus Lefton',essay['description'],article,'publication','essay',article_meta=essay,breadcrumb=[('Mastery in Motion','/mastery-in-motion/')])
 
 page('contact/index.html','Contact Marcus Lefton | VYRTŪOSITI','Contact Marcus Lefton for private advisory and other enquiries.',f'<section class="page-hero wrap contact"><p class="eyebrow">Contact</p><h1>Start with<br><span>what matters.</span></h1><p class="lead">For private advisory, tell me the result you are working toward and what is getting in the way.</p>{button("Apply for the Intensive","/advisory/#apply")}<div class="contact-detail"><h2>Other enquiries and accessibility</h2><a class="text-link" href="mailto:marcus@marcuslefton.com">marcus@marcuslefton.com</a><p>Based in Arizona. Working with clients remotely. If a page or form is difficult to use, email me for an alternative way to enquire.</p></div></section>')
 page('thankyou/index.html','Check your inbox | Mastery in Motion','Your subscription request has been received. Check your inbox for the next step.',f'<section class="confirmation wrap"><p class="eyebrow">Mastery in Motion</p><h1>Check your inbox.</h1><p class="lead">If you have just subscribed, look for an email from Marcus and confirm your address if prompted. Check spam or promotions if it has not arrived.</p><p>Already subscribed? You’ll continue receiving Mastery in Motion.</p><div class="actions">{button("Read a field note","/mastery-in-motion/the-cost-of-compensation/")}{button("Return home","/","text-link")}</div><p class="small">Need help? <a href="mailto:marcus@marcuslefton.com">Email Marcus</a>.</p></section>',noindex=True)
@@ -221,6 +251,56 @@ for name,title in [('privacy','Privacy Policy'),('terms-of-service','Terms of Se
 
 routes=['/','/advisory/','/evidence/','/mastery-in-motion/','/contact/','/privacy/','/terms-of-service/']
 routes += [essay_url(e) for e in ESSAYS] + ['/evidence/commercial-performance/', '/evidence/founder-dependent-business/', '/evidence/capacity-and-career-performance/']
-(ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{ORIGIN}{r}</loc></url>' for r in routes)+'</urlset>')
+(ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{ORIGIN}{r}</loc>'+(f'<lastmod>{LASTMOD[r]}</lastmod>' if r in LASTMOD else '')+'</url>' for r in routes)+'</urlset>\n')
 (ROOT/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /tools/\nDisallow: /docs/\nDisallow: /draft/\nSitemap: '+ORIGIN+'/sitemap.xml\n')
+
+# RSS feed of the public essays, newest first.
+from email.utils import format_datetime
+from datetime import datetime, timezone
+def rfc822(day):
+    return format_datetime(datetime.fromisoformat(day).replace(tzinfo=timezone.utc))
+feed_items = ''.join(f'<item><title>{html.escape(e["title"])}</title><link>{ORIGIN}{essay_url(e)}</link><guid isPermaLink="true">{ORIGIN}{essay_url(e)}</guid><pubDate>{rfc822(e["published"])}</pubDate><description>{html.escape(e["description"])}</description></item>' for e in sorted(ESSAYS, key=lambda e: e['published'], reverse=True))
+(ROOT/'feed.xml').write_text(f'<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mastery in Motion by Marcus Lefton</title><link>{ORIGIN}/mastery-in-motion/</link><atom:link href="{ORIGIN}/feed.xml" rel="self" type="application/rss+xml"/><description>Practical ideas to think clearly, perform well, and build with intention.</description><language>en</language>{feed_items}</channel></rss>\n')
+
+# llms.txt: a plain-language summary for AI assistants. Facts only, all stated on the public pages.
+essay_lines = '\n'.join(f'- [{e["title"]}]({ORIGIN}{essay_url(e)}): {e["description"]}' for e in ESSAYS)
+(ROOT/'llms.txt').write_text(f"""# Marcus Lefton
+
+> Marcus Lefton is the founder of VYRTŪOSITI and a private performance advisor to founders and high-stakes operators. He identifies what is limiting a client's next consequential result, then helps them build the capacity, skills, and systems to achieve it.
+
+## Who Marcus is
+- Founder of VYRTŪOSITI (VYRTŪOSITI LLC) and co-founder of Flow Prone Performance.
+- Professional baseball: Colorado Rockies. Physical preparation, recovery, and systems for individual and team performance.
+- Performance science and technology: force-plate measurement and readiness at Sparta Science (acquired by ŌURA in 2024), and applied performance neuroscience as a former consultant and program leader at Flow Research Collective.
+- Writes Mastery in Motion, a free newsletter of practical ideas on capacity, judgment, and performance.
+- Based in Arizona. Works with clients remotely.
+
+## The offer
+- The Performance Architecture Intensive: a private 1:1 engagement with Marcus Lefton, 30 days, $5,000, focused on one consequential result.
+- Output: a Performance Map. A working diagnosis, changes tested in the client's circumstances, and a clear decision about what to continue, change, or stop.
+- The work looks across six dimensions: capacity, cognition, capability, execution, leverage, and context.
+- Process: apply at {ORIGIN}/advisory/#apply, then a complimentary 15-minute fit conversation. Scope, cadence, and support are agreed before payment. Fees are non-refundable by default.
+- Outcomes depend on the client's context and implementation. Earlier client results describe individual experiences.
+
+## Key pages
+- [Private advisory]({ORIGIN}/advisory/): the Intensive, how the work runs, FAQ, and application.
+- [Evidence]({ORIGIN}/evidence/): client accounts and three written cases.
+- [Mastery in Motion]({ORIGIN}/mastery-in-motion/): the newsletter and selected essays.
+- [Contact]({ORIGIN}/contact/): marcus@marcuslefton.com
+
+## Profiles
+- LinkedIn: https://www.linkedin.com/in/marcuslefton/
+- X: https://x.com/marcuswlefton
+- Instagram: https://www.instagram.com/marcuslefton/
+- YouTube: https://www.youtube.com/@MarcusLefton
+- Flow Prone Performance: https://flowprone.com/
+
+## Essays
+{essay_lines}
+
+## Client cases
+- [Founder overwhelm and business design]({ORIGIN}/evidence/founder-dependent-business/): a 30-day private advisory case.
+- [Capacity and career performance]({ORIGIN}/evidence/capacity-and-career-performance/): a senior technology professional, longer partnership.
+- [Commercial performance]({ORIGIN}/evidence/commercial-performance/): a client-reported result from earlier 1:1 work through Flow Research Collective.
+""")
 print('Generated primary, article, legal, contact, and confirmation pages.')

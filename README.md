@@ -71,3 +71,10 @@ The October 5 refinement passed 24 responsive WCAG A/AA audits across eight page
 ## Privacy and policy maintenance
 
 Legal content lives in `tools/privacy.content.html` and `tools/terms-of-service.content.html`. Regenerate their public pages with the shared generator. Private client identities, original notes, and consent records belong outside this public repository. Approved public testimonials may use names and link to their public sources. The current cleanup does not purge Git history, branches, archives, or third-party caches. Review publication permission separately. No provider delivery or inbox notification is implied by static checks.
+
+
+## Search and AI visibility
+
+`tools/build_site.py` writes one shared identity into every page's JSON-LD: the `PERSON`, `ORGANIZATION`, and `WEBSITE` nodes near the top of the file, linked by `@id`. Add a new public profile to `PERSON['sameAs']` there. State only facts that are visible on the site.
+
+The generator also writes `llms.txt` (a plain-language summary for AI assistants), `feed.xml` (RSS of the essays), sitemap `lastmod` dates for dated pages, breadcrumbs on essays and cases, and `Service` and `FAQPage` markup on `/advisory/` built from the visible FAQ. Edit the generator, not the generated files.
