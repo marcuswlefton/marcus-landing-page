@@ -17,7 +17,7 @@ PERSON = {'@type':'Person','@id':PERSON_ID,'name':'Marcus Lefton','url':ORIGIN+'
     'description':'Marcus Lefton is the founder of VYRTŪOSITI and a private performance advisor to founders and high-stakes operators. His experience spans professional baseball with the Colorado Rockies, performance science at Sparta Science and Flow Research Collective, and entrepreneurship. He writes the Mastery in Motion newsletter.',
     'knowsAbout':['Private performance advisory','Professional sport','Performance neuroscience','Entrepreneurship'],
     'affiliation':{'@type':'Organization','name':'Flow Prone Performance','url':'https://flowprone.com/'},
-    'sameAs':['https://www.linkedin.com/in/marcuslefton/','https://x.com/marcuswlefton','https://www.instagram.com/marcuslefton/']}
+    'sameAs':['https://www.linkedin.com/in/marcuslefton/','https://x.com/marcuswlefton','https://www.instagram.com/marcuslefton/','https://www.youtube.com/@MarcusLefton']}
 ORGANIZATION = {'@type':'Organization','@id':ORG_ID,'name':'VYRTŪOSITI','alternateName':'VYRTUOSITI','legalName':'VYRTŪOSITI LLC','url':ORIGIN+'/',
     'description':'Private performance advisory for founders and high-stakes operators.','founder':{'@id':PERSON_ID}}
 WEBSITE = {'@type':'WebSite','@id':SITE_ID,'name':'Marcus Lefton','alternateName':'Marcus Lefton | VYRTŪOSITI','url':ORIGIN+'/','inLanguage':'en','publisher':{'@id':ORG_ID}}
@@ -292,6 +292,7 @@ essay_lines = '\n'.join(f'- [{e["title"]}]({ORIGIN}{essay_url(e)}): {e["descript
 - LinkedIn: https://www.linkedin.com/in/marcuslefton/
 - X: https://x.com/marcuswlefton
 - Instagram: https://www.instagram.com/marcuslefton/
+- YouTube: https://www.youtube.com/@MarcusLefton
 - Flow Prone Performance: https://flowprone.com/
 
 ## Essays
